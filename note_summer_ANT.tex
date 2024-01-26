@@ -1,0 +1,491 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs}
+\usepackage{enumitem}
+\usepackage[capitalize]{cleveref}
+\usepackage[margin = 1in, headheight = 12pt]{geometry}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\DeclareMathOperator{\gal}{Gal}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+
+% 新命令
+% 数学对象
+    % 基础空间
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    % 常量
+    % \newcommand{\e}{\mathrm{e}} %自然底数
+    % 群
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+% 算符&映射&函子
+    % 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+    % 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    %向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\spec}{Spec} %谱
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+    % 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+    % 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    % \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    % 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+    % 流形
+    \DeclareMathOperator{\lie}{Lie}
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\and}{\;\text{and}\;}
+
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+
+\newcommand{\adele}[1]{\mathbb{A}_{#1}}
+\newcommand{\idele}[1]{\mathbb{A}_{#1}^{\times}}
+\newcommand{\ideone}[1]{\mathbb{A}_{#1}^{\times, 1}}
+\newcommand{\idecl}[1]{\mathbb{A}_{#1}^{\times, 1}/#1^{\times}}
+\newcommand{\dx}{\mathop{}\!\mathrm{d}x}
+\newcommand{\dxm}{\mathop{}\!\mathrm{d}^{\times}x}
+\newcommand{\dy}{\mathop{}\!\mathrm{d}y}
+\newcommand{\dym}{\mathop{}\!\mathrm{d}^{\times}y}
+\newcommand{\dzm}{\mathop{}\!\mathrm{d}^{\times}z}
+\newcommand{\diff}{\mathfrak{d}}
+\renewcommand{\O}{\mathcal{O}}
+\DeclareMathOperator{\vol}{vol}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\frp}{\mathfrak{p}}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\cl}{Cl}
+
+\newcommand{\myit}{$\diamond$}
+
+\title{Notes on Algebraic Number Theory}
+\author{LEI Bichang}
+\date{}
+
+\begin{document}
+\maketitle
+
+This is part of the course note for \textit{Selected Topics in Algebraic Number Theory} online summer school taught by Prof. Xue Hang in 2022.
+
+\section*{Some Notations}
+\indent
+Let $F$ be a number field, then we denote by $r_1$ the number of real embeddings, $r_2$ the number of the pairs of complex embeddings, $\cl(F)$ the class group, $h_F$ the class number, $R_F$ the regulator, $w_F$ the number of roots of unity in $F$, $\diff = \diff_F$ the different ideal.
+
+Always denote $\sqrt{-1}\in \C$ by $i$.
+
+\section{Adeles and Ideles}
+Note that the topology on $\idele{F}$ (defined using natrual nbhd of $1$ in $\Q_p^\times$) is different from (more precisely, finer than) that on $\adele{F}$ (defined using natrual nbhd of $0$ in $\Q_p$),
+but the topology on $\ideone{F}$ induced from $\adele{F}$ and $\idele{F}$ coincide.
+
+\begin{theorem}
+    The quotient $\ideone{F}/F^{\times}$ is compact.
+\end{theorem}
+\begin{proof}
+    Let $I_F$ be the group of fractional ideals.
+    Observe that we have an epimorphism \[\ideone{F}\twoheadrightarrow  I_F,\ (x_v)\mapsto \prod_{\frp} \frp^{v_{\frp}(x_\frp)},\]
+    under which $x\in F^\times$ is send to the principle fractional ideal $(x)\in I_F$, and thus gives an epimorphism $\idecl{F}\twoheadrightarrow \cl(F)$.
+    As $\cl(F)$ is finite, it reduces to show that the kernel of this homomorphism is compact.
+
+    An element $(x_v)\in\ker$ iff it is mapped to a principle ideal, i.e., $\exists x\in F^{\times}$ s.t. $\forall \frp$, $x_\frp\O_\frp = x\O_\frp$, or say $x_\frp\in x^{-1}\O_\frp^\times$.
+    Therefore the kernel equals the image of \[\left(\prod_\frp\O_\frp^\times\times\prod_{v|\infty} F_v^\times\right) \cap\ideone{F} = \prod_\frp \O_p^\times\times\left( \prod_{v|\infty} F_v^{\times} \right)^1\]
+    in $\idecl{F}$, where $\left( \prod_{v|\infty} F_v^{\times} \right)^1$ denotes the set of element with norm $1$.
+    Because two elements in this set cannot differ by an element in $F^\times\setminus\O_F^\times$, we see that\[\ker = \left.\left( \prod_\frp \O_p^\times\times\left( \prod_{v|\infty} F_v^{\times} \right)^1 \right)\right\slash \O_F^\times.\]
+
+    Now it suffices to prove that $\left( \prod_{v|\infty} F_v^{\times} \right)^1\big/\O_F^\times$ is compact.
+    Let $v_1, \cdots, v_r$ be the places of real embeddings and $v_{r_1+1},\cdots,  v_{r_1+r_2}$ the places of complex ones.
+    The logarithm map \[\left( \prod_{v|\infty} F_v^{\times} \right)^1\to\R^{r_1+r_2},\ x\mapsto (\log|x_{v_1}|, \cdots, \log|x_{v_{r_1}}|,\log|x_{v_{r_1+1}} |_{\C} \log|x_{v_{r_1+r_2}}|_\C)\]
+    is a homomorphism with kernel $T = \{\pm 1\}^{r_1}\times (S^1)^{r_2}$, which is compact and the intersection $T\cap\O_F^\times = W_F$, the roots of unity in $F$. So $T/T\cap\O_F^\times$ is compact.
+    Its image is the hypersurface \[\Sigma: x_1 + \cdots + x_{r_1+r_2} = 1\] in $\R^{r_1+r_2}$.
+    Dirichlet units theorem says that the image of $\O_F^\times$ in $\Sigma$ is a lattice of full rank, so the quotient $\Sigma/\O_F^\times$ is also compact.
+    Our goal follows.
+\end{proof}
+\begin{remark}
+    This theorem is equivalent to the combination of the finiteness of class group and Dirichlet units theorem.
+\end{remark}
+
+\section{$L$-functions}
+
+\subsection{Riemann Zeta Function}
+Recall that the Riemann zeta function \[\zeta(s):=\sum_{n=1}^\infty\frac{1}{n^s}=\prod_p\frac{1}{1-p^{-s}}\]
+converges on $\Re s>1$ and can be extended to a meromorphic function on $\C$ with $s=1$ the only simple pole.
+The functional equation \[\zeta(s)=2^s\pi^{s-1}\sin\frac{\pi s}{2}\Gamma(1-s)\zeta(1-s)\] is satisfied.
+
+\subsection{Charaters}
+A \textbf{character} of a group $G$ is a continuous homomorphism $G\to\C^{\times}$, and \textbf{trivial character} is the character $G \to \{1\}$.
+The charaters of a group $G$ forms a group, denoted by $\hat{G}$.
+\begin{lemma}
+    Let $G$ be a finite abelian group. 
+    \begin{enumerate}
+        \item There exists an non-canonical isomorphism $G \simeq \hat{G}$.
+        \item If $\chi$ is a non-trivial character, then \[\sum_{g\in G} \chi(g) = 0.\]
+        Conversely, if $g\neq 1$, then \[\sum_{\chi\in\hat{G}} \chi(g) = 0.\]
+    \end{enumerate}\qed
+\end{lemma}
+
+Let $F$ be a number field. A \textbf{Hecke character} of $F$ is a character of $\idele{F}/F^{\times}$.
+\begin{proposition}
+    Let $\chi$ be a character on $\idele{F}$. Then $\chi$ is of the form $\prod_v\chi_v$, where $\chi_v\in \hat{F_v^\times}$ and $\chi_v$'s are \textbf{unramified} (i.e., trivial on $\mathcal{O}_{F_v}^\times$) for almost all nonarchimedean places.
+\end{proposition}
+
+So we can go back to charaters on local fields. Let $F$ be a local field and $\chi$ a character of $F^{\times}$. The character $\chi$ is called \textbf{unitary}, if $|\chi(F^{\times})| = \{1\}$.
+We can describe $\chi$ explicitly.
+\begin{enumerate}
+    \item [\myit] If $F = \R$, then \[\chi(x) = \left( \frac{x}{|x|} \right)^{\epsilon}|x|^s,\ \epsilon = 0, 1,\ s\in\C.\] It is unitary iff $s\in i\R$.
+    \item [\myit] If $F = \C$, then \[\chi(x) = \left( \frac{x}{\sqrt{x\bar{x}}} \right)^m(x\bar{x})^s,\ m\in\Z,\ s\in\C.\] It is unitary iff $s\in i\R$.
+    \item [\myit] If $F$ is nonarchimedean, then there exists a minimal integer $N$ s.t. $\chi(1 + \varpi^N\O_F^\times) = \{1\}$, whence $\chi$ factors through the finite group $\O_F^\times/(1 + \varpi^N\O_F^\times)$, and thus \[\chi(x) = |x|^s\chi_0(x),\] where $\chi_0$ is a character of $\O_F^\times/(1 + \varpi^N\O_F^\times)$.
+    It is unitary if $s\in i\R$. 
+    This integer is called the \textbf{conductor} of $\chi$. 
+\end{enumerate}
+
+\textbf{From now on, all multiplicative charaters of local fields are assumed to be unitary.}
+
+\subsection{Lift a Dirichlet Charater to a Hecke Charater}
+
+
+\section{Fourier Analysis}
+
+\subsection{Fourier analysis on local fields}
+Let $F$ be a local field. 
+We only need the Schwartz functions and consider their integrals. The space of Schwartz functions $F \to\C$ is denoted by $\mathcal{S}(F)$.
+We are familiar with $f\in \mathcal{S}(\R)$ and $\mathcal{S}(\C)$: $f$ must satisfy \[\lim_{x\to\infty}x^n \left( \frac{d}{dx} \right)^m = 0,\ \forall m, n.\]
+As for a nonarchimedean local field $F$, $\mathcal{S}(F)$ is defined to be the space of locally constant compactly supported functions. Because the topology of $F$ and $\C$ are ``totally incompatible'', these are actually all the continuous functions from $F$ to $\C$ with compact supports.
+Note that every Schwartz function may be written as a finite linear combination of functions $1_{a+\varpi^n\O_F}$, where $\varpi$ is an uniformizer.
+
+Then we fix an addtive measure on $F$.
+\begin{enumerate}
+    \item [\myit] If $F = \R$, then $\dx := $ the Lebesgue measure.
+    \item [\myit] If $F = \C$, then $\dx := $ two-times the Lebesgue measure.
+    \item [\myit] If $F/\Q_p<\infty$, then $\dx$ satisfies $\vol(\O_{F}) = (N\diff)^{-\frac{1}{2}}$.
+\end{enumerate}
+
+To define Fourier transformation, one need to fix an additive character $\psi$ on $F$. 
+\begin{enumerate}
+    \item [\myit] If $F = \R$, then $\psi(x) := \e^{-2\pi ix}$.
+    \item [\myit] If $F = \C$, then $\psi(x) := \e^{-2\pi i(x + \bar{x}) }$.
+    \item [\myit] If $F/\Q_p < \infty$, then $\psi(x) := \e^{2\pi i\{\tr_{F/\Q_p}x\}}$, where $\{\cdot\}: \Q_p/\Z_p\isomto \Z[1/p]/\Z \subset \Q/\Z$.
+\end{enumerate}
+Then we define the Fourier transformation for $f\in\mathcal{S}(F)$ to be \[\mathcal{F}_\psi f (y) := \hat{f}(y) := \int_{F}f(x)\psi(xy)\dx.\]
+Under these choices, we have the following properties known for $\R$ and $\C$.
+\begin{theorem}\label[theorem]{8.1.2}
+    Let $f\in\mathcal{S}(F)$. Then $\hat{f}\in\mathcal{S}(F)$, and \[\hat{\hat{f}}(x) = f(-x).\]
+    In particular, if $F$ is nonarchimedean and unramified, then \[\hat{1_{\O_F}} = 1_{\O_F}.\]
+\end{theorem}
+\begin{proof}
+    (An important example of computation!)
+
+    WMA: $F$ an nonarchimedean local field with $\varpi$ an uniformizer, $f = 1_{a+\varpi^n\O_F}$. 
+
+    We have \[\hat{1_{a+\varpi^n\O_F}}(y) = \int_{a+\varpi^n\O} \psi(xy)\dx = \psi(ay)\int_{\varpi^n\O}\psi(xy)\dx = |\varpi|^n\psi(ay)\int_{\O}\psi(\varpi^nxy)\dx.\]
+    Note that $\phi: x\mapsto\psi(\varpi^nxy)$ is an additive character, and
+    \[\phi|_{\O} = 1 \iff \varpi^ny\in\diff^{-1}\]
+    (by definition), hence \[\int_\O \phi(x)\dx = \begin{cases}
+        \vol(\O), &y\in \varpi^{-n}\diff^{-1},\\
+        0, &y\notin\varpi^{-n}\diff^{-1}.
+    \end{cases}\]
+    (In the second case, $\phi$ has conductor smaller than $\O$ and thus factors through a non-trivial character of a finite group.)
+    So \[\hat{1_{a+\varpi^n\O}}(y) = |\varpi|^n\psi(ay)(N\diff)^{-\frac{1}{2}}1_{\varpi^{-n}\O}(y).\]
+
+    Similarly, \[\int_F\psi(ay)1_{\varpi^{-n}\diff^{-1}}(y)\psi(xy)\dy = \int_{\varpi^{-n}\diff^{-1}} \psi((a+x)y)\dy = \vol(\varpi^{-n}\diff^{-1})\cdot 1_{-a + \varpi^n\O}(x),\]
+    where \[\vol(\varpi^{-n}\diff^{-1}) = |\varpi|^{-n}\cdot\vol(\diff^{-1}) = |\varpi|^{-n}\cdot \vol(\O)N\diff = |\varpi|^{-n}(N\diff)^{\frac{1}{2}}.\]
+    The result follows.
+\end{proof}
+
+The multiplicative measure on $F^\times$ is chosen as follows.
+\begin{enumerate}
+    \item [\myit] If $F = \R$, then $\dxm := |x|^{-1}\dx$.
+    \item [\myit] If $F = \C$, then $\dxm := |x|_\C^{-1}\dx$, where $|x|_\C := x\bar{x}$. (Reason?)
+    \item [\myit] If $F/\Q_p < \infty$, then $\vol(\O^\times_F, \dxm) = 1$.
+\end{enumerate}
+
+As an example, integration on local fields can give the factor of $L$-function at $\mathfrak{p}$.
+\begin{lemma}\label[lemma]{7.1.6}
+    Let $\chi$ be an unramified character $F^\times\to\C^\times$. Then \[\int_{F^\times}1_{\O_F}(x)\chi(x)|x|^s\dxm = (1-\chi(\mathfrak{p})N\mathfrak{p}^{-s})^{-1}.\]
+\end{lemma}
+\begin{proof}
+    Since $\O_F = \bigsqcup_{n\ge 0}\varpi^n\O_F^\times$, \[\int_{F^\times}1_{\O_F}(x)\chi(x)|x|^s\dxm = \sum_{n\ge 0} (\chi(\varpi)^n\cdot 1) \cdot N\mathfrak{p}^{-ns} = \frac{1}{1 - \chi(\mathfrak{p})N\mathfrak{p}^{-s}}.\qedhere\]
+\end{proof}
+
+\subsection{Fourier analysis on adeles}
+Let $F$ be a number field.
+
+A \textbf{Schwartz-Bruhat function} is a finite linear combination of functions of the form \[\prod_vf_v : \adele{F}\to\C,\quad f_v\in\mathcal{S}(F_v),\quad f_v = 1_{\O_{F_v}}\ \mathrm{a.e.},\]
+and denote the space of Schwartz-Bruhat functions by $\mathcal{S}(\adele{F})$.
+Then define the additive character on $\adele{F}$ by \[\psi(x) := \prod_v \psi_v(x_v).\]
+This is by definition a finite product and thus well-defined.
+\begin{lemma}
+    $\psi|_F = 1$.\qed
+\end{lemma}
+
+Then we need to define and fix measures on $\adele{F}, \idele{F}$ and $\ideone{F}$.
+For $\adele{}$ resp. $\idele{}$, simply multiply the measures on each places yields an additive resp. multiplicative measure, if $\vol(\O_F, \dx) = 1$ resp. $\vol(\O_F^\times, \dxm) = 1$ (which is ture for our choices).
+So for a Schwartz-Bruhat function $f = \prod_vf_v$, \[\int_{\adele{F}} f(x)\dx = \prod_v \int_{F_v}f_v(x_v)\dx_v,\quad \int_{\idele{F}}f(x)\dxm = \prod_v \int_{F_v^\times} f_v(x_v)\dxm_v.\]
+\begin{theorem}
+    The volume of the foundamental domain of $\adele{F}/F$ under the given measure is $1$.
+\end{theorem}
+
+For $\ideone{}$, fix an archimedean place $u$ first. Define a continuous homomorphism $\phi: \idele{F} \to\ideone{F}$ by $\phi(x)_u := x_u/|x|$ and $\phi(x)_v := x_v$ for $v \neq u$.
+The multiplicative measure $\dxm$ on $\ideone{F}$ is defined s.t. for a measurable set $U\subset \ideone{F}$, \[\vol_{\idele{}}(U, \dxm) := \vol_{\ideone{}}(U', \dxm),\text{ where } U' := \{x\in\idele{F}: \phi(x)\in U, 0 \le \log|x|\le 1\}.\]
+For example, let $F = \Q$ and $U = \prod_p\Z_p^\times\times\{1\}$, then $U' = \prod_p\Z_p^\times \times[1, e]$, so \[\vol(U) = \int_{1}^e \frac{\dx}{x} = 1.\]
+\begin{remark}
+    This is the measure defined by the exact sequence \[1\to\ideone{F}\to\idele{F}\to\R_{>0}\to 1.\]
+    For $U = U^1 \times I$, where $U\subset \ideone{F}$ and $I\subset \R_{> 0}$, $\vol(U) = \vol(U^1)\vol(I)$.
+\end{remark}
+\begin{theorem}
+    The volume of the foundamental of $\ideone{F}/F^{\times}$ is \[\frac{2^{r_1}(2\pi)^{r_2}h_FR_F}{w_F},\]
+\end{theorem}
+
+Now take $f\in \mathcal{S}(\adele{F})$. Define \[\mathcal{F}_\psi f(y) := \hat{f}(y) := \int_{\adele{F}} f(x)\psi(xy)\dx.\]
+In particular, \[\hat{\prod_v f_v} = \prod_v \hat{f_v}.\] By the lemma above, $\hat{f}\in\mathcal{S}(\adele{F})$.
+\begin{theorem}
+    [Poisson Summation Formula] Let $f\in\mathcal{S}(\adele{F})$, then \[\sum_{x\in F} f(x) = \sum_{x\in F}\hat{f}(x).\]
+    (The summation obviously converges.)
+\end{theorem}
+
+\begin{corollary}
+    Let $\alpha\in\idele{F}$, then \[|\alpha|\sum_{x\in F}f(\alpha x) = \sum_{x\in F}\hat{f}(\alpha^{-1}x).
+    \qed\]
+\end{corollary}
+
+\section{Analytic Properties of Hecke $L$-functions}
+Let $F$ be a number field, $\chi  = \prod_v\chi_v: \mathbb{A}_F^{\times}/F^{\times} \to\C^{\times}$ a Hecke character, $S$ a finite set containing all infinite places and all places $v$ s.t. $\chi_v$ is ramified.
+
+Recall that \[L(s, \chi_v) := (1 - \chi_v(\mathfrak{p})N\mathfrak{p}^{-s})^{-1},\]
+and the \textbf{partial Hecke $L$-function} \[L^S(s, \chi) := \prod_{v\notin S} L(s, \chi_v).\]
+
+\begin{lemma}
+    The Euler product $L^S(s, \chi)$ absolutely converges if $\Re s > 1$.
+\end{lemma}
+\begin{proof}
+    If $\frp\cap \Z = p$, then $N\frp\ge p$, and since $\chi$ is unitary, \[|(1 - \chi_v(\mathfrak{p})N\mathfrak{p}^{-s})^{-1}| \le (1-p^{-\Re s})^{-1}.\]
+    Since there are at most $n = [F:\Q]$ primes over $p$, \[\prod_v |(1 - \chi_v(\mathfrak{p})N\mathfrak{p}^{-s})^{-1}| \le \prod_p(1-p^{-\Re s})^{-n}.\qedhere\]
+\end{proof}
+
+Take $f\in\mathcal{S}(\adele{F})$ s.t. $f_v = 1_\O$ for $v\notin S$.
+Define the zeta integral\[Z(s, f, \chi) := \int_{\idele{F}} f(x)\chi(x)|x|^s\dxm\]
+and local zeta integral \[Z_v(s, f_v, \chi_v) := \int_{F_v^\times}f_v(x)\chi_v(x)|x|^s\dxm_v.\]
+By definition, \[Z(s, f, \chi) = \prod_v Z_v(s, f_v, \chi_v).\]
+
+For $v\notin S$, we have seen in \cref{7.1.6} that \[L(s, \chi_v) = Z_v(s, f_v, \chi_v),\]
+so \[Z(s, f, \chi)=L^S(s, \chi)\prod_{v\in S}Z_v(s, f_v, \chi_v),\]
+and it is absolutely convergent on $\Re s>1$.
+
+\begin{theorem}\label[theorem]{global zeta}
+    $Z(s, f, \chi)$ can be extended to a meromorphic function on $\C$, satisfying \[Z(s, f, \chi) = Z(1-s, \hat{f}, \chi^{-1}).\]
+    Moreover, if there does not exist $\lambda\in i\R$ s.t. $\chi(x) = |x|^\lambda$, then $Z(s, f, \chi)$ is entire; otherwise the only poles of $Z(s, f, \chi)$ are $s = 1-\lambda$ and $s = -\lambda$, which are both simple poles with residue
+    $\hat{f}(0)\vol(\ideone{F}/F^\times)$ and $-f(0)\vol(\ideone{F}/F^\times)$.
+\end{theorem}
+
+\begin{proof}
+    Because $\{|x|=1\}$ is of measure zero in $\idele{F}$, we have
+    \[Z(s, f, \chi) = \int_{\idele{F}}=\int_{\adele{F}^{>1}}+\int_{\adele{F}^{<1}}=: Z^{>1}+Z^{<1}.\]
+    For all $s\in\C$, the integrand is continuous when $|x| > 1$, so $Z^{>1}$ converges on $\C$.
+
+    Now we turn to $Z^{<1}$. Let $\Omega$ be a foundamental domain of $\adele{F}^{<1}/F^\times$.
+    Assume that $s$ is big enough, then\begin{align*}
+        Z^{<1} &= \sum_{\alpha\in F^{\times}}\int_{\alpha\Omega} f(x)\chi(x)|x|^s\dxm\\
+        &= \int_\Omega \left( \sum_{\alpha\in F^{\times}}f(\alpha x) \right) \chi(x)|x|^s\dxm\\
+        &= \int_\Omega \left( \sum_{\alpha\in F} f(\alpha x) \right)\chi(x)|x|^s\dxm - f(0)\int_\Omega\chi(x)|x|^s\dxm\\
+        &= \int_\Omega\left( \sum_{\alpha\in F}\hat{f}(\alpha x^{-1}) \right) \chi(x)|x|^{s-1}\dxm - f(0)\int_\Omega\chi(x)|x|^s\dxm\\ 
+        &= \int_\Omega\left( \sum_{\alpha\in F^{\times}}\hat{f}(\alpha x^{-1}) \right)\chi(x)|x|^{s-1}\dxm + \hat{f}(0)\int_\Omega\chi(x)|x|^{s-1}\dxm - f(0)\int_\Omega\chi(x)|x|^s\dxm\\
+        &= \int_{\Omega^{-1}}\left( \sum_{\alpha\in F^\times}\hat{f}(\alpha x) \right)\chi(x^{-1})|x|^{1-s}\dxm + \hat{f}(0)\int_\Omega\chi(x)|x|^{s-1}\dxm - f(0)\int_\Omega\chi(x)|x|^s\dxm\\
+        &= \int_{\adele{F}^{>1}} \hat{f}(x)\chi(x)^{-1}|x|^{1-s}\dxm + \hat{f}(0)\int_\Omega\chi(x)|x|^{s-1}\dxm - f(0)\int_\Omega\chi(x)|x|^s\dxm.
+    \end{align*}
+    We used ``$\chi(\alpha x) = \chi(x)$ for $\alpha\in F^{\times}$'', Poisson summation, ``$\dxm$ is invariant under $x\mapsto x^{-1}$'', and ``$\Omega^{-1}$ is a foundamental domain of $\adele{F}^{>1}/F^{\times}$'' in the above calculation.
+    The integral over $\adele{F}^{>1}$ is again convergent on $\C$, so we look at the rest two integrals.
+
+    Write $\Omega = \Omega^1\times(0, 1)$, where $\Omega^1$ is a foundamental domain of $\idecl{F}$.
+    Then if $\chi$ is non-trivial on $\ideone{F}$, both integrals vanish (as in \cref{8.1.2}).
+    Otherwise $\chi$ factors through $\idele{F}/\ideone{F}\simeq\R_{>0}\to\C^{\times}$, hence $\chi(x) = |x|^\lambda$ for some $\lambda\in i\R$, and
+    \[\hat{f}(0)\int_\Omega\chi(x)|x|^{s-1}\dxm - f(0)\int_\Omega\chi(x)|x|^s\dxm = \frac{\hat{f}(0)\vol(\idecl{F})}{s+\lambda-1} - \frac{f(0)\vol(\idecl{F})}{s+\lambda}.\]
+    The theorem is easy to deduce from the expression. 
+\end{proof}
+
+Our next target is $Z_v(s, f, \chi_v) = \int_{F_v^\times}f_v(x)\chi_v(x)|x|^s\dxm_v$.
+\begin{lemma}
+    $Z_v(s, f, \chi_v)$ converges on $\Re s > 0$.
+\end{lemma}
+\begin{proof}
+    Consider only the nonarchimedean case.
+    
+    Take $\epsilon$ small enough s.t. $f_v(x) = f_v(0)$ for $|x| < \epsilon$.
+    Write \[Z_v(s, f_v, \chi_v) = \int_{|x| > \epsilon} + \int_{|x| < \epsilon}.\]
+    Similarly, the first integral converges on $\C$. For the second one, $\{|x| < \epsilon\} = \bigcup_{n\ge N}\varpi^n\O_{F_v}^\times$ for an integer $N$. Thus we see that\begin{align*}
+        \int_{|x| < \epsilon} \left|\chi_v(x)|x|^s\right|\dxm &= \sum_{n\ge N} \int_{\varpi^n\O_{F_v}^{\times}} |\varpi|^{-n\Re s}\dxm
+    \end{align*}
+    converges when $\Re s > 0$.
+\end{proof}
+
+\begin{theorem}\label[theorem]{local zeta}
+    (1) $Z_v(s, f, \chi_v)$ can be extended to a meromorphic function on $\C$ which is holomorphic on $\Re s > 0$.
+
+    (2) There exists a meromorphic function $\gamma_v(s, \chi_v, \psi_v)$, called \textbf{local $\gamma$-factor}, irrelevant to $f_v$, s.t. for any $f_v\in\mathcal{S}(F_v)$, \[Z_v(1-s, \hat{f_v}, \chi_v^{-1}) = \gamma_v(s, \chi_v, \psi_v)Z_v(s, f_v, \chi_v).\]
+\end{theorem}
+\begin{proof}
+    Firstly, both sides of the equation converge on $0 < \Re s < 1$. 
+
+    We need to show that $\frac{Z_v(1-s, \hat{f_v}, \chi_v^{-1})}{Z_v(s, f_v, \chi_v)}$ is irrelevant to $f_v$; i.e.,\[Z_v(1-s, \hat{f_v}, \chi_v^{-1})Z_v(s, g_v, \chi_v) = Z_v(1-s, \hat{g_v}, \chi_v^{-1})Z_v(s, f_v, \chi_v),\ \forall g_v\in\mathcal{S}(F_v).\]
+    Assume that $\dxm_v = |x|^{-1}\dx$, then the LHS \begin{align*}
+        &= \int_{F_v^{\times}} \left( \int_F f_v(y)\psi_v(xy)\dy \right)\chi_v(x)^{-1}|x|^{1-s}\dxm\int_{F_v^\times} g_v(x)\chi_v(x)|x|^s\dxm \\
+        &= \int_{F_v^\times}\int_{F_v^\times}\int_{F_v^\times} f_v(y)g_v(z)\psi_v(xy)\chi_v(zx^{-1})|x|^{1-s}|z|^s\dxm\dy\dzm\\
+        &= \iiint f_v(y)g_v(z)\psi_v(xy)\chi_v(zx^{-1})|x|^{1-s}|z|^s\cdot|y|\dxm\dym\dzm\\
+        &= \iiint f_v(y)g_v(z)\psi_v(x)\chi_v(zyx^{-1})|x|^{1-s}|zy|^s\dxm\dym\dzm \qquad (x\mapsto y^{-1}x).
+    \end{align*}
+    Hence LHS = RHS.
+
+    So $\gamma_v$ is well-defined on $0 < \Re s < 1$. If $\gamma_v$ can be a meromorphic function on $\C$, then the equation gives the analytic continuation of $Z_v$ on $\Re s < 1$.
+    (The formula of $\gamma$-factor is only computed for archimedean place in this proof.)
+
+    (1) $F_v = \R$.
+    Note that \[Z_v(s, f_v, \chi_v|\cdot|^t) = Z_v(s+t, f_v, \chi_v),\]
+    so we only need to compute for $\chi_v$ trivial or $\chi_v = \sgn$ character.
+    The result is \[\gamma_v(s, \chi_v, \psi_v) = \begin{cases}
+        \dfrac{\pi^{-\frac{1-s}{2}}\Gamma\left( \frac{1-s}{2} \right)}{\pi^{-\frac{s}{2}}\Gamma\left( \frac{s}{2} \right)},\ &\chi = 1,\\
+        i\frac{\pi^{-\frac{(1-s)+1}{2}}\Gamma\left( \frac{(1-s)+1}{2} \right)}{\pi^{-\frac{s+1}{2}}\Gamma\left( \frac{s+1}{2} \right)},\ &\chi = \sgn.
+    \end{cases}\]
+    For example, when $\chi_v = 1$, we take $f_v(x)=\e^{-\pi x^2}$, then $\hat{f_v}=f_v$, and\begin{align*}
+        Z_v(s, f_v, 1) &= \int_{\R^\times}\e^{-\pi x^2}|x|^{s-1}\dx\\
+        &= 2\int_{0}^{+\infty} \e^{-\pi x^2}x^{s-1}\dx \\
+        &= \pi^{-\frac{s}{2}}\int_{0}^{+\infty}y^{\frac{s}{2}-1} \e^{-y}\dy\\
+        &= \pi^{-\frac{s}{2}}\Gamma\left( \frac{s}{2} \right),
+    \end{align*}
+    therefore \begin{align*}
+        \gamma_v(s, \chi_v, \psi_v)
+        = \dfrac{Z_v(1-s, f_v, 1)}{Z_v(s, f_v, 1)}
+        = \dfrac{\pi^{-\frac{1-s}{2}}\Gamma\left( \frac{1-s}{2} \right)}{\pi^{-\frac{s}{2}}\Gamma\left( \frac{s}{2} \right)},\ &\chi = 1.
+    \end{align*}
+
+    (2) $F_v = \C$. For $\chi_v(x) = \left( \frac{x}{\sqrt{x\bar{x}}} \right)^n$, $n\in\Z$,
+    using \[f_v(x) = \begin{cases}
+        \bar{x}^n\e^{-2x\bar{x}},\ n\ge 0,\\
+        x^{-n}\e^{-2x\bar{x}},\ n < 0,
+    \end{cases}\]
+    we obtain \[\gamma_v(s, \chi^v, \psi_v) = i^{|n|}\frac{(2\pi)^{-\left(1-s+\frac{|n|}{2}\right)}\Gamma\left(1-s+\frac{|n|}{2}\right)}{(2\pi)^{-\left(-s+\frac{|n|}{2}\right)}\Gamma\left( s+\frac{|n|}{2} \right)}.\]
+
+
+    (3) $v$ is nonarchimedean.
+    We show that $\gamma_v$ is defined on $\Re s>1$. Let $U$ be a sufficiently small open compact nbhd of $-1$ in $F_v$ s.t. $\chi_v$ is trivial on $-U$, and put $f_v := \hat{1_U}$.
+    Then \begin{align*}
+        Z_v(t, \hat{f_v}, \chi_v^{-1}) &= \int_{F_v^\times} 1_U(-x)\chi(x^{-1})|x|^t\dxm =\vol(U)\neq 0 \\
+    \end{align*}
+    and is irrelevant to $t$. Therefore $\gamma_v^{-1}$ can be defined on $\Re s > 0$. Similar for $\Re s < 1$.
+\end{proof}
+
+Finaly, we obtain the analytic continuation of Hecke $L$-functions and the main theorem of functional equations.
+\begin{theorem}
+    Let $S$ be a finite set of places s.t. $\forall v\notin S$, $v$ is archimedean with $\chi_v$ unramified, and $\diff_v = \O_{F_v}$.
+    Then the partial Hecke $L$-function can be extended to a meromorphic function on $\C$, satisfying \[L^S(s,\chi) = \left( \prod_{v\in S}\gamma_v(s, \chi_v, \psi_v) \right)L^S(1-s, \chi^{-1}).\]
+    Moreover, if there does not exist $\lambda\in i\R$ s.t. $\chi(x) = |x|^\lambda$, then $L^S(s, \chi)$ is entire; otherwise only $s = 1-\lambda$ and $s = -\lambda$ have the possibility to be poles.
+\end{theorem}
+\begin{proof}
+    Take $f = \prod_v f_v$ s.t. $f_v = 1_{\O_{F_v}}$, $\forall v\notin S$.
+    For $v\notin S$, the additional condition $\diff_v = \O_{F_v}$ implies that (by \cref{7.1.6}) \[\hat{f_v}(x) = (N\diff)^{-\frac{1}{2}}1_{\O}(x) = 1_\O(x),\] and the functional equation follows.
+
+    It is left to show the property about poles. Suppose that $\chi(x) = |x|^\lambda$ with $\lambda\in i\R$ and $s = s_0$ is a pole of $L^S$ other than $-\lambda$ or $1-\lambda$.
+    Consider the equation \[Z(s,f,\chi)=L^S(s,\chi)\prod_{v\in S}Z_v(s, f_v,\chi_v).\]
+    By \cref{global zeta}, LHS is holomorphic at $s = s_0$.
+
+    We choose an $f$ s.t. for all $v\in S$, $f_v$ supports in a sufficiently small nbhd $U_v$ of $1\in F_v$.
+    With a similar argument in the previous proof, one sees that $Z_v(s_0, f_v, \chi_v) \ne 0$. Therefore the RHS has a pole at $s = s_0$, which is a contradiction. 
+
+\end{proof}
+
+\subsection{Exercise}
+Let $F = \Q$, $\chi = 1$ the trivial character. Repeat the calculation before to prove the analytic continuation and functional equation of Riemann zeta function, and compute its residue at $s = 1$.
+\begin{proof}
+    The Riemann zeta function is \[\zeta(s) = \prod_p (1-p^{-s})^{-1}.\]
+    Let $S = \{\infty\}$. The local unramified $L$-functions are \[L(s, 1_p) = (1- p^{-s})^{-1},\] so $\zeta(s) = L^S(s, \chi)$.
+    
+    Let $f\in\mathcal{S}(\adele{\Q})$ be defined by $f_p = 1_{\Z_p}$ and $f_\infty(x) = \e^{-\pi x^2}$.
+    The zeta integral is \[Z(s, f, 1) = \int_{\idele{\Q}} f(x)|x|^s\dxm\]
+    and the local zeta integral at infinity is \[Z_\infty(s, f_\infty, 1) = \int_{\R^\times}\e^{-\pi x^2}|x|^s \dxm.\]
+    We have \[Z(s, f, 1) = \zeta(s)Z_\infty(s, f_\infty, 1).\]
+
+    (TBC......)
+\end{proof}
+
+\section{Dedekind Zeta Functions and Dirichlet $L$-functions}
+
+\subsection{Dedekind Zeta Functions and the Analytic Class Number Formula}
+Let $F$ be a number field, $\chi$ the trivial character, $S$ the set of all archimedean places.
+The \textbf{Dedekind zeta function} of $F$ is defined to be \[\zeta_F(s) := L^S(s, \chi) = \prod_{\frp} (1-N\frp^{-s})^{-1}.\]
+In this subsection, we will compute the local $\gamma$-factors at ramified places to deduce the functional equation of Dedekind zeta functions and the analytic class number formula.
+
+\begin{theorem}
+    The Dedekind zeta function $\zeta_F(s)$ can be extended to a meromorphic function on $\C$ with only poles at $s = 0$ and $s = 1$.
+    \begin{enumerate}
+        \item (Analytic class number formula.) $\zeta_F(s)$ has a simple pole at $s = 1$ with residue \[\res_{1}\zeta_F = \frac{2^{r_1}(2\pi)^{r_2}h_FR_F}{\sqrt{|\disc F|}w_F},\]
+        and is of order $r_1+r_2-1$ at $s = 0$ with \[\lim_{s\to 0}s^{r_1+r_2-1}\zeta_F(s) = -\frac{h_FR_F}{w_F}\]
+        \item Define the completed Dedekind zeta function \[\Lambda(s) := |\disc F|^{\frac{s}{2}}\left( \pi^{-\frac{s}{2}}\Gamma\left( \frac{s}{2} \right) \right)^{r_1}\left( 2(2\pi)^{-s}\Gamma(s) \right)^{r_2}\zeta_F(s).\]
+        Then \[\Lambda_F(s) = \Lambda_F(1-s).\]
+    \end{enumerate}
+\end{theorem}
+
+
+
+
+\subsection{Dirichlet $L$-functions}
+Let $F = \Q$, $\chi$ a Dirichlet character with conductor $N$, $S = \{p:p|N\}\cup\{\infty\}$.
+Lifting $\chi$ to a Hecke character, we obtain the classic Dirichlet $L$-function \[L(s, \chi) = \prod_{p\not| N}(1-\chi(p)p^{-s})^{-1} = \sum_{n=1}^\infty \frac{\chi(n)}{n^s}.\]
+
+
+
+
+
+\end{document}

@@ -1,0 +1,1441 @@
+\documentclass[11pt,english]{smfart}
+%%In the above, write english or french according to the language you'll be using (this affects, for instance, the name of statements: the environment theo produces Theorem or Théorème according to what you have chosen here
+\usepackage[T1]{fontenc}
+
+%\usepackage{bull} Activate this package by removing the % sign, if you want to submit to the Bulletin de la SMF
+
+%\usepackage{rhm} Activate this package by removing the % sign, if you want to submit to the Revue d'Histoire de Mathématique. This comes with a bibliography style too, discussed below on line 85: it conflicts with other styles, so if you activate the package you also need to modify the bibliography style.
+
+\usepackage[english,francais]{babel}
+\usepackage{amssymb,url,xspace,smfthm}
+
+%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsthm, amsbsy}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{color}  
+\usepackage[colorlinks,
+            linkcolor=blue,      
+            anchorcolor=blue,  %%修改此处为你想要的颜色
+            citecolor=blue,        %%修改此处为你想要的颜色，例如修改blue为red
+            ]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{example}{Example}
+\allowdisplaybreaks[4]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newenvironment{myproof}{\begin{proof}[\indent\it Proof]}{\end{proof}}
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+%%%%%%%%%%%%%%%%%%%%%%
+% 新命令
+% 数学对象
+    % 基础空间
+    \newcommand{\R}{\mathbb{R}}
+    \renewcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    % 常量
+    \newcommand{\e}{\mathrm{e}} %自然底数
+    \newcommand{\iu}{\sqrt{-1}} %虚数单位
+    % 群
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+    \DeclareMathOperator{\Sp}{Sp}
+    \DeclareMathOperator{\Uni}{U}
+    \DeclareMathOperator{\Ort}{O}
+% 算符&映射&函子
+    % 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+    % 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    %向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{\bar{{#1}}^{\mathrm{T}}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\spec}{Spec} %谱
+    \DeclareMathOperator{\lspan}{span} %张成 (linear span)
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+    % 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+    \newcommand{\leftact}{\curvearrowright } %左作用
+    \newcommand{\rightact}{\curvearrowleft } %右作用
+    % 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    % \DeclareMathOperator{\spec}{Spec} %素谱 (defined before)
+    \DeclareMathOperator{\spm}{MaxSpec} %极大谱
+    \DeclareMathOperator{\rad}{rad} %根
+    % 微积分
+  %  \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+    % 代数簇
+    \newcommand{\Aff}[2]{\mathbb{A}^{#1}(#2)} %仿射空间
+    \newcommand{\aff}[1]{\mathbb{A}^{#1}} %仿射空间
+    \DeclareMathOperator{\zero}{\mathcal{V}}
+    \DeclareMathOperator{\ide}{\mathcal{I}}
+    \newcommand{\Proj}[2]{\mathbb{P}^{#1}(#2)} %射影空间
+    \newcommand{\proj}[1]{\mathbb{P}^{#1}} %射影空间
+    \DeclareMathOperator{\grass}{Gr} %Grassmanian
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle}
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathrm{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\and}{\;\text{and}\;}
+
+% 编号
+%\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\myit}{$\diamond$}
+
+\newcommand{\Sieg}{\mathcal{H}}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\col}{col}
+\newcommand{\under}{\!\setminus\!}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\tilde}{\widetilde}
+\newcommand{\rat}{\mathrm{rat}}
+
+\newcommand{\dual}[1]{{#1}^\vee}
+\DeclareMathOperator{\cone}{Cone}
+\DeclareMathOperator{\relint}{Relint}
+
+\tolerance 400
+
+\pretolerance 200
+
+\newcommand{\yy}{\textcolor{magenta}}
+\newcommand{\bc}{\textcolor{blue}}
+
+
+
+
+%%%Below here are the main information about your paper: DO NOT MODIFY THEIR ORDER.
+\title[ModularForm]{A first attempt to Modular forms}%As you see, in square brackets goes a shorter title intended to appear at top of odd pages
+%\date {January 1, 1000}
+\author[M. Dong]{Muchen Dong}
+\author[B. Lei]{Bichang Lei}
+%\address{Paradise, Universe}
+%\email{someone@some.where} 
+%\urladdr{http://one.two.three}
+%\thanks{I wish to thank many people}
+%\keywords{Good News, Santa Claus}
+\author[Y.Yao]{Yu Yao}
+\author[Z. Zhu]{Zhiqi Zhu}
+%In square brackets goes a shorter name intended to appear at top of even pages
+%\address{Paradise, Universe}
+%\email{someone@some.where} 
+%\urladdr{http://one.two.three}
+%\thanks{I wish to thank many people}
+%\keywords{Good News, Santa Claus}
+
+\begin{document}
+
+\begin{abstract}
+% This is a template for the class to be used when publishing in a review from the Soci\'et\'e Ma\-th\'e\-Ma\-ti\-que de France
+The first part answers the question ``How does the classical theory of modular forms connect with
+the theory of automorphic forms on $\mathrm{GL_2}$?'' and aims to use the representation theory to study them. 
+This is essentially the material in the first
+ten sections of Jacquet and Langland \cite{JL70}.
+The second part studies the compactifications of Siegel modular varieties. It plays an important role in the theory of Siegel modular forms.
+\end{abstract}
+
+
+%\begin{altabstract}
+%Ici un r\'esum\'e alternatif (meaning: here you put an alternative abstract, probably in French).
+%\end{altabstract}
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+The discovery and research of modular forms originated from the complex analytic theory in the 19th century. N.H.Abel and C.G.Jacobi deeply studied the elliptic functions, which are a kind of meromorphic functions that are periodic with respect to a certain lattice in the complex plain. These researches naturally induced modular forms, which we now call elliptic modular forms. We first recall the definition of an elliptic modular form.
+
+Denote by $\mathcal{H}$ the complex upper half plane, $\Gamma = \SL_2(\Z)\subset\SL_2(\R)$ acts on $\mathcal{H}$ by linear fractional transformation. A modular form of weight $k\in\Z$ and level $\Gamma$ is a holomorphic function $f$ on $\mathcal{H}$ satisfying a `periodic condition' \[ f(\gamma \tau) = (c\tau+d)^kf(\tau),\ \forall \gamma\in\Gamma,\tau\in\mathcal{H},
+\]and is holomorphic at $i\infty$.
+For example, the coefficients of the Laurent expansion of Weierstrass $\wp$-functions at $z=0$ gives a class of modular forms called the Eisenstein series. The work of C.F.Gauss, L.Kronecker, etc, also implied the modular forms. For more general discrete subgroups of $\SL_2(\R)$, congruence subgroups for example, we can also define modular forms with those level.
+In the latter part of the 19th century, F.Klein and R.Cricket studied the Riemann surfaces $\Gamma\under\mathcal{H}$ called modular curves, where $\Gamma$ is a discrete subgroup of $\SL_2(\R)$. The essential method they used were modular forms, and in their study they developed the geometric theory of modular forms. E.Hecke defined the Hecke operators and the eigenforms in 20th century, which contained important arithmetic information. Later, the work of  M.Eichler, L.Siegel, etc, broadened the concept of modular forms.
+After the World War II, I.F.Gelfend,  I.M.Gelfand,R.Godment and Harish-Chandra, etc, started to study automorphic forms and automorphic representations of real reductive groups. With the development of algebraic geometry, Taniyama, Shimura, Weil, etc, studied the connection between arithmetic algebraic geometry and modular forms. The proof of Fermat Last Theorem also relies on that. Afterwards, the theory of modular forms continued to develop, and nowadays it has been a joint field of arithmetic , geometry and representation theory and is playing an important role in many fields of modern mathematics.
+
+The aim of this project is to explore modular forms with the view of representation theory and and complex analysis. We mainly studied the following.
+
+Given a holomorphic modular form $f$ of weight $k$, level $N$, we introduce the basic properties of the modular forms, and explain how to associate an automorphic form on $\mathrm{GL}_2(\mathbb{R})^{+}$ and an automorphic form $\phi_f(g)$ on $\mathrm{GL}_2(\mathbb{A})$. We attempt to collect the details necessary to understand what properties the automorphic forms possess, and make clear how these properties relate to classical properties of modular forms. The representation theory plays an important role in encoding the modular forms especially the Hecke eigenforms. Then we prove the Multiplicity One theorem: The multiplicity $m_0(\pi)$ of an irreducible representation $\pi$ of $\mathrm{GL}_n(\mathbb{A})$ in $\mathcal{A}_0(G)$ is $\leq 1$. Meanwhile, we considered the compactification of Siegel modular varieties. The elliptic modualr forms can be realized as sections of a canonical line bundle $\omega_\Gamma^{\otimes k}$ on the natrual compactification of the modular curve $\Gamma\under\mathcal{H}$. In the case of Siegel modular forms, it is also necessary to compactify the corresponding Siegel modular variety. D.Mumford, etc, developed the theory of toroidal compactification, which can give a compactification with good property like smoothness and projectivity. This method in fact can be applied to locally symmetric spaces in general. 
+
+\section{Classical modular forms}
+Let $\Gamma < \mathrm{SL_2}(\mathbb{Z})$ be a subgroup of finite index.
+For such a $\Gamma$, it acts on $\mathcal{H}$ in a properly discontinuous way.
+The quotient $\Gamma\backslash \mathcal{H}$ will possesses a fundamental domain $\mathcal{F}$ which has finite volume (under the $\mathrm{SL_2}(\mathbb{R})$-invariant measure $\frac{\mathrm{d}x\mathrm{d}y}{y^2}$).
+
+We will focus on two cases in parallel: $\Gamma=\Gamma_0(N)(N >1)\ and\ \mathrm{SL}_2(\mathbb{Z}).$
+\begin{definition}[cusp of $\Gamma$]
+A cusp of $ \Gamma $ is a $ \Gamma $-orbit in $ \mathbb{Q} \cup\{\infty\} $.
+\end{definition}
+\begin{example}
+Because $ \mathrm{S L_{2}}(\mathbb{Z}) $ acts transtively on $ \mathbb{Q} \cup \infty=\mathrm{SL}_{2}(\mathbb{Q}) / B(\mathbb{Q}) $, there is one cusp when $ \Gamma=\mathrm{SL}_{2}(\mathbb{Z}) $.
+For $N=2$, it has $3$ cusps.
+
+More generally, the number of cusps of $ \Gamma $ is finite: $ \# \Gamma \backslash \mathrm{SL}_{2}(\mathbb{Q}) / B(\mathbb{Q}) $, and $ \Gamma \backslash \mathcal{H} $ can be compactified by adding these cusps:
+\[\overline{\Gamma \backslash \mathcal{H}}=\Gamma \backslash(\mathcal{H} \cup \mathbb{Q} \cup\{\infty\})\]
+\end{example}
+\begin{definition}[\textbf{Holomorphic Modular Forms}]
+Let $\chi$ be a finite order character of $\Gamma$. 
+Let $ f(z) $ be a holomorphic modular form of level $\Gamma$ and weight $ k$ with character $\chi$, which is equivalent to the following:
+\begin{itemize}
+    \item $f $ is a holomorphic function on the upper half plane $ \mathcal{H}=\{z: \operatorname{Im}(z)>0\} $.
+    \item (automorphy condition) For $ \gamma= \left(\begin{array}{ll}a & b \\ c & d\end{array}\right) \in \Gamma $, we have
+    \[f(\gamma \cdot z )=\chi(\gamma)(c z+d)^{k} f(z)\]
+For $ \gamma=\left(\begin{array}{ll}a & b \\ c & d\end{array}\right) \in \mathrm{GL}_{2}(\mathbb{R})^{+} $, one can define a $j$-cocycle: $ j(\gamma, z)=(c z+d) $, and the operator by $ \left(\left.g\right|_{k} \gamma\right)(z)=\operatorname{det}(\gamma)^{k / 2} j(\gamma, z)^{-k} g(\gamma \cdot z) $.
+So this condition can be rewritten as $ \left.f\right|_{k} \gamma=\chi(d) f $ for $ \gamma \in \Gamma$.
+    \item (cusp condition) $f $ is holomorphic at the cusps. It requires that $ \left.f\right|_{k} \gamma $ be holomorphic at infinity for all $ \gamma \in \mathrm{SL}_{2}(\mathbb{Z}) $. $f$ is called a cusp form if $f=0$ at all cusps.
+\end{itemize}
+\end{definition}
+\begin{example}
+Let $\chi$ be a Dirichlet character modulo $N$: it defines a character on $\Gamma_0(N)$, by evaluating $\chi$ at the upper left entry.
+\end{example}
+We denote the $M_k(N)$ as the $\mathbb{C}$-vector space of the holomorphic modular forms with level $\Gamma_0(N)$ and weight $k$, $S_k(N)$ as the $\mathbb{C}$-vector space of the cupidal modular forms with level $\Gamma_0(N)$ and weight $k$.
+\subsection{Basic Properties}
+\subsubsection{Fourier Expansion}
+because $f$ is a function on the strip $\{x+iy:-1/2 \leq x< 1/2,\ y>0\}$, the map $z\mapsto q=e^{2\pi iz}$ sends $f$ to a holomorphic function $\tilde{f}(q)$ on the puncturted disc which has a Laurent expansion about $0$.
+The holomorphic property means $a_n=0$ if $n<0$, and $f$ is cupidal if and only if the zeroth Fourier coefficient $a_0(f)$ in the Fourier expansion of $f$ at
+every cusp is zero.
+\subsubsection{Finite Dimensionality} 
+$M_k(N)$ and $S_k(N)$ are finite-dimensional as vector spaces (proof uses the Riemann-Roch theorem). For example:
+\[\operatorname{dim} M_{k}(1)=\left\{\begin{array}{l}
+\frac{k}{12}+1, \text { if } k \neq 2 \bmod 12 \\
+\frac{k}{12}, \text { if } k=2 \bmod 12
+\end{array}\right.\]
+This is because given a Eisenstein series $E_k$,
+\[M_k(1)=\mathbb{C}\cdot  E_k \oplus S_k(1)\]
+We will come back to this later.
+\subsubsection{Ring Structure}
+If $ f_{i} \in M_{k_{i}}(N) $, then $ f_{1} \cdot f_{2} \in   M_{k_{1}+k_{2}}(N) $. Thus $ \oplus_{k} M_{k}(N) $ has a graded ring structure. Moreover, if one of $ f_{i}  $'s is cuspidal, so is $ f_{1} \cdot f_{2} $.
+\subsubsection{Petersson Inner Product}
+The space $ S_{k}(N) $ is equipped with a natural inner product:
+\[\left\langle f_{1}, f_{2}\right\rangle_{k}=\int_{\Gamma \backslash \mathcal{H}} f_{1}(z) \overline{f_{2}(z)} y^{k} \cdot \frac{d x d y}{y^{2}} .\]
+It remains convergent as long as one of the functions is cuspidal.
+\subsubsection{Hecke Operator for $\mathrm{SL_2}(\mathbb{Z})$}
+Let us first assume that $\Gamma=\mathrm{SL_2}(\mathbb{Z})$. Let $g\in \mathrm{GL}_2^{+}(\mathbb{Q})$ and consider the double coset $\Gamma g \Gamma$ as a finite union:
+\[\Gamma g \Gamma=\bigcup_i \Gamma a_i\]
+Then we define an operator $M_k(\Gamma) \rightarrow M_k(\Gamma)$:
+\[\left.f\right|_{k} [g] =\sum_i \left.f\right|_{k} a_i\]
+It is well defined (i.e. independent of the choice of $a_i$).
+
+Let $M(n)$ be the determinant $n$ integral matrix. We have
+\[M(n)=\bigcup_{d \mid a, a d=n} \Gamma t(a, d) \Gamma,\ where\ t(a, d)=\left(\begin{array}{ll}
+a & 0 \\
+0 & d
+\end{array}\right) .\]
+We set
+\[T_{n}f=n^{k / 2-1} \sum_{d \mid a, a d=n} \left.f\right|_{k}[t(a, d)] .\]
+For example, $ T_{p} $ is the operator defined by the double coset $t(p, 1) $. Then we have explicitly
+\[\begin{aligned}
+M(p) & =\Gamma\left(\begin{array}{ll}
+p & 0 \\
+0 & 1
+\end{array}\right) \Gamma \\
+& =\bigcup_{k=0}^{p-1} \Gamma\left(\begin{array}{ll}
+1 & k \\
+0 & p
+\end{array}\right) \cup \Gamma\left(\begin{array}{ll}
+p & 0 \\
+0 & 1
+\end{array}\right),
+\end{aligned}\]
+we have the definition of the hecke operator as following:
+\[(T_{p}f)(z)=p^{k-1} f(p z)+\frac{1}{p} \sum_{k=0}^{p-1} f\left(\frac{z+k}{p}\right) .\]
+\begin{proposition}
+\begin{itemize}
+    \item Effects on Fourier coefficients:
+    \[a_n(T_pf) =a_{pn}(f)+p^{k-1}a_{n/p}(f)\]
+where the second summand is interpreted to be $0$ if $p\nmid n.$ 
+    \item if $(n,m)=1$, then $T_nT_m=T_{nm}=T_{mn}$. Moreover,
+    \[ T_pT_{p^r}=T_{p^{r+1}}+p^{k-1} T_{p^{r-1}}\]
+    \item $T_n$ is self adjoint with respect to the Petersson inner product.
+    $T_n$ preserves $S_k$, and the action of ${T_n}$ on $S_k$ can be simultaneously diagonalized.
+\end{itemize}
+\end{proposition}
+Thus we see that the linear span of the $T_n$'s form an commutative algebra which generated by $T_p$'s.
+Thanks to the last property, we can define an \textbf{eigenform} as a modular form which is an eigenvector for all Hecke operators $T_n$.
+If $f$ is a cuspidal Hecke eigenform with eigenvalues $\lambda_n$ for $T_n$, then
+\[a_n(f)=\lambda _n \cdot a_1(f)\]
+\begin{theorem}[Multiplicity One]
+If $f$ is a normalized cuspidal eigenform (i.e. $a_1(f)=1$), then $f$ is completely determined by its Hecke eigenvalues.
+\end{theorem}
+\subsubsection{Euler Products}
+The fact that the Fourier coefficients of $f$, a normalized cupidal eigenform, are multiplicative implies that $L(f,s)$ has an Euler product:
+\[\begin{aligned}L(f,s)&=\prod _p(\sum_{k}a_{p^k} p^{-ks}) \\
+    & =\prod _p\frac{1}{1-a_p(f)p^{-s}+p^{k-1-2s}}
+\end{aligned}\]
+It has an analytic continuation, satisfies appropriate functional equation.
+\subsubsection{Hecke Operators for $\Gamma_0(N)$}
+We can still define the operators $T_n$ as before, the algebra is still commutative and generated by all the $T_p$. But $T_n$ is self-adjoint only if $(n,N)=1$.
+So we can only simultaneously diagonalize the actions of $T_n$ with $(n,N)=1$.
+To be precise, Let $\Delta_0(N)=\{ \gamma \in \mathrm{M}_2(\mathbb{Z}): \mathrm{det} (\gamma) >0, N \mid c, (a,N)=1\}$
+For $\alpha \in \Delta_0(N)$, we defines:
+\[T_\alpha (f)(z)=\mathrm{det} (\alpha )^{k-1} \chi(\alpha ^{-1}) (cz+d)^{-k} f(\frac{az+b}{cz+d})\]
+Since
+\[ \{\alpha \in \Delta _0(N): \mathrm{det}(\alpha)=n \} =\bigcup_{ad=n,a>0,(a,q)=1}\bigcup_{0\leq b\leq d-1}\Gamma_0(N)\left(\begin{array}{ll}
+    a & b \\
+    0 & d
+    \end{array}\right)\]
+We define similarly:
+\[T_n(f)(z):=\sum_j(T_{\alpha _j}f)(z)=n^{k-1} \sum_{ad=n, a>0, 0\leq b\leq d-1} \chi (a) d^{-k} f(\frac{az+b}{d})\]
+With this definition, one sees easily that the $T_n$'s preserve the modularity
+and cupsidality. One can give the action of the $T_p$, for $p$ prime, on the fourier expansion:
+\begin{itemize}
+    \item If $(p,N)=1$, $T_p(f)(z) =\sum_n a_{pn}(f) q^{n} +\chi (p) p^{k-1} \sum_n a_n(f)q^{pn}$. We call $p$ is a good prime.
+    \item If $p \mid N$, $T_p(f)(z)=\sum_na_{pn}(f) q^n$. We call $p$ a bad prime.
+\end{itemize}
+The algebra is still commutative. An important observation is $T_n$ is self adjoint only if $(n,N)=1$, so we can only simultaneously diagonalize all hecke operator at good primes.
+In particular, if $f$ is such an eigenfunction with eigenvalues $\{ \lambda _f\}$, one has $a_p(f) =\lambda _p  a_1(f) $ at good $p.$
+\subsubsection{Newforms and Oldforms}
+We want to establish the Euler Product and Multiplicity One theorem for $M_k(N)$.
+Some simple examples show that it will not always exist for all modular forms. Thus we will introduce new forms.
+
+Suppose $ \chi $ defines a Dirichlet character modulo $ N^{\prime} $, for $ N^{\prime} \mid N $.
+For any cusp form $ g $ in $ \mathcal{S}_{k}\left(N^{\prime}, \chi\right) $, one checks easily that $ z \mapsto g(d z)$  defines an element of $ \mathcal{S}_{k}(N, \chi) $,
+for any $ d \mid\left(N / N^{\prime}\right) $. Let
+\[\mathcal{S}_{k}^{\text {old }}(N, \chi)=\bigcup_{\chi {\text { factors through } N^{\prime}|N ,\ d|\left(N / N^{\prime}\right)}}\left\{z \mapsto g(d z): g \in \mathcal{S}_{k}\left(N^{\prime}, \chi\right)\right\}\]
+be the space of \textbf{oldforms}, and let
+\[\mathcal{S}_{k}^{\text {new }}(N, \chi)=\mathcal{S}_{k}^{\text {old }}(N, \chi)^{\perp}\]
+be the space of \textbf{newforms} (it may be zero).
+Then it can be shown that the \textbf{whole} Hecke algebra can be diagonalized on the space of newforms.
+Then we can define the normalized Hecke eigenforms.
+Their $L$-series have an Euler product, which is absolutely convergent if $ \Re(s)>1+k / 2 $:
+\[L(s, f):=\sum_{n} \frac{a_{n}(f)}{n^{s}}=\prod_{p} L\left(s, f_{p}\right)\]
+with
+\[\begin{aligned}
+L\left(s, f_{p}\right) & =\left(1-a_{p}(f) p^{-s}+\chi(p) p^{k-1-2 s}\right)^{-1} \\
+& =\left(1-\alpha_{1}(p, f) p^{-s}\right)^{-1}\left(1-\alpha_{2}(p, f) p^{-s}\right)^{-1}
+\end{aligned}\]
+at a good prime $ p $, and
+\[L\left(s, f_{p}\right)=\left(1-a_{p}(f) p^{-s}\right)^{-1}\]
+at a bad prime, along with an analytic continuation and functional equation.
+
+Similarly, we have the multiplicity one theorem: the newforms can be distinguished from one another by their eigenvalues with respect to the $T_p$'s with $(p, N) = 1$.
+
+\section{Automorphic Forms}
+One can generalize the factor of automorphy to certain general group $ G $ (in place of $\mathrm{SL}_{2} $),
+namely those real semisimple group $G$ such that the symmetric space $ G / K $ has a complex structure.
+In that case, $ G / K $ is a \textbf{hermitian symmetric domain}.
+
+An example is the symplectic group $ G=\mathrm{Sp}_{2 n} $, where
+\[G / K=\left\{Z=X+i Y \in M_{n}(\mathbb{C}): Z^{t}=Z, Y>0\right\} \]
+is the \textbf{Siegel upper half space}.
+In this case, one has the theory of \textbf{Siegel modular forms}, with
+\[j(g, Z)=C Z+D, \quad g =\left(\begin{array}{cc}
+    A & B \\
+    C & D
+\end{array}\right) \in \mathrm{Sp}_{2 n}(\mathbb{R}), Z \in G / K\]
+Here $\mathrm{Sp}_2n$ is the symplectic group which lies in $M_{2n \times 2n}.$
+\subsection{Automorphic Forms on $\mathrm{GL_2}(\mathbb{R})^{+}$}
+Observe that $\mathrm{GL_2}(\mathbb{R})^{+}$ acts on $\mathcal{H}$ with stabilizer $K=\mathrm{SO_2}(\mathbb{R})$, we have the following definition:
+\begin{definition}[\textbf{Automorphic Forms for} $\mathrm{GL_2}(\mathbb{R}^{+})$]
+Given a holomorphic modular form $ f $, we consider the function defined on $ g=\left(\begin{array}{ll}a & b \\ c & d\end{array}\right) \in \mathrm{GL}_{2}(\mathbb{R})^{+}$ by
+\[F(g):=\left(\left.f\right|_{k} g\right)(i)=(\operatorname{det}(\gamma))^{k / 2}j(\gamma, i)^{-k} f\left(\frac{a i+b}{c i+d}\right) .\]
+\end{definition}
+This is the automorphic form for $ \mathrm{GL}_{2}(\mathbb{R}) $ associated to $ f $. It has the following properties.
+\begin{itemize}
+    \item ($\Gamma$ action) For $\gamma \in \Gamma$, it satisfies
+    \[ F(\gamma g)=(f |_k \gamma g) (i)= \chi(d) (f |_kg)(i)=\chi (d) f(g)\]
+    \item ($K$ finite) For $\kappa =\left(\begin{array}{ll}\cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta)\end{array}\right)\in K =\mathrm{SO}_2(\mathbb{R}) $. we have
+    \[F(g \kappa )=e^{-ik\theta} F(g)\]
+    \item $F(\mathrm{diag} (\lambda,\lambda) g)=\omega (\lambda) F(g)$, where where $\omega (\lambda)$ is $1$ when $\lambda > 0$ and is $\chi(-1)$ when $\lambda < 0$.
+    \item (Growth condition) For any norm $||\cdot||$ on $\mathrm{GL_2}(\mathbb{A})$, there exists a real number $A >0$, such that $\phi_f(g) \lesssim ||g||^{A}$. In other words, $\phi_f$ is of moderate growth.
+    When $f$ is cuspidal, it is bounded.
+\end{itemize}
+\subsubsection{Cusp Form}
+A cusp form is defined by the vanishing of the 0th Fourier coefficient at each cusp. At the cusp $ i \infty $,
+\[a_{0}(f)=\int_{0}^{1} f(x+i y) \mathrm{d} x \quad \text { for any } y .\]
+
+We see that $ a_{0}(f)=0 $ if and only if
+\[\phi_{N}(g):=\int_{\mathbb{Z} \backslash \mathbb{R}} \phi_{f}\left(\left(\begin{array}{cc}
+1 & x \\
+0 & 1
+\end{array}\right) g\right) \mathrm{d} x=0\]
+for all $ g $.
+Recall that the cusps of $ \Gamma $ are in bijection with $ \Gamma \backslash \mathrm{SL}_{2}(\mathbb{Q})/B(\mathbb{Q})$.
+If $ x $ is a cuspidal point, its stabilizer in  $\mathrm{SL}_{2} $ is a Borel subgroup $ B_{x} $ defined over $\mathbb{Q}$.
+Then the 0th coefficient of $ f $ at $ x $ vanishes if and only if
+\[\int_{\left(\Gamma \cap N_{x}\right) \backslash N_{x}} \phi_{f}(n g) \mathrm{d} n=0 .\]
+Thus $ f $ is cuspidal if and only if the above integral is $0$ for any Borel subgroup defined over $\mathbb{Q}$.
+\subsubsection{Differential Operator: Lie Algebra}
+The differential operators of the smooth functions on $ \Gamma \backslash \mathrm{GL}_{2}(\mathbb{R}) $ is the complexified Lie algebra $ \mathfrak{g l}_{2}(\mathbb{C}) $,
+acting by right infinitesimal translation: if $ X \in \mathfrak{g}_{0}=\mathfrak{gl}_{2}(\mathbb{R}) $, then
+\[(X \phi)(g)=\left.\frac{\mathrm{d}}{\mathrm{d}t} \phi(g \cdot \exp (t X))\right|_{t=0} .\]
+This defines a left-invariant first-order differential operator on smooth functions on $ \mathrm{SL}_{2}(\mathbb{R}) $. To see this, if we write:
+\[\mathrm{SL}_{2}(\mathbb{R})=N \cdot A \cdot K \cong \mathbb{R} \times \mathbb{R}_{+}^{\times} \times S^{1} .\]
+Explicitly,
+\[g=\left(\begin{array}{ll}
+1 & x \\
+0 & 1
+\end{array}\right) \cdot\left(\begin{array}{cc}
+y^{1 / 2} & 0 \\
+0 & y^{-1 / 2}
+\end{array}\right) \cdot\left(\begin{array}{cc}
+\cos \theta & \sin \theta \\
+-\sin \theta & \cos \theta
+\end{array}\right) .\]
+Thus we can regard $ \phi_{f} $ as a funciton of $ (x, y, \theta)  $:
+\[\phi_{f}(x, y, \theta)=e^{i k \theta} y^{k / 2} f(x+i y) .\]
+\begin{lemma}
+$f $ is holomorphic on $ \mathcal{H} $ if and only if
+\[L \phi_{f}=0\]
+where
+\[L=-2 i y \frac{\partial}{\partial \bar{z}}+\frac{i}{2} \frac{\partial}{\partial \theta} . \]    
+\end{lemma}
+In the lie algebra perspective, we have these basis:
+\[H=i \left(\begin{array}{cc}
+0 & -1 \\
+1 & 0
+\end{array}\right) \in \mathfrak{k}=\operatorname{Lie}(K) \otimes_{\mathbb{R}} \mathbb{C}, \\
+E=\frac{1}{2} \left(\begin{array}{cc}
+1 & i \\
+i & -1
+\end{array}\right) \ , F=\frac{1}{2} \left(\begin{array}{cc}
+1 & -i \\
+-i & -1
+\end{array}\right) .
+\]
+They satisfy:
+\[[H, E]=2 E, \quad[H, F]=-2 F, \quad[E, F]=H\]
+Thus $ F $ lowers eigenvalues of $ H $ by $2 $, whereas $ E $ increases it by $2 $.
+
+The correspondence is if we think of $F$ as a differential operator, then
+\[ F = e^{-2i\theta} \cdot L\]
+\subsubsection{Casimir Operator}
+The action of $\mathfrak{sl}_2(\mathbb{C})$ on the smooth functions of $\mathrm{SL}_2(\mathbb{R})$ as a left-invariant differential operators extends to an action of the universal enveloping algebra $U(\mathfrak{sl}_2)$. It is well known that is a canonical element in $Z(\mathfrak{g})$ called the Casimir operator $\Delta$. In the
+case of $\mathrm{SL}_2$, one has:
+\[\Delta = -\frac{1}{4} H^2 +\frac{1}{2}H -2EF,\quad Z(\mathfrak{g})=\mathbb{C}[\Delta]\]
+If write this as a differential operator, we have:
+\[\Delta =-y^2(\frac{\partial ^2}{\partial x^2}+\frac{\partial ^2}{\partial y^2})+y\frac{\partial ^2}{\partial x\partial \theta}\]
+If $f$ a holomorphic modular form, then
+\[\Delta \phi _f =\frac{k}{2}(1-\frac{k}{2}) \phi _f\]
+\subsubsection{Passage from $\mathrm{SL_2}$ to $\mathrm{GL_2}$}
+It relies on the identification:
+\[\Gamma \backslash \mathrm{SL_2}(\mathbb{R}) \cong Z(\mathbb{R}) \Gamma ' \backslash \mathrm{GL_2}(\mathbb{R})\]
+Here $\Gamma=\Gamma_0(N)$ and
+\[\Gamma'=\left\{\left(\begin{array}{ll}a & b \\ c & d\end{array}\right) \in \mathrm{GL}_{2}(\mathbb{Z}): c \equiv 0 \bmod N\right\}\]
+\begin{proposition}[\cite{Gel75}, Prop. 3.1]
+    The map $ f \mapsto \phi_{f} $ defines an isomorphism of $ M_{k}(\Gamma) $ to the space $V_k(\Gamma ')$ of smooth functions $ \phi $ of $ Z(\mathbb{R}) \Gamma ' \backslash \mathrm{GL_2}(\mathbb{R}) $ satisfying:
+    \begin{itemize}
+        \item $\phi $ is smooth;
+        \item $\phi\left(g r_{\theta}\right)=e^{i k \theta} \phi(g) $;
+        \item $F \phi=0 $ ($ F $ is lowering operator)
+        \item $\phi $ is of moderate growth.
+    \end{itemize}
+\end{proposition}
+Moreover, the image of the space of cusp forms consists of those functions $ \phi $ such that for ANY Borel $\mathbb{Q}$-subgroup $ B=T \cdot N $, the constant term $ \phi_{N} $ along the unipotent radical $ N $ is zero. Further, the image of cusp forms is contained in $ L^{2}\left(Z(\mathbb{R})\Gamma' \backslash \mathrm{GL}_{2}(\mathbb{R})\right). $
+\subsubsection{Hecke Operator}
+For $ \alpha \in \mathrm{GL}_{2}(\mathbb{Q})$, we have the Hecke operator $ T_{\alpha} $ on the space of functions on $ \Gamma \backslash \mathrm{GL}_{2}(\mathbb{R}) $ by:
+\[\left(T_{\alpha} \phi\right)(g)=\sum_{i=1}^{r} \phi\left(a_{i} g\right)\]
+if
+\[\Gamma \alpha \Gamma=\bigcup_{i=1}^{r} \Gamma a_{i}\]
+The definition is independent of the choice of representatives $ a_{i} $. The reason for left $ \Gamma$-invariance is preserved is that if $ \gamma \in \Gamma $, then $ \left\{\Gamma a_{i} \gamma\right\} $ is a permutation of $ \left\{\Gamma a_{i}\right\} $.
+Let $ \alpha_{p} $ denote the diagonal matrix $ \operatorname{diag}(p, 1) $. Earlier, we have defined an action of $ \Gamma \alpha_{p} \Gamma $ on a modular form $ f  $:
+\[T_{\alpha_{p}} f:=\left.f\right|_{k}\left[\alpha_{p}\right]=\sum _i f|_{k} a_{i}\]
+if $ \Gamma \alpha_{p} \Gamma=\cup_{i} \Gamma a_{i} $. This operator is the Hecke operator $ T_{p}  $:
+\[T_{p}=p^{k / 2-1} T_{\alpha_{p}} .\]
+\begin{proposition}
+The isomorphism $ M_{k}(\Gamma) \longrightarrow V_{k}\left(\Gamma^{\prime}\right) $ is an isomorphism of Hecke modules, i.e. for any prime $ p $,
+\[\phi_{T_{\alpha} f}=T_{\alpha_p} \phi_{f} .\]
+\end{proposition}
+\begin{proof}
+\[\begin{aligned}
+\phi_{T_{\alpha} f}(g)&=\left(\left.\left(T_{\alpha} f\right)\right|_{k} g\right)(i)=((\sum_j f|a_j)|g)(i)\\
+&=\sum_{j}(f|(a_j g))(i)=\left(T_{\alpha_p} \phi_{f}\right)(g) .
+\end{aligned}\]
+\end{proof}
+\subsection{Automorphic Forms (local)}
+Wee can give an general description of the automorphic forms.
+
+Let $ G $ be a reductive linear algebraic group defined over $\mathbb{Q}$, and let $ \Gamma $ be an \textit{arithmetic group}. We shall assume for simplicity that $ \Gamma \subset G(\mathbb{Q}) $.
+By an automorphic form on $ G $ with respect to an arithmetic group $ \Gamma $, we mean a function $ \phi $ on $ \Gamma \backslash G(\mathbb{R}) $ satisfying:
+\begin{itemize}
+    \item $\phi $ is smooth;
+    \item $ \phi $ is of moderate growth;
+    \item $ \phi $ is right $ K $-finite;
+    \item $ \phi $ is $ Z(\mathfrak{g}) $-finite, i.e., $\mathrm{dim}(Z(\mathfrak{g}(\phi))) < \infty$. Equivalently, $\phi$ is annihilated by an ideal of finite codimension in $Z(\mathfrak{g})$.
+\end{itemize}
+\begin{remark}
+    We can give a description about the $Z(\mathfrak{g})$. The following theorem belongs to Harish-Chandra:
+    \begin{theorem}
+        Let $\mathfrak{h}$ be a Cartan subalgebra of $\mathfrak{g}$. There is a universal enveloping algebra homomorphism $ \psi: Z(\mathfrak{g}) \rightarrow U(\mathfrak{h}) $, satisfies:
+        \begin{itemize}
+            \item $ \psi $ is an isomorphism of $ Z(\mathfrak{g}) $ onto $ U(\mathfrak{h})^{W} $, where $ U(\mathfrak{h})^{W} $ denotes the subalgebra which is invariant under the action of the Weyl group $W$.
+            \item For all $ \lambda, \mu \in \mathfrak{h}^{*} $, we have $ \chi_{\lambda}=\chi_{\mu} $ if and onlt if they are $ W $-linked.
+            \item Every central character $ \chi: Z(\mathfrak{g}) \rightarrow \mathbb{C} $ is of the form $ \chi_{\lambda} $ for some $ \lambda \in \mathfrak{h}^{*} $.
+        \end{itemize}
+        \end{theorem}
+\end{remark}
+Let $\mathcal{A}(\Gamma \backslash G)$ denote the space of automorphic forms on $G$ (sometimes $\mathcal{A}(G ,\Gamma)$). Choose $\rho \in \widehat {K}$ a finite set of irreducible representations of $K$ and $J$ is an ideal of finite codimension in $Z(\mathfrak{g})$, then we let:
+
+$\mathcal{A}(\Gamma \backslash \mathrm{GL_2}(\mathbb{R}),J)$ be the subspace consisting of functions which are killed by $J$;
+
+$\mathcal{A}(\Gamma \backslash \mathrm{GL_2}(\mathbb{R}),J,\rho)$ be the subspace (of $\mathcal{A}(\Gamma \backslash G,J)$) consisting of function $\phi$ such that the finite dimensional representation of $K$ generated by $\phi $ is supported on $\rho$.
+\begin{example}
+\[M_k(\Gamma) \subset \mathcal{A}(\Gamma \backslash \mathrm{GL_2}(\mathbb{R}),J=\langle  \Delta -\frac{k}{2}(\frac{k}{2}-1) \rangle,\rho: r_\theta \mapsto e^{ik\theta})\]
+\end{example}
+\subsubsection{Cusp}
+\begin{definition}
+    If $ f $ is automorphic, then $ f $ is cuspidal if for any parabolic $\mathbb{Q}$-subgroup $ P=M N $ (Levi decomposition) of $ G $, we have
+    \[f_{N}(g):=\int_{(\Gamma \cap N) \backslash N} f(n g) \mathrm{d} n=0 .\]    
+    The function $ f_{N} $ on $ G $ is called the \textit{constant term of $ f $ along $ N $}.
+\end{definition}
+To check for cuspidality, it suffices to check for a set of representatives for the $ \Gamma $-orbits of maximal parabolic $\mathbb{Q}$-subgroups.
+We let $ \mathcal{A}_{0}(G, \Gamma) $ be the space of cusp forms.
+\subsubsection{Fourier coefficients}
+For any unitary character $ \chi $ of $ N $ which is left invariant under $\Gamma \backslash N $, we set:
+\[f_{N, \chi}(g)=\int_{(\Gamma \cap N) \backslash N} f(n g) \cdot \overline{\chi(n)} \mathrm{d} n .\]
+This is the $ \chi $-th Fourier coefficient of $ f $ along $ N $.
+
+If $ N $ is abelian, then
+\[f(g)=\sum_{\chi} f_{N, \chi}(g)\]
+so that $ f $ can be recovered from its Fourier coefficients along $ N $.
+
+To see this, consider the function on $ N(\mathbb{R})$:
+\[\Phi_{g}(x)=f(x g)\]
+It is in fact a function on
+\[(\Gamma \cap N )\backslash N \cong(\mathbb{Z} \backslash \mathbb{R})^{r}.\]
+So we can expand this in a Fourier series:
+\[\Phi_{g}(x)=\sum_{\chi} a_{\chi}(g) \chi(x)\]
+where
+\[a_{\chi}(g)=\int_{(\Gamma \cap N) \backslash N} \overline{\chi(x)} \cdot f(x g) \mathrm{d} x=f_{N, \chi}(g)\]
+Putting $ x=1 $ in the Fourier series gives the assertion.
+\subsubsection{ $ (\mathfrak{g}, K) $-module structure}
+\begin{definition}
+Let $ V $ be a $ \mathfrak{g} $-module that is also a module for $ K $ (for the moment we ignore the topology of $ K $). Then $ V $ is called a $ (\mathfrak{g}, K) $-module if the following three conditions are satisfied:
+
+(1) $ k \cdot X \cdot v=\operatorname{Ad}(k) X \cdot k \cdot v \quad \text{for } v \in V, k \in K, X \in \mathfrak{g} $.
+
+(2) If $  v \in V $ then $ K v $ spans a $finite$ dim. vector subspace of $ V, W_{v} $, such that the action of $ K $ on $ W_{v} $ is continuous.
+
+(3) If $ Y \in \mathfrak{k} $ and if $ v \in V $ then $ d / d t_{t=0} \exp (t Y) v=Y v $.
+
+If $ V $ and $ W $ are $ (\mathfrak{g}, K) $-modules then we denote by $ \operatorname{Hom}_{\mathfrak{g}, K}(V, W) $ the space of all $ \mathfrak{g} $-homomorphisms that are $also$ $ K $ homomorphisms.
+$ V $ and $ W $ are said to be equivalent if there is an invertible element in $ \operatorname{Hom}_{\mathfrak{g}, K}(V, W) $.
+We denote by $ \mathrm{C}(\mathfrak{g}, K) $ the category of all $ (\mathfrak{g}, K) $-modules with $\operatorname{Hom}_{\mathfrak{g}, K}$ as morphism set.
+\end{definition}
+\begin{theorem}
+$\mathcal{A}(G,\Gamma)$ is a $ (\mathfrak{g}, K) $-module.
+\end{theorem}
+\begin{theorem}
+Fix an ideal $J$of finite codimension in $Z(\mathfrak{g})$. Then $\mathcal{A}(G,\Gamma,J)$ is an admissible $ (\mathfrak{g}, K) $-module. In particular, for any irreducible $(\mathfrak{g},K)$-mod $\pi$, 
+\[\mathrm{dim} \mathrm{\ Hom}_{\mathfrak{g}, K}(\pi, \mathcal{A}(G,\Gamma)) < \infty\]
+\end{theorem}
+Thus we see the entrance of representation theory.
+\subsubsection{Hecke Algebra}
+Beside the structure of $ (\mathfrak{g}, K) $-module, $\mathcal{A}(G,\Gamma)$ also has a Hecke algebra module:
+
+The Hecke operator is defined as before, We can equivalently think of $\Gamma \alpha \Gamma$ as the characteristic function of this double set,
+and the Hecke algebra for $\Gamma$ is the algebra of bi-$\Gamma$-invariant functions on $G(\mathbb{Q})$ which supported on finitely many cosets.
+The multiplication is by \textbf{convolution}.
+
+Since the $ (\mathfrak{g}, K) $-action is by right translation, while the Hecke operator is a sum of left translation, they commutes.
+Thus, if $\pi$ is an irreducible $ (\mathfrak{g}, K) $-submodule, then the Hecke algebra acts on:
+\[\mathcal{H}(G,\Gamma) \curvearrowright \mathrm{Hom}_{\mathfrak{g}, K}(\pi,\mathcal{A}(G,\Gamma) ),\quad ([\Gamma \alpha \Gamma]f)(\pi):=[\Gamma \alpha \Gamma](f(\pi)) \]
+By the admissibility, this $\mathrm{Hom}$-space is finite dimensional.
+
+From this point of view, we can corresponde the representation theory to the modular forms.
+\subsubsection{Representation Theory}
+We will define one type of infinite irreducible unitary representation of $\mathrm{SL}_2(\mathbb{R})$. The $\mathrm{GL}_2(\mathbb{R})$ case is similar to it.
+For details, see \cite{Bum97}, Proposition 2.5.2. There is also a classification of irreducible
+$(\mathfrak{g},K)$-modules in \cite{Bum97}, Theorem 2.5.5 or \cite{JL70}, Section 5.
+
+Let $n \geq 2$ is an integer, $ \mathcal{H}  $ is the upper half plane. Consider:
+\[\mathscr{D}_{n}^{+}=\biggl\{f: \mathcal{H} \rightarrow \mathbb{C} \text { holomorphic}\bigg| ||f||^{2}=\int_{\mathcal{H}} |f(z)|^{2} y^{n-2} \mathrm{~d} x \mathrm{~d} y<\infty \biggr\}.\]
+Define the $\mathrm{SL_2}(\mathbb{R})$ action on $\mathscr{D}_{n}^{+}$ by
+\[\pi_n \left(\left(\begin{array}{ll}
+    a & b \\
+    c & d
+    \end{array}\right)\right) f(z)=(-b z+d)^{-n} f\left(\frac{a z-c}{-b z+d}\right)\]
+The norm $ \|\cdot\| $ gives  $\mathscr{D}_{n}^{+} $ a Hilbert space structure. It is the holomorphic discrete representation of $\mathrm{SL}_2(\mathbb{R})$, $(\pi _n,\mathscr{D}_{n}^{+})$.
+Moreover, define $\mathrm{SL}_2(\mathbb{R})$ action on $\mathscr{D}_{n}^{-}=\left\{\bar{f} \mid f \in \mathscr{D}_{n}^{+}\right\} $ by $\pi_{-k}(g) \bar{f}=\overline{\pi_k(g) f} $.
+These representations are called the \textbf{discrete series representation}.
+
+For a classical modular form $f$ corresponding to the automorphic form $\phi$ on $\mathrm{SL_2}$, we proved that $\phi$ is annihilated by the lowering operator $F$ (which is a lie algebra action).
+Then the set:
+\[\{ \phi, E\phi, E^{2}\phi,...\}\]
+are eigenfunctions of $K$ with eigenvalues $k,k+2,...$. It is a $ (\mathfrak{g}, K) $-module.
+
+We conclude that $\phi$ generates the holomorphic discrete series $\mathcal{D}_{|k|}^{\mathrm{sign}(k)}$ of minimal weight $k$, and
+\[ M_k(\Gamma) \cong \mathrm{Hom}_{\mathfrak{g}, K}(\mathcal{D}_{|k|}^{\mathrm{sign}(k)},\mathcal{A}(G,\Gamma) )\]
+This is an isomorphism of the Hecke algebra modules.
+
+    Given $l \in\mathrm{Hom}_{\mathfrak{g}, K}(\mathcal{D}_{|k|}^{\mathrm{sign}(k)},\mathcal{A}(G,\Gamma) )$, one can take the lowest weight vector in $l(\mathcal{D}_{|k|}^{\mathrm{sign}(k)})$, as the converse construction.
+\begin{remark}
+they are the component at infinity for the automorphic representation associated to a cuspidal modular form.    
+\end{remark}
+    \subsection{Automorphic Forms of Adele Groups}
+We saw that the classical modular forms correspond to different ways of embedding the irreducible, which is generated from the representation theory, into $\mathcal{A}(G,\Gamma)$:
+\[M_k(N) \cong \mathrm{Hom}_{\mathfrak{g}, K}(\mathcal{D}_{|k|}^{\mathrm{sign}(k)},\mathcal{A}(\mathrm{PGL_2},\Gamma_0'(N)) )\]
+where $\pi_k$ is the discrete series of $\mathrm{PGL_2}(\mathbb{R})$ with lowest weight $k$.
+
+Thus we are interested in how $\mathcal{A}(G,\Gamma)$ decomposes as a $(\mathfrak{g}, K) \times \mathcal{H}(G,\Gamma)$-module. The adelic setting describes them in parallel. This is one of the reasons to formulate adelic automorphic forms.
+
+Define the adele ring of $\mathbb{Q}$:
+\[\mathbb{A} \subset \mathbb{R}\times \prod_{p\in \mathcal{P}}\mathbb{Q}_p \]
+consisting of those $x=(x_v)$ such that for almost all primes $p$, $x_p \in \mathbb{Z}_p$.
+
+The ring $\mathbb{A}$ has a natural topology, the topological basis consists of:
+\[\prod_{v \in S} U_v \times \prod _{v\notin S} \mathbb{Z}_v\]
+where $S$ is a finite set of places of $\mathbb{Q}$ including the archimedean place.
+This topology makes $\mathbb{Q}$ is discrete in $\mathbb{A}$ with $\mathbb{Q} \backslash \mathbb{A}$ compact.
+
+Here is a various construction. If $S$ is a finite set of places of $\mathbb{Q}$, we let:
+\[\mathbb{Q}_S=\prod_{v \in S} \mathbb{Q}_v,\ \mathbb{A}^{S}=\{ (x_v) \in \prod_{v \notin S} \mathbb{Q}_v : x_v \in \mathbb{Z}_v\text{ for almost all }v\}\]
+We call $\mathbb{A}^{S}$ the $S$-Adeles. If $S$ consists only of the place $\infty$, then we call $\mathbb{A}^{S}$ the finite adeles and denote it by $\mathbb{A}_{f}$.
+
+We can define $G(\mathbb{A})$ for general linear algebraic group $G/\mathbb{Q}$.
+For example, when $G=\mathrm{GL_1}$,
+\[\mathrm{GL_1}(\mathbb{A})=\{ x=(x_v) \in \prod_{v} \mathbb{Q}_v^{\times},\ x_p \in \mathbb{Z}_p^{\times} \text{ for almost all }p\}\]
+This is the idele group of $\mathbb{Q}$. Similarly, $G(\mathbb{Q})$ is discrete in $G(\mathbb{A})$.
+
+The following approximation theorem allows one to relate the adelic picture to the case $\Gamma \backslash G(\mathbb{R})$:
+\begin{theorem}
+Assume that $ G $ is simply-connected and $ S $ is a finite set of places of $\mathbb{Q}$ such that $ G\left(\mathbb{Q}_{S}\right) $ is not compact, then $ G(\mathbb{Q}) $ is dense in $ G\left(\mathbb{A}^{S}\right) .$
+\end{theorem}
+Here is a reformulation. Given any open compact subgroup $ U^{S} \subset G\left(\mathbb{A}^{S}\right) $, we have:
+\[G(\mathbb{A})=G(\mathbb{Q}) \cdot G\left(\mathbb{Q}_{S}\right) \cdot U^{S} \text {. }\]
+Thus under the assumtions above, if we let $ \Gamma=G(\mathbb{Q}) \cap U^{S} $, then
+\[G(\mathbb{Q}) \backslash G(\mathbb{A}) / U^{S} \cong \Gamma \backslash G\left(\mathbb{Q}_{S}\right).\]
+\
+\begin{example}
+Consider the case when $ G=\mathrm{SL}_{2} $ and $ S=\{\infty\} $. Then
+\[\mathrm{SL}_{2}(\mathbb{Q}) \backslash \mathrm{SL}_{2}(\mathbb{A}) / U_{f} \cong \Gamma \backslash \mathrm{SL}_{2}(\mathbb{R})\]
+where $ U_{f} $ is any open compact subgroup of $ G\left(\mathbb{A}_{f}\right) $ and $ \Gamma=G(\mathbb{Q}) \cap U_{f} .$
+Let's take ${U}_{f} $ to be the group
+\[K_{0}(N)=\prod_{p \mid N} I_{p} \cdot \prod_{(p, N)=1} \mathrm{SL}_{2}\left(\mathbb{Z}_{p}\right)\]
+where $ I_{p} $ is an Iwahori subgroup of $ \mathrm{SL}_{2}\left(\mathbb{Q}_{p}\right)$:
+\[I_{p}=\left\{g=\left(\begin{array}{ll}
+a & b \\
+c & d
+\end{array}\right) \in \mathrm{SL}_{2}\left(\mathbb{Z}_{p}\right): c \equiv 0 \bmod p\right\}\]
+Then it is clear that
+\[\Gamma_{0}(N)=K_{0}(N) \cap \mathrm{SL}_{2}(\mathbb{Q}) \text {. }\]
+So we have:
+\[\mathrm{SL}_{2}(\mathbb{Q}) \backslash \mathrm{SL}_{2}(\mathbb{A}) / K_{0}(N) \cong \Gamma_{0}(N) \backslash \mathrm{SL}_{2}(\mathbb{R})\]
+\end{example}
+This isomorphism allows us to regard an automorphic form $ f $ on $ \Gamma_0(N) \backslash \mathrm{SL}_2(\mathbb{R}) $ as a function on $ \mathrm{SL}_2(\mathbb{Q}) \backslash \mathrm{SL_2}(\mathbb{A}) $, which is right invariant under $K_0(N)$.
+
+Therefore, We define that $ \Gamma $ is a \textbf{congruence subgroup} of $ G $ if $ \Gamma=G(\mathbb{Q}) \cap U_{\Gamma} $ for some open compact subgroup $ U_{\Gamma} $ of $ G\left(\mathbb{A}_{f}\right) .$
+Thus if $ \Gamma $ is congruence, and $ G $ satisfies strong approximation, we have:
+\[\Gamma \backslash G(\mathbb{R}) \cong G(\mathbb{Q}) \backslash G(\mathbb{A}) / U_{\Gamma}\]
+and we can regard an automorphic form on $ \Gamma \backslash G(\mathbb{R}) $ as a function on $ G(\mathbb{Q}) \backslash G(\mathbb{A}) $ which is right-invariant under $ U_{\Gamma} $.
+
+We now describe how to associate to $f$ and $F$ an automorphic form $\phi_f$ on $\mathrm{GL_2}(\mathbb{A_Q}).$ 
+\begin{definition}[\textbf{Automorphic Forms for} $\mathrm{GL_2}(\mathbb{A_Q})$]
+The strong approximation gives the following product:
+\[\mathrm{GL_2}(\mathbb{A})=\mathrm{GL_2}(\mathbb{Q})\mathrm{GL_2}(\mathbb{R})K_0(N),\]
+where $ K_{0}(N)=\left\{\left(\begin{array}{ll}a & b \\ c & d\end{array}\right) \in \mathrm{GL}_{2}(\widehat{\mathbb{Z}}): c \equiv 0 \bmod N\right\}$.
+Let $f$ be a modular form of weight $k$, character $\chi$ and level $N$. define:
+\[\phi_{f}\left(\gamma g_{\infty} k_{0}\right):=F\left(g_{\infty}\right) \lambda\left(k_{0}\right)=\left(\left.f\right|_{k} g_{\infty}\right)(i) \lambda\left(k_{0}\right) .\]
+where the function $\lambda$ is an adelization of $\chi$. For example, the Dirichelet character $\chi'$ is associated with a finite order idele class character.
+It can be extended to a character of $K_0(N)$.
+\end{definition}
+\subsubsection{Basic Properties}
+\begin{itemize}
+\item This is a well-defined smooth function (i.e. $C^{\infty}$ on the archimedean place and locally constant on the finite adeles).
+\item It is left invariant under $\mathrm{GL}_2(\mathbb{Q})$.
+\item ($K=K_0(N)\mathrm{SO}_2(\mathbb{R})$ finiteness): In the adelic setting, the condition of $K$-finiteness on $\phi_f$ means that the subspace $\mathrm{span}\{R(g) \phi)f\}$ is finite-dimensional, since
+\[\phi_f(gk_\infty k_f)=\omega (k_f) \mathrm{exp} (2\pi ik\theta) \phi_f(g)\]
+\item (Center) For any $z\in \mathbb{A}$, $g\in \mathrm{GL_2}(\mathbb{A})$, $\phi_f(zg)=\omega _\chi (z) \phi _f(g)$.
+\item The Casimir operator $\Delta$ acts on the infinite component. One have:
+\[ \Delta \phi_f= \frac{k}{2}(1-\frac{k}{2}) \phi_f\]
+This implies that $\phi_f$ is $Z(\mathfrak{g})$-finite.
+\item (Growth condition) For any norm $||\cdot||$ on $\mathrm{GL_2}(\mathbb{A})$, there exists a real number $A >0$, such that $\phi_f(g) \lesssim ||g||^{A}$. In other words, $\phi_f$ is of moderate growth.
+\end{itemize}
+We let $\mathcal{A}(G)$ denote the spaces of automorphic forms on $G$.
+
+An automrophic form $ f $ on $ G $ is called a cusp form if, for any parabolic $\mathbb{Q}$-subgroup $ P=M N $ of $ G $, the constant term
+\[f_{N}(g)=\int_{N(\mathbb{Q}) \backslash N(\mathbb{A})} f(n g) \mathrm{d} n\]
+is zero as a function on $ G(\mathbb{A}) $.
+
+It suffices to check this vanishing on a set of representatives of $ G $-conjugacy classes of maximal parabolic subgroups.
+We let $ \mathcal{A}_{0}(G) $ denote the space of cusp forms on $ G $. In fact, $\mathcal{A}_0(G) \subset  L^2(G(\mathbb{Q}) \backslash G(\mathbb{A}))$.
+\subsection{Automorphic Representations}
+The space $ \mathcal{A}(G) $ possesses the structure of a $ (\mathfrak{g}, K) $-module as before.
+In addition, for each prime $ p $, the group $ G\left(\mathbb{Q}_{p}\right) $ acts on $ \mathcal{A}(G) $ by right translation. Thus, $ \mathcal{A}(G) $ has the structure of a representation of
+\[(\mathfrak{g}, K) \times G\left(\mathbb{A}_{f}\right) .\]
+Moreover, as a representation of $ G\left(\mathbb{A}_{f}\right) $, it is a smooth representation. We can abuse terminology, and say that $ \mathcal{A}(G) $ is a smooth representation of $ G(\mathbb{A}) $.
+
+\begin{definition}
+    An irreducible smooth representation $ \pi $ of $ G(\mathbb{A}) $ is called an \textbf{automorphic representation} if $ \pi $ is a subquotient of $ \mathcal{A}(G) $.
+\end{definition}
+\begin{theorem}
+An automorphic representation $\pi$ is admissible, i.e. given any irreducible representation $\rho$ of $K$, the multiplicity with which $\rho$ occurs in $\pi$ is finite.
+\end{theorem}
+\subsubsection{Restricted Tensor Product}
+We usually expect an irreducible representation of a direct product of groups $G_i$ to be the
+tensor product of irreducible representations $V_i$ of $G_i$.
+\begin{definition}
+Suppose we have a family $ \left(W_{v}\right) $ of vector spaces, and for almost all $ v $, we are given a non-zero vector $ u_{v}^{0} \in W_{v} $. The restricted tensor product $ \otimes_{v}^{\prime} W_{v} $ of the $ W_{v} $'s with respect to $ \left(u_{v}^{0}\right) $ is the direct limit of $ \left\{W_{S}=\otimes_{v \in S} W_{v}\right\} $,
+where for $ S \subset S^{\prime} $, one has $ W_{S} \longrightarrow W_{S^{\prime}} $ defined by
+\[\otimes_{v \in S} u_{v} \mapsto\left(\otimes_{v \in S} u_{v}\right) \otimes\left(\otimes_{v \in S^{\prime} \backslash S} u_{v}^{0}\right) .\]
+\end{definition}
+We think of $ \otimes_{v}^{\prime} W_{v} $ as the vector space generated by the elements
+\[u=\otimes_{v} u_{v} \quad\text{with } u_{v}=u_{v}^{0} \text{ for almost all } v,\]
+with the usual linearity conditions in the definition of the usual tensor product.
+
+Now if each $ W_{v} $ is a representation of $ G\left(\mathbb{Q}_{v}\right) $, and for almost all $ v $,
+the distinguished vector $ u_{v}^{0} $ is fixed by the maximal compact $ K_{v} $,
+then the restricted tensor product inherits an action of $ G(\mathbb{A})$: if $ g=\left(g_{v}\right) $, then
+\[g\left(\otimes_v u_{v}\right)=\otimes_{v} g_{v} u_{v} .\]
+Because $ g_{v} \in K_{v} $ and $ u_{v}=u_{v}^{0} $ for almost all $ v $, the resulting vector still has the property that almost all its local components are equal to the distinguished vector $ u_{v}^{0}$.
+\begin{theorem}
+An irreducible admissible representation of $ G(\mathbb{A}) $ is a restricted tensor product of irreducible admissible representations $ \pi_{v} $ of $ G\left(\mathbb{Q}_{v}\right) $ with respect to a family of vectors $ \left(u_{v}^{0}\right) $ such that $ u_{v}^{0} \in \pi_{v}^{K_{v}}$, $\mathrm{dim} \pi_v^{K_v}=1$, for almost all $ v $.
+Meanwhile, we have the relationship between local and global (if denote $W,W_v$ as the representation space):
+\[\begin{tikzcd}
+	{((\mathfrak{g},K)\times G(\mathbb{A}_f))\times W} & W \\
+	{\otimes_{v \nmid \infty}'G(\mathbb{Q}_v)\times\otimes_{v \nmid \infty}'W_V} & {\otimes_{v \nmid \infty}'W_v}
+	\arrow[from=1-1, to=1-2]
+	\arrow["\cong", from=1-1, to=2-1]
+	\arrow[from=2-1, to=2-2]
+	\arrow["\cong", from=1-2, to=2-2]
+\end{tikzcd}\]
+In particular, an automorphic representation $ \pi $ has a restricted tensor product decomposition: $ \pi \cong \otimes_{v}^{\prime} \pi_{v} $, where for almost all $ v$, $\pi_{v}^{K_{v}} \neq 0 .$
+\end{theorem}
+We call an irreducible representation of $G(\mathbb{Q_p})$ \textbf{unramified} (or spherical) with respect to $K_p$ if $\mathrm{dim} \pi_p^{K_p}=1$. These has been classifed, using \textbf{Satake isomorphism}.
+\subsubsection{Cuspidal Automorphic Representations}
+The space $\mathcal{A}_0(G)$ of cusp forms is a submodule of $\mathcal{A}(G)$ under $G(\mathbb{A})$.
+When $G$ is reductive with center $Z$, we usually specify a central character $\chi$ for $Z(\mathbb{A})$. Namely, if $\chi$ is a character of $Z(\mathbb{Q})\backslash Z(\mathbb{A})$, then we let $\mathcal{A}(G)_\chi$
+be the subspace of automorphic forms $f$ which satisfy:
+\[f(zg)=\chi(z) \cdot f(g)\]
+We let $\mathcal{A}_0(G)_\chi$ be the subspace of cuspidal functions in $\mathcal{A}(G)_\chi$. Then the basic functional analysis says that $\mathcal{A}_0(G)_\chi$ decomposes as the direct sum of irreducible representations of $G(\mathbb{A})$,
+each occurring with finite multiplicities.
+\begin{definition}
+A representation $\pi$ of $G(\mathbb{A})$ is \textbf{cuspidal} if it occurs as a submodule of $\mathcal{A}_0(G)_\chi$.
+\end{definition}
+If $ f $ is a classical cuspidal Hecke eigenform on $ \Gamma_{0}(N) $, we have seen that $ f $ gives rise to an automorphic form $ \phi_{f} $ on $ \Gamma_{0}^{\prime}(N) \backslash \mathrm{P G L}_{2}(\mathbb{R}) $ which generates an irreducible $ (\mathfrak{g}, K) $-module isomorphic to the discrete series representation of lowest weight $ k $.
+
+Now if we then transfer $ \phi_{f} $ to a cusp form $ \Phi_{f} $ on $ \mathrm{P G L}_{2}(\mathbb{Q}) \backslash \mathrm{P G L}_{2}(\mathbb{A}) $,
+we can consider the subrepresentation $ \pi_{f} $ of $ \mathcal{A}_{0}\left(\mathrm{P G L}_{2}\right) $ generated by $ \Phi_{f} $. It turns out that this is an \textbf{irreducible} representation of $ G(\mathbb{A}) $ if $ f $ is a newform.
+Thus a Hecke eigen-newform in $ S_{k}(N) $ corresponds to a cuspidal representation of $ \mathrm{P G L}_{2}(\mathbb{A}) $. Moreover, if $ \pi_{f} \cong \otimes_{v}^{\prime} \pi_{v} $, then $ \pi_{p} $ is unramified for all $ p $ not dividing $ N $.
+\subsubsection{Adelic Hecke Algebras}
+Recall the representation theroy, if $ V $ is a smooth representation of a locally profinite group $ G $ and $ U \subset G $ is an open compact subgroup,
+then the map $ V \mapsto V^{U} $ defines a functor from the category of smooth representatioons of $ G $ to the category of modules for the Hecke agebra $ \mathcal{H}(G / / U) $,
+which is the ring of bi-$  U $-invariant functions in $ C_{c}^{\infty}(G) $, and the product is given by \textbf{convolution }of functions.
+
+A basis for $ \mathcal{H}(G / / U) $ is given by the characteristic functions $ f_{\alpha}=1_{U \alpha U} $. The action of this on a vector in $ V^{U} $ is:
+\[
+f_{\alpha} \cdot v=\int_{G} f_{\alpha}(g)  (g.v)  \mathrm{d} g \\
+=\int_{U \alpha U} v \mathrm{d} g=\sum_{i} a_{i} v
+\]
+if $ U \alpha U=\bigcup a_{i} U $ (and $ d g $ gives $ U $ volume 1).
+The adelic Hecke algebra $ \mathcal{H}\left(G\left(\mathbb{A}_{f}\right) / / U_{\Gamma}\right) $ acts on $ \mathcal{A}(G)^{U_{\Gamma}} $ as the following:
+Since $ U_{\Gamma} \alpha^{-1} U_{\Gamma}=\bigcup_{i} a_{i}^{-1} U_{\Gamma} $, the characteristic function of $ U_{\Gamma} \alpha^{-1} U_{\Gamma} $ acts by
+\[\left(T_{\alpha} f\right)(g)=\sum_{i}\left(a_{i}^{-1} f\right)(g)=\sum_{i} f\left(g a_{i}^{-1}\right)\]
+We can calculate that For $f\in \mathcal{A}(G)^{U_{\Gamma}}$, then identity $f$ with a function on $\Gamma \backslash G(\mathbb{R})$ given by restriction.
+The above definition makes
+\[ (T_\alpha '(f)) \mid _{G(\mathbb{R})} =\tilde{T}_\alpha (f\mid _{G(\mathbb{R})}) \]
+where $\tilde{T}_\alpha$ is the usual Hecke operator. In conclusion, we see that the action of $ \mathcal{H}(G, \Gamma) $ on $\mathcal{A}(G, \Gamma) $ gets translated to an action of the adelic Hecke algebra $ \mathcal{H}\left(G\left(\mathbb{A}_{f}\right) / / U_{\Gamma}\right) $ on $ \mathcal{A}(G)^{U_{\Gamma}} $.
+\subsubsection{Local Hecke Algebras}
+Because $ G\left(\mathbb{A}_{f}\right) $ is a restricted direct product, we have in fact
+\[\mathcal{H}\left(G\left(\mathbb{A}_{f}\right) / / U\right) \cong \otimes_{v}^{\prime} \mathcal{H}\left(G\left(\mathbb{Q}_{p}\right) / / U_{p}\right)\]
+if $ U=\prod_{p} U_{p} $. So the structure of $ \mathcal{H}\left(G\left(\mathbb{A}_{f}\right) / / U\right) $ is known once we understand the local Hecke algebras $ \mathcal{H}\left(G\left(\mathbb{Q}_{p}\right) / / U_{p}\right) $
+
+For almost all $ p $, however, we know that $ U_{p}=   K_{p} $ is a maximal compact subgroup.
+In that case, the structure of the local Hecke algebra is known, by the \textbf{Satake isomorphism}.
+In particular, $ \mathcal{H}\left(G\left(\mathbb{Q}_{p}\right) / / K_{p}\right) $ is commutative and its irreducible modules are classified.
+\begin{example}
+For $G=\mathrm{GL_2}(\mathbb{Q}_p)$, the satake transform:
+\[Sat:\mathcal{H}\left(\mathrm{GL_2}\left(\mathbb{Q}_{p}\right) / / K_{p}\right)  \rightarrow \mathcal{H}(T//T \cap K_p)=\mathbb{C}[T/T \cap K_p]\]
+is the morphism of algebras (after normalize the Haar measures), by
+\[Sat(f)(t) =\delta_B^{1/2} (t) \int _N f(tn) \mathrm{d} n\]
+In fact, it induces the isomorphism:
+\[\mathcal{H}\left(\mathrm{GL_2}\left(\mathbb{Q}_{p}\right) / / K_{p}\right)  \cong \mathbb{C}[T/T \cap K_p]^{W}\]
+In particular, $\mathcal{H}\left(\mathrm{GL_2}\left(\mathbb{Q}_{p}\right) / / K_{p}\right)$ is commutative.
+More explicitly, Let $T_p$ and $R_p$ be the characteristic functions of $K\mathrm{diag} (p,1)K$ and $K\mathrm{diag} (p,p)K$.
+Then $\mathcal{H}\left(\mathrm{GL_2}\left(\mathbb{Q}_{p}\right) / / K_{p}\right) $ is a polynomial algebra generated by $T_p,R_p,\ $and $R_p^{-1}$.
+\end{example}
+Because $ V \mapsto V^{K_{p}} $ induces a bijection of irreduible unramified representations with simple modules of $ \mathcal{H}\left(G\left(\mathbb{Q}_{p}\right) / / K_{p}\right) $. By commutative property, simple finite dimensional $ \mathcal{H}\left(G\left(\mathbb{Q}_{p}\right) / / K_{p}\right) $-module is one-dimentional.
+we get in this way the classification of irreducible unramified representations of $ G\left(\mathbb{Q}_{p}\right) $:
+
+Let us assume for simplicity that $ G $ is a split group (e.g. $ G=\mathrm{GL}_{n}  $). Let $ B=T \cdot N $ be a Borel subgroup of $ G $. So $ T \cong\left(\mathrm{GL}_{1}\right)^{r} $ and $ T\left(\mathbb{Q}_{p}\right) \cong\left(\mathbb{Q}_{p}^{\times}\right)^{r} $.
+We let $ W:=N_{G}(T) / T $ be the Weyl group of $ G $.
+
+Let $ \chi: T\left(\mathbb{Q}_{p}\right) \rightarrow \mathbb{C}^{\times}$ be a (smooth) character of $ T\left(\mathbb{Q}_{p}\right) $.
+We say that $ \chi $ is an unramifed character if $ \chi $ is trivial when restricted to $T\left(\mathbb{Z}_{p}\right) \cong\left(\mathbb{Z}_{p}^{\times}\right)^{r} $.
+Thus it is of the form
+\[\chi\left(a_{i}, \ldots, a_{r}\right)=t_{1}^{\operatorname{ord}_{p}\left(a_{1}\right)} \cdot \ldots \cdot t_{r}^{\operatorname{ord}_{p}\left(a_{r}\right)}, \quad a_{i} \in \mathbb{Q}_{p}^{\times}\]
+for some $ s_{i} \in \mathbb{C}^{\times} $.
+
+We may regard $ \chi $ as a character of $ B\left(\mathbb{Q}_{p}\right) $ using the projection $ B\left(\mathbb{Q}_{p}\right) \rightarrow N\left(\mathbb{Q}_{p}\right) \backslash B\left(\mathbb{Q}_{p}\right) \cong   T\left(\mathbb{Q}_{p}\right)$.
+
+Given an unramified character $ \chi $ of $ T\left(\mathbb{Q}_{p}\right) $, we may form the induced representation
+\[I_{B}(\chi):=\operatorname{Ind}_{B\left(\mathbb{Q}_{p}\right)}^{G\left(\mathbb{Q}_{p}\right)} \delta_{B}^{1 / 2} \cdot \chi .\]
+Here, $ \delta_{B} $ is the modulus character of $ B $, defined by:
+\[\delta_{B}(b)=|\operatorname{det}(\mathrm{Ad}(b) \mid_{\operatorname{Lie}(N)})|_{p} .\]
+The space of $ I_{B}(\chi) $ is the subspace of $ C^{\infty}\left(G\left(\mathbb{Q}_{p}\right)\right) $ satisfying:
+
+- $f(b g)=\delta(b)^{1 / 2} \cdot \chi(b) \cdot f(g) $ for any $ b \in B\left(\mathbb{Q}_{p}\right) $ and $ g \in G\left(\mathbb{Q}_{p}\right) $.
+
+- $ f $ is right-invariant under some open compact subgroup $ U_{f} $ of $ G\left(\mathbb{Q}_{p}\right) $.
+
+Then $ I_{B}(\chi) $ is an admissible representation of $ G\left(\mathrm{Q}_{p}\right) $ (possibly reducible). The representations $ I_{B}(\chi) $ are called the \textbf{principal series representations}.
+\begin{theorem}
+$ I_{B}(\chi) $ has a unique irreducible subquotient $ \pi_{\chi} $ with the property that $ \pi_{\chi}^{K_{p}} \neq 0 $, and \textbf{any} irreducible unramified representation of $ G\left(\mathbb{Q}_{p}\right) $ is of the form $ \pi_{\chi} $ for some unramfied character $ \chi $ of $ T\left(\mathbb{Q}_{p}\right) $.
+\end{theorem}
+The Weyl group $W$ acts naturally on $T(\mathbb{Q}_p)$ and use this to acts on $\widehat{T(\mathbb{Q})_p} $: For $w\in W$,
+\[(w\chi) (t)=\chi (w^{-1}t w)\]
+\begin{proposition}
+$ \pi_{\chi} \cong \pi_{\chi'}$ if and only if $\chi= w \chi'$ for some $w \in W$.
+\end{proposition}
+Thus, the irreducible unramified representations are classified by $W$-orbits of unramified
+characters of $T(\mathbb{Q}_p)$.
+
+\section{Multiplicity One Theorem for $\mathrm{GL}_n$}
+\begin{theorem}
+The multiplicity $m_0(\pi)$ of an irreducible representation $\pi$ of $\mathrm{GL}_n(\mathbb{A})$ in $\mathcal{A}_0(G)$ is $\leq 1$.
+\end{theorem}
+One may have a stronger edition:
+\begin{theorem}
+Let $\pi_1,\pi_2 \subset \mathcal{A}_0(G)$ are such that $\pi_{1,v},\pi_{2,v}$ are isomorphic for almost all place $v$. Then $\pi_1 \cong \pi_2$ as two irreducible cuspidal representations.
+\end{theorem}
+The proof of the first multiplicity one theorem has
+two ingredients, one of which is global and the
+other local. Details may be found in \cite{JL70}, Section 11 and \cite{Bum97}, Chapter 3.
+The stronger edition needs the trace formula which is far beyond our motivation.
+\begin{remark}
+    We can use the strong edition to prove one main theorem:
+    Let $ f $ be a holomorphic modular form of level $ N $ and character $ \chi $.
+    Suppose further that it is a cusp form and an eigenfunction for the Hecke operators $ T_{p} $ for $  p \nmid N $.
+    We have associated an adelic automorphic form $ \phi_{f}  $.
+    
+    Since the the space of cuspidal $L_2$ functions decomposes as a direct sum,
+One can let $ (\pi, V) $ be one irreducible factor such that the projection of $ \phi_{f} $ is non-zero.
+We can show that all of the local components of $ \pi $ at places not dividing $N $ or infinity are determined by $ f $. Thus using the multiplicity one theorem,
+    \begin{theorem}
+    The automorphic form $ \phi_{f} $ lies in an unique irreducible admissible automorphic representation $ \pi_{f} \subset \mathcal{A}_{0}(\mathrm{GL}_{2}(\mathbb{A}))$.
+    \end{theorem}
+\end{remark}
+\subsection{Generic Character}
+Let $ f $ be an automorphic form on $ G=\mathrm{GL}_{n} $. If $ N \subset G $ is a unipotent subgroup, say the unipotent radical of a parabolic subgroup, one can consider the Fourier coefficients of $ f $ along $ N $: If $ \chi $ is a unitary character of $ N(\mathbb{A}) $ which is trivial on $ N(\mathbb{Q}) $, we have
+\[f_{N, \chi}(g)=\int_{N(\mathbb{Q}) \backslash N(\mathbb{A})} \overline{\chi(n)} \cdot f(n g) \mathrm{d} n\]
+Note that if $ N $ is abelian, then we have:
+\[f(g)=\sum_{\chi} f_{N, \chi}(g)\]
+We apply the above to the unipotent radical $ N $ of the Borel subgroup $ B $ of upper triangular matrices.
+\begin{definition}
+A character $ \chi $ of $ N(\mathbb{A}) $ is \textbf{generic} if the stabilizer of $ \chi $ in $ T(\mathbb{A}) $ is the center $ Z(\mathbb{A}) $ of $\mathrm{ G L}_{n}(\mathbb{A}) $.
+\end{definition}
+\begin{example}
+    When $ G=\mathrm{GL}_{2} $, a generic character of $ N  (\mathbb{Q})  \backslash N  (\mathbb{A})$ means a non-trivial character of $ \mathbb{Q} \backslash \mathbb{A} $.
+    If we fix a character $ \psi $ of $ \mathbb{Q} \backslash \mathbb{A} $, then all others are of the form
+    \[\chi_{\lambda}(x)=\psi(\lambda x)\]
+    for some $ \lambda \in \mathbf{Q} $.
+    
+    When $ G=\mathrm{GL}_{3} $, a character of $ N(\mathbb{A}) $ trivial on $ N(\mathbb{Q}) $ has the form
+    \[\chi_{\lambda_{1}, \lambda_{2}}\left(\begin{array}{ccc}
+    1 & a_{1} & * \\
+    0 & 1 & a_{2} \\
+    0 & 0 & 1
+    \end{array}\right)=\psi\left(\lambda_{1} a_{1}+\lambda_{2} a_{2}\right)\]
+    for some $ \lambda_{1} $ and $ \lambda_{2} \in \mathbb{Q} $.
+    Saying that $ \chi_{\lambda_{1}, \lambda_{2}} $ is generic means that $ \lambda_{1} $ and $ \lambda_{2}  $ are non-zero.        
+\end{example}
+Since $Z(\mathbb{Q}) \backslash T(\mathbb{Q})$ acts transitively on the generic characters of $N(\mathbb{A})$ trivial on $N(\mathbb{Q})$, and if $t \cdot \chi=\chi'$ with $t\in T(\mathbb{Q})$,
+then
+\[f_{N,\chi'} (g)=f_{N,\chi} (t^{-1}g)\]
+we will define:
+\begin{definition}
+A representation $\pi \subset \mathcal{A}(G)$ is said to be \textbf{globally generic} if there exists $f\in \pi$ whose Fourier-Whittaker coefficient $f_{N,\chi} \neq 0$ for some (hence all) generic character $\chi$.
+\end{definition}
+equivalently, consider the linear map:
+\[l_\chi :\mathcal{A}(G) \rightarrow \mathbb{C},\ l_\chi (f) =f_{N,\chi} (1)\]
+when $\chi$ is generic. Then $\pi$ is globally generic if $l_\chi\neq 0$ when restricted to $\pi$.
+\begin{example}
+$G=\mathrm{GL_2},\ \pi \subset \mathcal{A}_0(G)$ is an irreducible cuspidal representation. Take any non-zero $f\in \pi$. Then use the expansion:
+\[f(g) =\sum_{\chi} f_{N,\chi} (g)\]
+Since $f$ cuspidal, $f_N=0.$ So some $f_{N,\chi}\neq 0.$
+\end{example}
+More generally, we have the global genericity:
+\begin{theorem}
+Let $\pi \subset \mathcal{A}(G)$ be an irreducible cuspidal representation. Then $\pi$ is globally generic.
+\end{theorem}
+\begin{remark}
+Similar to the $\mathrm{GL_2}$ case, we need to show the expansion:
+\[f(g) = \sum_{\gamma \in N_{n-1}(\mathbb{Q}) \backslash \mathrm{GL_{n-1}} (\mathbb{Q})} f_{N,\chi_0} \biggl(\left(\begin{array}{ll}
+    \gamma & 0 \\
+    0 & 1
+    \end{array}\right)g\biggr).\]
+    Here $N_{n-1}$ is the unipotent radical of the Borel
+    subgroup of $\mathrm{GL_{n-1}}$.
+\end{remark}
+\subsection{Whittaker Functionals}
+One can define the notion of a ``generic representation'' locally. Let $\pi_v$ be a representation of $G(\mathbb{Q}_v)$ and let
+\[\chi_v: N(\mathbb{Q}_v) \rightarrow \mathbb{C}\]
+be a generic unitary character.
+\begin{definition}
+Let $ p $ be a finite prime. Then $\pi_{p} $ is an abstractly generic representation if, given any generic $ \chi_{p} $,
+there is a non-zero linear functional $ l_{p}: \pi_{p} \rightarrow \mathbb{C}$ such that
+\[l_{p}(n \cdot v)=\chi_{p}(n) \cdot l_{p}(v)\]
+for all $ n \in N\left(\mathbb{Q}_{p}\right) $ and $ v \in \pi_{p} $.
+Such a functional is called a local Whittaker functional.    
+\end{definition}
+One can make the same definition at the infinite prime. Since $ \pi_{\infty} $ is a $ (\mathfrak{g}, K) $-module and $ N(\mathbb{R}) $ does not act on $ \pi_{\infty} $.
+The definition is a bit more subtle. However, It suffices all the properties as nonarchimedean place does.
+
+Now let $ \pi=\otimes_{v} \pi_{v} $ be an irreducible admissible representation of $ G(\mathbb{A})$,
+one says that $ \pi $ is an abstractly generic representation if each of its local components $ \pi_{v}  $ is abstractly generic.
+\begin{theorem}[Local uniqueness of Whittaker functionals]
+    Let  $\pi_{v} $ be an irreducible smooth representation of $ G\left(\mathbb{Q}_{v}\right) $.
+    Then the space of (continuous) Whittaker fuctional on $ \pi_{v} $ is at most 1 dimensional.
+\end{theorem}
+\subsection{Proof of Multiplicity One}
+\begin{proof}
+We need to show that for any ireducible admissible representation $ \pi $ of $ G(\mathbb{A}) $,
+\[\operatorname{dim} \operatorname{Hom}_{G(\mathbb{A})}\left(\pi, \mathcal{A}_{0}(G)\right) \leq 1 .\]
+Let $ \chi$ be a generic character of $ N(\mathbb{A}) $ trivial on $ N(\mathbb{Q})$. Denote $\mathbb{C}_\chi$ as the fucntional such that $l_p(n\cdot v)=\chi (n)\cdot l_p(v)$, then we have the map
+\[l_{\chi}: \mathcal{A}(G) \longrightarrow \mathbb{C}_{\chi}\]
+given by
+\[l_{\chi}(\phi)=\int_{N(\mathbb{Q}) \backslash N(\mathbb{A})} \overline{\chi(n)} \cdot \phi(n) \mathrm{d} n .\]
+Now we have a map
+\[\operatorname{Hom}_{G(\mathbb{A})}\left(\pi, \mathcal{A}_{0}(G)\right) \longrightarrow \operatorname{Hom}_{N(\mathbb{A})}\left(\pi, \mathbb{C}_{\chi}\right)\]
+given by $ f \mapsto l_{\chi} \circ f $.
+
+By the global genericity, this map is injective.
+So it suffices to show that the RHS has dimension $ \leq 1 $.
+
+The generic character $ \chi $ is of the form $ \prod_{v} \chi_{v} $ for generic characters $ \chi_{v} $ of $ N\left(\mathbb{Q}_{v}\right) $.
+
+Now if $ L \in \operatorname{Hom}_{N(\mathbb{A})}\left(\pi, C_{\chi}\right) $ is non-zero, then for each $ v $,
+\[\operatorname{dim}{\operatorname{Hom}_{N\left(\mathbb{Q}_{v}\right)}}\left(\pi_{v}, \mathbb{C}_{\chi_{v}}\right) \neq 0\]
+i.e. $ \pi $ is abstractly generic. By local uniqueness, the above dimenson is $1 $, and for almost all $ v $, a non-zero local functional $ l_{v} $ is non-zero on $ \pi_{v}^{K_{v}} $.
+
+Let us choose $ l_{v} \neq 0 $ so that for almost all $ v $, $ l_{v}\left(u_{v}^{0}\right)=1 $, where $ u_{v}^{0} $ is the distinguished $ K_{v} $-fixed vector in $ \pi_{v} $.
+Then one has, for some constant $ c$,
+\[L(u)=c \cdot \prod_{v} l_{v}\left(u_{v}\right) \quad \text { for any } u=\otimes_v u_{v} .\]
+This shows that
+\[\mathrm{dim\ Hom}_{N(\mathbb{A})}(\pi,\mathbb{C}_\chi) =1\]
+as desired.
+\end{proof}
+
+\section{Siegel Modular Varieties and their Compactification}
+\subsection{Siegel Modular Forms}
+The notion of Siegel modular form is a generalization of elliptic modular forms into higher dimensions.
+
+Let us begin with the definition of Siegel upper half spaces and symplectic groups. Fix a positive integer $n$.
+The Siegel upper half plane $\mathcal{H}_n$ of degree $n$ is the complex domain of symmetric matrices over $\C$ with positive definite imaginary part, i.e.,
+\footnote{$M_n(R)$ is the set of all $n\times n$ matrices over a ring $R$.}
+\[\mathcal{H}_n = \{\tau\in M_n(\C):\tran{\tau} = \tau,\ \Im\tau > 0\}.\]
+The symplectic group
+\footnote{$1_n$ is the unit matrix of rank $n$.} \begin{align*}
+    \Sp_{2n}(\R{}) :=&{} \left\{M\in \GL_{2n}(\R{}):\tran{M}JM = J,\ J = \begin{pmatrix}
+        0 & 1_n \\ -1_n & 0
+    \end{pmatrix}\right\}\\
+    =&{} \left\{\begin{pmatrix}
+        A & B \\ C & D
+    \end{pmatrix}\in \GL_{2n}(\R{}): \tran{A}C = \tran{C}A,\ \tran{B}D = \tran{D}B,\ \tran{A}D - \tran{C}B = 1_g\right\}\\
+    =&{} \left\{\begin{pmatrix}
+        A & B \\ C & D
+    \end{pmatrix}\in \GL_{2n}(\R{}): \begin{pmatrix}
+        A & B \\ C & D
+    \end{pmatrix}^{-1} = \begin{pmatrix}
+        \tran{D} & -\tran{B} \\ -\tran{C} & \tran{A}
+    \end{pmatrix}\right\}.
+\end{align*} acts on $\mathcal{H}_g$ by M\"obius transformation\[\Sp_{2n}(\R{})\curvearrowright \mathcal{H}_n\ :\
+\begin{pmatrix}
+    A & B \\ C & D
+\end{pmatrix}\tau := (A\tau + B)(C\tau + D)^{-1}\] transitively and biholomorphically.
+In fact, the automorphism group of $\mathcal{H}_n$ as a complex manifold is just $\Sp_{2n}(\R)/\{\pm 1\}$.
+
+Let $o := \iu\cdot 1_n$ be a fixed point in $\mathcal{H}_n$.
+The stablizer of $o$ in $\Sp_{2n}(\R)$ is \[K = \left\{\begin{pmatrix}
+    A & B \\ -B & A
+\end{pmatrix}\in \Sp_{2g}(\R{})\right\},\]
+which is isomorphic to the unitary group \[\Uni(n) = \left\{ M\in M_n(\C): \ctran{M}M = 1 \right\} = \left\{A+\iu B: \begin{matrix}
+    A, B\in M_n(\R{})\\ \tran{A}A + \tran{B}B = 1\\ \tran{A}B = \tran{B}A
+\end{matrix} \right\}\] as Lie groups.
+Hence \[\mathcal{H}_n\simeq \Sp_{2n}(\R)/K\simeq \Sp_{2n}(\R)/\Uni(n)\] is an Hermitian symmetric space of non-compact type.
+The symmetry at $o$ is given by \[s_o = J = \begin{pmatrix}
+    0 & 1 \\ -1 & 0
+\end{pmatrix}: \tau\mapsto -\tau^{-1}.\]
+
+Another notion we need is the arithmetic subgroup.
+An \textbf{arithmetic subgroup} of $G = \Sp_{2n}(\R)$ is a subgroup of $G_\Q := \Sp_{2n}(\Q)$ with the property that there is a faithful representation $\rho: G_\Q\to\GL_{N}(\Q)$ for some integer $N$ such that $\rho(\Gamma)$ is commensurable with $\rho(G_\Q)\cap \GL_N(\Z)$.
+One of the simplest arithmetic subgroup of $G$ is $\Gamma = G_\Z := \Sp_{2n}(\Z)$.
+Another collection of arithmetic subgroups are the principal congruence subgroups \[\Gamma(N) := \{M\in\Sp_{2n}(\R): M\equiv 1_{2n}\pmod N\},\]where $N$ is an integer.
+
+% Given an arithmetic subgroup $\Gamma$ and an integer $k$, a Siegel modualr form of weight $k$, degree $n$ and level $\Gamma$ is a holomorphic function $F:\mathcal{H}_n\to\C$ with the 
+Now we can define the Siegel modular forms in a similar way as the definition of the elliptic modular forms.
+\begin{definition}
+    For $M\in G = \Sp_{2n}(\R)$, $k\in \Z$ and a function $f:\mathcal{H}_n\to \C$, define \[f|_{k}M: \tau\mapsto j(M, \tau)^{-k} F(M\tau),\]
+    where \[j(M, \tau) = \det(C\tau + D),\ M = \begin{pmatrix}
+        A & B \\ C & D
+    \end{pmatrix}\]
+    % is called the \textbf{(i'm not sure)}.
+    Clearly $f|_k(MM') = (f|_kM)|_kM'$ for $M, M'\in G$.
+
+    Let $\Gamma$ be an arithmetic subgroup of $G = \Sp_{2n}(\R)$ and $k$ an integer.
+    A holomorphic Siegel modular form of degree $n\ge 2$, weight $k$ and level $\Gamma$ is a holomorphic function $f:\mathcal{H}_n\to\C$ s.t. $f|_kM = f$ for all $M\in\Gamma$.
+    If $n=1$, we require further that $f$ is holomorphic at all cusps, which coincide with the definition of elliptic modualr forms. Hence the Siegel modular forms of degree $1$ are precisely the elliptic modular forms of the same weight and level.
+\end{definition}
+
+Note that for $n\ge 2$, the \textit{Koecher's effect}\footnote{See \cite{AA09}} implies that the Siegel modular forms of degree $n$ are holomorphic at infinity, thus the last requirement for elliptic modular forms is not necessary. 
+
+Recall that for suitable subgroup $\Gamma\subset\SL_2(\R)$,
+the vector space of elliptic modular forms of weight $k$ is isomorphic to the section space of a line bundle $\omega_{\Gamma}^{\otimes k}$ over the compactified modular curve $\bar{\Gamma\under\mathcal{H}_1}$.
+% \textcolor{red}{I DONT KNOW WHAT TO SAY!!!}
+For this fact and other motivations, it is of great interest to study the geometry of the \textbf{Siegel variety} $\Gamma\under\mathcal{H_n}$, where $\Gamma\subset \Sp_{2n}(\R)$ is an arithmetic subgroup, and its compactification.
+% However, in the case of $n=1$, there is 
+
+\subsection{Torus Embeddings}
+The theory of torus embedding is a main tool to construct toroidal compactifications of Siegel modular varieties or locally symmetric spaces in general.
+\subsubsection{Definitions}
+
+Let $T$ be an $n$-dimensional algebraic torus over $\C$, i.e., \[T = \spec\C[T_1, T_1^{-1}, \cdots, T_n, T_n^{-1}]\ \text{as a scheme}\] or \[T = (\C^*)^n\ \text{as a variety}.\]
+Denote by \[M := \hom_{\mathsf{alg\text{-}grp}} (T, \C^*)\] the group of characters on $T$,
+and\[N := \hom_{\mathsf{alg\text{-}grp}}(\C^*, T)\] the group of one-parameter subgroups in $T$, called the lattice of $T$.
+% We also write $T = T_N$.
+\begin{enumerate}
+    \item [\myit] We have isomorphisms of $\Z$-modules\[\chi: \Z^n\isomto \hom_{\mathsf{alg\text{-}grp}} (T, \C^*),\ r = (r_1, \cdots, r_n)\mapsto \left[\chi^r: T\simeq (\C^*)^n\ni (t_1, \cdots, t_n)\mapsto \prod_{i=1}^n t_i^{r_i}\in\C^*\right]\]
+    and \[\lambda: \Z^n\isomto \hom_{\mathsf{alg\text{-}grp}} (\C^*, T),\ a = (a_1, \cdots, a_n)\mapsto [\lambda_a :\C^* \ni t\mapsto (t^{a_1}, \cdots, t^{a_n})\in (\C^*)^n\simeq T].\]
+    We also write $\chi^r(t) =: t^r$, thus $t^{r}t^{s} = t^{r+s}$ for $t\in T, r, s\in\Z^n$.
+    % In what follows, we use the identification $M = \Z^n$ and $N = \Z^n$ through the isomorphisms $\chi$ and $\lambda$, although is different from the definion.
+    \item [\myit] There is a natural pairing $\left<\ ,\ \right>$ between $M$ and $N$ defined by \[t^{\left<r, a\right>} = \chi^r(\lambda_a(t))\]for $t\in\C^*$, $r, a\in\Z^n$, i.e., $\left<\chi^r, \lambda_a\right> = \left<r, a\right> = \sum_{i=1}^n r_ia_i$. Then $M$ and $N$ are dual to each other.
+    \item [\myit] The Zariski topology and analytic topology on $T$ are homotopy equivalent. The universal covering of $T$ is $N_\C = N\otimes \C$, and $N_\C/N\simeq T$ holomorphically. Denote by $e: N_\C\to T$ the covering map.
+    \item [\myit] As a real Lie group, $T\simeq N_\R/N\times N_\R$. Denote by $\Im: T\to N_\R$ the projection onto the second factor, whose kernel is $T_c:=N_\R/N$, a real compact torus in $T$.
+\end{enumerate}
+
+\begin{definition}
+    A torus embedding of $T$ is a $\C$-scheme $X$ such that,\begin{enumerate}
+        \item[(1)] the scheme $X$ contains $T$ as a Zariski dense open set, and
+        \item[(2)] the torus $T$ acts on $X$ extending the natural action on itself by left translation.
+    \end{enumerate}
+    A morphism between torus embeddings $X$ of $T$ and $X'$ of $T'$ is a morphism of schemes $f: X\to X'$ s.t. $f(T) = T'$ and $f|_T:T\to T'$ is an epimorphism of groups.
+
+    If a torus embedding is a variety, it is called a \textbf{toric variety}.
+\end{definition}
+
+To construct toroidal compactifications, it is enough to only consider torus embeddings $X$ that are normal schemes locally of finite type,
+which can be described combinatorially.
+
+% Let $\Sigma$ be a r.p.p.\! decomposition of $N$ and $X_{\Sigma}$ the corresponding torus embedding of $T$.
+\subsubsection{Polyhedral Cones and Fans: Some Basic Properties}
+Let $L$ be a lattice of rank $n$, and $V = L_{\R}$ equipped with the usual topology.
+\begin{enumerate}
+    \item [\myit] A \textbf{cone} $\sigma$ in $V$ is a subset of $V$ s.t. $\mathbb{R}_{ >0 }\sigma = \sigma$. An \textbf{open cone} $\sigma$ in $V$ is a subset s.t. its closure is a cone in $V$.
+    \item [\myit] The \textbf{dual cone} of a cone $\sigma$ is \[\dual{\sigma} := \{m\in \dual{V}: \left<u, m\right>\ge 0\},\] which is a cone in $\dual{V}$.
+    \item [\myit] A \textbf{convex polyhedral cone} (cone for short) in $V$ is a set \[\sigma = \cone(S) : =\left\{ \sum_{u\in S}\lambda_uu:\lambda_u \ge 0 \right\}\] for a finite set $S\subset V$.
+    The cone $\sigma$ is said to be \textbf{rational} if $\sigma = \cone(S)$ for some $S\subset L$.
+    The dimension of $\sigma$ is defined to be $\dim\sigma := \dim\lspan_{\R}(\sigma)$.
+    \item [\myit] For $m\in \dual{V}$, set \[H_m := \{u\in V: \left< u,m\right> = 0\},\ H_m^+:=\{u\in V:\left< u, m\right>\ge 0\}.\]
+    \item [\myit] A \textbf{face} of a cone $\sigma$ is a cone $\tau = \sigma\cap H_m$ for some $m\in\dual{\sigma}$, written $\tau < \sigma$. A facet is a face of codimension $1$. An edge is a face of dimension $1$.
+    \item [\myit] A cone is said to be \textbf{strongly convex}, if $\sigma\cap(-\sigma) = 0$. This is equivalent to say that $0$ is a face of $\sigma$, or $\dim\sigma^{\vee} = n$.
+\end{enumerate}
+\begin{proposition}
+    Let $\sigma$ be a polyhedral cone. An intersection of two faces of $\sigma$ is a face of $\sigma$; a face of a face of $\sigma$ is a face of $\sigma$.
+\end{proposition}
+\begin{proposition}
+    Let $\sigma$ be a cone in $V$, $m_1, \cdots, m_s\in \dual{V}$, then \[\sigma = \bigcap_{i=1}^sH_{m_i}^+\iff \dual{\sigma} = \cone(m_1, \cdots, m_s).\]
+    One can take $m_i$'s to be normals perpendicular to the facets of $\sigma$.
+\end{proposition}
+
+\indent
+% Given $\tau < \sigma\subset V$, define \[\tau^{\perp} := \{m\in \dual{V}: \left<u, m\right>, \forall u\in \tau\},\ \tau^* := \dual{\sigma}\cap \tau^{\perp}.\]
+% Then $\tau\mapsto\tau^*$ is an inclusion-reversing bijection from the faces of $\sigma$ to the faces of $\dual{\sigma}$.
+
+The \textbf{relative interior} of a cone $\sigma$, denoted $\relint(\sigma)$, its the interior of sigma in its span.
+It can be characterized as \[u\in\relint(\sigma)\iff \left<u, m\right> > 0, \forall m\in\dual{\sigma}\sminus\sigma^{\perp} = \dual{\sigma}\sminus\sigma^*.\]
+% \begin{proposition}
+%     [Seperation Lemma] Suppose that cones $\sigma_1$ and $\sigma_2$ meets along a common face $\tau = \sigma_1\cap\sigma_2$, then \[\tau = \sigma_1\cap H_m = \sigma_2\cap H_m, \forall m\in\relint(\dual{\sigma_1}\cap\dual{(-\sigma_2)}).\]
+% \end{proposition}
+
+% \begin{proposition}
+    
+% \end{proposition}
+
+A \textbf{fan} of $V = L_\R$ is a collection of strongly convex rational polyhedral cones $\Sigma$, s.t.\begin{enumerate}
+    \item [\myit] if $\tau$ is a face of $\sigma\in\Sigma$, then $\tau\in\Sigma$;
+    \item [\myit] if $\sigma_1, \sigma_2\in\Sigma$, then $\sigma_1\cap\sigma_2$ is a face of both $\sigma_1$ and $\sigma_2$.
+\end{enumerate}
+% \begin{theorem}
+    
+% \end{theorem}
+
+
+% \begin{proposition}
+%     Let $T_1, T_2$ be tori and $\varphi: T_1\to T_2$ a morphism of algebraic groups.
+%     Then $\im\varphi$ is a torus closed in $T_2$.
+% \end{proposition}
+% \begin{proposition}
+%     An irreducible subvariety of a torus that is a subgroup is a torus.
+% \end{proposition}
+
+% Given a torus $T = T_N$ of dimension $n$ with character lattice $M$ and a finite set $\mathscr{A} = \{m_1, \cdots, m_s\}\subset M$.
+% Consider the map \[\Phi: T\to \C^s,\ t\mapsto (\chi^{m_1}(t), \cdots, \chi^{m_s}(t)).\]
+% This map may be considered as $T\to(\C^*)^s$, hence $T' = \Phi(T)$ is a torus closed in $(\C^*)^s$. Let $Y$ be the Zariski closure of $T'$ in $\C^s$.
+% \begin{proposition}
+%     The variety $Y$ is an affine toric variety with character lattice isomorphic to $\Z\mathscr{A}$.
+% \end{proposition}
+% The map $\Phi: T\to (\C^*)^s$ induces a map \[\hat{\Phi}:\Z^s\simeq\hom((\C^*)^s, \C^*) \to\hom(T, \C^*) \simeq M\]
+% by sending the standard basis $e_i$'s to $m_i$'s respectively.
+% Let $L = \ker\hat{\Phi}$. An element $l = (l_1, \cdots, l_s)\in L$ if and only if $\sum_{i=1}^s l_im_i = 0$.
+% Set \[l_+ = \sum_{l_i >0 }l_ie_i,\ l_- = -\sum_{l_i < 0}l_ie_i.\]
+% Then $l = l_+ - l_-$, and the binomial \[x^{l_+} - x^{l_-} = \prod_{l_i > 0} x_i^{l_i} - \prod_{l_i < 0} x_i^{-l_i}\]
+% vanishes on $T' = \im\Phi$ and hence on its closure $Y$.
+% \begin{proposition}
+%     The ideal of $Y$ in $\C[x_1, \cdots, x_s]$ is \[I(Y) = \left(x^{l_+} - x^{l-} : l\in L\right) = \left( x^{\alpha} - x^{\beta}: \alpha, \beta\in\mathbb{N}^s, \alpha-\beta\in L \right)\] 
+% \end{proposition}
+
+
+\subsubsection{Torus Embeddings from Cones and Fans}
+Let $\sigma$ be a rational strongly convex polyhedral cone in $N_{\R}$ given by $\sigma = H_{r_1}\cap\cdots\cap H_{r_s}$ for $r_1, \cdots, r_s$ in $M$. Then \[\sigma^{\vee}\cap M = \Z r_1 + \cdots + \Z r_s\] is a subsemigroup of $M$, hence $\C[\sigma^{\vee}\cap M]$ is a subring of $\C[M]$,
+and the affine toric variety associated to $\sigma$ is \[X_{\sigma} = \spec\C[\sigma^{\vee}\cap M] = \spec\C[\chi^{r_1}, \cdots, \chi^{r_n}].\]
+This variety can also be described in an elementary way. The semigroup $\sigma^{\vee}\cap M$ defines a morphism\[\Phi: T\to (\C^*)^s,\ t\mapsto (\chi^{r_1}(t), \cdots, \chi^{r_s}(t)).\]
+The image of $\Phi$ is a torus closed in $(\C^*)^s$. Taking the Zariski closure of $\Phi(T)$ in $\C^s$ yields the variety $X_\sigma$ with $\Phi(T)$ being its torus.
+If and only if $\sigma$ is strongly convex, $\Phi(T)$ is isomorphic to $T$ and $X_\sigma$ is a torus embedding of $T$.
+
+Now consider a fan $\Sigma$ in $N_\R$.
+% To construct the associated toric variety $X_{\Sigma}$ by patching together the affine toric varieties $X_\sigma$ for all $\sigma\in \Sigma$, one need to show that these data are compatible.
+\begin{proposition}
+    Let $\sigma$ be a cone in $N_\R$ and $\tau < \sigma$. Then the map $X_\tau\to X_\sigma$ induced from $\tau\hookrightarrow\sigma$ is an open immersion.
+\end{proposition}
+Therefore one may construct a torus embedding $X_{\Sigma}$ from $\Sigma = \{\sigma_\alpha\}_{\alpha}$ by patching together all affine varieties $X_{\sigma_\alpha}$'s along the $X_{\sigma_\alpha\cap\sigma_\beta}$'s.
+Additionally, $X_{\Sigma}$ is normal and locally of finite type. If $\Sigma$ is finite, $X_{\Sigma}$ is of finite type.
+
+The $T$-action on $X_{\Sigma}$ introduces an orbit decomposition that is in one-to-one correspondence with the cones in $\Sigma$.
+\begin{proposition}
+    There is a bijection \[\Sigma\to X_{\Sigma}/T,\ \sigma\mapsto O_\sigma\] satisfying the following conditions.\begin{enumerate}
+        \item[(1)] The Zariski and analytic closure of $O_\sigma$ coincide, denoted $\bar{O}_\sigma$. Moreover, $\tau < \sigma$ if and only if $\bar{O}_\tau\supset O_\sigma$.
+        \item[(2)] $\dim\sigma + \dim_{\C} O_\sigma = n$.
+        \item[(3)] $O_0 = T$.
+    \end{enumerate}
+\end{proposition}
+
+In order to study the analytic topology of toric variety $X_{\Sigma}$, we consider the quotient of $X_{\Sigma}$ by the compact torus $T_c=N_{\R}/N$. This construction is similar to $X_{\Sigma}$.
+A cone $\sigma = H_{r_1}^+\cap\cdots H_{r_s}^+\in\Sigma$ induces an immersion\[i_\sigma: N_\R\to(\R_{ >0})^s, y\mapsto \left( \exp(-2\pi\left< r_1, y\right>),\cdots, \exp(-2\pi\left< r_s, y\right>) \right).\]
+Define $N_\sigma$ to be the closure of $i_\sigma(N_\R)$ in $(\R_{ >0})^s$, with an $N_\R$-action given by \[y(z) := i_\sigma(y)\cdot z,\ y\in N_\R, z\in N_\sigma.\]
+One can see that is a commutative diagram \[
+\begin{tikzcd}
+T \arrow[r, "\Im"] \arrow[d, hook] & N_\R \arrow[d, hook] \\
+\C^m \arrow[r, "|\cdot|"]          & (\R_{\ge 0})^s      
+\end{tikzcd}\]
+by which we can extend the map $\Im$ holomorphically to a map $\Im: X_\sigma\to N_\sigma$, showing that $N_\sigma\simeq X_\sigma/T_c$.
+Gluing $N_\sigma$ for $\sigma\in\Sigma$ yields $N_\Sigma$ with a holomorphic map $\Im:X_\Sigma\to N_\Sigma$ with $N_\Sigma\simeq X_\Sigma/T_c$.
+
+% There is another way to define the quotient $N_\Sigma$ by giving a suitable topology for $\bigsqcup_{\sigma\in\Sigma}O_\sigma'$.
+% \textcolor{red}{TBC}
+
+
+
+\subsection{Boundary Components and Parabolic Subgroups}
+\subsubsection{Boundary Components}
+Recall that $\mathcal{H}_n$ is isomorphic to $\mathcal{D}_n = \{z\in M_n(\C): 1-\tran{z}z  > 0\}$, which is a bounded symmetric domain in $M_g(\C)$.
+Let $\bar{\mathcal{D}} := \{z\in M_n(\C): 1-\tran{z}z  \ge 0\}$. This is the closure of $\mathcal{D}$ in $M_g(\C)$ with respect to the analytic topology.
+\begin{proposition}
+    The action of $G = \Sp_{2n}(\R)$ on $\mathcal{D}$ extends to $\bar{\mathcal{D}}$ holomorphically.
+\end{proposition}
+
+\begin{definition}
+    A \textbf{boundary component} of $\mathcal{D}$ is a maximal subset of points that can be joined by finitely many holomorphic curves $\mathbb{D} = \{z\in\C: |z| < 1\}\to \mathcal{D}$.
+\end{definition}
+
+For $0\le m\le n$, put \[\mathcal{F}_m := \left\{ \begin{pmatrix}
+    z & \\ & 1_{n-m}
+\end{pmatrix}: z\in\mathcal{D}_{m} \right\}.\]
+\begin{proposition}
+   The set $\mathcal{F}_m$ is a boundary component. Moreover, every boundary has the form $F = g\mathcal{F}_m$ for some $g\in G$ and $0\le m\le n$, hence \[\bar{\mathcal{D}} = \bigcup_{0 \le m \le n} G\cdot\mathcal{F}_m.\]
+\end{proposition}
+If $F = g\mathcal{F}_m$, we call $m$ the degree of $F$.
+
+\subsubsection{Parabolic Subgroups}
+Let $F$ be a boundary component of $\mathcal{D}$.
+We define the following subgroups of $G = \Sp_{2g}(\R{})$.
+\begin{enumerate}
+    \item[\myit] $\mathcal{P}(F) := \{\gamma\in G:\gamma F = F\}$, the \textbf{parabolic subgroup associated with $F$}.
+    \item[\myit] $\mathcal{W}(F) :=$ the unipotent radical of $\mathcal{P}(F)$.
+    \item[\myit] $\mathcal{U}(F) := Z(\mathcal{W}(F))$, the centre of $\mathcal{W}(F)$.
+\end{enumerate}
+If two boundary components $F$ and $F'$ satisfies $F'=gF$ for some $g\in G$, then $\mathcal{P}(F') = g\mathcal{P}(F)g^{-1}$.
+Therefore it suffices to just analyze these groups associated with the $\mathcal{F}_m$'s. 
+\begin{proposition}
+    Let $F$ be a boundary component of degree $m$.\begin{enumerate}
+        \item [(1)] There is a semi-direct product decomposition \[\mathcal{P}(F)\simeq (G_h(F)\times G_l(F))\mathcal{W}(F),\]
+        where $G_h(F)\simeq \Sp_{2m}(\R)$ and $G_l(F)\simeq \GL_{n-m}(\R)$ are two subgroups of $G=\Sp_{2n}(\R)$.
+        % Denote by $p_h: G\to$
+        \item [(2)] The group $\mathcal{U}(F)$ is isomorphic to its Lie algebra. We equip the vector space $\mathcal{U}(F)$ an inner product induced form the Killing form on its Lie algebra.
+        \item [(3)] There is a self-dual open cone $\Omega(F)\subset\mathcal{U}(F)$ s.t. $G_l(F) = \aut(\mathcal{U}(F), \Omega(F))$, where $\aut(\mathcal{U}(F), \Omega(F))$ is the group of automorphisms of $\mathcal{U}(F)$ that preserve $\Omega(F)$, and the action is given by \[g(u) := gu\tran{g},\ g\in G_l(F), u\in\mathcal{U}(F).\]
+    \end{enumerate}
+\end{proposition}
+
+
+\subsubsection{Adherence Relation among Boundary Components}
+For two boundary components $F_\alpha$ and $F_\beta$, we say $F_\alpha < F_\beta$ if $F_\alpha\subset\bar{F_\beta}$.
+Observe that if $F_\alpha < F_\beta$, then \[\mathcal{U}(F_\alpha)\supset\mathcal{U}(F_\beta), G_l(F_\alpha)\supset G_l(F_\beta), G_h(F_\alpha)\subset G_h(F_\beta).\]
+
+
+\subsubsection{Rationality of Boundary Components}
+A boundary component $F$ of degree $m$ is said to be \textbf{rational}, if one of the following equivalent conditions holds.
+\begin{enumerate}
+    \item[(1)] $\mathcal{P}(F)$ is defined over $\Q$.
+    \item[(2)] $\exists g\in G_\Q = \Sp_{2n}(\Q)$, s.t. $gF = \mathcal{F}_m$.
+    \item[(3)] $\exists g\in G_\Z = \Sp_{2n}(\Z)$, s.t. $gF = \mathcal{F}_m$.
+\end{enumerate}
+
+
+
+\subsection{Minimal Compactification}
+Fix a boundary component $F$ of $\mathcal{D}\simeq G/K$.
+Because of the Borel embedding\footnote{(somethingsomething)}\[G/K\hookrightarrow G_{\C}/K_{\C}P^{-},\] one can define\[\mathcal{D}(F) := \mathcal{U}(F)_\C\mathcal{D}\] and \[\mathcal{D}(F)' := \mathcal{U}(F)_\C\under\mathcal{D}(F).\]
+\begin{theorem}
+    \begin{enumerate}
+        \item [(1)] Let $\mathcal{V}(F) = \mathcal{W}(F)/\mathcal{U}(F)$, then we have the following diagram of real analytic maps, among which the horizonal arrows are isomorphsms.
+        \[% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwDGjYABEAvgAoAYgEoQY0uky58hFAEZyVWoxZtOPfkIaixnPF3gACA70HCAapNnmsluDe53jwAKrOZAH1gTgBhMXlFEAxsPAIiMgAmbXpmVkQOLyNhcWkZAHJIpVjVIk1k6lS9DNtsk3FXd09DexMnPKLo5Ti1ZE0AFhTddJApeW0YKABzeCJQADMAJwguJDIQHAgkRIUF5dXEROpNpABmXZAllbXjrcR1C6uDzQ2786ins9ukfrEKMSAA
+        \begin{tikzcd}
+        \mathcal{D}(F) \arrow[d] \arrow[r, "\sim"] & F\times \mathcal{V}(F)\times \mathcal{U}(F)_{\C} \arrow[d] \\
+        \mathcal{D}(F)' \arrow[r, "\sim"]           & F\times \mathcal{V}(F) \arrow[d]                           \\
+                                            & F                                                                    
+        \end{tikzcd}\]
+        Hence $\pi'_F: \mathcal{D}(F)\to\mathcal{D}(F)'$ is a trivial vector bundle with $\mathcal{U}(F)_\C$ its fibre, and $\mathcal{D}(F)'\to F$ is a trivial vector bundle with $\mathcal{V}(F)$ its fibre.
+        \item [(2)] The fibres $\mathcal{V}(F)$'s can be equipped with complex structures fibrewisely, making all maps in the above diagram holomorphic.
+        Then that diagram defines a holomorphic $\mathcal{P}(F)$-equivariant map $\pi_F: \mathcal{D}(F)\to F$ with respect to $\mathcal{P}(F)\to G_h(F) \simeq \aut(F)$.
+        % , i.e., the following diagram commutes.\[***\]
+        \item [(3)] There is a real analytic $\mathcal{P}(F)$-equivariant map $\Phi_F:\mathcal{D}(F)\to \mathcal{U}(F)$ with respect to $\mathcal{P}(F)\to G_l(F)\simeq \aut(\mathcal{U}(F), \Omega(F))$ satisfying $\Phi_F(\mathcal{D}) = \Omega(F)$ and $\Phi^{-1}(\Omega(F)) = \mathcal{D}$.
+        % \[***\]
+        \item [(4)]
+        % \textcolor{red}{THERE SHOULD BE A MISTAKE!}
+        The maps $\Phi_F$ and $\pi'_F$ reduces to the quotient $\mathcal{D}(F)/\mathcal{U}(F)$, where $\mathcal{U}(F)$ act on $\mathcal{D}(F)$ by embedding as the real part of $\mathcal{U}(F)_\C$, giving an real analytic isomorphism \[(\pi_F', \Phi_F):\mathcal{D}(F)/\mathcal{U}(F)\isomto\mathcal{D}(F)'\times\mathcal{U}(F).\]
+    \end{enumerate}
+\end{theorem}
+\begin{proposition}\label{projection between b.c.}
+    \begin{enumerate}
+        \item [(1)] Let $F_\alpha$ and $F_\beta$ be two boundary components with $F_\alpha < F_\beta$.
+        There is a holomorphic epimorphism $\pi_{\alpha\beta}: F_\beta\to F_\alpha$ satisfying $\pi_{\alpha} = \pi_{\alpha\beta}\circ\pi_\beta$.
+        \item [(2)] For a boundary component $F$, put\[\mathcal{D}^{F} := \bigcup_{F' > F} F'.\]
+        Then $\mathcal{D}^F\subset\mathcal{D}(F)$, and each $F' > F$ is mapped onto $\Omega(F')^{\vee}$, the dual of $\Omega(F')$ with respect to the inner product on $\mathcal{U}(F)$.
+    \end{enumerate}
+\end{proposition}
+The above theorem and proposition are obvious in the case of $F = \mathcal{F}_m$.
+
+Now we can construct the minimal compactification or Satake compactification for $\Gamma\under\mathcal{D}$ which is similar to the case of $\mathcal{D} = \mathcal{H}_1$.
+Let \[\mathcal{D}^{*} := \bigcup_{F: \text{ rational}} F, \]which is called the rational closure of $\mathcal{D}$.
+We equip $\mathcal{D}^{*}$ with the so-called cylindrical topology.
+Consider a standard boundary component $\mathcal{F}_{m}$ for $0 \le m \le n$.
+There is a chain of boundary components \[\mathcal{D} = \mathcal{F}_{n} > \mathcal{F}_{n-1} > \cdots > \mathcal{F}_{m}\] and projections \[\pi_{m\ell }: \mathcal{F}_\ell\to \mathcal{F}_m, m\le \ell\le n\]as in \cref{projection between b.c.}.
+For an open set $U$ in $F_m$ and an element $K\in \Omega(F_\ell)^{\vee}$, define \[N_\ell(U; K) := \{p\in F_\ell: \pi_{m\ell}(p)\in U, \Phi_F(p) - K\in\Omega(F_{\ell})^{\vee}\}\]
+Then for a set of points $K_\ell\in F_\ell$, $m+1\le \ell\le n$, put \[N(U; K_n, \cdots, K_{m+1}) := (G_\Z\cap G_l(F_m)\mathcal{W}(F_m))\cdot \left( U\cup\bigcup_{m+1\le \ell\le n} N_{\ell}(U; K_\ell) \right).\]
+The cylindrical topology on $\mathcal{D}^*$ is defined to be the weakest $G_\Q$-invariant topology in which every set $N(U; K_n, \cdots, K_{m+1})$ is open.
+This topology restricts to the analytic topology on $\mathcal{D}$.
+We call \[(\Gamma\under\mathcal{D})^* := \Gamma\under\mathcal{D}^*\] with quotient topology the \textbf{minimal compactification} of $\Gamma\under\mathcal{D}$.
+
+This compactification is a projective and normal variety with the following minimal condition: every nonsingular compactification $X$ admits a holomorphic map $X\to (\Gamma\under\mathcal{D})^*$ extending the identity on $\Gamma\under\mathcal{D}$.
+
+\begin{theorem}
+    \begin{enumerate}
+        \item[(1)] The arithmetic subgroup $\Gamma$ act on $\mathcal{D}^*$ properly discontinuously, hence $(\Gamma\under\mathcal{D})$ admits a canonical structure of normal analytic variety.
+        \item[(2)] The space $(\Gamma\under\mathcal{D})^*$ is compact, containing $\Gamma\under\mathcal{D}$ as a open dense subset.
+        \item[(3)] The space $(\Gamma\under\mathcal{D})^*$ admits the structure of a projective algebraic variety.
+    \end{enumerate}
+\end{theorem}
+
+\subsection{Toroidal Compactification}
+% Recall that $G = \Sp_{2n}(\R)$ is a semi-simple real Lie group, $K \simeq\Uni(n)$ is a maximal compact subgroup of $G$, $\mathcal{D} = \mathcal{D}_n\simeq G/K$ is an Hermitian bounded symmetric domain.
+% Let \[\bar{\mathcal{D}} = \mathcal{D}\sqcup\bigsqcup_{\alpha} F_\alpha\] be the decomposition of the analytic closure of $\mathcal{D}$ in $M_g(\C)$ into boundary components, and each boundary component $F_{\alpha}$ is isomorphic to some $\mathcal{D}_{m}$ with $0\le m < n$.
+% The rational closure of $\mathcal{D}$ is defined to be the union of all rational boundary components.
+
+% For a boundary component $F_\alpha$, denote by $\mathcal{P}_\alpha$ the parabolic subgroup associated to $F_\alpha$, $\mathcal{W}_\alpha$ the unipotent radical of $\mathcal{P}_\alpha$, $\mathcal{U}_\alpha$ the center of $\mathcal{W}_\alpha$, $\Omega_\alpha$ a self-dual open cone in $ $
+\subsubsection{Construction of Toroidal Compactifications}
+Let $F$ be a boundary component. Put
+\begin{enumerate}
+    \item[] $\Gamma_F := \Gamma\cap\mathcal{P}(F)$,
+    \item[] $\Gamma_F' := \Gamma_F\cap\ker[p_l:\mathcal{P}(F)\to G_l(F)]$,
+    \item[] $\bar{\Gamma}_F := p_l(\Gamma_F)$,
+    \item[] $U(F) = \Gamma\cap\mathcal{U}(F)$,
+    \item[] $W(F) = \Gamma\cap\mathcal{W}(F)$.
+\end{enumerate}
+
+Here $U(F)$ and $W(F)/U(F)$ are lattices in $\mathcal{U}(F)$ and $\mathcal{V(F)}$, respectively.
+Fix rational structure on $\mathcal{U}(F)$ given by $U(F)$.
+
+\begin{definition}
+    A \textbf{$\Gamma$-admissible fan} of $\Omega(F)$ is a fan $\Sigma_F$ of $\mathcal{U}(F) = U(F)\otimes\R$, satisfying the following conditions.
+\begin{enumerate}
+    \item [(1)] $\gamma\in\bar{\Gamma}_F, \sigma\in\Sigma_F\implies \gamma\sigma\in\Sigma_F$
+    \item [(2)] There are finitely many cones in $\Sigma$ modulo $\bar{\Gamma}_F$.
+    \item [(3)] $\Omega(F)\subset \bigcup_{\sigma\in\Sigma_F}\sigma$.
+\end{enumerate}
+
+A \textbf{$\Gamma$-admissible family of fan} is a collection $\Sigma = \{\Sigma_F\}_{F:\textrm{ rational}}$ of $\Gamma$-admissible fans, satisfying the following conditions.
+\begin{enumerate}
+    \item [(1)] For $\gamma\in\Gamma$ s.t. $\gamma F_\alpha = F_\beta$, $\gamma\Sigma_{F_\alpha} = \Sigma_{F_\beta}$ by \[\gamma:\mathcal{U}(F_\alpha)\to\mathcal{U}(F_\beta), g\mapsto\gamma g\gamma^{-1}.\]
+    \item [(2)] $F_\alpha < F_\beta\implies \Sigma_{F_\alpha}|_{\mathcal{U}(F_\beta)} = \Sigma_{F_\beta}$.
+\end{enumerate}
+\end{definition}
+
+\noindent\textbf{First Partial Quotient by $U(F)$}
+Let $T(F) := \mathcal{U}(F)_\C /U(F)$, an algebraic torus, and $U(F)$ can be identified with its lattice.
+
+From the fibre bundle \[\mathcal{D}(F)\simeq\mathcal{D}(F)'\times\mathcal{U}(F)_\C\to\mathcal{D}(F)',\]
+we can form a principal $T(F)$-bundle \[\bar{\pi}_F': U(F)\under\mathcal{D}(F)\simeq \mathcal{D}(F)'\times T(F)\to\mathcal{D}(F)',\]
+and there is a real analytic diagram as follows.
+\[% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12B5AWxgHM6ACgBiAShABfUuky58hFAEZyVWoxZtOPOjgAWAY0bAAqpNETps7HgJEyStfWatEIExc5MwsAE7bdQ2MAEUkpGRAMGwUiFUdqZ003D3EvHxh-dh19IwZgUItw63k7ZVIAJicNVw4swNz883EAciLIuVtFZHLSePUXNhFOPD44AAIAnOMANSaxYaxRsYAVQqt26NLuiqqBtyH2EfhJoLzZtbUYKH54IlAAM18IHiQekBwIJGJ1x+ekAGZqB8kCp+klagAFPRYAD6IjavxeiEB70+iAALD8nkiUcDEABWBLVLTsbAvLF-DFAtEANiJe1qZIR2K+1JBFKRbzx-w5rzZGN5BP5NMkFEkQA
+\begin{tikzcd}
+\Omega(F) \arrow[r, hook]                                  & \mathcal{U}(F)                                                           &                                             \\
+U(F)\under\mathcal{D} \arrow[u] \arrow[r, hook] \arrow[rd] & U(F)\under\mathcal{D}(F) \arrow[u, "\Phi_F"] \arrow[d] \arrow[r, "\sim"] & F\times \mathcal{V}(F)\times T(F) \arrow[d] \\
+                                                     & \mathcal{D}(F)' \arrow[r, "\sim"]                                        & F\times\mathcal{V}(F)                      
+\end{tikzcd}\]
+Now take quotient by $T(F)_c := \mathcal{U}(F)/U(F)$, the compact torus in $T(F)$, we get the following real analytic maps.
+\[
+\begin{tikzcd}
+(U(F)\under\mathcal{D}(F))/T(F)_c \arrow[r, "\sim"]              & \mathcal{D}(F)'\times\mathcal{U}(F)            \\
+(U(F)\under\mathcal{D})/T(F)_c \arrow[r, "\sim"] \arrow[u, hook] & \mathcal{D}(F)'\times\Omega(F) \arrow[u, hook]
+\end{tikzcd}\]
+Here the horizontal maps are $(\bar{\pi}_F', \Phi_F)$ and its restriction.
+
+
+\noindent\textbf{Partial Compactification of $U(F)\under\mathcal{D} $ with $\Sigma_F$}
+Let $X_{\Sigma_F}$ be the torus embedding of $T(F)$ from the $\bar{\Gamma}_F$-admissible fan $\Sigma_F$.
+Based on the torus bundle $\bar{\pi}_F': U(F)\under\mathcal{D}(F)\to\mathcal{D}(F)'$, one can construct a fibre bundle\[(U(F)\under\mathcal{D}(F))_{\Sigma_F} := U(F)\under\mathcal{D}(F) \times_{T(F)} X_{\Sigma_F}.\]
+over $\mathcal{D}(F)'$ with fibre $X_{\Sigma_F}$.
+The fibrewise $T(F)$-orbit decomposition of $(U(F)\under\mathcal{D}(F))_{\Sigma_F}$ forms the orbit decomposition \[(U(F)\under\mathcal{D}(F))_{\Sigma_F} = \bigsqcup_{\sigma\in\Sigma} O_{\sigma},\]
+where every orbit is a principal $T(F)$-bundle. In particular, $O_0 = U(F)\under \mathcal{D}(F)$.
+
+Now we define the partial compactification of $U(F)\under\mathcal{D} $ with $\Sigma_F$.
+Let $(U(F)\under\mathcal{D})_{\Sigma_F}$ be the interior of the closure of $U(F)\under\mathcal{D}\subset O_0$ in $(U(F)\under\mathcal{D}(F))_{\Sigma_F}$.
+Recall the construction of \[\mathcal{U}(F)_{\Sigma_F} = X_{\Sigma_F}/T(F)_c,\] and let $\Omega(F)_{\Sigma_F}$ be the interior of the closure of $\Omega(F)$ in $\mathcal{U}(F)_{\Sigma_F}$.
+Write the $\mathcal{U}(F)$-orbit decomposition of $\mathcal{U}(F)_{\Sigma_F}$ by $\bigsqcup_{\sigma\in\Sigma_F} O_\sigma'$.
+\begin{proposition}\begin{enumerate}
+    \item [(1)]
+    There is a commutative diagram of real-analytic maps where the horizontal maps are $(\bar{\pi}_F', \Phi_F)$ and its restriction,
+    \[
+    \begin{tikzcd}
+    (U(F)\under\mathcal{D}(F))_{\Sigma_F}/T(F)_c \arrow[r, "\sim"]              & \mathcal{D}(F)'\times\mathcal{U}(F)_{\Sigma_F}            \\
+    (U(F)\under\mathcal{D})_{\Sigma_F}/T(F)_c \arrow[r, "\sim"] \arrow[u, hook] & \mathcal{D}(F)'\times\Omega(F)_{\Sigma_F} \arrow[u, hook]
+    \end{tikzcd}\]
+    s.t. $\Phi_F^{-1}(\Omega(F)_{\Sigma_F}) = (U(F)\under\mathcal{D})_{\Sigma_F}$.
+    In addition, $\Phi_F$ preserves the orbit decompositions on both sides.
+    \item [(2)] If $\sigma\cap\Omega(F)\neq\varnothing$ for $\sigma\in\Sigma_F$, then $O_\sigma\subset (U(F)\under\mathcal{D})_{\Sigma_F}$.
+    Put \[O(F) := \bigsqcup_{\sigma\cap\Omega(F)\neq\varnothing} O_\sigma.\] This is a closed subset of $(U(F)\under\mathcal{D})_{\Sigma_F}$.
+    \item [(3)] For $F_\alpha < F_\beta$, there is an \'etale map \[\Pi_{\alpha\beta}: (U(F_\beta)\under\mathcal{D})_{\Sigma_{F_\beta}}\to (U(F_\alpha)\under\mathcal{D})_{\Sigma_{F_\alpha}}.\]
+    % \textcolor{red}{Something more, perhaps need to mention.}
+    \item [(4)] The holomorphic map $U(F)\under\mathcal{D}\to\Gamma\under\mathcal{D}$ extends to a holomorphic map\[p_F:(U(F)\under\mathcal{D})_{\Sigma_F}\to (\Gamma\under\mathcal{D})^*.\]
+\end{enumerate}
+
+\end{proposition}
+
+% Using the similar method that patch $X_\sigma$'s together to form $X_\Sigma$, we
+
+% The map $\Im: T(F)\to \mathcal{U}(F)$ induces a fibre bundle \[\Im: U(F)\under\mathcal{D}(F)\simeq \mathcal{D}(F)'\times T(F)\to \mathcal{U}(F)\]with fibre $\mathcal{D}(F)'\times T(F)_c$.
+% This bundle extends to a $T(F)$-equivariant map $\Im: (U(F)\under\mathcal{D}(F))_{\Sigma_F}\to\mathcal{U}(F)_{\Sigma_F}$ via the epimorphism $T(F)\to \mathcal{U}(F)$.
+
+
+
+\noindent\textbf{Second Partial Quotient by $\Gamma_F/U(F)$}
+The key fact is the following proposition.
+\begin{proposition}
+    The group $\Gamma_F/U(F)$ acts on $(U(F)\under\mathcal{D})_{\Sigma_F}$ properly discontinuously.
+\end{proposition}
+Then by Cartan's theorem, we obtain the following result.
+\begin{theorem}
+    The quotient $(\Gamma_F/U(F))\under(U(F)\under\mathcal{D})_{\Sigma_F}$ has a canonical quotient structure of normal analytic space, and $(\Gamma_F/U(F))\under O(F)$ is a closed analytic subset.
+    We get a diagram of normal analytic spaces. \[\begin{tikzcd}
+        \Gamma_F\under\mathcal{D}                               \arrow[r] \arrow[d, hook] & \Gamma\under\mathcal{D} \arrow[d, hook]\\
+        (\Gamma_F/U(F))\under(U(F)\under\mathcal{D})_{\Sigma_F} \arrow[r] & (\Gamma\under\mathcal{D})^*
+    \end{tikzcd}\]
+\end{theorem}
+
+
+\noindent\textbf{Gluing}
+Finally we glue all $(U(F)\under\mathcal{D})_{\Sigma_F}$ in a $\Gamma$-admissible family of fans via the maps \[\Pi_{\alpha\beta}: (U(F_\beta)\under\mathcal{D})_{\Sigma_{F_\beta}}\to (U(F_\alpha)\under\mathcal{D})_{\Sigma_{F_\alpha}}\]
+to get a topological space $\bar{\Gamma\under\mathcal{D}} =  \tilde{\Gamma\under\mathcal{D}}/\sim$, where $\tilde{\Gamma\under\mathcal{D}} = \bigsqcup_{F}(U(F)\under\mathcal{D})_{\Sigma_F}$ and $\sim$ is an equivalence relation.
+
+Each rational boundary component $F$ gives a natural map \[f_F: (U(F)\under\mathcal{D})_{\Sigma_F}\to\bar{\Gamma\under\mathcal{D}}\]that factors through \[(U(F)\under\mathcal{D})_{\Sigma_F}\to(\Gamma_F/U(F))\under(U(F)\under\mathcal{D})_{\Sigma_F}.\]
+\begin{proposition}
+    The map $f_F$ is injective near $(\Gamma_F/U(F))\under O(F)$.
+    Therefore $\bar{\Gamma\under\mathcal{D}}$ can be endowed with a structure of normal analytic space.
+\end{proposition}
+The analytic space $\bar{\Gamma\under\mathcal{D}}$ is called the \textbf{toroidal compactification} of $\Gamma\under\mathcal{D}$ from the $\Gamma$-admissible family $\Sigma$.
+Now we state the main theorem of this section.
+\begin{theorem}
+    Given a $\Gamma$-admissible family of fans, the toroidal compactification $\bar{\Gamma\under\mathcal{D}}$ is the unique compactification of $\Gamma\under\mathcal{D}$.
+    It is a Hausdorff analytic variety s.t., for each rational boundary component $F$, there are open analytic maps $f_F: (U(F)\under\mathcal{D})_{\Sigma_F}\to\bar{\Gamma\under\mathcal{D}}$ making the following diagram commutes.\[
+        \begin{tikzcd}
+            U(F)\under \mathcal{D} \arrow[r] \arrow[d, hook] & \Gamma\under\mathcal{D} \arrow[d, hook] \\
+            (U(F)\under \mathcal{D})_{\Sigma_F} \arrow[r] & \bar{\Gamma\under\mathcal{D}}
+        \end{tikzcd}\]
+\end{theorem}
+
+\subsubsection{Some Geometric Properties of Toroidal Compactification}
+\noindent\textbf{Smoothness}
+A subgroup $\Gamma$ of $\GL_n(\C)$ is called \textbf{neat} if the subgroup of $\C^*$ generated by the eigenvalues of all $\gamma\in\Gamma$ is torsion-free.
+For instance, the principal congruence subgroup $\Gamma(N)\subset G = \Sp_{2n}(\R)$ is neat for $N\ge 3$. 
+\begin{theorem}
+    Suppose that the $\Sigma$ is \textbf{regular}, i.e., every cone $\sigma\in\Sigma_F\in \Sigma$ is generated by a part of a $\Z$-basis of $U(F) = \Gamma\cap\mathcal{U}(F)$,
+    then the compactification $\bar{\Gamma\under\mathcal{D}}$ has at most finite quotient singularities.
+    In addition, if $\Gamma$ is neat, then $\bar{\Gamma\under\mathcal{D}}$ is smooth.
+\end{theorem}
+The existence of regular $\Gamma$-admissible family of fans is guaranteed by the next theorem.
+\begin{theorem}
+    For every $\Gamma$-admissible family of fans, there is a refinement $\Sigma'$ of $\Sigma$ that is regular, and the toroidal compactification from $\Sigma'$ is a blowing up of the one from $\Sigma$.
+\end{theorem}
+
+\noindent\textbf{Projectivity}
+Let $\Omega = \bigcup_{F:\text{ rational}}\Omega(F)$.
+A $\Gamma$-admissible family of fans $\Sigma = \{\Sigma_F\}_F$ is said to be \textbf{projective}, if there is a $\Gamma$-invariant continuous convex function $f:\Omega\to\R$ that is $\R$-linear on each $\Omega(F)$ with the following properties.
+\begin{enumerate}
+    \item [(1)] $f(u) > 0$ if $u\neq 0$
+    % (\textcolor{red}{? i dont think $0\in\Omega(F)$})
+    \item [(2)] For each $\sigma\in\Sigma_F$, there is a linear function $l_{\sigma}:\Omega(F)\to\R$ s.t. $f\le l_\sigma$ on $\Omega(F)$, and \[\sigma = \{u\in\mathcal{U}(F): l_\sigma(u) = f(u)\}.\]
+    \item [(3)] $f(\Gamma\cap\Omega)\subset\Z$.
+\end{enumerate}
+\begin{theorem}
+    If $\Sigma$ is projective, then the toroidal compactification from $\Sigma$ is projective.
+\end{theorem}
+From the reduction theory, one can always find a projective $\Gamma$-admissible family of fans called the \textbf{central cone decomposition}.
+
+Details of all the above results can be found in \cite{YN80}
+
+% \noindent\textbf{Relation with the Minimal Compactification}
+% \begin{theorem}
+%     There is a holomorphic map $\bar{\Gamma\under\mathcal{D}}$ extending the indentity on $\Gamma\under\mathcal{D}$.
+% \end{theorem}
+
+% \subsection{An Example: Reviewing $\SL_2(\Z)\under\mathcal{H}_1$}
+
+
+
+\begin{thebibliography}{10} 
+    \bibitem[AA09]{AA09}Anatoli Andrianov, \textit{Introduction to Siegel Modular Forms and Dirichlet Series}, Universitext, Springer-Verlag New York, 2009.
+        \bibitem[Bum97]{Bum97}Daniel Bump, \textit{Automorphic forms and representations}, Cambridge Studies in Advanced Mathematics, Vol. 55, Cambridge University Press, Cambridge, 1997.
+          \bibitem[Gel75]{Gel75}Stephen S. Gelbart, \textit{Automorphic forms on adèle groups}, Princeton University Press, Princeton, N.J.; University of Tokyo Press, Tokyo, Annals of Mathematics Studies, 1975.     \bibitem[JL70]{JL70}H. Jacquet and R. P. Langlands, \textit{Automorphic forms on GL(2)}, Lecture Notes in Mathematics, Vol. 114, Springer-Verlag, Berlin-New York, 1970. 
+              \bibitem[Taï]{Taï}Oliver Taïbi, \textit{The Jacquet Langlands correspondence for $\mathrm{GL_2}(\mathbb{Q}_p)$}, available at https://otaibi.perso.math.cnrs.fr/notesJL.pdf.
+    \bibitem[YN80]{YN80}Yukihiko Namikawa, \textit{Toroidal Compactification of Siegel Spaces}, Lecture Notes in Mathematics, Vol.812, Springer-Verlag Berlin Heidelberg, 1980.
+\end{thebibliography}
+
+
+\end{document}

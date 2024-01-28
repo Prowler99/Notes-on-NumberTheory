@@ -1,0 +1,5 @@
+\babel@toc {english}{}
+\contentsline {section}{\tocsection {}{1}{Introduction}}{1}{section.1}%
+\contentsline {subsection}{\tocsubsection {}{1.1}{About the numbering}}{1}{subsection.1.1}%
+\contentsline {subsubsection}{\tocsubsubsection {}{1.1.1}{Generic statement}}{2}{subsubsection.1.1.1}%
+\contentsline {section}{\tocsection {}{2}{And now: the bibliography!}}{2}{section.2}%

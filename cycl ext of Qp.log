@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.2.4)  7 NOV 2023 16:45
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.2.4)  26 JAN 2024 20:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -455,10 +455,10 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
 ] (./cycl ext of Qp.aux) ) 
 Here is how much of TeX's memory you used:
- 15877 strings out of 479418
- 327099 string characters out of 5888106
+ 15876 strings out of 479418
+ 327094 string characters out of 5888106
  547055 words of memory out of 5000000
- 33118 multiletter control sequences out of 15000+600000
+ 33117 multiletter control sequences out of 15000+600000
  541446 words of font info for 71 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  67i,5n,86p,499b,188s stack positions out of 5000i,500n,10000p,200000b,80000s

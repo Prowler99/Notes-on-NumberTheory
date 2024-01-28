@@ -197,7 +197,31 @@ We can describe $\chi$ explicitly.
 \textbf{From now on, all multiplicative charaters of local fields are assumed to be unitary.}
 
 \subsection{Lift a Dirichlet Charater to a Hecke Charater}
+Look at a character $\chi : (\Z/\ell^e\Z)^\times\to\C^\times$ first.
+We define a character $\chi_p$ on $\Q_p^\times\simeq p^\Z\times\Z_p^\times$ and $\chi_\infty$ on $\R^\times$ as follows.
+\begin{enumerate}
+    \item [$\bullet$] If $p = \ell$, then the isomorphism $\Z_\ell^\times/(1+\ell^e\Z_\ell)\simeq (\Z/\ell^e\Z)^\times$ enable us to lift $\chi^{-1}$ (note the `$-1$'!) to a character $\chi_\ell$ on $\Q_\ell^\times$ that is trivial on $\ell^\Z$ and $1+\ell^e\Z_\ell$.
+    \item [$\bullet$] If $p \ne \ell$, then $p$ is invertible mod $\ell^e$, so we can define $\chi_p(p) := \chi(p)$, then make it trivial on $\Z_p^\times$.
+    \item [$\bullet$] Put $\chi_\infty := \sgn^{\chi(-1)}$.
+\end{enumerate}
+Since $\chi_p$ are trivial on $\Z_p^\times$ only except for $p = \ell$, patching them together yields a character $\tilde{\chi}:=\prod_v\chi_v$ on $\idele{Q}$.
+\begin{lemma}
+   The character $\tilde{\chi}$ is trivial on $\Q^\times$.
+\end{lemma}
+\begin{proof}
+    It suffices to check for every prime $p$ and $-1$.
+    If $p \ne \ell$, then $\tilde{\chi}(p) = \chi_p(p)\chi_\ell(p) = 1$; otherwise $\chi_v(\ell) = 1$ for all places $v$.
+    To conclude, $\tilde{\chi}(-1) = \chi_\infty(-1)\chi_\ell(-1) = 1$.
+\end{proof}
 
+Now consider $\chi : (\Z/N\Z)^{\times}\to\C^\times$. The factorisation $N = p_1^{e_1}\cdots p_r^{e_r}$ gives \[(\Z/N)^\times \simeq (\Z/p_1^{e_1})^\times \times\cdots\times(\Z/p_{r}^{e_r})^\times,\]
+so we have $\chi = \chi_1\cdots\chi_r$, where $\chi_i : (\Z/p_1^{e_1})^\times\to\C^\times$,
+and obtain a Hecke character $\tilde{\chi} := \tilde{\chi_1}\dots\tilde{\chi_r}$.
+
+\begin{remark}
+    The character $\tilde{\chi}$ is \[\idele{\Q}/\Q^\times\to\idele{\Q}/\Q^\times\R_{>0}\simeq\hat{\Z}^\times\to (\Z/N\Z)^\times \stackrel{\chi}{\to}\C^\times.\]
+    Conversely, every Hecke character factors through $\hat{\Z}\to\C^\times$, and hence it is of finite order iff it comes from a Dirichlet character.
+\end{remark}
 
 \section{Fourier Analysis}
 
@@ -480,11 +504,56 @@ In this subsection, we will compute the local $\gamma$-factors at ramified place
 
 
 
-\subsection{Dirichlet $L$-functions}
+\subsection{Dirichlet $L$-functions}\label[]{Dirichlet L}
 Let $F = \Q$, $\chi$ a Dirichlet character with conductor $N$, $S = \{p:p|N\}\cup\{\infty\}$.
-Lifting $\chi$ to a Hecke character, we obtain the classic Dirichlet $L$-function \[L(s, \chi) = \prod_{p\not| N}(1-\chi(p)p^{-s})^{-1} = \sum_{n=1}^\infty \frac{\chi(n)}{n^s}.\]
+Lifting $\chi$ to a Hecke character $\tilde{\chi}$, we get an partial $L$-function \begin{align*}
+    L^S(s, \tilde{\chi}) = \prod_{p\nmid N}(1-\chi_p(p)Np^{-s})^{-1},
+\end{align*}which is exactly the classic Dirichlet $L$-function \[L(s, \chi) = \prod_{p\nmid N}(1-\chi(p)p^{-s})^{-1} = \sum_{n=1}^\infty \frac{\chi(n)}{n^s},\quad \Re s > 1.\]
+
+The functional equation
+\[L(s, \chi) = \left( \prod_{p\mid N}\gamma_p(s, \chi_p, \psi_p) \right)\gamma_\infty(s, \chi_\infty, \psi_\infty)L(1-s, \chi^{-1})\]has been proved, and $\gamma_\infty$ have been computed.
+It is left to compute the $\gamma_p$'s for $p\mid N$.
+
+Suppose $p^e\parallel N$,
+then the conductor of $\chi_p$ is $p^e$.
+Take $f_p := 1_{1+p^e\Z_p}$, so
+\[Z_p(s, f_p, \chi_p) = \int_{1+p^e\Z_p}|x|^s\dxm = \vol(1+p^e\Z_p)\]
+is easy to compute.
+
+(T.B.C.)
 
 
+\subsection{Quadratic Fields}
+Let $F = \Q(\sqrt{d})$ and $D = |\disc F|$.
+Define $\chi_d : (\Z/D\Z)^\times\to \{\pm 1\}$ by \[\chi_d(p) := \begin{cases}
+    1,&p\text{ splits in }F,\\
+    -1,&p\text{ inert in }F.
+\end{cases}\]
+\begin{remark}
+    Every primitive quadratic Dirichlet character is of the form above, which is just the Legendre symbol $\binom{\cdot}{d}$.
+\end{remark}
+\begin{lemma}
+    $\zeta_F(s) = \zeta(s)L(s, \chi_d)$.
+\end{lemma}
+\begin{proof}
+    Check the equation \[\prod_{\frp\mid p}\zeta_\frp(s) = \zeta_p(s)L_p(s, \chi_{d,p}).\qedhere\]
+\end{proof}
+
+\begin{proposition}
+    If $d < 0$, then \[L(1, \chi_d) = \frac{2\pi h_F}{\sqrt{D}w_F}.\]
+    If $d > 0$, then \[L(1, \chi_d) = \frac{h_F\epsilon_F}{\sqrt{D}},\]
+    where $\epsilon_F > 0$ is a foundamental unit of $F$.
+\end{proposition}
+
+From now on, assume that $d < 0$.
+
+\begin{theorem}
+    [Siegel]
+    For all $\varepsilon>0$, there exists a constant $C(\varepsilon) > 0$ s.t. \[L(1, \chi) \ge \frac{C(\varepsilon)}{N^\varepsilon}\] for any primitive character $\chi:(\Z/N\Z)\to\{\pm 1\}$.
+    In particular, there exists a constant $C'(\varepsilon)$ s.t. \[h_F \ge C'(\varepsilon)D^{\frac{1}{2}-\varepsilon}.\]
+    This implies that there are only finite many imaginary quadratic fields $F$ with $h_F = A$ for any given constant $A$.
+\end{theorem}
+In Siegel's theorem, the constant $C(\varepsilon)$ is not an \textit{effective constant}, meaning that there is no explicit formula for $C(\varepsilon)$ using $\varepsilon$ and $N$.
 
 
 

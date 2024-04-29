@@ -71,7 +71,8 @@
     % 环, 域
     \DeclareMathOperator{\cha}{char} %特征
     % \DeclareMathOperator{\spec}{Spec} %素谱
-    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    \DeclareMathOperator{\spm}{Spm} %极大谱
+    \DeclareMathOperator{\Frac}{Frac}
     % 微积分
     % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
     % 流形
@@ -94,30 +95,97 @@
 \newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
 \newcommand{\rmnum}[1]{\romannumeral #1}
 
-\title{Cyclotomic Extensions of $\Q_p$}
+\title{Notes on Local Fields}
 \author{}
 \date{}
 
 \begin{document}
 \maketitle
 
-Let $p$ be a prime number.
-
 \section{Review: Galois theory}
 Let $L/K$ be an algebraic extension. It is called: \begin{enumerate}
-    \item [$\diamond$]\textbf{normal}, if every polynomial $f\in K[T]$ with a root in $L$ split in $L$ $\iff$ $L$ is the splitting field of a bunch of polynomials over $K$;
+    \item [$\diamond$]\textbf{normal}, if every polynomial $f\in K[T]$ with a root in $L$ splits in $L$, $\iff$ $L$ is the splitting field of a bunch of polynomials over $K$;
     \item [$\diamond$]\textbf{separable}, if for every element in $L$, its minimal polynomial over $K$ has no multiple roots in its splitting field;
-    \item [$\diamond$]\textbf{Galois}, if it is normal and separable, whence we put $\gal(L/K) := \aut_K(L)$.
+    \item [$\diamond$]\textbf{Galois}, if it is normal and separable, i.e., $L$ is the splitting field of a bunch of \textit{inseperable} polynomial over $K$. We put $\gal(L/K) := \aut_K(L)$.
 \end{enumerate}
-For a finite normal extension $L/K$, $|\aut_K(L)| \le [L:K]$, where the equality holds $\iff L/K$ is separable, i.e. Galois. This is because a $K$-automorphism of $L = K[T]/(f)$ just maps a root of $f$ to another.
+\begin{remark} {}
+\begin{enumerate}
+    \item For a finite \textit{normal} extension $L/K$, $|\aut_K(L)| \le [L:K]$, where the equality holds $\iff L/K$ is separable, i.e. Galois. This is because a $K$-automorphism of $L = K[T]/(f)$ just maps a root of $f$ to another.
+    \item Normality is NOT transitive. As an example, take $\Q\subset\Q(\sqrt{2})\subset\Q(\sqrt[4]{2})$.
+\end{enumerate}
+\end{remark}
+Now let $L/K$ be a Galois extension. Equip $\gal(L/K)$ with the following \textbf{Krull topology}: $\forall\sigma\in\gal(L/K)$, a basis of nbhd is given by\[\sigma\gal(L/F),\quad F/K < \infty\text{ \& Galois}.\]
+This topology is the discrete topology when $L/K$ finite, and is profinite when $L/K$ infinite, whence \[\gal(L/K) \simeq \lim_{\stackrel{\longleftarrow}{F/K < \infty\text{ \& Galois}}}\gal(F/K). \]
 
-Let $L/K$ be a finite Galois extension. The basic results of Galois theory says that the intermediate fields of $L/K$ corresponds to the subgroups of $\gal(L/K)$ bijectively and $\gal(L/K)$-equivariantly, where Galois extensions corresponds to normal subgroups.
-They are descibed as below.
+The Galois theory says that the intermediate fields of $L/K$ corresponds to the closed subgroups of $\gal(L/K)$ bijectively and $\gal(L/K)$-equivariantly.
 \begin{enumerate}
     \item [$\rightarrow$:] For an intermediate field $F$, it gives $\gal(L/F)\subset \gal(L/K)$. Note that $L/F$ is Glaois, but $F/K$ is NOT always Galois.
     The Galois group acts on $\{\text{intermediate field of } L/K\}$ by $(\sigma, F) \mapsto \sigma F = \sigma(F)$.
     \item [$\leftarrow$:] For a subgroup $H < G$, it fixes a subfield $L^H \subset L$. The Galois group act on $\{H : H < \gal(L/K)\}$ by conjugation, i.e., $(\sigma, H) \mapsto \sigma H\sigma^{-1}$.
 \end{enumerate}
+In particular,\begin{enumerate}
+    \item [$\diamond$] Galois extensions correspond to normal closed subgroups,
+    \item [$\diamond$] Finite extensions correspond to open subgroups.
+\end{enumerate}
+
+\section{DVR and Dedeking domains}
+
+\subsection{Simple Extensions}
+Let $A$ be a local ring with ($\mathfrak{m}$, $k$), $f\in A[X]$ a monic polynomial of deg $n$.
+We consider the extension $A \to B_f := A[X]/f$.
+
+Let $\bar{f}$ be the image of $f$ in $k[X] \simeq A[X]/\mathfrak{m}$ with decomposition \[\bar{f} = \prod_{i}\bar{g_i}^{e_i},\ g_i\in A[X],\ \bar{g_i}\in k[X]\text{ irreducible.}\]
+and \[\bar{B_f} := B_f/\mathfrak{m}B_f \simeq A[X]/(\mathfrak{m}, f) \simeq k[X]/(\bar{f}).\]
+\begin{lemma}
+    $\mathfrak{m}_i := (\mathfrak{m},\ g_i\bmod f)\subset B_f$ are all the distinct maximal ideals of $B_f$.
+\end{lemma}
+\begin{proof}
+    Denote $\pi : B_f\to\bar{B_f}$. We have $B_f/\mathfrak{m}_i \simeq \bar{B_f}/(\bar{g_i})$, so $\mathfrak{m}_i$'s are maximal.
+    Note that $\mathfrak{m}_i = \pi^{-1}(\bar{g}_i)$.
+
+    Take $\mathfrak{n}\in\spm B_f$.
+    If $\mathfrak{n}\supset\mathfrak{m}$, then $\mathfrak{n} = \pi^{-1}\pi\mathfrak{n}$,
+    and goes to a maximal ideal in $\bar{B_f}$ (because $\bar{B_f}/\pi\mathfrak{n} \simeq B_f/\mathfrak{n}$),
+    so $\mathfrak{n} = \pi^{-1}(\bar{g}_i) = \mathfrak{m}_i$.
+
+    So assume that $\mathfrak{m}\not\subset\mathfrak{n}$, then $\mathfrak{n} + \mathfrak{m}B_f = B_f$.
+    (In this case $\mathfrak{n}/(\mathfrak{n\cap m})\simeq \bar{B_f}$ as $B_f$-module, and thus $\pi^{-1}\pi\mathfrak{n} = B_f$.)
+    Therefore \[\frac{B_f}{\mathfrak{n}} = \frac{\mathfrak{n}+\mathfrak{m}B_f}{\mathfrak{n}} \simeq \frac{\mathfrak{m}B_f}{\mathfrak{n}}.\]
+    Since $A$ is local and $B_f$ is a f.g. $A$-mod, by Nakayama's lemma, we see $\mathfrak{n} = B_f$. Contradiction.
+
+
+\end{proof}
+
+Now take $A$ to be a DVR with $\mathfrak{m} = (\varpi)$ and $K = \Frac A$. Put $L := K[X]/(f)$.
+We give two cases where $B_f$ is a DVR.
+
+\subsubsection*{Unramified case}
+Let $\bar{f}\in k[X]$ be irreducible. Then $B_f$ is a DVR with maximal ideal $\mathfrak{m}B_f$.
+\begin{corollary}
+    $f\in A[X]$ is also irreducible, so $L$ is a field.
+    Moreover, $B_f$ is the integral closure of $A$ in $L$, and $L/K$ is unramified if $\bar{f}$ is separable.
+\end{corollary}
+\begin{proof}
+    $L = K[X]/f \simeq \left( A[X]/f \right)\otimes_{A} K = B_f\otimes_A K$.
+    As $B_f$ is a domain, $L$ is a field and $L = \Frac B_f$.
+    It left to prove that $B_f$ is integrally closed, ???????
+\end{proof}
+\subsubsection*{Totally ramified case}
+Let $f\in A[X]$ be an \textbf{Eisenstein polynomial}, i.e., \[f = X^n + a_{n-1}X^{n-1} + \cdots  + a_0,\ a_i\in\mathfrak{m},\ a_0\notin\mathfrak{m}^2.\]
+\begin{proposition}
+    $B_f$ is a DVR, with maximal ideal generated by image of $X$ and residue field $k$.
+\end{proposition}
+\begin{proof}
+    Let $x$ be the image of $X$ in $B_f$.
+    We have $\bar{f} = X^n$, so $B_f$ is a local ring with maximal ideal $(\mathfrak{m}, x)$.
+    Observe that $a_0\in\mathfrak{m\setminus m^2}$, hence it uniformizes $\mathfrak{m}\subset A$, and $-a_0\bmod f = x^n + \cdots + (a_1\bmod f)x$, we have $(\mathfrak{m}, x) = (x)$.
+\end{proof}
+Similarly, we have $f$ irreducible and $L$ is a field with $B_f$ the integral closure of $A$ in $L$.
+
+
+
+
+
 
 
 

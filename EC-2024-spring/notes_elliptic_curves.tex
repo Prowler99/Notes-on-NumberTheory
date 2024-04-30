@@ -25,15 +25,9 @@ citecolor=blue,
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-\DeclareMathOperator{\gal}{Gal}
-
 \renewcommand{\Re}{\mathop{\mathrm{Re}}}
 \renewcommand{\Im}{\mathop{\mathrm{Im}}}
-\renewcommand{\bar}{\overline}
-\renewcommand{\tilde}{\widetilde}
-\renewcommand{\hat}{\widehat}
 
-% 新命令
 % 数学对象
     \newcommand{\R}{\mathbb{R}}
     \newcommand{\C}{\mathbb{C}}
@@ -41,11 +35,13 @@ citecolor=blue,
     \newcommand{\Z}{\mathbb{Z}}
     \DeclareMathOperator{\GL}{GL}
     \DeclareMathOperator{\SL}{SL}
-    \renewcommand{\p}{\mathfrak{p}}
+    \newcommand{\p}{\mathfrak{p}}
     \renewcommand{\P}{\mathbb{P}}
     \newcommand{\A}{\mathbb{A}}
 % 集合
     \newcommand{\sminus}{\smallsetminus} %(集合)差
+    \newcommand{\inject}{\hookrightarrow}
+    \newcommand{\surject}{\twoheadrightarrow}
 % 范畴
     \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
     \DeclareMathOperator{\enom}{End} %自态射
@@ -83,12 +79,15 @@ citecolor=blue,
     \DeclareMathOperator{\spec}{Spec} %素谱
     \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
     \DeclareMathOperator{\gal}{Gal}
+    \DeclareMathOperator{\Frac}{Frac}
 % 微积分
     % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
 % 流形
     \DeclareMathOperator{\lie}{Lie}
 %代数几何
     \DeclareMathOperator{\proj}{Proj}
+    \DeclareMathOperator{\Div}{Div}
+    \DeclareMathOperator{\PDiv}{PDiv}
 %多项式
     \DeclareMathOperator{\disc}{disc} %判别式
     \DeclareMathOperator{\res}{res} %结式
@@ -101,24 +100,24 @@ citecolor=blue,
     \newcommand{\opin}{\;\mathrm{open\;in}\;}
     \newcommand{\st}{\;\mathrm{s.t.}\;}
     \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+    \newcommand{\myand}{\quad\text{and}\quad}
 
 % 重定义命令
 \renewcommand{\hom}{\mathop{Hom}}
 \renewcommand{\vec}{\boldsymbol}
-\renewcommand{\and}{\;\text{and}\;}
 
 % 编号
 \newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
 \newcommand{\rmnum}[1]{\romannumeral #1}
-
-
 \newcommand{\myit}{$\diamond$}
 
-\title{}
-\author{}
-\date{}
+\title{Elliptic Curves}
+\author{LEI Bichang}
+\date{2024 Spring - Summer}
 
 \begin{document}
 \maketitle
+
+\input{AlgebraicCurves.tex}
 
 \end{document}

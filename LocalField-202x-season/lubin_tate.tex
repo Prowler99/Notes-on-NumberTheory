@@ -211,8 +211,10 @@ and the ``maximal totally ramified abelian extension''\footnote{Not sure if this
 
 It suffices to look at every \[\phi_p : \Q_p^\times\to \gal(\Q_p(\mu_n)/\Q_p).\]
 \begin{itemize}
-    \item If $n$ is prime to $p$, then $\Q_p(\mu_n)/\Q_p$ is unramified. 
-    \item If $n = p^r$, then $\Q_p(\mu_{p^r})/\Q_p$ is totally ramified.
+    \item If $n$ is prime to $p$, then $\Q_p(\mu_n)/\Q_p$ is unramified of degree $f$, where $f$ is the minimum natural number s.t. $m\mid p^f - 1$.
+    The map $\phi_p$ sends $up^t$ to the $t$-th power of Frobenius-$p^f$ on $\Q_p(\mu_n) = \Q_p(\mu_{p^f - 1})$, and $\ker\phi_p = (p^{f})^{\Z}\times\Z_p^\times$.
+    \item If $n = p^r$, then $\Q_p(\mu_{p^r})/\Q_p$ is totally ramified. The map $\phi_p$ sends $up^t$ to the element sending a root of unity $\zeta$ to $\zeta^{\bar u^{-1}}$, where $\bar u\in\Z$ has the same residue modulo $p^r$ as $u$.
+    The kernel is $p^\Z\times (1 + p^r\Z_p)$.
 \end{itemize}
 
 

@@ -1,0 +1,219 @@
+\section{Lubin-Tate Theory}
+
+\subsection{Formal Groups}
+In this section, a formal group means a commutative formal group law of dimension one. If $f\in A\llbracket T\rrbracket$ and $g\in A\fring{X_1, \dots, X_n}$, then \begin{align*}
+    f \circ g &:= f(g(X_1, \dots, X_n)),\\
+    g\circ f &:= g(f(X_1), \dots, f(X_n)).
+\end{align*}
+
+\begin{lemma}\label{power series invertible iff}
+    Let $f = \sum_{i\ge 1}a_iT^i\in A\fring{T}$. Then
+    \[\exists g\in A\fring{T} \st f\circ g = g\circ f = T\iff a_1\in A^\times.\]
+\end{lemma}
+\begin{proof}
+    Use $A\fring{T} = \varprojlim A[T]/T^n$. For details, see the proof of \cref{fund prop of F_varpi}.
+\end{proof}
+
+\subsection{Lubin-Tate formal groups}
+From now on, we write $A := \O_K$.
+
+Choose a uniformiser $\varpi$ of $K$. Define
+\[\mathcal{F}_\varpi := \left\{f\in\O_K\fring{T}\ \left|\ \begin{aligned}
+    &f(T) \equiv \varpi T&\mod {T^2} \\
+    &f(T)\equiv T^q&\mod \varpi
+\end{aligned}\right.\right\}.\]
+For example, $f(T) = T^q + \varpi T\in\mathcal{F}_\varpi$.
+The following lemma is a fundamental property of $\mathcal{F}_\varpi$.
+
+\begin{lemma}\label{fund prop of F_varpi}
+    Let $f, g\in\mathcal{F}_\varpi$, $\Phi_1$ be a linear form\footnote{A \textbf{linear form} is a homogeneous polynomial of degree 1.} over $\O_K$. Then there is a \textbf{unique} $\Phi\in\O_K\fring{X_1,\dots, X_n}$, s.t.\[\begin{cases}
+        \Phi \equiv \Phi_1 \mod (X_1, \dots, X_n)^2,\\
+        f(\Phi(X_1, \dots, X_n)) = \Phi(g(X_1), \dots, g(X_n)).
+    \end{cases}\]
+\end{lemma}
+\begin{proof}
+    We use a standard method. Finding $\Phi$ is equivalent to finding $\Phi_r\in A[X_1, \dots, X_n]$ s.t. \[\begin{cases}
+        \Phi_{r+1} \equiv \Phi_r &\mod (\deg\ge r+1),\\
+        f(\Phi_r)\equiv \Phi_r(g(X_1), \dots, g(X_n)) &\mod(\deg\ge r+1). 
+    \end{cases}\]
+    The second condition is guaranteed because $X\mapsto h(X)$ is $X$-adic continuous for any power series $h$.
+
+    Suppose we have found $\Phi_r$. We look for $\Phi_{r+1}$ of the form $\Phi_{r+1} = \Phi_r + Q$, where $Q$ is homogeneous of degree $r+1$, s.t. \[f(\Phi_{r+1}) \equiv \Phi_{r+1}(g(X_1), \dots, g(X_n)) \mod \deg\ge r+2.\]
+    The LHS is
+    \[f(\Phi_r) + f(Q)\equiv f(\Phi_r) + \varpi Q\mod\deg\ge r+2,\]
+    while the RHS is
+    \[\Phi_r\circ g + Q(\varpi X_1, \dots, \varpi X_n)\equiv \Phi_r\circ g + \varpi^{r+1}Q,\]
+    so if such a $Q\in A[X_1, \dots]$ exists, it must satisfy 
+    \[\varpi(\varpi^r - 1)Q\equiv f\circ \Phi_r - \Phi_r\circ g\mod\deg\ge r+2\]
+    and thus being unique. This procedure also shows that all $\Phi_r$'s are unqie if we require $\Phi_{r+1} - \Phi_r$ to be homogeneous.
+
+    Because $\varpi^r - 1\in A^\times$, it suffices to show \[f(\Phi_r) \equiv \Phi_r\circ g\mod \varpi,\] which is clear.
+\end{proof}
+
+By \cref{fund prop of F_varpi}, one may define the \textbf{Lubin-Tate formal groups}.
+They are exactly the formal group laws admitting an endomorphism\begin{itemize}
+    \item that has derivative at the origin equal to a uniformiser of $K$, and
+    \item reduces mod m to the Frobenius map $T\mapsto T_q$.
+\end{itemize}
+Moreover, these formal groups admit $\O_K$-actions and are isomorphic as formal $\O_K$-modules.
+
+\begin{proposition}
+    For each $f\in \mathcal{F}_\varpi$, there is a unique formal group $F_f$ over $\O_K$ admitting $f$ as an endomorphism.
+\end{proposition}
+\begin{proof}
+    \cref{fund prop of F_varpi} gives $F_f\in A\fring{X, Y}$ s.t. \[\begin{cases}
+        F_f = X + Y + \deg \ge 2,\\
+        f(F_f(X+Y)) = F_f(f(X), f(Y)).
+    \end{cases}\]
+    The associativity is proved by showing that both $G_1 = F_f(X, F_f(Y, Z))$ and $G_2 = F_f(F_f(X, Y), Z)$ satisfies 
+    \[\begin{cases}
+        G = X+Y+Z + \deg\ge 2,\\
+        f(G) = G(f(X), f(Y), f(Z)).
+    \end{cases}\]
+    This is a direct application of \cref{fund prop of F_varpi} and will be used many times.
+\end{proof}
+
+So Lubin-Tate formal groups exist. Now we investigate their homomorphisms.
+\begin{proposition}
+    For each $f, g\in\mathcal{F}_\varpi$ and $a\in \O_K$, there is a unique $[a]_{g, f}\in \O_K\fring{T}$ s.t. \[\begin{cases}
+        [a]_{g, f} = aT + \dots,\\
+        g\circ [a]_{g, f} = [a]_{g, f} \circ f,
+    \end{cases}\]and $[a]_{g, f}\in\hom(F_f, F_g)$, i.e. \begin{align*} F_g\circ [a]_{g, f} = [a]_{g, f}\circ F_f.\end{align*}
+    As a corollary of \cref{power series invertible iff}, each $u\in A^\times$ gives an isomorphism $[u]_{g, f} : F_f\isomto F_g$, and there is a unique isomorphism $F_f\simeq F_g$ of the form $T + \cdots$.
+    \qed
+\end{proposition}
+
+We write $[a]_{f} := [a]_{f, f}\in\enom F_f$.
+Note that \[[\varpi]_f = f.\]
+
+\begin{proposition}
+    For any $a, b\in\O_K$, \[[a+b]_{g, f} = [a]_{g, f} + [b]_{g, f},\]and\[[ab]_{h, f} = [a]_{h, g}\circ [b]_{g, f}.\]
+    
+    In particular, $\O_K\hookrightarrow\enom  F_f$ as a ring by $a\mapsto [a]_f$, making $F_f$ a formal $\O_K$-module. The canonical isomorphism $[1]_{g, f}$ is an isomorphism of $\O_K$-modules.
+    \qed
+\end{proposition}
+
+\subsection{Construction of \texorpdfstring{$K_\varpi$}{}}
+Fix an algebraic closure $K^\alg$ of $K$.
+Each $f\in\mathcal{F}_\varpi$ associates to $\mathfrak{m}_{K^\alg}$ an $\O_K$-module structure via \[\alpha +_{F_f}\beta := F_f(\alpha, \beta)\]and \[a\cdot \alpha := [a]_f(\alpha)\footnote{These power serieses converges because they actually falls in a finite extension of $K$.}.\]for $|\alpha| < 1, |\beta| < 1$ and $a\in \O_K$.
+We denote this $\O_K$-module by $\Lambda_f$.
+If $g\in\mathcal{F}_\pi$, then the canonical isomorphism $[1] : F_f\to F_g$ yields $\Lambda_f\isomto\Lambda_g$.
+
+The $\varpi^n$-torsion part of $\Lambda_f$ is denoted by $\Lambda_{f, n}$, i.e., $\Lambda_{f, n} := \Lambda_f[[\varpi]_f^n]$. Because $[\varpi]_f = f$, $\Lambda_{f, n}$ is the $\O_K$-module consisting of the roots of $f^{(n)} := f\circ\cdots\circ f$.
+If one takes $f$ to be an Eisenstein polynomial, then all the roots of $f^{(n)}$ lie in $\mathfrak{m}_{K^\alg}$, so $\Lambda_{f, n}$ is precisely the set of roots of $f^{(n)}$ equipped with the $\O_K$-module structure from $F_f$.
+
+\begin{lemma}\label{pi^n torsion cyclic of}
+    Let $M$ an $\O_K$-module, $M_n = M[\varpi^n]$. If\begin{itemize}
+        \item $M_1$ has $q = [\O_K : \varpi]$ elements, and
+        \item $\varpi : M \to M$ is surjective,
+    \end{itemize}
+    then $M_n\simeq \O_K/\varpi^n$.
+\end{lemma}
+\begin{proof}
+    Do induction on $n$. The structure theorem of f.g.\! modules over a PID shows that $M_1$ having $q$ elements implies that $M_1\simeq A/\varpi$.
+    Now assume it true for $n-1$.
+    Look at the sequence \[0\to M_1\to M_n\stackrel{\varpi}{\to} M_{n-1}\to 0.\] Surjectivity of $\varpi$ implies the exactness of this sequence, and thus $M_n$ has $q^n$ elements. In addition, $M_n$ must be cyclic, otherwise $M_1 = M_n[\varpi^n]$ is not cyclic.
+\end{proof}
+
+\begin{proposition}
+    The $\O_K$-module $\Lambda_{f, n}$ is isomorphic to $\O_K/\varpi^n$, and hence $\enom(\Lambda_{f, n})\simeq \O_K/\varpi^n$.
+\end{proposition}
+\begin{proof}
+    It suffices to show for a chosen $f$, so let's take $f = \varpi T + \dots + T^q$, an Eisenstein polynomial.
+    We use the above \cref{pi^n torsion cyclic of} by the following observations.\begin{itemize}
+        \item All roots of an Eisenstein polynomial have valuation $>0$.
+        \item If $|\alpha| < 1$, then the Newton polygon of $f(T) - \alpha$ shows that its roots have valuation $>0$, and thus $[\varpi] = f(T)$ is surjective on $\Lambda_f$.\qedhere
+    \end{itemize}
+\end{proof}
+
+\begin{lemma}\label{galois commutes power series}
+    Let $L$ be a finite Galois extension of $K$. Then for every $F\in\O_K\fring{X_1, \dots, X_n}$, $\alpha_1,\dots, \alpha_n\in\mathfrak{m}_L$ and $\tau\in\gal(L/K)$,
+    \[\tau F(\alpha_1, \dots, \alpha_n) = F(\tau\alpha_1, \dots, \alpha_n).\]
+\end{lemma}
+\begin{proof}
+    Note that $\tau$ acts continuously on $L$, becaunse the extension of valuation for local fields is unique.
+    Therefore writing $F = \lim_{m\to\infty} F_m$ gives the desired result.
+\end{proof}
+
+\begin{theorem}\label{construction of K_{varpi, n}}
+    Let $K_{\varpi, n} := K(\Lambda_{f, n})\subset K^\alg$.
+    These fields are independent to the choice of $f$.\begin{enumerate}
+        \item [(a)] $K_{\varpi, n}/K$ is totally ramified of degree $q^{n-1}(q-1)$.
+        \item [(b)] The action of $\O_K$ on $\Lambda_{f, n}$ defines an isomorphism \begin{equation}
+            \left( \O_K/\mathfrak{m}_K^n \right)^\times \simeq \gal(K_{\varpi, n}/K).
+        \end{equation}
+        \item [(c)] For all $n$, $\varpi$ is a norm from $K_{\varpi, n}$, i.e., $\exists\alpha_n\in K_{\varpi, n}$ with $N_{K_{\varpi, n}/K}(\alpha_n) = \varpi$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Let $f$ be a polynomial $T^q + \dots + \varpi T$.
+
+    Choose a nonzero root $\varpi_1$ of $f(T)$ and, inductively, a root $\varpi_n$ of $f(T) - \varpi_{n-1}$.
+    So $\varpi_n\in\Lambda_{f, n}$, and we obtain a tower of extensions \[K_{\varpi, n}\supset K(\varpi_n)\stackrel{q}{\supset} K(\varpi_{n-1}) \stackrel{q}{\supset}\dots\stackrel{q}{\supset} K(\varpi_1)\stackrel{q-1}{\supset} K.\]
+    All the extensions with indicated degrees are given by Eisenstein polynomials, and thus Galois and totally ramified.
+
+    The field $K_{\varpi, n} = K(\Lambda_{f, n})$ is the splitting field of $f^{(n)}$ over $K$, hence $\gal(K_{\varpi, n}/K)$ embeds into the permutation group of the set $\Lambda_{f, n}$. By \cref{galois commutes power series}, the action of $\gal(K_{\varpi, n}/K)$ on $\Lambda_n$ preserves its $\O_K$-action, so
+    \[\gal(K_{\varpi_n}/K)\hookrightarrow \aut(\Lambda_{f, n})\simeq (\O_K/\varpi^n)^\times.\]
+    So $[K_{\varpi, n} : K]\le (q - 1)q^{n-1}$. Comparing the degree gives $K_{\varpi, n} = K(\varpi_n) $.
+
+    Now we prove (c).
+    Let $f^{[n]} := (f/T)\circ f\circ\dots\circ f$. Then $f^{[n]}$ is monic with degree $q^{n-1}(q-1)$ and $f^{[n]}(\varpi_n) = 0$, and thus $f^{[n]}$ is the minimal polynomial of $\varpi_n$ over $K$. So we have \[N_{K_{\varpi, n}/K}(\varpi_n) = (-1)^{q^{n-1}(q-1)}\]
+    by the following \cref{compute norm and trace from minimal polynomial}.
+\end{proof}
+
+\begin{lemma}\label{compute norm and trace from minimal polynomial}
+    Let $L/K$ be a finite extension in an algebraic closure $K^\alg$, and $\alpha\in L$ has minimal polynomial $f$ over $K$ of degree $d$. Suppose \[f(X) = (X-\alpha_1)\cdots(X-\alpha_d)\in K^\alg[X],\] and let $e = [L : K(\alpha)]$
+    then \[N_{L/K}(\alpha) = \left(\prod_{i = 1}^d \alpha_i\right)^e,\qquad \tr_{L/K}(\alpha) = e\sum_{i = 1}^d \alpha_i.\]
+    Moreover, if \[f(X) = a_dX^d + a_{d-1}X^{d-1} + \dots + a_0,\]then \[N_{L/K}(\alpha) = (-1)^{de}a_0^e,\qquad \tr_{L/K}(\alpha) = -ea_{d-1}.\]
+\end{lemma}
+\begin{remark}
+    This can be deduced from $N_{L/K} = N_{L/K(\alpha)}\circ N_{K(\alpha)/K}$ and $\tr_{L/K} = \tr_{L/K(\alpha)}\circ \tr_{K(\alpha)/K}$.
+\end{remark}
+
+
+Define \[K_\varpi := \bigcup_{n} K_{\varpi, n}.\]
+The isomorphisms in \cref{construction of K_{varpi, n}} (b) are \[(\O_K/\varpi^n)^\times\to \gal(K_{\varpi, n}/K)\quad \bar{u}\mapsto (\Lambda_{f, n}\ni \alpha\mapsto [u]_f(\alpha)),\] and clearly lift to an isomorphism \[A^\times\simeq \gal(K_\varpi/K).\]
+
+\subsubsection*{The local Artin map}
+The \textbf{local Artin map} is a homomorphism \[\phi_\varpi : K^\times\to \gal(K_\varpi K^\nr/K) = \gal(K^\nr/K)\times \gal(K_\varpi/K)\] defined as follows.
+Let $a = u\varpi^m\in K^\times$, then 
+\begin{itemize}
+    \item $\phi_\varpi(a)|_{K^\nr} := \frob^m$;
+    \item $\phi_\varpi(a)(\lambda) := [u^{-1}]_f(\lambda)$, $\forall \lambda\in\bigcup_n\Lambda_n$.
+\end{itemize}
+
+\begin{theorem}
+    Both $K_{\varpi}$ and $K^\nr$ are independent of the choice of $\varpi$.
+\end{theorem}
+
+
+\subsection{The Local Kronecker-Weber theorem}
+
+\subsection{The Case of \texorpdfstring{$\Q_p$}{}}
+Let $K = \Q_p$ and $\varpi = p$. Then $f(T) := (1 + T)^p - 1\in\mathcal{F}_p$.
+Note that $f$ is an endomorphism of \[\Gm(X, Y) = X + Y + XY,\] so $F_f = \Gm{}_{/\Z_p}$. Under the isomorphism
+\[(\mathfrak{m}, +_{\Gm})\simeq (1 + \mathfrak{m},\ \cdot\ ),\]
+the endomorphism $f : a\mapsto (1 + a)^p - 1$ is converted to the Frobenius map $a\mapsto a^p$.
+
+\subsubsection*{The field $(\Q_p)_p$}
+
+For each $r\ge 1$, the $p^r$-torsion part of $\Lambda_f$ is
+\[\Lambda_{f, r} = \left\{\alpha\in\Q_p^\alg\left|(1 + \alpha)^{p^r} = 1\right.\right\}\simeq
+\left\{\zeta\in(\Q_p^\alg)^{\times}
+\left|\zeta^{p^r} = 1\right.\right\} = \mu_{p^r}.\]
+The isomorphism is for $\O_K$-modules.
+So choose primitive $p^r$-th roots of unity $\zeta_{p^r}$ s.t. $\zeta_{p^r}^p = \zeta_{p^{r-1}}$,
+then $\varpi_r := \zeta_{p^r} - 1$ forms a sequence of compatible generators of $\Lambda_{f, r}$.
+Therefore \[(\Q_p)_{p, r} = \Q_p(\varpi_r) = \Q_p(\mu_{p^r}),\]
+and the ``maximal totally ramified abelian extension''\footnote{Not sure if this terminology is correct ...?} of $\Q_p$ is $(\Q_p)_p = \Q_p(\mu_{p^\infty})$.
+
+\subsubsection*{The local Artin map \texorpdfstring{$\phi_p : \Q_p^\times\to \gal(\Q_p^\ab/\Q_p)$}{}}
+
+It suffices to look at every \[\phi_p : \Q_p^\times\to \gal(\Q_p(\mu_n)/\Q_p).\]
+\begin{itemize}
+    \item If $n$ is prime to $p$, then $\Q_p(\mu_n)/\Q_p$ is unramified. 
+    \item If $n = p^r$, then $\Q_p(\mu_{p^r})/\Q_p$ is totally ramified.
+\end{itemize}
+
+
+

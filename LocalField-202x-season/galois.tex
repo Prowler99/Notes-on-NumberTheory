@@ -1,0 +1,71 @@
+\section{Review: Galois theory}
+\subsection{Field Extensions}
+Let $L/K$ be an algebraic extension. It is called: \begin{enumerate}
+    \item [$\diamond$]\textbf{normal}, if every polynomial $f\in K[T]$ with a root in $L$ splits in $L$, $\iff$ $L$ is the splitting field of a bunch of polynomials over $K$;
+    \item [$\diamond$]\textbf{separable}, if for every element in $L$, its minimal polynomial over $K$ has no multiple roots in its splitting field, $\iff$ $\gcd(f, f') = 1$;
+    \item [$\diamond$]\textbf{Galois}, if it is normal and separable, i.e., $L$ is the splitting field of a bunch of \textit{seperable} polynomials over $K$. We put $\gal(L/K) := \aut_K(L)$.
+\end{enumerate}
+\begin{remark} {}
+\begin{enumerate}
+    \item For a finite \textit{normal} extension $L/K$, $|\aut_K(L)| \le [L:K]$, where the equality holds $\iff L/K$ is separable, i.e. Galois. This is because a $K$-automorphism of $L = K[T]/(f)$ just permutes the roots of $f$.
+    \item Normality is NOT transitive. As an example, take $\Q\subset\Q(\sqrt{2})\subset\Q(\sqrt[4]{2})$.
+\end{enumerate}
+\end{remark}
+
+% We introduce a convenient notion here。
+% \begin{definition}
+%     Let $\Omega/F$ be a field extension and $\mathcal{C}$ a family of subextensions in $\Omega/F$. We say $\mathcal{C}$ is \textbf{distinguished}, if it satisfies:\begin{enumerate}
+%         \item [\textbf{D1}] $\forall L/E/F$, \[L/F\in\mathcal{C}\iff L/E\in\mathcal{C}\ \&\ E/F\in\mathcal{C};\]
+%         \item [\textbf{D2}] $\forall L, M$, \[L/F\in\mathcal{C}\implies LM/M\in\mathcal{C}.\]
+%     \end{enumerate}    
+% \end{definition}
+% \begin{remark}
+%     Let $\mathcal{C}$ be a distinguished family of subextensions.
+% \begin{enumerate}
+%     \item The conditions implies that $\mathcal{C}$ is closed under \textit{finite} composition.
+%     \item The \textit{union} of all fields in $\mathcal{C}$ is a field, and thus equal to the composition of all fields in $\mathcal{C}$.
+%     \item Finite, algebraic, seperable and purely inseperable extensions are distinguished.
+% \end{enumerate}
+% \end{remark}
+
+
+\subsection{Galois theory}
+Now let $L/K$ be a Galois extension. Equip $\gal(L/K)$ with the following \textbf{Krull topology}: $\forall\sigma\in\gal(L/K)$, a basis of nbhd around $\sigma$ is given by\[\sigma\gal(L/F),\quad\text{where } L/F/K,\; F/K < \infty\text{ \& Galois}.\]
+\begin{itemize}
+    \item Two elements $\sigma, \tau\in\gal(L/K)$ are ``close'' to each other, if $\sigma|_F = \tau|_F$ for sufficiently large finite Galois subextensions $F/K$.
+    \item Both multiplication and inverse on $\gal(L/K)$ are continuous for Krull topology.
+    \item The Krull topology is profinite for $L/K$ infinite, whence \[\gal(L/K) \simeq \lim_{\stackrel{\longleftarrow}{F/K < \infty\text{ \& Galois}}}\gal(F/K). \]
+    When $L/K < \infty$, this is the discrete topology.
+    \item If there is a tower \[K\subset L_1\subset L_2\subset\dots\subset L,\] where all $L_n/K$'s are Galois, and \[L = \bigcup_{n} L_n,\]
+    then \[\gal(L/K) = \varprojlim_n\gal(L_n/K).\]
+
+\end{itemize}
+
+Galois theory says that the intermediate fields of $L/K$ corresponds to the closed subgroups of $\gal(L/K)$ bijectively and $\gal(L/K)$-equivariantly.
+\begin{enumerate}
+    \item [$\rightarrow$:] For an intermediate field $F$, it gives $\gal(L/F)\subset \gal(L/K)$. Note that $L/F$ is Glaois, but $F/K$ is NOT always Galois.
+    The Galois group acts on $\{\text{intermediate field of } L/K\}$ via $(\sigma, F) \mapsto \sigma F = \sigma(F)$.
+    \item [$\leftarrow$:] For a closed subgroup $H < G$, it fixes a subfield $L^H \subset L$. The Galois group acts on $\{H : H < \gal(L/K)\}$ by conjugation, i.e., $(\sigma, H) \mapsto \sigma H\sigma^{-1}$.
+\end{enumerate}
+In particular,\begin{enumerate}
+    \item [$\diamond$] \textit{Galois} extensions correspond to \textit{normal closed} subgroups, and
+    \item [$\diamond$] \textit{finite} extensions correspond to \textit{open} subgroups.
+\end{enumerate}
+
+\subsubsection*{Base change}
+\begin{proposition}\label{field extension base change}
+    Let $L/K$ be Galois. If $M/K$ is any extension, and both $L$ and $M$ are subextensions of $\Omega/K$, then $LM/M$ is Galois, and
+    \begin{align*}
+        \gal(LM/M) &\stackrel{\sim}{\longrightarrow}\gal(L/L\cap M)\\
+        \sigma&\longmapsto \sigma|_L.
+    \end{align*}
+\end{proposition}
+As a corollary, if $L, L'$ are Galois subextensions of $\Omega/K$, then $LL'/K$ is also Galois, and \begin{align*}
+    \gal(LL'/K)&\hookrightarrow \gal(L/K)\times \gal(L'/K)\\
+    \sigma &\mapsto (\sigma|_L, \sigma|_{L'});
+\end{align*}
+this embedding is an isomorphism if $L\cap L' = K$.
+
+
+
+

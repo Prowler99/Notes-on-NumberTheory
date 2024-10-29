@@ -1,0 +1,337 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{enumitem}
+\usepackage[colorlinks,
+linkcolor=cyan,
+anchorcolor=blue,
+citecolor=blue,
+]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[margin = 1in, headheight = 12pt]{geometry}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\linespread{1.2}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+% 新命令
+% 数学对象
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+    \newcommand{\p}{\mathfrak{p}}
+    \renewcommand{\P}{\mathbb{P}}
+    \newcommand{\A}{\mathbb{A}}
+% 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+% 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    \newcommand{\Set}{\mathbf{Set}} %集合范畴
+    \newcommand{\Abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\Ring}{\mathbf{Ring}}
+    \newcommand{\Cring}{\mathbf{CRing}}
+    \newcommand{\Alg}{\mathbf{Alg}}
+    \newcommand{\Mod}{\mathbf{Mod}}
+    \DeclareMathOperator{\Id}{id}
+%向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+% 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+% 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    \DeclareMathOperator{\gal}{Gal}
+% 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+% 流形
+    \DeclareMathOperator{\lie}{Lie}
+%代数几何
+    \DeclareMathOperator{\proj}{Proj}
+%多项式
+    \DeclareMathOperator{\disc}{disc} %判别式
+    \DeclareMathOperator{\res}{res} %结式
+
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\and}{\;\text{and}\;}
+
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\Gm}{\mathbb{G}_{\mathrm{m}}}
+\newcommand{\Ga}{\mathbb{G}_{\mathrm{a}}}
+\newcommand{\F}{\mathbb{F}}
+
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+
+
+\newcommand{\myit}{$\diamond$}
+
+\title{Homework}
+\author{Lei Bichang}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Composition of Ramified Extensions}
+Consider $X^p - pX\in \mathcal{L}_{-p}$.
+Let $\pi$ be a root of the Eisenstein polynomial $f_\pi(X) = X^{p-1} - p\in\Z_p[X]$ in $\bar{\Q}_p$,
+and let $K := \Q_p(\pi)$, then $K/\Q_p$ is totally ramified. We claim that $K(\zeta_p)/\Q_p$ is not totally ramified.
+\[\begin{tikzcd}
+	& {\Q_p(\zeta_p, \pi)} \\
+	{\Q_p(\zeta_p)} && {\Q_p(\pi)} \\
+	& {\Q_p}
+	\arrow[no head, from=1-2, to=2-3]
+	\arrow[no head, from=2-1, to=1-2]
+	\arrow[no head, from=2-1, to=3-2]
+	\arrow[no head, from=3-2, to=2-3]
+\end{tikzcd}\]
+
+$\llbracket$
+
+Let $F := \Q_p(\zeta_p)$ and $\eta := \zeta_p - 1$ a uniformizer of $F$.
+Write $p = u\eta^{p-1}$ in $F$,
+where $u\in \O_{F}^\times$.
+Then $\pi$ is a root of \[X^{p-1} - p = X^{p-1} - u\eta^{p-1}\in \O_{F}[X],\]
+so $z := \pi/\eta$ is a root of $X^{p-1} - u\in\O_F[X]$.
+
+Next, we compute $u\bmod \eta$.
+For this we note that the following equation holds.
+\begin{lemma}
+    $(\zeta_p - 1)(\zeta_p^2 - 1)\dots(\zeta_p^{p-1} - 1) = p$.
+\end{lemma}
+\begin{proof}
+    This is because the minimal polynomial of $\zeta_p - 1$ is
+    \[\frac{(1 + X)^p - 1}{X} = X^{p-1} + \dots  + p,\]
+    whose roots are $\zeta_p^{i} - 1$, $1\le i\le p - 1$.
+\end{proof}
+From here we see that\begin{align*}
+    u &= \frac p{\eta^{p-1}} = (\zeta_p + 1)(\zeta_p^2 + \zeta_p + 1)\dots (\zeta_p^{p-2} + \dots + \zeta_p + 1)\\
+    &\equiv 1\cdot2\cdots (p-1) \equiv -1\pmod \eta.
+\end{align*}
+So as $p\ge 3$, the polynomial \[\overline{X^{p-1} - u} = X^{p-1} + 1\in\F_p[X]\] is irreducible of degree $\ge 2$.
+Therefore $K(\zeta_p) = \Q_p(\zeta_p, \pi) = \Q_p(\zeta_p, z)$ is a nontrivial unramified extension over $F = \Q_p(\zeta_p)$,
+and the inertia degree $f(K(\zeta_p)/\Q_p) = f(K(\zeta_p)/K) > 1$.
+% Next, we show that $\pi\notin F$.
+% If $\pi\in F$, then since $\pi$ is integral over $\Z_p$, we have $\pi\in \O_F$.
+% If $\pi\in F$, then since $v_p(\pi) = v_p(\eta) = 1/(p-1)$, $\pi$ is also a uniformizer of $F$.
+% Write $\eta = a\pi$ with $a\in\O_F^\times$.
+% We have \begin{align*}
+    % 0 &= (1 + \eta)^p - 1 = \sum_{i=1}^p \binom{p}{i} \eta^i,
+% \end{align*}
+% So \[X^{p-1} + p = (X-\pi)f(X)\] for some $f(X)\in \O_F[X]$, which becomes \[X^{p-1} = (X - \bar{\pi})\bar{f}(X)\] modulo $\eta$.
+% The equation modulo $\eta$ tells us that $X - \bar{\pi} = X$ in $\F_p[X]$, so $\eta\mid \pi$.
+
+
+\section{Multiplication by $p$}
+Write $[p](X) = \sum_{i\ge 1}a_iX^i$, so $[p]'(X) = \sum_{i\ge 1}ia_iX^{i-1}$. We know that $[p]'(0) = a_1 = p$.
+Consider the invariant differential \[\omega_F(X) = \frac{dX}{F_1(0, X)}.\]
+The endomorphism $[p](X)$ satisfies the equation\[\omega_F\circ [p] = [p]'(0)\omega_F = p\omega_F,\]
+i.e.,\[\frac{[p]'(X)\,dX}{F_1(0, [p](X))} = p\frac{dX}{F_1(0, X)}.\]
+Hence \[[p]'(X) = p\frac{F_1(0, [p](X))}{F_1(0, X)}\]
+Since $F_1(0, X) = 1 + X + {}$ terms of higher degree, it is invertible in $R\llbracket X\rrbracket$, and thus $F_1(0, [p](X))/F_1(0, X)\in R\llbracket X\rrbracket$. Therefore
+every coefficient of $[p]'(X)$ is divided by $p$, so \[p\nmid i\implies p\mid a_i\]
+for each integer $i\ge 1$.
+This shows that $[p](X)\in pR\llbracket X\rrbracket + R\llbracket X^p\rrbracket$.
+
+\section{The Zeroes of the Logarithm}
+\subsection{}
+Let \[\omega(X) = (1 + a_1X + a_2X^2 + \dots)\, dX = \frac{dX}{F_1(0, X)}\] be the normalized invariant differential of $F$, so\[\log_F(X) = X + \frac{a_1}{2}X^2 + \frac{a_3}{3}X^3 + \dots.\]
+As $F$ is defined over $\O_K$, $F_1(0, X)\in\O_K\llbracket X\rrbracket^\times$ and the numbers $a_i\in\O_K$.
+Let $z\in\m_{\C_p}$, then $v_p(z) > 0$, and thus
+\begin{align*}
+    v_p\left( \frac{a_iz^i}{i} \right) = v_p(a_i) + iv_p(z) - v_p(i)\ge iv_p(z) - v_p(i)\to+\infty
+\end{align*} as $i\to\infty$, because $v_p(i)$ grows in the speed of $\log(i)$.
+So $\log_F\in\mathrm{H}_K$.
+
+\subsection{}
+By Exercise 2, there eixst $f, g\in \O_K\llbracket X\rrbracket$ s.t. \[[p](X) = pf(X) + g(X^p),\]
+so \[|[p](z)|_p \le\max \{p^{-1}|f(z)|_p, |g(z^p)|_p\}.\]
+Because $[p](X) = pX + {}$terms of higher order,
+$f(0) = g(0) = 0$ and $f = X + {}$terms of higher order.
+Write $f(X) = Xf_1(X)$ and $g(X) = Xg_1(X)$, where $f_1 = 1 +{}$terms of higher order.
+As $0 < |z|_p < 1$, we have $|f_1(z)|_p = 1$ and $|g_1(z^p)|_p \le 1$.
+Hence \[p^{-1}|f(z)|_p = p^{-1}|z|_p < |z|_p,\]
+and \[|g(z^p)|_p \le |z|_p^p < |z|_p.\]
+So $|[p](z)|_p < |z|_p$.
+
+\subsection{}
+Assume that $z\in\m_{\C_p}$ is a zero of $\log_F$.
+Since $\log_F$ is an isomorphism $F\to\mathbb{G}_\mathrm{a}$ over $K$, we have \[\log_F([p](z)) = p\log_F(z) = 0.\]
+% (This cannot be true! Because it leads to $[n](z) = 0\implies \log_F(z) = 0$.)
+From here we can prove that $z\in\mathrm{Tors}(F)$.
+\begin{itemize}
+    \item If $z\notin\mathrm{Tors}(F)$, then $z\ne 0$.
+    Using the previous computation inductively, we see that $[p^n](z)\ne 0$ is a zero of $\log_F$ for each $n\ge 1$.
+    Exercise 3.2 tells us that \[1 > |z|_p > |[p](z)|_p > |[p^2](z)|_p > \cdots > 0,  \]
+    so these $[p^n](z)$'s are disjoint and $\log_F$ has infinitely many zeroes in the ball $B(0, |z|_p)$. But a function in $\mathrm H_K$ can have only finitely many zeroes in $B(0, |z|_p)$,
+    so this contradicts the fact that $\log_F\in\mathrm{H}_K$.    
+\end{itemize}
+Conversely, if $z\in\mathrm{Tors}(F)$, then $[p^n](z) = 0$ for some $n\ge 1$.
+So \[p^n\log_F(z) = \log_F([p^n](z)) = \log_F(0) = 0,\]
+and thus $\log_F(z) = 0$.
+
+\section{Torsion of some formal group}
+\subsection{}
+It suffices to check the associativity and the commutativity.
+For associativity,\begin{align*}
+    F_\alpha(X, F_\alpha(Y, Z)) &= X + (Y + Z + \alpha YZ) + \alpha X(Y + Z + \alpha YZ)\\
+    &=X + Y + \alpha XY + Z + \alpha (X + Y + XY)Z \\
+    &=F_\alpha(F_\alpha(X, Y), Z).
+\end{align*}
+Commutativity is clear.
+\subsection{}
+\begin{enumerate}
+\item [(1)] \textit{Compute $\mathrm{Tors}(F)$}.
+Following the hint, we compute
+\[1+\alpha F_\alpha(X, Y) = 1 + \alpha X + \alpha Y + \alpha^2XY = 1 + \mathbb{G}_{\mathrm{m}}(\alpha X, \alpha Y).\]
+Hence $\alpha X\in \O_K\llbracket X\rrbracket$ is a homomorphism $F_\alpha\to\Gm$, and \[\alpha[n]_{F_\alpha}(X) = [n]_{\Gm}(\alpha X) = (1 + \alpha X)^n - 1,\quad\forall n\in\Z.\]
+Since $(1 + \alpha X)^n - 1 \in \alpha\O_K\llbracket X\rrbracket$, the multiply-by-$n$ endomorphism for $F_\alpha$ is \[[n]_{F_\alpha} = \frac{(1 + \alpha X)^n - 1}{\alpha}\] if $\alpha\ne 0$. In case $\alpha = 0$, $F_\alpha = \Ga$ and $[n]_{F_\alpha}(X) = nX$.
+Therefore, \[\mathrm{Tors}(F_\alpha) = \begin{cases}
+    \{z\in\m_{\C_p} | 1 + \alpha z\in\mu_{p^{\infty}}\}, &\alpha\ne 0,\\
+    \{0\}, &\alpha = 0.
+\end{cases}\]
+\item [(2)] \textit{Compute the height of $F_\alpha$.}
+We divide the problem into two cases.
+\begin{itemize}
+    \item $\alpha\in \m_K$.
+    In this case $\bar{F}_\alpha = X + Y  = \bar{\mathbb{G}}_\mathrm{a}$, so the height of $F_\alpha$ is infinity.
+    \item $\alpha\in\O_K^\times = \O_K\setminus \m_K$.
+    By the computation above, \[[p]_{\bar{F}_\alpha} = \frac{(1 + \bar{\alpha} X)^p - 1}{\bar{\alpha}} = \bar{\alpha}^{p-1} X^p.\]
+    So the height of $F_\alpha$ is $1$.
+\end{itemize} 
+
+\end{enumerate}
+
+\subsection{}
+Choose a uniformizer $\pi$ of $K$.
+Then $[p](X)\in \pi\O_K\llbracket X\rrbracket$ because $\overline{[p]}(X) = 0$,
+and $[p^n](X) = [p]([p^{n-1}](X))\in \pi\O_K\llbracket X\rrbracket$ for every integer $n\ge 1$.
+In fact, we have a better control for $[p^n]$.
+\begin{lemma}\label{p^n lies in pi^n if infinite height}
+    For every $n\in\Z_{\ge 1}$, $[p^n](X)\in\pi^n\O_K\llbracket X\rrbracket$.
+\end{lemma}
+\begin{proof}
+    The case of $n = 1$ is known.
+    Suppose that $[p^{n}](X)\in\pi^{n}\O_K\llbracket X\rrbracket$,
+    then every coefficient of $[p^{n + 1}](X) = [p]([p^{n}(X)])$ is a finite sum of the form $\sum ab_1\cdots b_r$,
+    where $a$ is a coefficient of $[p](X)$ and $b_1, \dots, b_r$ are coefficients of $[p^n](X)$.
+    So $\pi^{n + 1}\mid ab_1\cdots b_r$, and thus $\pi^{n + 1}$ divides all coefficients of $[p^{n+1}](X)$.
+\end{proof}
+Now we look at $\mathrm{Tors}(F) = \bigcup_{n\ge 1}F[p^n]$.
+Since $F[p^n]\subset F[p^{n+1}]$, $\mathrm{Tors}(F)$ is finite if and only if $\# F[p^n]$ is finite and constant for $n$ sufficiently large.
+For simplicity, we introduce the following definition.
+\begin{definition}
+    For $f(X) = \sum_{i\ge 0}a_iX^i\in K\otimes_{\O_K}\O_K\llbracket X\rrbracket$,
+    let $w(f)$ be the index of the lowerest term whose coefficient has minimum valuation, i.e., \[w(f) := \min\{i\in\Z_{\ge 0}\ |\ v_p(a_i)\le v_p(a_j), \forall j\in\Z_{\ge 0}\}.\]
+\end{definition}
+By definition, if $d$ is the integer s.t. $\pi^d f(X)$ has finite Weierstrass degree $w$, then $w = w(f)$.
+So by Weierstrass preparation theorem, $\# F[p^n] = w([p^n]) < \infty$.
+\begin{lemma}\label{lowerest term cannot move right}
+    If $[p^n](X)\in p\O_K\llbracket X\rrbracket$,
+    then $w([p^{n+1}]) = w([p^n])$.
+\end{lemma}
+\begin{proof}
+    % We claim that: the valuation of the $i$-th coefficient of $[p^{n+1}](X)$ equals the valuation the $i$-th coefficient of $p[p^n](X)$, which implies that $w([p^{n+1}]) = w(p[p^n]) = w([p^n])$.
+
+    Write $[p](X) = pX + \pi X^2 f(X)$ with $f(X)\in \O_K\llbracket X\rrbracket$, and $[p^n](X) = \sum_{i\ge 1}a_iX^i$ with $v_p(a_i) \ge v_p(p)$.
+    Then \begin{align*}
+        [p^{n + 1}](X) &= [p]([p^n](X))\\
+        &= p[p^n](X) + \pi ([p^n](X))^2 f([p^n](X))\\
+        &= \sum_{i\ge 1} pa_iX^i + \left(\sum_{k\ge 2}\left( \sum_{i+j = k}\pi a_ia_j \right)X^k\right) f([p^n](X)).
+    \end{align*}
+    Let $d := w([p^n])$, so $v_p(a_i) > v_p(a_d) \ge v_p(p)$ for $1\le i \le d-1$.
+    From here we deduce that all the terms appeared in $G(X) := \pi ([p^n](X))^2 f([p^n](X))$ will\begin{itemize}
+        \item either have coefficient with valuation strictly greater than $v_p(pa_d)$,
+        \item or have order strictly greater than $d$.
+    \end{itemize}
+    More precisely, we look at the sum $S(X) := \sum_{k\ge 2}\left( \sum_{i+j = k}\pi a_ia_j \right)X^k$. For $i + j = k\le d$ with $i, j\in\Z_{\ge 1}$, $v_p(\pi a_ia_j) > v_p(a_ia_j) > v_p(pa_d)$. As $S(X)\mid G(X)$, every term of $G$ of degree $< d$ is a sum of elements divided by some $\left( \sum_{i+j = k}\pi a_ia_j \right)X^k$ with $k < d$, so the statement holds.
+
+    Therefore $w([p^{n+1}]) = d = w([p^n])$.
+\end{proof}
+By \cref{p^n lies in pi^n if infinite height},
+if $e\in\Z_{\ge 1}$ is the ramification index of $K/\Q_p$, then $[p^n]\in\pi^n\O_K\llbracket X\rrbracket\subset p\O_K\llbracket X\rrbracket$ for all $n \ge e$.
+So \cref{lowerest term cannot move right} indicates that $F[p^n] = F[p^{e}]$ for all $n \ge e$, and $\mathrm{Tors}(F) = F[p^{e}]$ is finite.
+
+% Let $e\ge 1$ be the ramification index of $K/\Q_p$.
+% For each $n\in\Z_{\ge 1}$, let $r_n \ge 1$ be the unique integer s.t. $\pi^{-r_n}[p^n]\in\O_K\llbracket X\rrbracket$ has finite Weierstrass degree.
+% As $[p^n](X) = p^nX + {}$higher terms,
+% we have $r_n\le ne$.
+
+\subsection{}
+By Exercise 3, the only zero of $\log_F$ in $\m_{\C_p}$ is $0$ as $\mathrm{Tors}(F) = \{0\}$.
+Particularly, $\log_F$ has finitely many zeros in $\m_{\C_p}$, so $\log_F\in K\otimes_{\O_K} \O_K\llbracket X\rrbracket$.
+Thus there exists $d\in\Z$ s.t. $\pi^d\log_F\in\O_K\llbracket X\rrbracket$ and the Weierstrass degree of $\pi^d\log_F$ equals the number of zeros of $\log_F$ in $\m_{\C_p}$, which is $1$.
+Since $\log_F(X) = X +{}$higher terms, we must have $d = 0$ and hence $\log_F\in \O_K\llbracket X\rrbracket$.
+Then $\log_F$ gives an isomorphism $F\isomto \Ga$ over $\O_K$.
+
+\subsection{}
+Since $K/\Q_p$ is unramified and $F$ is of infinite height, $[p](X) = pX +\dots\in p\O_K\llbracket X\rrbracket$.
+In particular, $[p](X)/p\in \O_K\llbracket X\rrbracket$ has Weierstrass degree $1$, and the only zero of $[p](X)$ in $\m_{\C_p}$ is $0$.
+
+For $n\ge 2$ and $z\in\m_{\C_p}$, \[[p^n](z) = 0\iff [p^{n-1}](z)\in F[p] = \{0\}.\]
+We can then deduce inductively that $F[p^n] = 0$ for all positive integer $n$.
+So $\mathrm{Tors}(F) = \{0\}$.
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

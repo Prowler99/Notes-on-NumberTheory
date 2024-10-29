@@ -1,0 +1,40 @@
+\section{\texorpdfstring{A Bit of $p$-adic Analysis}{}}
+In this section, we consider some basic properties concerning powerseries over a closed subfield $K$ of $\C_p$ as functions.
+
+Let $f(X) = \sum_{i\ge 0} a_iX^i\in K\llbracket X\rrbracket $. We can evaluate $f$ at $z\in \C_p$ iff $a_iz^i\to\infty$, so the \textbf{radius of convergence}
+is \[\rho(f) := \sup\{\rho\in\R\ |\ a_i\rho^i\to\infty (i\to\infty)\}.\]
+\begin{itemize}
+    \item If $|z| < \rho(f)$, then $f(z)$ converges in $\C_p$.
+    \item If $|z| > \rho(f)$, then $f$ diverges.
+    \item $\rho(f(\alpha X)) = \rho(f)\cdot |\alpha|^{-1}$.
+\end{itemize}
+We are mainly interested in the power series converging on the unit disk, i.e., \begin{align*}
+    H_K :={}& \{f\in K\llbracket X\rrbracket\ |\ \rho(f) > 1\}\\
+    ={}&  \{f\in K\llbracket X\rrbracket\ |\ a_i\rho^i\to 0, \forall \rho < 1\}\\
+    ={}&  \{f\in K\llbracket X\rrbracket\ |\ f\text{ converges on the open unit disk }\m_{\C_p} = B(0, 1)\}.
+\end{align*}
+\begin{example}
+    $K\otimes_{\O_K}\O_K\llbracket X\rrbracket$ = power series over $K$ with bounded coefficients $\subsetneq H_K$.
+\end{example}
+\begin{example}
+    $\log(1 + X) = \log_{\Gm}(X) = X - \displaystyle\frac{X^2}{2} + \frac{X^3}{3} - \dots\in H_K\setminus K\otimes_{\O_K}\O_K\llbracket X\rrbracket$.
+\end{example}
+
+\subsection{The Gauss Norm}
+\begin{theorem}
+    Let $f(X) = \sum_{i\ge 0} a_iX^i\in K\llbracket X\rrbracket $ with $\rho(f) > 0$, a real number $\rho < \rho(f)$ s.t. $\rho\in |\C_p^\times|$.
+    Then $\sup_{i\ge 1}{|a_i|\rho^i}$ is a maximum (i.e., $\sup_{i\ge 1}{|a_i|\rho^i} = |a_j|\rho^j$ for some $j$), and \[\sup_{i\ge 1}{|a_i|\rho^i} = \sup_{|z| = \rho} |f(z)| =: |f|_\rho.\]
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+    \item     $\rho<\rho(f)\implies |a_i|\rho^i \to 0\implies \sup_{i\ge 1}{|a_i|\rho^i}$ is a maximum.
+    \item $|f(z)| = \left| \sum_{i\ge 1} a_iz^i\right| \le\sup_{i\ge 1} |a_i||z|^i$, so $|f|_\rho\le \sup_{i\ge 1}{|a_i|\rho^i}$.
+    \item Take $\alpha\in\C_p$ with $|\alpha| = \rho$,
+    and $j\in\Z_{\ge 0}$ s.t. $\sup_{i\ge 1}{|a_i|\rho^i} = |a_j|\rho^j$.
+    Let $\beta := a_j\alpha^j$.
+    Then \[g(X) := \frac{f(\alpha X)}{\beta}\in\O_{\C_p}\llbracket X\rrbracket.\]
+\end{itemize}\end{proof}
+
+
+
+

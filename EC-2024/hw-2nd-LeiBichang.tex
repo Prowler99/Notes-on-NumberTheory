@@ -1,0 +1,228 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{enumitem}
+\usepackage[colorlinks,
+linkcolor=cyan,
+anchorcolor=blue,
+citecolor=blue,
+]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[margin = 1in, headheight = 12pt]{geometry}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+% 新命令
+% 数学对象
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+    \newcommand{\p}{\mathfrak{p}}
+    \renewcommand{\P}{\mathbb{P}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\F}{\mathbb{F}}
+% 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+% 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    \newcommand{\Set}{\mathbf{Set}} %集合范畴
+    \newcommand{\Abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\Ring}{\mathbf{Ring}}
+    \newcommand{\Cring}{\mathbf{CRing}}
+    \newcommand{\Alg}{\mathbf{Alg}}
+    \newcommand{\Mod}{\mathbf{Mod}}
+    \DeclareMathOperator{\Id}{id}
+%向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+% 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+% 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    \DeclareMathOperator{\gal}{Gal}
+% 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+% 流形
+    \DeclareMathOperator{\lie}{Lie}
+%代数几何
+    \DeclareMathOperator{\proj}{Proj}
+%多项式
+    \DeclareMathOperator{\disc}{disc} %判别式
+    \DeclareMathOperator{\res}{res} %结式
+
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\and}{\;\text{and}\;}
+
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+
+
+\newcommand{\myit}{$\diamond$}
+
+\title{Elliptic Curves, n$^\circ$ 2}
+\author{Lei Bichang}
+% \date{Sep 26}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{Exercise 1}
+\begin{enumerate}
+    \item [(a)] $-P_1 =  (-1, -4)$.
+    The line connecting $P_2 = (-2, 3)$ is \[y = -7x - 11,\]
+    so \[x(P_2-P_1) = 49 - (-1) - (-2) = 52,\ y(P_2-P_1) = -(-7\cdot 52-11) = 375.\]
+    The tangent line at $P_2$ is \[y = 2x + 7,\]
+    so \[x(2P_2) = 4-2\cdot (-2) = 8,\ y(2P_2) = -(2\cdot 8 + 7) = 23.\]
+    The line connecting $2P_2$ and $P_1$ is \[y = \frac{19}{9}x + \frac{55}{9},\]
+    so \[x(2P_2+P_1) = -\frac{206}{81},\ y(2P_2+P_1) = -\frac{571}{729}.\]
+    % Let \[\lambda := \frac{3-4}{-2-(-1)} = 1,\ \mu := \frac{4\cdot (-2)-3\cdot (-1)}{-2-(-1)} = 11,\]
+    % then \[x(P_2-P_1) = 1^2-(-1)-(-2) = 4,\ y(P_2-P_1) = -(1\cdot 4+11) = -15.\]
+
+\end{enumerate}
+
+\subsection*{Exercise 2}
+These three Weierstrass equations satisfy $4a^3+27b^2\ne 0$ in $\F_5$, so they are all elliptic curves over $\F_5$.
+\begin{enumerate}
+    \item [(a)] For $E : y^2 = x^3+x$, \[E(\F_5) = \{O, (0, 0), (2, 0), (-2, 0)\},\]
+    so all these points have order $2$. Therefore, $E(\F_5)\simeq \Z/2\times\Z/2$.
+    \item [(b)] For $E:y^2 = x^3+2x$, \[E(\F_5) = \{O, (0, 0), (-2, 1), (-2, -1), (-1, 1), (-1, -1)\}.\]
+    There is only one nonzero element of order $2$, so it is not $\Z/2\times\Z/3$. Therefore, $E(\F_5)\simeq \Z/6$.
+    \item [(c)] For $E:y^2 = x^3+1$, \[E(\F_5) = \{O, (0, 1), (0, -1), (2, 2), (2, -2), (-1, 0)\}.\]
+    This is also an abelian group of order $6$ with one nonzero element of order $2$, so $E(\F_5)\simeq \Z/6$.
+\end{enumerate}
+
+\subsection*{Exercise 3}
+\begin{enumerate}
+    \item [(a)]
+    We look at the $X = 1$ chart, where the affine equation corresponding to $C$ is \[1 + y^3 = z^3.\]
+    At $O = (-1, 0)$, the slope of tangent is \[\frac{dy}{dz} = 0,\]
+    so the tangent is $y = -1$. Therefore, the equation of $T$ is\[X+Y = 0.\]
+    \item [(b)]
+    
+    Such a homography should send $O$ to $[0 : 1 : 0]$ and another point $Q\notin C$  on $T$ to $[1 : 0 : 0]$. Take $Q = [-1 : 1 : 1]$ and let $A$ be the matrix giving this homography, then we can choose \[A^{-1} = \begin{pmatrix}
+        -1&1&1\\1&-1&0\\1&0&0
+    \end{pmatrix}.\]
+    Under this transformation, the equation becomes
+    \[(-X+Y+Z)^3 + (X-Y)^3 = X^3,\]
+    which simplifies to \[3ZY^2 - 6ZXY +3Z^2Y = X^3 - 3ZX^2 + 3Z^2X - Z^3.\]
+    Applying $Z\mapsto \frac{1}{3}Z$ to this equation, we obtain a Weierstrass equation
+    \[Y^2Z - 2XYZ + \frac{1}{3}YZ^2 = X^3 - X^2Z + \frac{1}{3}XZ^2 - \frac{1}{27}Z^3\]
+    Then apply $Y\mapsto Y - \left(X-\frac{1}{6}Z\right)$ to this equation, we obtain \begin{equation}\label{e3 Weierstrass}
+        Y^2Z = X^3-\frac{1}{108}Z^3.
+    \end{equation}
+    However, the transformation from $C$ to \cref{e3 Weierstrass} used above does not send $T$ to $Z = 0$. Suppose that a homography of the form\footnote{This form is inspired by Part (d) of this exercise.} \begin{equation}\label{e3 transformation}
+        \begin{cases}
+            X\mapsto Z,\\
+            Y\mapsto \alpha (X-Y),\\
+            Z\mapsto \beta (X + Y)
+        \end{cases}
+    \end{equation} changes \cref{e3 Weierstrass} to $C$.
+    Substitute them in \cref{e3 Weierstrass} and we got \[\begin{cases}
+        \beta(\alpha^2+\beta^2s) = 1,\\
+        3\beta^2s - \alpha^2 = 0,
+    \end{cases}\] where $s = 1/108$.
+    Take a solution \[\begin{cases}
+        \alpha = \frac{1}{2},\\\beta = 3,
+    \end{cases}\]
+    then the transformation \cref{e3 transformation} is invertible.
+
+    \item [(c)]
+    Let $L$ be a line passing $O$ that is tangent to $C$. Since $Z = 0$ intersects $C$ at three different points given that $\cha k\ne 3$, we can write \[L : X + Y + cZ = 0.\]
+    Since $O$ is the only point of $C$ at infinity, we can work in the affine chart $Z \ne 0$, and $L$ is tangent to $C$ iff\begin{equation}\label{e3 c 1}
+        \begin{cases}
+            x+y+c = 0,\\
+            x^3+y^3=1,
+        \end{cases}
+    \end{equation} has only one solutions.
+    This is to say \[(x + c)^3 - x^3 + 1 = 0,\] i.e., \[3cx^2 + 3c^2x+(c^3+1) = 0,\]
+    has discriminant \[9c^4 - 4\cdot 3c\cdot (c^3 + 1) = -3c(c^3+4) = 0.\]
+    So the tangent lines through $O$ are \[X+Y+cZ = 0,\]where $c = 0$ or $c^3 = -4$.
+    \item [(d)] The points of order $2$ are the points other than $O$ at which the tangents passing $O$. So these points are $\left[ \frac{r}{2}: \frac{r}{2} :1\right]$, where $r^3 = 4$.
+
+    On the curve given by \cref{e3 Weierstrass}, the order two points are of the form $[x : 0 : z]$, so the points are $[1 : 0 : 3r]$ with $r^3 = 4$. Using \cref{e3 transformation}, we can solve \[\begin{cases}
+        1 = Z,\\
+        0 = \frac{X-Y}{2},\\
+        3r = 3(X+Y)
+    \end{cases}\]to get the point on $C$ correspondingto $[1:0:3r]$, which is exactly $\left[ \frac{r}{2}: \frac{r}{2} :1\right]$.
+
+
+    \item [(e)]
+    The inflection points of $C$ are the points where the Hessian of $F = X^3 + Y^3 - Z^3$ vanishes; i.e, \[\begin{vmatrix}
+        6X& & \\ & 6Y & \\ & &-6Z
+    \end{vmatrix} = -6^3XYZ = 0.\]
+    SO the points $P$ with $3P = 0$ are \[[0 : \omega : 1],\ [\omega : 0 : 1],\ [-\omega : 1 : 0],\]
+    where $\omega^3 = 1$.
+    % Let $P = [x_0 : y_0 : 1]$ with $3P = O$ and we work on the affine curve $C_0 : x^3+y^3=1$.
+    % The inflection points corresponds to the roots of the Hessian of $F = x^3+y^3 - 1$, which is
+    % \[\begin{vmatrix}
+    %     6x&0\\0&6y
+    % \end{vmatrix} = 36xy,\]
+    % so $(x_0, y_0) = (0, \omega)$ or $(\omega, 0)$, where $\omega^3 = 1$.
+
+    % The tangent line to $C$ at $P$ is \[3x_0^2(x-x_0) + 3y_0^2(y-y_0) = 0,\] 
+    % so the equation \[\begin{cases}
+    %     x^3+y^3 = 1,\\
+    %     3x_0^2(x-x_0) + 3y_0^2(y-y_0) = 0
+    % \end{cases}\]have only one solution.
+
+
+
+
+    % We need to look for lines intersecting $C$ at only one point.
+    % As we have seen before, $Z = 0$ is not such a line. So assume \[L : aX + bY + cZ = 0\] intersects $C$ at one point $P = [x_0 : y_0 : 1]$.
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,357 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{enumitem}
+\usepackage[colorlinks,
+linkcolor=cyan,
+anchorcolor=blue,
+citecolor=blue,
+]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[margin = 1in, headheight = 12pt]{geometry}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+% 新命令
+% 数学对象
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+    \newcommand{\p}{\mathfrak{p}}
+    \renewcommand{\P}{\mathbb{P}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\F}{\mathbb{F}}
+% 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+% 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    \newcommand{\Set}{\mathbf{Set}} %集合范畴
+    \newcommand{\Abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\Ring}{\mathbf{Ring}}
+    \newcommand{\Cring}{\mathbf{CRing}}
+    \newcommand{\Alg}{\mathbf{Alg}}
+    \newcommand{\Mod}{\mathbf{Mod}}
+    \DeclareMathOperator{\Id}{id}
+%向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+% 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+% 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    \DeclareMathOperator{\gal}{Gal}
+% 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+% 流形
+    \DeclareMathOperator{\lie}{Lie}
+%代数几何
+    \DeclareMathOperator{\proj}{Proj}
+%多项式
+    \DeclareMathOperator{\disc}{disc} %判别式
+    \DeclareMathOperator{\res}{res} %结式
+
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\and}{\;\text{and}\;}
+
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+
+\newcommand{\prim}{\mathrm{prim}}
+\newcommand{\under}{\backslash}
+\newcommand{\myit}{$\diamond$}
+\DeclareMathOperator{\vol}{vol}
+
+\title{Modular Forms}
+\author{Lei Bichang}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\item It is equivalent to $[\Gamma_\infty : \Gamma_\infty^+]\le 2$. Let \[L_1 := \begin{pmatrix}
+    1&\Z\\0&1
+\end{pmatrix}, L_2 = \left\{ \left.\pm\begin{pmatrix}
+    1&t\\0&1
+\end{pmatrix}\right| t\in\Z \right\} = L_1\cup (-1)\cdot L_1,\]
+then both $L_1$ and $L_2$ are subgroups of $\SL_2(\Z)$, and thus \[[\Gamma_\infty : \Gamma_\infty^+] = [\Gamma\cap L_2 : \Gamma\cap L_1]\le [L_2 : L_1] = 2.\]
+
+\item 
+Let $N > 2$.
+Then $-1\not\equiv 1\pmod N$, so $\Gamma_1(N)\cap (-1)\cdot L_1 = \varnothing$ and thus $\Gamma_1(N)_\infty = \Gamma_1(N)_\infty^+$.
+Since $-1\in\Gamma_0(N)_\infty$ and $-1\notin\Gamma_0(N)_\infty^+$, we know $[\Gamma_0(N)_\infty : \Gamma_0(N)_\infty^+] \ne 1$, so it equals $2$.
+
+
+\item If $[\Gamma_\infty : \Gamma_\infty^+] = 2$, then there exists a $t\in\Z$ s.t. \[g := \begin{pmatrix}
+    -1&t\\ &-1
+\end{pmatrix}\in \Gamma.\]
+Let $f\in M_k(\Gamma)$, then \[f(z) = f|_k g(z) = (-1)^{-k}f\left( z-t \right) = -f(z-t).\]
+If $f = \sum_{n\ge 0}a_nq_N^n$ is the Fourier expansion of $f$ at infinity, then \[\sum_{n\ge 0}a_ne^{\frac{2\pi i n}{N}z} = -\sum_{n\ge 0}a_ne^{-\frac{2\pi i nt}{N}}e^{\frac{2\pi i n}{N}z}.\]
+Comparing the terms gives \[f(\infty) = a_0 = 0.\]
+
+\item Let \[\Z^2_\prim := \left\{(c, d)\in\Z^2\setminus \{(0, 0)\} | \gcd(c, d) = 1\right\}\] Take $g = \begin{pmatrix}
+    a & b \\ c & d
+\end{pmatrix}\in\Gamma$. Since $\det g = ad - bc = 1$, the integers $c$ and $d$ are coprime.
+Then because \[\begin{pmatrix}
+    1 & t \\ & 1
+\end{pmatrix}g = \begin{pmatrix}
+    a + tc&b+td\\c&d
+\end{pmatrix},\] the map $\Gamma_\infty^+\backslash\Gamma\to \Z^2_\prim$ is well-defined.
+
+If $g' = \begin{pmatrix}
+    a'&b'\\c&d
+\end{pmatrix}\in \SL_2(\Z)$,
+then $a'd - b'c = 1$, so \[(a'-a)d = (b'-b)c.\]
+Since $c, d$ are coprime, we have $c \mid (a'-a)$ and $d \mid (b'-b) $. Hence, \[t' := \frac{a'-a}{c} = \frac{b'-b}{d}\in\Z.\]
+If $g'\in\Gamma$, then \[\begin{pmatrix}
+    1& t'\\ &1
+\end{pmatrix} = g'g^{-1}\in\Gamma_\infty^+,\]
+i.e., $g'\in \Gamma_\infty^+ g$.
+So the map $\Gamma_\infty^+\backslash\Gamma\to \Z^2_\prim$ is injective.
+
+
+\item Let $G = G_{k,\Gamma, \infty}$. For all $g\in\Gamma$ and $z\in\mathcal{H}$,
+\begin{align*}
+    (G|_k g)(z) &= j(g, z)^{-k}G(gz)\\
+    &= \sum_{h\in\Gamma_\infty^+\under\Gamma}j(g, z)^{-k}j(h, gz)^{-k}\\
+    &= \sum_{h\in\Gamma_\infty^+\under\Gamma} j(hg, z)^{-k} = G(z).
+\end{align*}
+
+\item Let $G = G_{k,\Gamma, \infty}$.
+If $[\Gamma_\infty : \Gamma_\infty^+] = 2$,
+then we can write $\Gamma_\infty = \Gamma_\infty^+\sqcup\Gamma_\infty^+\gamma$ with \[\gamma = \begin{pmatrix}
+    -1 & t \\ & -1
+\end{pmatrix}\]for some $t\in \Z$.
+Hence \[\Gamma = \bigsqcup_h \Gamma_\infty h = \bigsqcup_h \left(\Gamma_\infty^+h\sqcup\Gamma_\infty^+\gamma h\right),\]
+and 
+\begin{align*}
+    G(z) &= \sum_{g\in\Gamma_\infty^+\under\Gamma} j(g, z)^{-k}\\
+    &= \sum_{h\in\Gamma_\infty\under\Gamma} \left( j(h, z)^{-k} + j(\gamma h, z)^{-k} \right)\\
+    &= \sum_{h\in\Gamma_\infty\under\Gamma} (1 + j(\gamma, hz)^{-k}) j(h, z)^{-k}.
+\end{align*}
+Since $j(\gamma, \tau) = - 1$ for all $\tau\in\mathcal{H}$, we get $G(z) = 0$ for all $z\in\mathcal{H}$ once $k$ were odd.
+
+
+\item For $g = \begin{pmatrix}
+    a&b\\c&d
+\end{pmatrix}$, as $z\to i\infty$, $j(g, z) \to \infty$ if $c\ne 0$ and $j(g, z) = d = \pm 1$ if $c = 0$.
+If $g\in\Gamma$, then $c = 0$ if and only if $g\in\Gamma_\infty$.
+Hence \begin{align*}
+    \lim_{z\to i\infty}G_{k, \Gamma, \infty}(z)
+    &= \sum_{g\in\Gamma_\infty^+\under\Gamma} \lim_{z\to i\infty} j(g, z)^{-k}
+    = \sum_{g\in \Gamma_\infty^+\under\Gamma_\infty} \lim_{z\to i\infty}j(g, z)^{-k}
+    \\ &= \begin{cases}
+        1, & [\Gamma_\infty : \Gamma_\infty^+] = 1,\\
+        0, & [\Gamma_\infty : \Gamma_\infty^+] = 2 \text{ and } k \text{ is odd};\\
+        2, & [\Gamma_\infty : \Gamma_\infty^+] = 2 \text{ and } k \text{ is even}.
+    \end{cases}
+\end{align*}
+So $G_{k, \Gamma, \infty}$ is bounded at infinity.
+
+\item We have\begin{align*}
+    G_{k, \Gamma, \infty}|_kg(z)
+    &= \sum_{h\in\Gamma_\infty^+\under\Gamma} j(hg, z)^{-k}.
+\end{align*}
+As we see in \textbf{7.}, $\lim_{z\to i\infty}j(hg, z)^{-k} = 0$ if and only if the matrix $hg$ has nonzero bottom-left term.
+For each $h\in\Gamma$, since $hg\infty\in c = \Gamma\cdot g\infty$ and the cusp $c\ne \infty$, we know that $hg\infty\ne\infty$. Therefore $hg$ has nonzero bottom-left term, and thus
+\[G_{k, \Gamma, \infty}|_kg(\infty)
+= \sum_{h\in\Gamma_\infty^+\under\Gamma}
+\lim_{z\to i\infty} j(hg, z)^{-k} = 0.\]
+
+
+
+\item This follows from \textbf{5.}\! ($G_{k, \gamma, \infty}$ is a weak modular form of weight $k$), \textbf{7.}\! ($G_{k, \gamma, \infty}$ is bounded at infinity) and \textbf{8.}\! ($G_{k, \gamma, \infty}$ is bounded at all the cusps different from infinity).
+
+\item 
+To begin with, we note that:
+\begin{lemma}
+    If $f\in M_k(\Gamma)$ and $g\in\SL_2(\Z)$,
+    then $f|_kg\in M_k(g^{-1}\Gamma g)$.
+\end{lemma}
+\begin{proof}
+\begin{itemize}
+    \item For all $\gamma\in\Gamma$, $(f|_kg)|_k(g^{-1}\gamma g) = f|_k(\gamma g) = (f|_{k}\gamma) |_k g = f|_kg.$
+    \item For all $h\in\SL_2(\Z)$,$(f|_k g)|_k h = f|_k(gh)$ is bounded at infinity.
+\end{itemize}
+Hence $f|_kg\in M_k(g^{-1}\Gamma g)$.
+\end{proof}
+For simplicity, we use the following notation.
+\begin{definition}
+    For every $f\in M_k(\Gamma)$ and $g\in\SL_2(\Z)$, define \[f(g\infty)
+    := (f|_k g)(\infty) = \lim_{z\to i\infty} f|_k g(z).\]
+\end{definition}
+We can verify some basic properties.
+\begin{lemma}\label{value at cusp}
+    Let $f\in M_k(\Gamma)$ and $g, h\in\SL_2(\Z)$.
+    \begin{enumerate}
+        \item $(f|_kg)(h\infty) = f(gh\infty)$.
+        \item If $g\infty$ and $h\infty$ represent the same cusp of $\Gamma$,
+        then $f(g\infty)$ and $f(h\infty)$ only differ by a sign, which is independent of $f$.
+        In particular, if $\{g_1\infty, \dots, g_r\infty\}$ is a set of representatives of the cusps of $\Gamma$, then $f\in S_k(\Gamma)$ if and only if $f(g_1\infty) = \cdots = f(g_r\infty) = 0$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Property (a) is straightforward.
+    For (b), suppose that $g\infty = \gamma h\infty$ for some $\gamma\in\Gamma$. Then $g^{-1}\gamma h\in\SL_2(\Z)_\infty$, so there is a $t\in \Z$ s.t. \[T := g^{-1}\gamma h = \begin{pmatrix}
+        \pm1 & t \\ & \pm1
+    \end{pmatrix}.\]
+    Now\begin{align*}
+        (f|_kh)(z) &= (f|_k(\gamma^{-1}gT))(z) = ((f|_kg)|_kT)(z)\\
+        &= (\pm 1)^{-k}(f|_k g(z\pm t)).
+    \end{align*}
+    So $f(g\infty) = \pm f(h\infty)$, and the sign is determined by $g$ and $h$.
+\end{proof}
+
+
+Now let $\{g_1\infty, \dots, g_r\infty\}$ be fixed representatives of all the different cusps of $\Gamma$, where $g_1, \dots, g_r\in\SL_2(\Z)$.
+For each $i \in \{1, \dots, r\}$,
+the function $G_{k, g_i^{-1}\Gamma g_i, \infty}\in M_k(g_i^{-1}\Gamma g_i)$, so \[G_i := G_{k, g_i^{-1}\Gamma g_i, \infty}|_{k}g_i^{-1}\in M_k(\Gamma).\]
+If $j\ne i$, then the cusp reprensented by $g_i^{-1}g_j\infty$ is not infinity, and thus
+\begin{equation}\label{G_i g_j}
+    G_i(g_j\infty) = \left( G_{k, g_i^{-1}\Gamma g_i, \infty}|_k (g_i^{-1}g_j) \right)(\infty) = 0
+\end{equation} by \textbf{8.}
+
+Now take $f\in M_k(\Gamma)$. 
+We claim that \begin{equation}\label{minus Eisensteins gives cusp form}
+    f_0 := f - \sum_{\stackrel{1\le i\le r}{G_i(g_i\infty)\ne 0}}\frac{f(g_i\infty)}{G_i(g_i\infty)} G_{i}\in S_k(\Gamma),
+\end{equation}
+and thereby proving that $S_k(\Gamma)$ together with $G_1, \dots, G_r$ generates $M_k(\Gamma)$.
+By \cref{value at cusp}, it suffices to show for $1\le i\le r$,
+\[f_0(g_i\infty) = f(g_i\infty) - \sum_{\stackrel{1\le j\le r}{G_j(g_j\infty)\ne 0}}\frac{f(g_j\infty)}{G_j(g_j\infty)} G_{j}(g_i\infty) = 0.\]
+By \cref{G_i g_j}, this is true if \[f(g_i\infty)\ne 0\implies G_i(g_i\infty)\ne 0.\]
+Since $f|_kg_i\in M_k(g_i^{-1}\Gamma g_i)$, then by \textbf{3.} and \textbf{7.}, \begin{align*}
+    G_i(g_i\infty) = \left( G_{k, g_i^{-1}\Gamma g_i, \infty} \right)(\infty) = 0
+    &\iff k\text{ is odd and } [(g_i^{-1}\Gamma g_i)_\infty : (g_i^{-1}\Gamma g_i)_\infty^+] = 2 \\
+    &\implies f(g_i\infty) = (f|_kg_i)(\infty) = 0,
+\end{align*}
+which completes the proof.
+
+\item 
+Keep our notations in \textbf{10.}
+Consider the $\C$-linear map \[ \iota:   M_k(\Gamma)\to \C^{|C_\Gamma|}
+\] given by \begin{equation}\label{embed M_k(Gamma) in to S_k(Gamma) times somthing}
+    f\mapsto (f(g_1\infty), \dots, f(g_r\infty)).
+\end{equation}
+From \cref{minus Eisensteins gives cusp form}, we deduce that $\ker\iota = S_k(\Gamma)$ and $\im\iota$ is generated by $\iota(G_1), \dots, \iota(G_r)$ because $M_k(\Gamma)$ is generated by $S_k(\Gamma)$ and $G_1, \dots, G_r$.
+
+If $k$ is even, then $G_i(g_i\infty) \ne 0$ for all $i\in\{1, \dots, r\}$, and thus $\iota(G_i)$ is the vector in $\C^{|C_\Gamma|}$ whose $i$-th element is nonzero and other elements are zero. Therefore, $\iota(G_1), \dots, \iota(G_r)$ form a basis of $\C^{|C_\Gamma|}$. Hence $\dim M_k(\Gamma) = \dim S_k(\Gamma) + |C_\Gamma|$.
+
+\item
+Keep the notations in \textbf{11.}
+When $k$ is odd, the image of $\iota$ is still generated by $\iota(G_i)$'s,
+but \[\iota(G_i) \ne 0\iff [(g_i^{-1}\Gamma g_i)_\infty : (g_i^{-1}\Gamma g_i)_\infty^+] = 1,\]
+and those nonzero $\iota(G_i)$'s are linearly-independent.
+Therefore $\dim(\im\iota) = |C_{\Gamma}'|$,
+and $\dim M_k(\Gamma) = \dim S_k(\Gamma) + |C_\Gamma'|$.
+
+\item
+Since the series $G_{k,\Gamma,\infty}$ is normally convergent on any $X_{A, B}$,
+\begin{align*}
+    \vol(\Gamma\under\mathcal{H})\left<f, G_{k, \Gamma, \infty}\right>
+    &= \int_{\Gamma\under\mathcal{H}}f(z)\sum_{g\in\Gamma_\infty^+  \under\Gamma} \overline{j(g, z)^{-k}}y^{k-2}dxdy\\
+    &= \sum_{g\in\Gamma_\infty^+  \under\Gamma}\int_{\Gamma\under\mathcal{H}} f(z)\overline{j(g, z)^{-k}}y^{k-2}dxdy,
+\end{align*}
+where we write $z = x+iy$.
+Take a fundamental domain $D_\Gamma$ for $\Gamma$.
+For each $g\in\Gamma$, since the volume form \[d\mu(z) := \frac{dxdy}{y^2}\] is $\SL_2(\R)$-invariant, so under the change of variable $z\mapsto g^{-1}\tau$,
+\begin{align*}
+    \int_{\Gamma\under\mathcal{H}} f(z)\overline{j(g, z)^{-k}}y^{k-2}dxdy
+    &=\int_{D_\Gamma} f(z)\overline{j(g, z)^{-k}}(\Im z)^kd\mu(z)\\
+    &= \int_{gD_\Gamma} f(g^{-1}\tau)\overline{j(g, g^{-1}\tau)^{-k}}(\Im g^{-1}z)^kd\mu(\tau)\\
+    &= \int_{gD_\Gamma} f(\tau)j(g^{-1}, \tau)^k \overline{j(g^{-1}, \tau)^k} |j(g^{-1}, \tau)|^{-2k} (\Im\tau)^kd\mu(\tau)\\
+    &= \int_{gD_\Gamma} f(\tau) (\Im\tau)^kd\mu(\tau),
+\end{align*}
+where we used $1 = j(1, \tau) = j(g, g^{-1}\tau)j(g^{-1}, \tau)$.
+Because $\bigcup_{g\in\Gamma_\infty^+\under\Gamma} gD_\Gamma$ is a fundamental domain for $\Gamma_\infty^+$, \begin{align*}
+    \left<f, G_{k, \Gamma, \infty}\right> &=
+    \frac{1}{\vol(\Gamma\under\mathcal{H})}\sum_{g\in \Gamma_\infty^+\under\Gamma}\int_{gD_\Gamma} f(\tau)(\Im\tau)^kd\mu(\tau)\\
+    &= \frac{1}{\vol(\Gamma\under\mathcal{H})}\int_{\Gamma_\infty^+\under\mathcal{H}} f(z)y^{k-2}dxdy.
+\end{align*}
+The group $\Gamma_\infty^+$ is a subgroup of $\begin{pmatrix}
+    1&\Z\\ & 1
+\end{pmatrix}$, so it is generated by $\begin{pmatrix}
+    1&t\\ &1
+\end{pmatrix}$ for some $t\in \Z$,
+and therefore $\{z\in\mathcal{H} | 0\le\Re(z)\le t\}$ is a fundamental domain for $\Gamma_\infty^+$.
+So \begin{align*}
+    \int_{\Gamma_\infty^+\under\mathcal{H}} f(z)y^{k-2}dxdy
+    &=\int_{0}^\infty y^{k-2} dy \int_0^N f(z)dx\\\
+    &= \int_0^\infty y^{k-2} a_0 = 0,
+    % &=\int_0^N dx\int_0^\infty f(z)y^{k-2}dy.
+\end{align*}
+where $a_0 = 0$ is the constant term of the $q$-expansion of $f\in S_k(\Gamma)$.
+Hence $\left<f, G_{k,\Gamma,\infty}\right> = 0$.
+
+
+\item 
+The injective map \[\SL_2(\Z)_\infty^+\under\SL_2(\Z)\to\Z^2_\prim\]
+is surjective, because for each $(c, d)\in\Z_\prim$, we can find $a, b\in\Z$ s.t. $ac - bd = 1$, which gives a matrix $\begin{pmatrix}
+    a&b\\c&d
+\end{pmatrix}\in\SL_2(\Z)$.
+Therefore,\[G_{k, \SL_2(\Z), \infty} = \sum_{g\in\SL_2(\Z)_\infty^+\under\SL_2(\Z)}j(g, z)^{-k} = \sum_{(c, d)\in\Z^2_\prim} (cz+d)^{-k}.\]
+% Every pair $(c, d)\in\Z^2\setminus\{0, 0\}$
+Note that the map \[\Z^2_\prim\times \Z_{\ge1} \to \Z^2\setminus\{0, 0\}\quad ((c, d), u)\mapsto(cu, du)\] is bijective, whose inverse is given by $(c, d)\mapsto ((c/\gcd(c, d), d/\gcd(c, d)), \gcd(c, d))$. Hence,
+the Eisenstein series\begin{align*}
+    G_k(z) &= \sum_{(c, d)\in\Z^2 \setminus\{0, 0\}}(cz+d)^{-k}
+    = \sum_{n\ge 1}n^{-k}\sum_{(c, d)\in\Z^2_\prim} (cz+d)^{-k}\\
+    &= \zeta(k) G_{k, \SL_2(\Z), \infty}.
+\end{align*}
+So $G_{k, \SL_2(\Z), \infty} = 2E_k(z)$.
+
+
+
+
+\end{enumerate}
+
+\end{document}

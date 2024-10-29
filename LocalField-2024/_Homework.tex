@@ -1,0 +1,218 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{enumitem}
+\usepackage[colorlinks,
+linkcolor=cyan,
+anchorcolor=blue,
+citecolor=blue,
+]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[margin = 1in, headheight = 12pt]{geometry}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+% 新命令
+% 数学对象
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+    \newcommand{\p}{\mathfrak{p}}
+    \renewcommand{\P}{\mathbb{P}}
+    \newcommand{\A}{\mathbb{A}}
+% 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+% 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    \newcommand{\Set}{\mathbf{Set}} %集合范畴
+    \newcommand{\Abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\Ring}{\mathbf{Ring}}
+    \newcommand{\Cring}{\mathbf{CRing}}
+    \newcommand{\Alg}{\mathbf{Alg}}
+    \newcommand{\Mod}{\mathbf{Mod}}
+    \DeclareMathOperator{\Id}{id}
+%向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+% 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+% 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    \DeclareMathOperator{\gal}{Gal}
+% 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+% 流形
+    \DeclareMathOperator{\lie}{Lie}
+%代数几何
+    \DeclareMathOperator{\proj}{Proj}
+%多项式
+    \DeclareMathOperator{\disc}{disc} %判别式
+    \DeclareMathOperator{\res}{res} %结式
+
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\and}{\;\text{and}\;}
+
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+
+
+\newcommand{\myit}{$\diamond$}
+
+\title{Homework}
+\author{Lei Bichang}
+\date{Sep 15, 2024}
+
+\begin{document}
+\maketitle
+
+\begin{proof}
+If $\{x_n\}_n$ is eventually periodic, we may assume that $\{x_n\}_n$ is periodic; that is, $\exists t\ge 0$ s.t. \[x_{n + t} = x_n,\ \forall n\in\Z, n\ge 0.\]
+Otherwise we may just subtract the non-periodic part, which is an integer and doesn't affect the rationality of $x$.
+Let $a := \sum_{j=0}^{t-1}x_jp^j\in\Z$,
+then \begin{align*}
+    x = \sum_{i\ge 0}\sum_{j=0}^{t-1} x_{it+j}p^{it}p^j
+    = \sum_{i\ge 0}p^{it}\sum_{j=0}^{t-1}x_jp^j 
+    = \frac{a}{1-p^t}\in\Q.
+\end{align*}
+
+Conversely, suppose that $x = \frac{a}{b}\in\Q$, where $a, b\in\Z$ are coprime and $b\ge 1$.
+Because $x\in\Z_p$, we have $p\nmid b$, and thus there is an integer $t\ge 1$ s.t. $b \mid p^t-1$.
+Write $c := \frac{1-p^t}{b}$\footnote{I feels that a simpler way to proof that $\{x_n\}$ is eventually periodic by showing that:
+(1) $x$ has an eventually periodic expansion implies that \begin{align*}
+            -x &= p^k - p^k -x\\
+            &= p^k + \sum_{n\ge k}(p-1 -x_n)p^n\\
+            &= (p - x_k)p^k + \sum_{n\ge k + 1}(p - 1 - x_n)p^n
+        \end{align*} does,
+and (2) $x$ has an eventually periodic expansion implies that
+\[x + \frac{1}{1-p^t} = x + \sum_{n\ge 0}p^{nt}\] does (I think the period of $x + \frac{1}{1-p^t}$ should divides $\mathrm{lcm} (T, t)$, where $T$ is the period of $x$.). But, I have completed this tedious proof below so didn't write another...},
+then \[x = \frac{ac}{1-p^t},\]
+and \[ac = x(1-p^t) = \sum_{n\ge 0}x_np^n - \sum_{n\ge 0}x_{n}p^{n+t} = \sum_{i=0}^{t-1}x_ip^i + \sum_{n\ge t}(x_n-x_{n-t})p^n.\quad.\]
+It suffices to show that $x_n - x_{n-t} = 0$ for all $n$ large enough.
+Note that either \[\sum_{n\ge t}(x_n-x_{n-t})p^n = ac - \sum_{i=1}^{t-1}x_ip^i\] or \[\sum_{n\ge t}(x_{n-t}-x_{n})p^n = \sum_{i=1}^{t-1}x_ip^i - ac\] is a positive integer, and thus have a fintie expansion in base $p$.
+
+% First, we prove the following statement: 
+% \begin{itemize}
+%     \item [(*)] If $x$ has an eventually periodic expansion in base $p$, so is $-x$.
+%     \item \textit{Proof of the statement} (*).
+%     Let $x = \sum_{n\ge 0}x_np^n$ be the expansion of $x$.
+%     Let $k$ be the smallest integer s.t. $x_k\ne 0$, then \begin{align*}
+%         -x &= p^k - p^k -x\\
+%         &= p^k + \sum_{n\ge k}(p-1 -x_n)p^n\\
+%         &= (p - x_k)p^k + \sum_{n\ge k + 1}(p - 1 - x_n)p^n
+%     \end{align*}
+%     is the expansion of $-x$, which is periodic if $x$ is.
+% \end{itemize}
+
+Consider first the case of \begin{equation}\label{sum x p eq sum y p}
+    \sum_{n\ge t}(x_n-x_{n-t})p^n = \sum_{i=0}^r y_ip^i
+\end{equation} being postive, where $y_i\in\{0, 1, \dots, p-1\}$.
+\begin{enumerate}
+    \item [(A)]
+    If $r < t$, then \[v_p\left( \sum_{n\ge t}(x_n-x_{n-t})p^n \right)\ge t\]
+    and $$v_p\left(\sum_{i=0}^r y_ip^i\right)\le r < t,$$
+    if $\sum_{i=0}^r y_ip^i\ne 0$. Therefore \[\sum_{n\ge t}(x_n-x_{n-t})p^n = \sum_{i=0}^r y_ip^i = 0.\]
+    Since \[1-p\le x_{n-t}-x_n\le p-1,\quad 
+    v_p\left((x_n-x_{n-t})p^n\right) = \begin{cases}
+        n, & x_n \ne x_{n-t},\\
+        \infty, & x_n = x_{n-t}
+    \end{cases}\] for all $n \ge t$,
+    we have \[v_p\left( \sum_{n\ge t}(x_n-x_{n-t})p^n \right) = \min \{n\ge t | x_n \ne x_{n-t}\},\] where $\min\varnothing = \infty$, and thus $x_n = x_{n-t}$ for all $n\ge t$.
+
+    \item [(B)]
+    If $r \ge t$,
+    then \[\sum_{i=0}^{t-1} y_ip^i + \sum_{j=t}^r (y_j - x_j + x_{j-t})p^j + \sum_{n\ge r + 1}(x_{n-t} - x_n)p^n = 0.\]
+    Again by computing $p$-adic valuation, we see that $y_0 =  \dots = y_{t-1} = 0$, and
+    \[p^t\left(\sum_{j=t}^r (y_j - x_j + x_{j-t})p^{j-t} + \sum_{n\ge r + 1}(x_{n-t} - x_n)p^{n-t}\right) = 0.\]
+    Hence,\begin{equation}\label{eq when r ge t}
+        \sum_{j=t}^r (y_j - x_j + x_{j-t})p^{j-t} + \sum_{n\ge r + 1}(x_{n-t} - x_n)p^{n-t} = 0.
+    \end{equation}
+
+    For simplicity, put \[a_n := \begin{cases}
+        y_n - x_n + x_{n-t}, & t\le n\le r,\\
+        x_{n-t} - x_n, & n\ge r + 1.
+    \end{cases}\]
+    We have \[1-p\le y_j-x_j +x_{j-t}\le 2p-2,
+    \]for all $t\le j\le r$, and
+    \[1-p\le x_{n-t}-x_n\le p-1,
+    \] for all $n \ge r+1$.
+    
+    % By a similar argument on valuation as in (A), it suffices to show that \[\sum_{n\ge N}(x_{n-t} - x_n)p^{n-t} = 0\]for some $N \ge r + 1$.
+    % This is true when $a_t = \dots = a_r = 0$,
+    % so assume now that $\exists k\in \{t, \dots, r\}$ s.t. $a_k \ne 0$ and $a_j = 0$ whenever $t\le j\le k$.
+
+    % WLOG, we may assume that $k = t$ by dividing $p^{k-t}$ on both sides of \cref{eq when r ge t}.
+    From \cref{eq when r ge t}, we see that \[ a_t = -\sum_{n \ge t+1} a_np^{n-t} = -p\sum_{n\ge t +1}a_jp^{n-t-1}\] is divided by $p$ in $\Z_p$.
+    Hence $a_t = 0$ or $p$, so \[a_{t + 1} + \sum_{n\ge t + 2}a_np^{n-t-1} = 0\] or \[(a_{t + 1} + 1) + \sum_{n\ge t + 2}a_np^{n-t-1} = 0.\]
+    
+    This procedure continues. More precisely, define $b_t := a_t$ and \[b_j := \begin{cases}
+        a_j,\ b_{j-1} = 0,\\
+        a_j + 1,\ b_{j-1} = p,
+    \end{cases}\quad j\ge t + 1. \]
+    Then we can show inductively that \begin{equation}\label{bj + sum eq 0}
+        b_j + \sum_{n\ge j + 1}a_np^{n-j} = 0
+    \end{equation} and $b_j\in\{0, p\}$ for all $j\ge t$.
+
+    Consider $j \ge r+1$.
+    If $b_j = 0$, then $b_{j + 1} = a_{j+1}\in\{1-p, \dots, p-1\}$, so $b_{j+1} = 0$. Therefore, we get recursively that if $b_N = 0$ for some $N\ge r + 1$, then $a_{j + 1} = b_{j+1} = 0$, i.e., $x_{j - t} = x_j$ for all $j> N$.
+
+    Now suppose that $b_j = p$ for all $j \ge r + 1$. Then \[x_{j-t} - x_j = a_j = b_j - 1 = p -1\] for all $j\ge r  +2$.
+    However, $x_{j-t} -x_j = p - 1$ if and only if $x_{j-t} = p-1$ and $x_j = 0$,
+    which cannot be true for all $j\ge r  +2$.
+    
+\end{enumerate}
+Therefore, we proved that $\{x_n\}_n$ is eventually periodic given $\sum_{n\ge t}(x_n-x_{n-t})p^n > 0$.
+But there is no hard to construct a similar proof in the case of $\sum_{n\ge t}(x_{n-t}-x_{n})p^n > 0$.
+\end{proof}
+
+\end{document}

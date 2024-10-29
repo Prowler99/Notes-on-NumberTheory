@@ -1,0 +1,152 @@
+\section{Group Cohomology}
+\subsection{Cohomology}
+Let $G$ be a group. A \textbf{$G$-module} is an abelian group together with an additive \textit{left} $G$-action. Hence the category of $G$-modules is isomorphic to the category of $\Z[G]$-modules.
+\begin{example}
+We list some important constructions of $G$-modules here.
+\begin{enumerate}[(a)]
+    \item The \textbf{trivial $G$-module} is $\Z$ with the trivial $G$-action.
+    \item The group ring $\Z[G]$ is a $G$-module with $G$ acting by left-multiplication.
+    \item Direct sum and product. Both direct sums and products for $G$-modules as abelian groups can be lifted to $G$-modules, by giving $G$-action diagonally.
+    \item Tensor products. For $M, N\in \Mod_G$, define $M\otimes N\in \Mod_G$ to be $M\otimes_\Z N$ with the diagonal $G$-action \[g(x\otimes y) := gx\otimes gy,\quad x\in M, y\in N.\]
+    \item Hom module. For $M, N\in\Mod_G$, define $\hom(M, N)\in \Mod_G$ to be $\hom_{\Z}(M, N)$ with the $G$ acting ``conjugately'': \[(gf)(x) := g f(g^{-1}x),\quad f\in\Hom_\Z(M, N), x\in M.\]
+    \begin{itemize}
+        \item We have \[\Hom_G(M, N) = \Hom(M, N)^G\] as $G$-modules.
+        \item The adjoint $L\otimes_\Z (-) \dashv \Hom_\Z(L, -)$ in $\Abel$ holds in $\Mod_G$, i.e,
+\[\begin{tikzcd}
+	{\Hom(L\otimes M,N)} & {\Hom(L, \Hom(M, N))} \\
+	\varphi & {x\mapsto y\mapsto\varphi(x\otimes y)} \\
+	{\left( x\otimes y\mapsto \psi(x)(y) \right)} & \psi
+	\arrow["\sim", leftrightarrow, from=1-1, to=1-2]
+	\arrow[maps to, from=2-1, to=2-2]
+	\arrow[maps to, from=3-2, to=3-1]
+\end{tikzcd}\]
+    are isomorphisms of $G$-modules.
+    \end{itemize}
+    \item Induced module. Let $H < G$ be a subgroup, $N$ a $H$-module. Then $\Ind_H^G N$ is the abelian group of $H$-invariant functions $G\to N$, i.e., \[\Ind_H^G N := \{\varphi : G \to N\mid \varphi(hg) = h\varphi(g),\;\forall h\in H, g\in G\}\simeq\Hom_H(\Z[G], N).\]
+    The group $G$ acts on $\Ind_H^G N$ from the left by \[(g\varphi)(x) := \varphi(xg).\]
+    We obtain a functor $\Ind_H^G : \Mod_H\to\Mod_G$ by sending $\alpha : N\to N'$ to \[\alpha_* : \Ind_H^G N\to\Ind_H^G N' := \varphi\mapsto\alpha\circ\varphi.\]
+    \begin{itemize}
+        \item $\Ind_H^G$ is right adjoint to the forgetful functor $\Mod_G\to\Mod_H$. The isomorphism is given by
+        \[\begin{tikzcd}
+            {\Hom_G\left(M, \Ind_H^GN\right)} & {\Hom_H(M, N)} \\
+            \alpha & {x\mapsto \alpha(x)(1_G)} \\
+            {\left[ x\mapsto (g\mapsto \beta(gx) \right]} & \beta
+            \arrow["\sim", leftrightarrow, from=1-1, to=1-2]
+            \arrow[maps to, from=2-1, to=2-2]
+            \arrow[from=3-2, to=3-1]
+        \end{tikzcd}\]
+        where $M\in \Mod_G$, $N\in \Mod_H$.
+        \item $\Ind_H^G$ is an exact funtor.
+        \item For any abelian group, we define \[\Ind^G M := \Ind_{\{1\}}^G M =\{\varphi : G\to M\}.\] An \textbf{induced module} is a $G$-module of the form $\Ind^GM$ for some abelian group $M$.
+        \item Let $M$ be a $G$-module. Define $M_* := \Ind^G M$, then we have an embedding \[M\hookrightarrow M_* := x \mapsto [g\mapsto gx]\]of $G$-modules. The exact sequence \begin{equation}
+            0\to M\to M_*\to M_\dagger \to 0
+        \end{equation} in $\Mod_G$, where $M_\dagger := M_*/M$, will be used many times in ``dimensional shifting''.
+    \end{itemize}
+\end{enumerate}
+\end{example}
+
+Let $M$ be a $G$-module, $r\ge 0$ a natural number.
+We define the \textbf{ $r$-th cohomology groups of $G$ with coefficients in $M$} to be the value of the $r$-th right derived functor of the left-exact functor \[(-)^G\simeq \Hom_G(\Z, -) : \Mod_G\to\Abel\] at $M$.
+But for this definition to make sense, we need to show that:
+\begin{lemma}\label{Mod G has enough injectives}
+    The category $\Mod_G$ has enough injectives.
+\end{lemma}
+\begin{proof}
+    The category $\Abel$ has enough injectives. Let $M \in\Mod_G$, $I\in\Abel$ injective with $M\hookrightarrow I$. Applying the exact functor $\Ind^G$ gives \[M\hookrightarrow M_* := \Ind^G M \hookrightarrow\Ind^G I. \] So it remains to show that
+    \begin{itemize}
+        \item the functor $\Ind^G$ preserves injectives,
+    \end{itemize}
+    which follows from $\Hom_G(-, \Ind^G I)\simeq\Hom_\Z(-, I)$.
+\end{proof}
+
+
+\begin{proposition}[Shapiro's lemma]\label{Shapiro's lemma}
+Let $H < G$ be a subgroup.
+The isomorphism\[(-)^H \simeq \Hom_H(\Z, -) \simeq \Hom_G\left(\Z, \Ind^G_H(-)\right)\simeq \left( \Ind_H^G(-) \right)^G\]induces a canonical isomorphism \[H^\bullet \left(G, \Ind^G_H (-)\right)\simeq H^\bullet (H, -),\]
+which is compatible with the long exact sequence.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{corollary}\label{induced modules have trivial cohomology}
+    If $M$ is an induced $G$-module, then $H^r(G, M) = 0$ for all $r\ge 1$.\qed
+\end{corollary}
+
+
+\subsection{Compute Cohomology via cochains}
+
+Homological algebra tells us that \[H^r(G, M) = R^r\Hom_G(\Z, -)(M) = \ext^r(\Z, M) = R^r\Hom_G(-, M)(\Z),\]
+so we can use the projective resolution of $\Z\in\Mod_G$ to compute $H^\bullet(G, M)$.
+
+Denote by $P_r$ the free $\Z$-module with basis $G^{r+1} = G\times\dots\times G$ and endow $P_r$ with the $G$-action
+\[g(g_0, g_1,\dots, g_r) := (gg_0, gg_1, \dots, gg_r).\]
+Define $d_r : P_r\to P_{r-1}$ by \[d_r(g_0, \dots, g_r) := \sum_{i=0}^r(-1)^i(g_0,\dots, \hat{g}_i, \dots, g_r).\]
+Then \[\dots\to P_1\stackrel{d_1}{\to} P_0\stackrel{d_0}{\to} \Z\] is exact, i.e., a projective resolution of $\Z$.
+
+Note that $\varphi\in\Hom_G(P_r, M)$ is equivalent to a function $\varphi : G^{r+1}\to M$ s.t. \[\varphi(gg_0, \dots, gg_r) = g\varphi(g_0, \dots, g_r),\]
+which is thus determined by its value on the set $\{(1, g_1, \dots, g_r) : g_i\in G\}$. Therefore we consider the abelian group\footnote{The group structure on $C^r(G, M)$ is point-wise addition.} $C^r(G^r, M) := \{\varphi : G \to M\}$. Note that $G^0 = 1$ and thus $C^0(G, M) = M$.
+Define a homomorphism \[d^r : C^r(G, M) \to C^{r+1}(G, M)\] by $(d^r\varphi)(g_1, \dots, g_{r+1})$\begin{align}
+    := g_1\varphi(g_2, \dots, g_{r+1}) + \sum_{j=1}^r(-1)^j\varphi(g_1, \dots, \hat{g}_j, \dots, g_r) + (-1)^{r+1}\varphi(g_1, \dots, g_r).
+\end{align}
+Let \[Z^r(G, M) := \ker d^r,\ B^r(G, M) := \im d^{r-1}.\]
+One can prove that $d^r\circ d^{r-1} = 0$, and \[H^r(G, M) = Z^r(G, M)/B^r(G, M).\]
+
+
+\subsection{The Inflation-Restriction Exact Sequence}
+
+
+
+\subsection{Homology}
+
+For $M\in \Mod_G$, define its \textbf{coinvariant} to be the quotient
+\[M_G := M\big/ \gene{gm - m\mid g\in G, m\in M}\in \Abel.\]
+
+\begin{lemma}
+    The assignment $M\mapsto M_G$ defines a right-exact functor \[(-)_G\simeq \Z\otimes_{\Z[G]}(-) : \Mod_{\Z[G]}\to\Abel\]
+\end{lemma}
+\begin{proof}
+Consider the augmentation map $\Z[G]\to\Z$ which is an additive homomorphism sending all $g\in G$ to $1\in\Z$.
+Its kernel $I_G$ is called the \textbf{augmentation ideal}.
+Note that:\begin{itemize}
+    \item $I_G\subset\Z[G]$ is the free abelian subgroup with basis $\{g - 1 \mid g\in G, g\ne 1\}$.
+\end{itemize}
+Therefore \[M_G = M/I_GM\simeq \Z[G]/I_G\otimes_{\Z[G]} M\simeq \Z\otimes_{\Z[G]} M.\qedhere\]
+\end{proof}
+We define the \textbf{$r$-th homology groups of $G$ with coefficients in $M\in\Mod_G$} to be the value of the $r$-th left derived functor of the right-exact functor $(-)_G$.
+
+\subsection{The Tate cohomology groups}
+
+In this subsection, let $G$ be a \textit{finite} group.
+
+Recall that the norm $N_G : M \to M$ for a $G$-module $M$ is defined by \[N_G(x) := \sum_{g\in G}gx,\quad x\in G.\]
+One observes that \[\im N_G\subset M^G,\quad I_GM\subset \ker N_G.\]
+Therefore $N_G$ factors as \[M\twoheadrightarrow M/I_GM = M_G\to M^G\hookrightarrow M,\] and we got an exact sequence \[0\to\ker N_G/I_GM\to M_G\to M^G\to M^G/\im N_G\to 0.\]
+
+The map $H_0(G, M)\to H^0(G, M)$ induced by the norm map on $M$ connects homologies and cohomologies. We define the \textbf{Tate cohomology groups} by \[\hat H^r (G, M) := \begin{cases}
+    H^r(G, M), &r\ge 1,\\
+    M^G/N_G(M), &r = 0,\\
+    \ker (N_G : M\to M)/I_GM, & r = -1,\\
+    H_{-r-1} (G, M), & r\le -2.
+\end{cases}\]
+
+\begin{proposition}
+    If $M$ is induced, then $H^\bullet(G, -) = 0$.
+\end{proposition}
+
+
+\subsection{Cohomology of \texorpdfstring{$L$ and $L^\times$}{PDFstring}}
+In this subsection, let $L/K$ be a finite Galois extension, $G := \gal(L/K)$. Then both $L$ and $L\times$ have natural $G$-module structures.
+
+\begin{proposition}
+    $H^1(G, L^\times) = 0$.
+\end{proposition}
+
+\begin{corollary}
+    Let $L/K$ be a cyclic extension with $\sigma$ a generator of $G$. If $N_{L/K}a = 1$, then $\exists b\in K$ s.t. $a = \sigma b/b$.
+\end{corollary}
+
+\begin{proposition}
+    $H^r(G, L) = 0$ for all $r \ge 1$.
+\end{proposition}
+

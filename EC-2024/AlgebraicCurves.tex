@@ -246,7 +246,8 @@ $E : y^2 = (x-e_1)(x-e_2)(x-e_3)$.\par
     For a chart at $\infty$, use \[s := \frac{X}{Y},\quad t := \frac{Z}{Y}\footnote{As I am not smart, I DON'T use $z$ and $x$ as notation here, otherwise I would fail to figure out what is $x - e_i$ at $\infty$ and would write things like ``$x = \frac{x}{z}$''. Replace $Z$ by $1$ is also fine, because this is what we do on the chart $Z = 0$.},\]
     and the equation is \[t = (s-e_1t)(s-e_2t)(s-e_3t).\]
     \item \textit{Singularity.} None.
-    \item \textit{Local Rings.} $y = 1/t$ is a uniformiser at $e_i$, $s = x/y$ is a uniformiser at $\infty$. 
+    \item \textit{Local Rings.} $y = 1/t$ is a uniformiser at $e_i := [e_i : 0 : 1]$, $s = x/y$ is a uniformiser at $\infty$.
+    For all other points $[a : b : 1]\ne e_i$, both $x-a$ and $y-b$ are uniformisers.
     \item \textit{Functions.} $\div(x-e_i) = 2\cdot e_i - 2\cdot \infty$, $\div(y) = e_1 + e_2 + e_3 - 3\cdot\infty$.
     \item \textit{Differential Forms.} Consider $dx$. Since $dx = d(x-e_i) = -x^2d(1/x)$ and $\ord_\infty x = \ord_\infty s/t = -2$, we have \[\div (dx) = e_1 + e_2 + e_3 - 3\cdot \infty,\] and thus \[\div\left( \frac{dx}{y} \right) = 0.\]
 \end{itemize}

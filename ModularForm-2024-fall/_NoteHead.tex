@@ -1,5 +1,4 @@
 \documentclass{article}
-\usepackage{fontspec}
 \usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
 \usepackage{enumitem}
 \usepackage[colorlinks,
@@ -12,9 +11,9 @@ citecolor=blue,
 \usepackage{bbm}
 \usepackage{tikz-cd}
 
+\newtheorem{theorem}{Theorem}
 
 \theoremstyle{definition}
-\newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 \newtheorem{exercise}{Exercise}[section]
 \newtheorem{problem}{Problem}
@@ -28,9 +27,6 @@ citecolor=blue,
 
 \renewcommand{\Re}{\mathop{\mathrm{Re}}}
 \renewcommand{\Im}{\mathop{\mathrm{Im}}}
-\renewcommand{\bar}{\overline}
-\renewcommand{\tilde}{\widetilde}
-\renewcommand{\hat}{\widehat}
 
 % 新命令
 % 数学对象
@@ -81,9 +77,7 @@ citecolor=blue,
     \DeclareMathOperator{\cha}{char} %特征
     \DeclareMathOperator{\spec}{Spec} %素谱
     \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
-    \newcommand{\spm}{\maxspec}
     \DeclareMathOperator{\gal}{Gal}
-    \DeclareMathOperator{\Frac}{Frac}
 % 微积分
     % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
 % 流形
@@ -104,7 +98,7 @@ citecolor=blue,
     \newcommand{\ie}{\;\mathrm{i.e.,}\;}
 
 % 重定义命令
-\renewcommand{\hom}{\mathop{\mathrm{Hom}}}
+\renewcommand{\hom}{\mathop{Hom}}
 \renewcommand{\vec}{\boldsymbol}
 \renewcommand{\and}{\;\text{and}\;}
 
@@ -112,27 +106,14 @@ citecolor=blue,
 \newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
 \newcommand{\rmnum}[1]{\romannumeral #1}
 
-\newcommand{\fring}[1]{\llbracket #1 \rrbracket}
 
 \newcommand{\myit}{$\diamond$}
-\newcommand{\Gm}{\mathbb{G}_{\mathrm{m}}}
-\renewcommand{\O}{\mathcal{O}}
-\newcommand{\nr}{\mathrm{nr}}
-\newcommand{\alg}{\mathrm{alg}}
-\newcommand{\ab}{\mathrm{ab}}
-\DeclareMathOperator{\frob}{Frob}
-\newcommand{\F}{\mathbb{F}}
 
-\title{Notes on CFT}
+\title{}
 \author{}
 \date{}
 
 \begin{document}
 \maketitle
-
-\input{galois.tex}
-\input{extension.tex}
-\input{lubin_tate.tex}
-\input{cycl_ext_Qp.tex}
 
 \end{document}

@@ -1,0 +1,215 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{enumitem}
+\usepackage[colorlinks,
+linkcolor=cyan,
+anchorcolor=blue,
+citecolor=blue,
+]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[margin = 1in, headheight = 12pt]{geometry}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+% 新命令
+% 数学对象
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+    \newcommand{\p}{\mathfrak{p}}
+    \renewcommand{\P}{\mathbb{P}}
+    \newcommand{\A}{\mathbb{A}}
+% 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+% 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    \newcommand{\Set}{\mathbf{Set}} %集合范畴
+    \newcommand{\Abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\Ring}{\mathbf{Ring}}
+    \newcommand{\Cring}{\mathbf{CRing}}
+    \newcommand{\Alg}{\mathbf{Alg}}
+    \newcommand{\Mod}{\mathbf{Mod}}
+    \DeclareMathOperator{\Id}{id}
+%向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+% 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+% 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    \DeclareMathOperator{\gal}{Gal}
+% 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+% 流形
+    \DeclareMathOperator{\lie}{Lie}
+%代数几何
+    \DeclareMathOperator{\proj}{Proj}
+%多项式
+    \DeclareMathOperator{\disc}{disc} %判别式
+    \DeclareMathOperator{\res}{res} %结式
+
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\and}{\;\text{and}\;}
+
+\renewcommand{\O}{\mathcal{O}}
+
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+
+
+\newcommand{\myit}{$\diamond$}
+
+\title{Homework}
+\author{Lei Bichang}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{\texorpdfstring{$\C_p$}{Cp} is not spherically complete}
+\subsection{}
+We prove a lemma first: every point in a ball in $\C_p$ is a centre of that ball.
+\begin{lemma}\label{centre of ball}
+    Let $a, b\in \C_p$ and $r \ge 0$. If $b\in B(a, r)$, then $B(a, r) = B(b, r)$.
+    As a consequence, two balls in $\C_p$ of the same radius are either disjoint or equal.
+\end{lemma}
+\begin{proof}
+    Since $b\in B(a, r)\iff |b - a| < r\iff a\in B(b, r)$, it suffices to show $B(a, r)\subset B(b, r)$ given $b\in B(a, r)$.
+    This is because for all $z\in \C_p$, if $z\in B(a, r)$, then \[|z - b| = |(z - a) + (a - b)|\le \max\{|z-a|, |a-b|\} < r.\qedhere\]
+\end{proof}
+The ball $B(a, r)\subset B(a, s)$. 
+Denote by $v_p$ the $p$-adic valuation on $\C_p$,
+and $v_p(\C_p^\times) = \Q$.
+So $|\C_p^\times| = p^{\Q}$.
+The exponential map $\exp : \R\to\R_{>0}$ is a homeomorhpism, and $\Q$ is dense in $\R$,
+so $\exp(\Q)$ is dense in $\R_{>0}$.
+Moreover, $p^r = \exp(r\log p)$ for any $r\in \R$,
+so $p^{\Q}$ is also dense in $\R_{>0}$.
+Therefore, we can find $z_1\in \C_p$ s.t. \[r\le |z_1| < s.\]
+Let $z_2 := a + z_1$, then $z_2\in B(a, s)\setminus B(a, r)$. By \cref{centre of ball},
+the ball $B(z_2, r)\subset B(z_2, s) = B(a, s)$ and is disjoint from another ball $B(a,r)$ in $B(a,s)$.
+
+\subsection{}
+Take $b\in \bigcap_{n\ge 1}B(a_n, r_n)$.
+By \cref{centre of ball}, $B(a_n, r_n) = B(b, r_n)$.
+Therefore, $B(b, 1)\subset B(b, r_n) = B(a_n, r_n)$ for all $n\ge 1$, giving an open set $B(b, 1)\subset\bigcap_{n\ge 1}B(a_n, r_n)$.
+
+\subsection{}
+Define a set of sequences \[I := \{(e_n)_{n\ge 1} | e_n\in\{+, -\}\},\]
+where $+$ and $-$ are two different symbols.
+The cardinality of $I$ is $2^{\aleph_0}$, and $I$ is therefore uncountable.
+
+Fix any ball $B\subset\C_p$ of radius $3$.
+Using \textbf{1.1}, we choose and fix two disjoint balls $B_+, B_-$ of radius $2 = 1 + 1$
+contained in $B$. We define inductively a set of balls of the form $B_{e_1\cdots e_n}$ where $e_1, \dots, e_n\in\{+, -\}$ as follows: if we have defined a ball $B_{e_1\cdots e_n}$ with radius $1 + \frac{1}{n}$, then we choose and fix two disjoint balls of radius $1 + \frac{1}{n+1}$
+and label them as $B_{e_1\cdots e_n +}$ and $B_{e_1\cdots e_n-}$. These balls verify the following properties: for any $n\ge 1$ and $e_1, \dots, e_{n+1}\in\{+, -\}$,\begin{itemize}
+    \item $B_{e_1\cdots e_ne_{n+1}}\subset B_{e_1\cdots e_n}$;
+    \item $B_{e_1\cdots e_n+}\neq B_{e_1\cdots e_n-}$.
+\end{itemize}
+
+Now we assign to each sequence $e = (e_n)_{n\ge 1}\in I$
+a sequence $s_e$ of balls \[B_{e_1}, B_{e_1e_2}, \cdots, B_{e_1\cdots e_n}, \cdots.\]
+By construction, $s_e$ is a nested sequence of nonempty balls and the $n$-th ball have radius $1 + \frac{1}{n}$.
+
+Suppose that $\C_p$ is not spherically complete.
+Then every sequence $s_e$ has nonempty intersection $\cap s_e$.
+By \textbf{1.2}, there is an open set $B_e\subset\cap s_e$.
+If $e,f\in I$ are two different sequences,
+then there exists some $N > 0$ s.t. $e_N\ne f_N$.
+By construction, $B_{e_1\cdots e_N}$ is disjoint from $B_{f_1\cdots f_N}$, and therefore $B_e\subset B_{e_1\cdots e_N}$ and $B_f\subset B_{f_1\cdots f_N}$ are disjoint.
+Hence, $\{B_e\}_{e\in I}$ is an uncountable family of disjoint open sets in $\C_p$.
+
+
+\subsection{}
+The construction of $\C_p$ gives an inclusion $\bar{\Q}_p\subset\C_p$.
+Since $\bar{\Q}_p$ is algebraically closed, the integral closure $\bar{\Q}$ of $\Q$ in $\bar{\Q}_p$ is an algebraic closure of $\Q$.
+We claim that $\bar{\Q}$ is dense in $\bar{\Q}_p$.
+Then since $\bar{\Q}_p$ is dense in its completion $\C_p$,
+we see that $\bar{\Q}$ is dense in $\C_p$,
+which proves the separability of $\C_p$.
+
+Let $\alpha\in\bar{\Q}_p$ and $f\in \Q_p[X]$ the minimal polynomial of $\alpha$ over $\Q_p$.
+Then since $\Q$ is dense in $\Q_p$, we can find a sequence of monic polynomials $f_n\in \Q[X]$ that converges to $f$ under the Gauss norm,
+and there exist $\alpha_n\in\bar{\Q}$ s.t. $f_n(\alpha_n) = 0$ and $\lim_{n\to\infty}\alpha_n = \alpha$. So $\bar{\Q}$ is dense in $\bar{\Q}_p$.
+
+\subsection{}
+If $\C_p$ is spherically complete, then by \textbf{1.3}, there is an uncountable family $\{B_i\}_{i\in I}$ of pairwise disjoint nonempty open balls in $\C_p$.
+Since $\C_p$ is separable, let $E$ be a countable dense subset of $\C_p$.
+Then for each $i\in I$, $B_i\cap E\ne \varnothing$, so we can choose $e_i\in E\cap B_i$, and this gives us a map \[\iota : I\to E\quad i\mapsto e_i.\]
+% By \cref{centre of ball}, $B_i = B(e_i, r_i)$ where $r_i > 0$ is the radius of $B_i$. Hence if 
+If $i\ne j$ in $I$, then $e_i\ne e_j$ as $B_i\cap B_j = \varnothing$.
+Therefore, $\iota : I\to E$ is injective, which contradicts the hypothesis that $I$ is uncountable and $E$ is countable.
+
+\section{The jumps of the ramification filtration}
+\subsection{}
+We compute:
+$    (h\pi)^i = (\pi  + \beta\pi^{j+1})^i  = \sum_{k = 0}^i \binom{i}{k}\beta^k\pi^{kj + i}\equiv \pi^i + i\beta\pi^{i + j}\bmod\pi^{i+j+1}. 
+$
+\subsection{}
+Similar to \textbf{2.1}, $(g\pi)^j\equiv \pi^j + j\alpha\pi^{i+j}\bmod \pi^{i + j +1}$.
+So \begin{align*}
+    \frac{h(g\pi)}{\pi} &= \frac{g\pi}{\pi}\left( 1 + \beta(g\pi)^j \right) \equiv (1 + \alpha\pi^i)(1 + \beta(\pi^j + j\alpha\pi^{i+j})) 
+    &\equiv 1 + \alpha\pi^i + \beta\pi^j + j\alpha\beta\pi^{i+j}\bmod \pi^{i+j+1},
+\end{align*}
+and Similarly,\[\frac{g(h\pi)}{\pi}\equiv1 + \alpha\pi^i + \beta\pi^j + i\alpha\beta\pi^{i+j}\bmod \pi^{i+j+1}.\]
+\subsection{}
+If $G$ is abelian, then $g(h\pi) = h(g\pi)$,
+so \[i\alpha\beta\pi^{i + j}\equiv j\alpha\beta\pi^{i+j}\bmod \pi^{i+j+1},\]
+i.e., $i\equiv j\bmod \pi$.
+As $i, j\in\Z$ and $L$ is finite over $\Q_p$, we have $i - j\in \pi\O_L\cap \Z = p\Z$, i.e, $i\equiv j\bmod p$.
+
+
+
+\end{document}

@@ -1,0 +1,329 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{enumitem}
+\usepackage[colorlinks,
+linkcolor=cyan,
+anchorcolor=blue,
+citecolor=blue,
+]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[margin = 1in, headheight = 12pt]{geometry}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+% 新命令
+% 数学对象
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+    \newcommand{\p}{\mathfrak{p}}
+    \renewcommand{\P}{\mathbb{P}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\F}{\mathbb{F}}
+% 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+% 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    \newcommand{\Set}{\mathbf{Set}} %集合范畴
+    \newcommand{\Abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\Ring}{\mathbf{Ring}}
+    \newcommand{\Cring}{\mathbf{CRing}}
+    \newcommand{\Alg}{\mathbf{Alg}}
+    \newcommand{\Mod}{\mathbf{Mod}}
+    \DeclareMathOperator{\Id}{id}
+%向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+% 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+% 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    \DeclareMathOperator{\gal}{Gal}
+% 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+% 流形
+    \DeclareMathOperator{\lie}{Lie}
+%代数几何
+    \DeclareMathOperator{\proj}{Proj}
+%多项式
+    \DeclareMathOperator{\disc}{disc} %判别式
+    \DeclareMathOperator{\res}{res} %结式
+
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\and}{\;\text{and}\;}
+\renewcommand{\div}{\mathop{\mathrm{div}}}
+\DeclareMathOperator{\Div}{Div}
+
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\m}{\mathfrak{m}}
+
+\newcommand{\myit}{$\diamond$}
+
+\title{Elliptic Curves, n$^\circ$ 2}
+\author{Lei Bichang}
+% \date{Sep 26}
+
+\begin{document}
+\maketitle
+
+We prepare some lemmas here.
+\begin{lemma}\label{compute norm}
+    If $C_1, C_2$ are smooth curves, $\phi : C_1\to C_2$ is a surjective morphism, $f\in \bar{K}(C_1)^\times$ and $D\in\Div(C_2)$, then \[f(\phi^*D) = (\phi_*f)(D)\] if both sides are well-defined.
+\end{lemma}
+\begin{proof}(*)
+    Assume that both sides of the desired equation are well-defined.
+    For simplicity of notations, assume that $K = \bar{K}$.
+
+    By \cref{apply function to divisor is multiplicative} and the fact that $\phi^* : \Div(C_2)\to\Div(C_1)$ is additive, it suffices to prove in the case of $D = (P)$, where $P\in C_2$ is a point.
+    In this case, \[f(\phi^*(P)) = f\left(\sum_{Q\in\phi^{-1}(P)}e_\phi(Q)\cdot(Q)\right) = \prod_{Q\in\phi^{-1}(P)} f(Q)^{e_\phi(Q)},\]
+    \[(\phi_*f)((P)) = (\phi_*f)(P) = (N_{K(C_1)/K(C_2)} f)(P),\]
+    where we identify $K(C_2)$ with $\phi^*K(C_2)\subset K(C_1)$.
+
+    Since $f(\phi^*D)$ is well-defined and the support of $\phi^*(D)$ is $\phi^{-1}(P)$, every points $Q\in\phi^{-1}(P)$ is not a zero or pole for $f$, so $f\in K(C_1)_{Q}^\times$, where $K(C_1)_{Q}$ is the local ring of $C_1$ at $Q$.
+    % and $f(Q)$ equals the image of $f$ in the residue field $k_Q := K(C_1)_Q/\mathfrak{m}_Q$\footnote{Up to the isomorphism $k_Q \simeq K$ given by the evaluation-at-$Q$ map $K(C_1)_Q\to K$.}.
+
+    Similarly, $\phi_*f\in K(C_2)_P^\times$ because $(\phi_*f)(D)$ is well-defined, and $(\phi_*f)(P)$ is the image of $\phi_*f$ in the residue field $k_P := K(C_2)_P/\mathfrak{m}_P$.
+
+    Let $B$ be the integral closure of $K(C_2)_P$ in $K(C_1)$.
+    Then $f\in B$ and $N_{B/K(C_1)_P}f = \phi_*f$.
+    By the commutative diagram
+\[\begin{tikzcd}
+	B & {B/\mathfrak m_PB} \\
+	{K(C_1)_P} & {k_P}
+	\arrow[two heads, from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[two heads, from=2-1, to=2-2]
+\end{tikzcd}\]where the vertical arrows are the corresponding norm maps,
+    we have $(\phi_*f)(P) = \det(u)$, where $u : B/\m_PB\to B/\m_PB$ is the $k_P$-linear map given by multiplication-by-$\bar{f}\in B/\m_PB$.
+
+    The ideal $\m_PB$ decomposes in $B$ as\[\m_PB = \prod_{Q\in\phi^{-1}(P)}\m_Q^{e_{\phi}(Q)},\]
+    where $\m_Q$ is the intersection of the maximal ideal of $K(C_2)_Q$ with $B$.
+    This gives an isomorphism of $k_P$-modules \[B/\m_PB \simeq \prod_{Q\in\phi^{-1}(P)} B/\m_Q^{e_{\phi}(Q)}.\]
+    For $Q\in \phi^{-1}(P)$, let $\pi_Q\in\mathfrak{m}_Q$ be a uniformiser, then $1, \bar{\pi}_Q, \dots, \bar{\pi}_Q^{e_\phi(Q) - 1}$ form a $k_P$-basis for $B/\m_Q^{e_{\phi}(Q)}$.
+    Write $\phi^{-1}(P) = \{Q_1, \dots, Q_r\}$, then \[1, \bar{\pi}_{Q_1}, \dots, \bar{\pi}_{Q_1}^{e_{\phi}(Q_1)-1},\cdots, 1, \bar\pi_{Q_r}, \dots, \bar\pi_{Q_r}^{e_{\phi}(Q_r)-1}\] form a basis of $B/\mathfrak{m}_B$ over $k_P$.
+    Note that \[f\cdot\pi_Q^i \in f(P)\pi_Q^i + \m_Q^{i+1}\]
+    for every $Q\in\phi^{-1}(P)$, so each subspace $\left< 1, \bar{\pi}_{Q}, \dots, \bar{\pi}_{Q}^{e_{\phi}(Q)-1} \right>\subset  B/\m_PB$ is $u$-stable, and the matrix of $u$ under the chosen basis is block-wise diagonal of the form \[u = \begin{pmatrix}
+        u_1  &      & \\
+                & \ddots & \\
+                &        & u_r,
+    \end{pmatrix}\]where \[u_i = \begin{pmatrix}
+        f(Q_i) & * & * \\
+        & \ddots & * \\
+        & & f(Q_i) \\
+    \end{pmatrix}\] is upper-triangular.
+    Therefore, \[(\phi_*f)(P) = \det(u) = \prod_{Q\in \phi^{-1}(P)} f(Q)^{e_\phi(Q)}.\qedhere\]
+\end{proof}
+
+\begin{lemma}\label{apply function to divisor is multiplicative}
+    If $D, E\in\Div(C)$ and $f, g\in\bar{K}(E)^\times$,
+    then \[f(D + E) = f(D)f(E),\]\[(fg)(D) = f(D)g(D)\]
+    if both sides are well-defined.
+\end{lemma}
+\begin{proof}
+    Write $D = \sum_{P\in C}a_P(P)$, $E = \sum_{P\in C}b_P(P)$, then \[f(D+E) = \prod_{P\in C} f(P)^{a_P+b_P} = 
+    \prod_{P\in C} f(P)^{a_P}f(P)^{b_P} = f(D)f(E),\]
+    \[(fg)(D) = \prod_{P\in C}f(P)^{a_P}g(P)^{a_P} = f(D)g(D).\qedhere\]
+\end{proof}
+
+\subsection*{Exercise 1}
+\begin{enumerate}
+    \item [(a)] Write \[\div(f) = \sum_{i\in I} n_i(A_i),\quad \div(g) = \sum_{j\in J}m_j(B_j),\]
+    where $\{n_i\}_{i\in I}$ and $\{m_j\}_{j\in J}$ are finite sets of nonzero integers and $A_i, B_j$ are distinct points on $C = \P^1$.
+    Let $[X : Y]$ be a homogeneous coordinate on $\P^1$ s.t. all of the $A_i$'s and $B_j$'s are in the chart $Y\ne 0$,
+    then we can write \[A_i = [a_i : 1],\quad B_j = [b_j : 1]\] with $a_i, b_j\in \bar{K}$, and thus
+    \[f = a\prod_{i\in I}(X-a_iY),\quad g = b\prod_{j\in J}(X-b_jY)\] with $a, b\in\bar{K}^\times$.
+    Hence \begin{align*}
+        f(\div g) &= \prod_j f(B_j)^{m_j}
+        = \prod_{i, j}a^{n_j}(b_j-a_i)^{n_im_j}
+        = (-1)^{\sum_{i, j}n_im_j}a^{\deg\div g}b^{\deg\div f}\prod_{i, j}(a_i-b_j)^{n_im_j}\\
+        &= (-1)^{\sum_{i, j}n_im_j}\prod_i g(A_i)^{n_i} = (-1)^{\sum_{i, j}n_im_j}g(\div f) = g(\div f),
+    \end{align*}
+    because $\deg\div f = \deg\div g = 0$ and $\sum_{i, j}n_im_j = \big( \sum_in_i \big) \big( \sum_jn_j   \big) = (\deg \div f)(\deg \div g) = 0$.
+    \item [(b)]
+    Let $[X : Y]$ be a homogeneous coordinate on $\P^1$ and $x := X/Y\in \bar{K}(\P^1)$.
+    Then $\div g = g^*(\div x)$.
+    Write $\div(f) = \sum_{i\in I} n_i(A_i)$ with $n_i\ne 0$ for all $i\in I$.
+    Then $g(A_i)\in \bar{K}^\times$, and the corresponding point in $\P^1$ is $[g(A_i) : 1]$.
+    Thus we see that \begin{align*}
+        f(\div g) &= f(g^*(\div x)) \stackrel{(!)}{=} (g_*f)(\div x)\\
+        &= x(\div (g_*f))
+        = x(g_*\div f) \\
+        &= x\left( \sum_{i\in I}n_i ([g(A_i) : 1]) \right)\\
+        &= \prod_{i\in I} g(A_i)^{n_i} = g(\div f),
+    \end{align*}
+    where (!) is deduced from \cref{compute norm}.
+\end{enumerate}
+
+\subsection*{Exercise 2}
+\begin{enumerate}
+\item [(a)]
+First, we need to show the existence of $D_P, D_Q, f_P$ and $f_Q$ for every $P, Q\in E[m]$.
+Let $D_P = (P) - (O)$.
+For $D_Q$, we seek for points $Q_1, Q_2, Q_3\in E\setminus\{P, O\}$ s.t. $Q_2+Q_3 = Q_1$, then set \[D_Q := (Q) + (Q_1) - (Q_2) - (Q_3).\] For example, let $n\ge 4$ be an integer that is prime to $m$ and $\cha(K)$, then $E[n]\ne \{O\}$ and we can choose $Q_2\in E[n]\setminus\{O\}$, $Q_3 := 2Q_2$, $Q_1 := 3Q_2$.
+
+Since \[\sigma(mD_P) = m\sigma(D_P) = mP = 0,\]
+$mD_P$ is a principal divisor and thus there exists $f_P\in\bar{K}(E)^\times$ with $\div f_P = mD_P$.
+The function $f_Q$ exists for the same reason.
+
+\textit{Independent of choices.}
+Let $D_P', D_Q', f_P'$ and $f_Q'$ be another set of choices.
+We prove in the following steps.
+\begin{enumerate}
+    \item [(1)] Suppose $D_P' = D_P$ and $D_Q' = D_Q$. Then $\div f_P' = \div f_P$, so $f_P' = cf_P$ for some $c\in \bar{K}^\times$. Hence for any divisor $D = \sum_{X\in E} n_X(X)\in\Div^0(E)$, \[f_P'(D) = \prod_{X\in E} (cf_P(X))^{n_X} = c^{\deg D}f_P(D) = f_P(D).\]
+    Similarly, $f_Q'(D) = f_Q(D)$ for all $D\in\Div^0(E)$. Therefore, the choice of $f_P$ and $f_Q$ does not affect $\tilde{e}_m(P, Q)$.
+
+    \item [(2)] Suppose $D_P' = D_P$ and $f_P' = f_P$. Then \[\sigma(D_Q'-D_Q) = \sigma(D_Q') - \sigma(D_Q) = O\]
+    and $\deg(D_Q'-D_Q) = 0$. So $D_Q' - D_Q = \div g$ for some $g\in\bar{K}(E)^\times$, and\[\div\left( \frac{f_Q'}{f_Q} \right) = mD_Q'-mD_Q = m(D_Q'-D_Q) = \div (g^m).\]
+    Hence there is a $c\in \bar{K}^\times$ s.t. $f_Q' = cg^mf_Q$.
+    Note that $\div f_P = mD_P$ and $\div g = D_Q'-D_Q$ have disjoint supports.
+
+    Now by \cref{apply function to divisor is multiplicative} and Exercise 1, \begin{align*}
+        \frac{f_P(D_Q')}{f_Q'(D_P)}
+        &= \frac{f_P(D_Q + \div g)}{(cf_Qg^m)(D_P)}
+        = \frac{f_P(D_Q)f_P(\div g)}{(cf_Q)(D_P)(g(D_P)^m)}\\
+        &=\frac{f_P(D_Q)}{c^{\deg D_P}f_Q(D_P)}\frac{f_P(\div g)}{g(mD_P)}\\
+        &=\frac{f_P(D_Q)}{f_Q(D_P)}\frac{g(\div f_P)}{g(mD_P)} = \frac{f_P(D_Q)}{f_Q(D_P)}.
+    \end{align*}
+    Therefore, $\tilde{e}_m(P, Q)$ is independent of the choice of $D_P$.
+    \item [(3)] Suppose $D_Q' = D_Q$ and $f_Q' = f_Q$.
+    Then \[\frac{f_P(D_Q')}{f_Q'(D_P)} = \left( \frac{f_Q'(D_P)}{f_P(D_Q')} \right)^{-1} = \tilde{e}_m(Q, P)^{-1} = \left( \frac{f_Q(D_P)}{f_P(D_Q)} \right)^{-1} = \frac{f_P(D_Q)}{f_Q(D_P)}.\]
+    So $\tilde{e}_m(P, Q)$ is independent of the choice of $D_P$.
+\end{enumerate}
+In conclusion, $\tilde{e}_m(P, Q)$ is well-defined and depends only on $P$ and $Q$.
+
+\item [(b)]
+By \cref{apply function to divisor is multiplicative} and Exercise 1,
+\begin{align*}
+    \tilde{e}_m(P, Q)^m = \frac{f_P(D_Q)^m}{f_Q(D_P)^m}
+    = \frac{f_P(mD_Q)}{f_Q(mD_P)} = \frac{f_P(\div f_Q)}{f_Q(\div f_P)} = 1.
+\end{align*}
+
+\item [(c)]
+The existence of $g_Q$ and $g_P$ are similar, so it suffices to prove for $g_P$.
+Write $D_P = \sum_{X\in E}n_X(X)$.
+By the assumption on $m$, $[m]\in\enom(E)$ is sparable and thus unramified. 
+Hence\begin{align*}
+    \div \left( [m]^* f_P\right) &= [m]^*(\div f_P) = [m]^*(mD_P)\\
+    &=\sum_{X\in E} mn_X [m]^*(X) = \sum_{X\in E}mn_X\sum_{mY = X} (Y) = \sum_{Y\in E} mn_{mY}(Y).
+\end{align*}
+Let $D := \sum_{Y\in E}n_{mY}(Y)$, then $\div \left( [m]^* f_P\right) = mD$.
+Since $[m]$ is separable and unramified, \[\deg D = \sum_{Y\in E}n_{mY} = \sum_{X\in E}\sum_{mY = X} n_X = \sum_{X\in E} m^2n_X = m^2\deg D_P = 0.\]
+If $mZ = X\in E$, then \[\sum_{mY = X}Y = \sum_{W\in E[m]}(Z + W) = m^2Z + \sum_{W\in E[m]}W = mX,\] so
+\[\sigma(D) = \sum_{X\in E}n_X\sum_{mY = X} Y = \sum_{X\in E}n_XmX = m\sigma(D_P) = mP = O.\]
+Therefore, $D$ is a principal divisor, so there exists $h\in \bar{K}(E)^\times$ s.t. $\div h = D$.
+Thus \[\div(h^m) = mD = \div([m]^*f_P),\] which means there is a $c\in \bar{K}^\times$ s.t. $[m]^*f_P = ch^m$.
+Let $g_P := c^{1/m}h$, then $[m]^*f_P = g_P^m$.
+\item [(d)]
+By definition, $g_P(X)^m = f_P(mX)$ and $g_Q(X)^m = f_Q(mX)$ for all $X\in E$.
+By \cref{apply function to divisor is multiplicative},
+\begin{align*}
+    \left( \frac{g_P(Q' + R)g_Q(O)}{g_P(R)g_Q(P')} \right)^m
+    &= \frac{f_P(mQ'+mR)f_Q(mO)}{f_P(mR)f_Q(mP')}\\
+    &= \frac{f_P((Q + mR) - (mR))}{f_Q((P) - (O))}. 
+\end{align*}
+The divisor $(P) - (O)$ verfies the conditions for $D_P$.
+If $(Q + mR) - (mR)$ verifies the conditions for $D_Q$, then $g_P(Q' + R)g_Q(O)/g_P(R)g_Q(P') = \tilde{e}_m(P, Q)$ by setting $D_P = (P) - (O)$ and $D_Q = (Q+mR) - (mR)$.
+
+Both $\sigma((Q + mR) - (mR)) = O$ and $\deg((Q + mR) - (mR)) = 0$ is clear. It is left to show that \begin{equation}\label{disjoint condition}
+    \{Q + mR, mR\}\cap \{P, O\} = \varnothing.
+\end{equation}
+We just need \[mR\notin\{O, P, -Q, P - Q\},\]
+which is equivalent to $mR\notin\{O, P, -Q\}$
+as \[mR = P - Q\iff mR = 2mR \iff mR = O.\]
+This can be satisfies, because there are $m^2$ possible $P'$'s; a fixed choice of $P'$ gives $m^2$ choices of $Q'$ if $Q\ne \pm P$ and $m^2 - 2$ choices of $Q'$ if $Q = \pm P$; every $Q'$ gives $4$ possibe $R$.
+So there are $4m^4 - 8m^2$ choices of $R$, but \[\#\{R\in E | mR\in\{O, P, -Q\}\} \le 3m^2 < 4m^4 - 8m^2\]
+for $m\ge 2$.
+
+\item [(e)]
+Keep the choice of $D_P = (P) - (O)$ and $D_Q = (Q+mR) - (mR)$.
+Then \[[m]^*(mD_P) = m\left(\sum_{Y\in E[m]} (P' + Y) - (Y)\right),\]
+so \[\div(g_P) = \frac{1}{m}\div(f_P) = \sum_{Y\in E[m]} (P' + Y) - (Y).\]
+Similarly, \[\div(g_Q) = \sum_{Y\in E[m]} (Q'+R+Y) - (R+Y).\]
+Therefore,\begin{align*}
+    &\div\left( \frac{g_P(X+Q'+R)g_Q(X)}{g_P(X + R)g_Q(X + P')} \right)\\
+    = &\sum_{Y\in E[m]} (\, (Y + P'-Q'-R) - (Y - Q'-R) + (Y+Q'+R) - (Y + R)\\
+    & - (Y + P' - R) + (Y-R) - (Y + Q'+R-P') + (Y + R - P') \,)\\
+    = & \sum_{Y\in E[m]} (\, (Y + R) - (Y - Q' - R) + (Y + Q'+R) - (Y + R)\\
+    & - (Y + P' - R) + (Y - R) - (Y - R) + (Y + R - P')  \,)\\
+    = & \sum_{Y\in E[m]} (\, - (Y - Q' - R) + (Y + Q'+R) - (Y + P' - R) + (Y + R - P')  \,).
+\end{align*}
+Since $(P' - R) - (Q' + R) = O\in E$, i.e., $P' - R = Q' + R$, we conclude that
+\begin{align*}
+    \div\left( \frac{g_P(X+Q'+R)g_Q(X)}{g_P(X + R)g_Q(X + P')} \right) = 0.
+\end{align*}
+Meanwhile, \begin{align*}
+    \div\left( \prod_{k = 0}^{m-1}g_Q(X + kQ') \right)
+    &= \sum_{k = 0}^{m-1}\sum_{Y\in E[m]} \left( (Y + R - (k-1)Q') - (Y + R - kQ') \right) \\
+    &= \sum_{Y\in E[m]}(Y + R - (-1)Q') - (Y + R - (m - 1)Q')\\
+    &= \sum_{Y\in E[m]} (Y + R + Q') - (Y + R + Q' - Q)\\
+    &= [m]^*(mR + Q) - [m]^* (mR + Q - O) = 0.
+\end{align*}
+Therefore, the two functions are both constant.
+
+\item [(f)] We have
+\begin{align*}
+    \tilde{e}_m(P, Q) &=  \left( \frac{g_P(Q' + R)g_Q(O)}{g_P(R)g_Q(P')} \right)^m\\
+    &= \prod_{k = 0}^{m-1} \frac{g_P((k+1)Q'+R)g_Q(kQ')}{g_P(kQ' + R)g_Q(kQ' + P')}\\
+    &= \frac{g_P(mQ' + R)}{g_P(R)}\prod_{k=0}^{m-1}\frac{g_Q(kQ')}{g_Q(kQ' + P)}\\
+    &= \frac{g_P(Q + R)}{g_P(R)}.
+\end{align*}
+Since $\div(f_P) = mD_P = m(P) - m(O)$ and
+$f_P\circ [m] = g_P^m$, the value $\frac{g_P(Q + R)}{g_P(R)} = e_m(P, Q)$.
+
+\end{enumerate}
+
+\end{document}

@@ -1,8 +1,6 @@
 \documentclass{article}
-\usepackage{fontspec}
-\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs}
-\usepackage{stmaryrd}
-\usepackage{enumerate}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{enumitem}
 \usepackage[colorlinks,
 linkcolor=cyan,
 anchorcolor=blue,
@@ -13,17 +11,15 @@ citecolor=blue,
 \usepackage{bbm}
 \usepackage{tikz-cd}
 
-\linespread{1.2}
-
+\newtheorem{theorem}{Theorem}
 
 \theoremstyle{definition}
-\newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 \newtheorem{exercise}{Exercise}[section]
 \newtheorem{problem}{Problem}
 \newtheorem{example}{Example}
 \newtheorem{proposition}{Proposition}[section]
-\newtheorem{lemma}{Lemma}[section]
+\newtheorem{lemma}{Lemma}
 \newtheorem{corollary}{Corollary}[section]
 
 \theoremstyle{remark}
@@ -31,9 +27,6 @@ citecolor=blue,
 
 \renewcommand{\Re}{\mathop{\mathrm{Re}}}
 \renewcommand{\Im}{\mathop{\mathrm{Im}}}
-\renewcommand{\bar}{\overline}
-\renewcommand{\tilde}{\widetilde}
-\renewcommand{\hat}{\widehat}
 
 % 新命令
 % 数学对象
@@ -46,6 +39,7 @@ citecolor=blue,
     \newcommand{\p}{\mathfrak{p}}
     \renewcommand{\P}{\mathbb{P}}
     \newcommand{\A}{\mathbb{A}}
+    \newcommand{\F}{\mathbb{F}}
 % 集合
     \newcommand{\sminus}{\smallsetminus} %(集合)差
 % 范畴
@@ -84,11 +78,7 @@ citecolor=blue,
     \DeclareMathOperator{\cha}{char} %特征
     \DeclareMathOperator{\spec}{Spec} %素谱
     \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
-    \newcommand{\spm}{\maxspec}
     \DeclareMathOperator{\gal}{Gal}
-    \DeclareMathOperator{\Frac}{Frac}
-% 同调代数
-    \DeclareMathOperator{\ext}{Ext}
 % 微积分
     % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
 % 流形
@@ -98,6 +88,7 @@ citecolor=blue,
 %多项式
     \DeclareMathOperator{\disc}{disc} %判别式
     \DeclareMathOperator{\res}{res} %结式
+
 % 结构简写
     \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
     \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
@@ -108,45 +99,49 @@ citecolor=blue,
     \newcommand{\ie}{\;\mathrm{i.e.,}\;}
 
 % 重定义命令
-\renewcommand{\hom}{\mathop{\mathrm{Hom}}}
-\DeclareMathOperator{\Hom}{Hom}
+\renewcommand{\hom}{\mathop{Hom}}
 \renewcommand{\vec}{\boldsymbol}
 \renewcommand{\and}{\;\text{and}\;}
+\renewcommand{\div}{\mathop{\mathrm{div}}}
+\DeclareMathOperator{\Div}{Div}
 
 % 编号
 \newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
 \newcommand{\rmnum}[1]{\romannumeral #1}
-
-\newcommand{\fring}[1]{\llbracket #1 \rrbracket}
+\newcommand{\m}{\mathfrak{m}}
 
 \newcommand{\myit}{$\diamond$}
-\newcommand{\Gm}{\mathbb{G}_{\mathrm{m}}}
-\renewcommand{\O}{\mathcal{O}}
-\newcommand{\nr}{\mathrm{nr}}
-\newcommand{\alg}{\mathrm{alg}}
-\newcommand{\ab}{\mathrm{ab}}
-\DeclareMathOperator{\frob}{Frob}
-\newcommand{\F}{\mathbb{F}}
-\DeclareMathOperator{\Ind}{Ind}
-\newcommand{\m}{\mathfrak{m}}
-\DeclareMathOperator{\wideg}{wideg}
-\DeclareMathOperator{\val}{val}
 
-% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-%     cells={nodes={scale=#1}}}}
-
-\title{Notes on CFT}
-\author{}
-\date{}
+\title{Elliptic Curves, n$^\circ$ 2}
+\author{Lei Bichang}
+% \date{Sep 26}
 
 \begin{document}
 \maketitle
 
-\input{galois.tex}
-\input{extension.tex}
-\input{p_adic_analysis.tex}
-\input{lubin_tate.tex}
-\input{cycl_ext_Qp.tex}
-% \input{group_cohomo.tex}
+
+\subsection*{Exercise 1}
+
+
+
+
+
+
+
+
+
+
+\subsection*{Exercise 2}
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}

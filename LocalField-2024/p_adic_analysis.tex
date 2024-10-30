@@ -27,14 +27,127 @@ We are mainly interested in the power series converging on the unit disk, i.e., 
 \end{theorem}
 \begin{proof}
 \begin{itemize}
-    \item     $\rho<\rho(f)\implies |a_i|\rho^i \to 0\implies \sup_{i\ge 1}{|a_i|\rho^i}$ is a maximum.
-    \item $|f(z)| = \left| \sum_{i\ge 1} a_iz^i\right| \le\sup_{i\ge 1} |a_i||z|^i$, so $|f|_\rho\le \sup_{i\ge 1}{|a_i|\rho^i}$.
+    \item     $\rho<\rho(f)\implies |a_i|\rho^i \to 0\implies \sup_{i\ge 0}{|a_i|\rho^i}$ is a maximum.
+    \item $|f(z)| = \left| \sum_{i\ge 0} a_iz^i\right| \le\sup_{i\ge 1} |a_i||z|^i$, so $|f|_\rho\le \sup_{i\ge 1}{|a_i|\rho^i}$.
     \item Take $\alpha\in\C_p$ with $|\alpha| = \rho$,
     and $j\in\Z_{\ge 0}$ s.t. $\sup_{i\ge 1}{|a_i|\rho^i} = |a_j|\rho^j$.
     Let $\beta := a_j\alpha^j$.
-    Then \[g(X) := \frac{f(\alpha X)}{\beta}\in\O_{\C_p}\llbracket X\rrbracket.\]
+    We aim to find $|z| = \rho$ s.t. $|f(z)| = |\beta|$.
+    Consider \[g(X) = \sum_{i\ge 0}g_iX^i := \frac{f(\alpha X)}{\beta}\in\O_{\C_p}\llbracket X\rrbracket.\]
+    Moreover, the coefficients $g_i = \dfrac{a_i\alpha^i}{\beta}\to 0$ as $i\to\infty$,
+    because $|g_i| = \beta^{-1}|a_i|\rho^i$.
+    So $\bar{g}(X)\in k_{\C_p}\llbracket X  \rrbracket$ is actually a polynomial, and it is nonzero since $|g_j| = 1$.
+    Take $\bar{w}\in\bar{k}^\times$ s.t. $\bar g(\bar w)\ne 0$. Then a lift $w\in\O_{\C_p}^\times$ verifies $|g(w)| = 1$.
+    Hence $|f(\alpha w)| = |\beta|$ and $|\alpha w| = |\alpha| = \rho$.\qedhere
 \end{itemize}\end{proof}
 
+Thus, the expression $|f|_\rho\in\R\cup\{+\infty\}$ is defined on $\rho\in\R$.
+In addition,
+\begin{itemize}
+    \item $\rho\to |f|_\rho$ is continuous,
+    \item $|f|_\sigma \le |f|_\rho$ if $\sigma\le\rho < \rho(f)$.
+\end{itemize}
+$\implies$ the \textbf{maximum modulus principle} holds: $|f|_\rho = \sup_{|z|\le \rho} |f(z)| = \max_{|z|\le\rho} |f(z)|$ for $\rho < \rho(f)$.
 
+\begin{itemize}
+    \item $|\cdot|_\rho$ is multiplicative: $|fg|_{\rho} = |f|_\rho|g|_\rho$.
+\end{itemize}
 
+\begin{example}
+    If $f\in H_K$, then \textit{as a function}:\begin{itemize}
+        \item $f$ is bounded on $\m_{C_p}\iff f\in K\otimes_{\O_K}\O_K\llbracket X \rrbracket$,
+        \item $f$ is bounded by $1$ on $\m_{\C_p}\iff f\in\O_K\llbracket X \rrbracket$.
+    \end{itemize}
+\end{example}
 
+\subsection{Weierstrass Preparation Theorem}
+For $f(X) = \sum_{i\ge 0}a_iX^i\in\O_K\llbracket X \rrbracket$, we define its \textbf{Weierstrass degree} $:= \wideg(f) :=$ smallest $i\in\Z_{\ge 0}$ s.t. $a_i\in\O_K^\times$.
+\begin{itemize}
+    \item $\wideg$ is multiplicative.
+    \item $\wideg(f) = \infty\iff f\in\m_{K}\llbracket X \rrbracket$.
+    \item $\wideg(f) = 0\iff a_0\in\O_K\times\iff f\in\left( \O_K\llbracket X \rrbracket \right)^\times$.
+    \item If $K/\Q_p < \infty$, then for $f\in K\otimes_{\O_K}\O_K\llbracket X \rrbracket$,
+    $\exists ! n\in\Z$ s.t. $\pi^n f$ has finite Weierstrass degree, which is the smallest degree of the term in $f$ with minimum valuation.
+\end{itemize}
+\begin{remark}
+    The last statement fails if $K$ is not finite over $\Q_p$, i.e., if there is no uniformiser. For example, $f(X) = \sum_{i\ge 1}\frac{1}{p^i}X^i$.
+\end{remark}
+From now on, assume $K/\Q_p < \infty$ with uniformiser $\pi$.
+\begin{proposition}
+    [Euclidean Division]\label{Euclidean division for power series}
+    Let $f\in\O_K\llbracket X \rrbracket$ with $\wideg(f) < \infty$.
+    Then: $\forall g\in \O_K\llbracket X \rrbracket$, $\exists ! q\in \O_K\llbracket X \rrbracket$ \& $r\in \O_K[X]$\footnote{The residue $r(X)$ is a polynomial!} s.t. \[g = q\cdot f + r,\ \deg(r)\le \wideg(f) - 1.\]
+\end{proposition}
+\begin{proof}
+    Idea is, again, $\pi$-adic approximation.
+    
+    First we do ``Euclidean division" in $k\llbracket X \rrbracket $.
+    Write $\bar f(X) = X^nf_0(X)$ with $f_0(X)\in k\llbracket X \rrbracket^\times$.
+    For $ h = \sum_{i\ge 0}h_iX^i\in k\llbracket X \rrbracket$,
+    it decomposes as\[h = X^ns + r,\text{  with } r = h_0 + \dots + h_{n-1}X^{n-1}\]
+    \[\implies h = q\cdot f + r, \text{  where } q = s\cdot f_0^{-1}.\]
+
+    Therefore,\begin{align*}
+        g &= q_0f + r_0 + \pi g_1 &\text{with } \deg r_0 \le n-1,\\
+        &= (q_0 + \pi q_1)f + (r_0 + \pi r_1) + \pi^2 g_2 &\text{ with }\deg r_1\le n - 1\\
+        &=\cdots & \\
+    \implies g &= qf + r, &\text{with } q = \sum_{i\ge 0}\pi^iq_i, r = \sum_{i\ge 1}\pi^ir_i.
+    \end{align*}
+
+    \textit{Unicity.}
+    If $qf + r = 0$, then $\underbrace{\bar{q}\bar{f}}_{\text{divided by }X^n} + \underbrace{\bar{r}}_{\deg\le n - 1} = 0$, so $\bar{q}\bar{f} = \bar{r} = 0$.
+    Deduce inductively $\bmod \pi^n$.
+\end{proof}
+
+For a polynomial $P(X)\in \O_K[X]$, we say $P(X)$ is \textbf{distinguished}, if it is monic with other coefficients in $\m_K$, i.e, \[P(X) = X^n + a_{n-1}X^{n-1} + \dots + a_0,\quad a_{n-1},\dots, a_0\in\m_{K}.\]
+\begin{itemize}
+    \item The Newton polygon of a distinguished polynomial $P$ will be above $x$-axis with only the end point on $x$-axis, and all slopes are $ < 0$. So every root of $P$ lies in $\m_{\Q_p^\alg}$.
+\end{itemize}
+
+\begin{theorem}[Weierstrass Preparation Theorem]\label{Weierstrass preparation}
+    Let $f\in\O_K \llbracket X \rrbracket$ with $\wideg f < \infty$.\par
+    Then $\exists !$ distinguished polynomial $P\in\O_K \llbracket X \rrbracket$ with $\deg P = \wideg f$, s.t. \[f(X) = P(X)\cdot u(X),\quad u\in\left( \O_K\llbracket X \rrbracket \right)^\times.\]
+\end{theorem}
+
+So, power series over $K$ with bounded coefficients would have finitely many zeros in the unit disk.
+\begin{corollary}\label{zero of power series with bounded coefficients}
+    Let $f(X)\in K\otimes_{\O_K}\O_K\llbracket X \rrbracket$.\begin{enumerate}
+        \item $f(X) = \pi^\mu P(X) u(X)$ uniquely, where $\mu\in \Z$, $P$ a distinguished polynomial, $u\in\left( \O_K\llbracket X \rrbracket \right)^\times$.
+        \item $f$ has finitely many zeros in $\m_{\C_p}$, and they are actually in $\m_{\Q_p^\alg}$. The number of zeros is $\wideg (\pi^{-\mu} f) = \deg P$\footnote{I want to call this ``the Weierstrass degree of $f$".}.\qed
+    \end{enumerate}
+\end{corollary}
+\begin{corollary}
+    $K\otimes_{\O_K}\O_K\llbracket X \rrbracket$ is a PID.
+\end{corollary}
+\begin{proof}
+    For $I = (\{f_i\}_i)$, write $f_i = \pi^{\mu_i}P_iu_i$, then $I = \left(\gcd_i (P_i)\right)$.
+\end{proof}
+
+\begin{theorem}
+    Let $f\in H_K$, $\rho < 1$. Then $f$ has finitely many zeros in $B(0, \rho)$, all of which are in $\m_{\Q_p^\alg}$.
+\end{theorem}
+\begin{remark}
+    $f\in H_K$ \textit{could} have infinitely many zeros in $\m_{\C_p} = B(0, 1)$.
+    For example, we see in the homework that the zeros of $\log_F$ in $\m_{\C_p}$ are $F[p^\infty]$, which is infinite in many cases, such as $F = \Gm$.
+\end{remark}
+\begin{proof}
+    We may assume $\rho\in|\C_p|$.
+
+    Take $L/\Q_p < \infty$ and $\alpha\in\m_L$ with $|\alpha| = \rho$.
+    Then $f(\alpha X)\in L\otimes_{\O_L}\O_L\llbracket X \rrbracket$, because $|a_i|\rho^i\to 0$ for $f = \sum a_iX^i\in H_K$.
+    Hence $f(\alpha X)$ has finitely many zeros in $\m_{\C_p} = B(0, 1)$ and they are algebraic over $\Q_p$.
+    These zeros are in bijection with zeros of $f(X)$ in $B(0, \rho)$. 
+\end{proof}
+
+Now we can prove the converse of \cref{zero of power series with bounded coefficients}.
+\begin{theorem}
+    If $f\in H_K$, then\[f\in K\otimes_{\O_K}\O_K\llbracket X \rrbracket\iff f\text{ has finitely many zeros in }\m_{\C_p}.\]
+\end{theorem}
+\begin{proof}
+    ($\impliedby$)
+    First, take $\rho\in \m_{\C_p}$ and $\alpha\in \m_{\Q_p}$ with $|\alpha| = \rho$.
+
+\end{proof}
+
+\subsection{\texorpdfstring{$p$-adic Banach Spaces}{}}
+Let $K/\Q_p < \infty$ with uniformiser $\pi$, $k := \O_K/\pi$.

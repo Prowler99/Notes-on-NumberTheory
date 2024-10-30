@@ -36,7 +36,7 @@ The following lemma is a fundamental property of $\mathcal{F}_\varpi$.
         \Phi_{r+1} \equiv \Phi_r &\mod (\deg\ge r+1),\\
         f(\Phi_r)\equiv \Phi_r(g(X_1), \dots, g(X_n)) &\mod(\deg\ge r+1). 
     \end{cases}\]
-    The second condition is guaranteed because $X\mapsto h(X)$ is $X$-adic continuous for any power series $h$.
+    The second condition is guaranteed because $X\mapsto h(X)$ is $X$-adically continuous for any power series $h$.
 
     Suppose we have found $\Phi_r$. We look for $\Phi_{r+1}$ of the form $\Phi_{r+1} = \Phi_r + Q$, where $Q$ is homogeneous of degree $r+1$, s.t. \[f(\Phi_{r+1}) \equiv \Phi_{r+1}(g(X_1), \dots, g(X_n)) \mod \deg\ge r+2.\]
     The LHS is
@@ -45,7 +45,8 @@ The following lemma is a fundamental property of $\mathcal{F}_\varpi$.
     \[\Phi_r\circ g + Q(\varpi X_1, \dots, \varpi X_n)\equiv \Phi_r\circ g + \varpi^{r+1}Q,\]
     so if such a $Q\in A[X_1, \dots]$ exists, it must satisfy 
     \[\varpi(\varpi^r - 1)Q\equiv f\circ \Phi_r - \Phi_r\circ g\mod\deg\ge r+2\]
-    and thus being unique. This procedure also shows that all $\Phi_r$'s are unqie if we require $\Phi_{r+1} - \Phi_r$ to be homogeneous.
+    and thus being unique.
+    This procedure also shows that all $\Phi_r$'s are unique if we require $\Phi_{r+1} - \Phi_r$ to be homogeneous.
 
     Because $\varpi^r - 1\in A^\times$, it suffices to show \[f(\Phi_r) \equiv \Phi_r\circ g\mod \varpi,\] which is clear.
 \end{proof}
@@ -53,7 +54,7 @@ The following lemma is a fundamental property of $\mathcal{F}_\varpi$.
 By \cref{fund prop of F_varpi}, one may define the \textbf{Lubin-Tate formal groups}.
 They are exactly the formal group laws admitting an endomorphism\begin{itemize}
     \item that has derivative at the origin equal to a uniformiser of $K$, and
-    \item reduces mod m to the Frobenius map $T\mapsto T_q$.
+    \item reduces mod $\m$ to the Frobenius map $T\mapsto T_q$.
 \end{itemize}
 Moreover, these formal groups admit $\O_K$-actions and are isomorphic as formal $\O_K$-modules.
 
@@ -183,7 +184,7 @@ Let $a = u\varpi^m\in K^\times$, then
 \end{itemize}
 
 \begin{theorem}
-    Both $K_{\varpi}$ and $K^\nr$ are independent of the choice of $\varpi$.
+    The field $K_{\varpi}K^\nr$ is independent of the choice of $\varpi$.
 \end{theorem}
 
 

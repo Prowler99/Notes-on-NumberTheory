@@ -52,7 +52,8 @@ Let $f\in A[X]$ be an \textbf{Eisenstein polynomial}, i.e., \[f = X^n + a_{n-1}X
 Similar to \cref{simple ext of dvr - unramified - is field}, $f$ is irreducible and $L$ is a field with $B_f$ the integral closure of $A$ in $L$.
 
 \subsection{Unramified Extensions of Local Fields}
-Let $K$ be a CDVF\footnote{CDVF stands for complete discrete valuation field.}. We assume further that both $K$ and its residue field $k = \mathcal{O}_K/\mathfrak{m}$ are perfect.
+Let $K$ be a local field.
+We assume further that both $K$ and its residue field $k = \mathcal{O}_K/\mathfrak{m}$ are perfect.
 
 The slogan is that unramified extensions are just extensions of residue fields.
 Using Hensel's lemma, an extension $k(a)/k$ can be lifted to a unique extension $K(\alpha)/K$ over $K$ with \[\gal(K(\alpha)/K)\simeq \gal(k(a)/k).\] Moreover, given an extension $L/K$, there is a maximal unramified subextension $K_0$ in $L$ containing every unramified extensions.
@@ -75,6 +76,20 @@ Now we assume $k$ to be finite. Then adjoining roots of unities with order copri
     Because $\cha\F_q\nmid n$, the primitive root $\zeta_n$ exists and $\F_q(\zeta_n)$ is the splitting field of $X^n - 1$ over $\F_q$.
     The degree $f = [\F_q(\zeta_n) : \F_q]$ is the order of $\frob_q$ on $\F_q(\zeta_n)$, i.e., $f$ is the smallest integer s.t. \[\frob_q^f(\zeta_n) = \zeta_n^{q^f} = \zeta_n.\] The definition of primitive root of unity says that \[\zeta_n^{q^f -1} = 1\iff n \mid q^f - 1.\qedhere\]
 \end{proof}
+
+\subsection{Newton Polygon}
+Let $K$ be a local field with valuation $\val$ extended to $K^\alg$.
+
+For $P = a_0 + a_1 X + \dots + a_dX^d\in K[X]$,
+the \textbf{Newton polygon} of $P := \mathrm{NP}(P) := $ convex hull of points \[(0, \val(a_0)), (1, \val(a_1)),\dots, (d, \val(a_d)).\]
+\begin{itemize}
+    \item $\mathrm{NP}(P)$ is a union of linked segments with increasing slopes.
+    \item \textbf{length of a segment} $:=$ its length along $x$-axis.
+\end{itemize}
+
+\begin{theorem}
+    The number of roots of $P$ in $K^\alg$ with valuation $\lambda$ = the length of $\mathrm{NP}(P)$ with slope $-\lambda$.
+\end{theorem}
 
 \subsection{Ramification Groups}
 

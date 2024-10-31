@@ -1,0 +1,409 @@
+%如果你有任何建议和疑问请发送邮件至qrx_math@ruc.edu.cn,协助我做的更好。
+% 重要提示：
+%   1. 请确保使用 UTF-8 编码保存
+%   2. 请使用 XeLaTeX编译
+%   3. 修改、使用、发布本文档请务必遵循 LaTeX Project Public License
+%   4. 不需要的注释可以尽情删除
+%*********************************************************************
+\documentclass[12pt,UTF8]{ctexart}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{tikz-cd}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\usepackage{enumerate}
+\usepackage{threeparttable}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+% \usepackage{mathptmx}%Times New Roman字体
+\usepackage{titletoc}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+
+
+\usepackage{natbib}
+\bibliographystyle{alpha}
+
+
+\captionsetup{font={small},labelfont={bf}} 
+\captionsetup[table]{skip=3pt}
+\captionsetup[figure]{skip=3pt}
+%圆形脚注
+\usepackage{pifont}
+\usepackage[perpage,symbol*]{footmisc}
+\DefineFNsymbols{circled}{{\ding{192}}{\ding{193}}{\ding{194}}
+{\ding{195}}{\ding{196}}{\ding{197}}{\ding{198}}{\ding{199}}{\ding{200}}{\ding{201}}}
+\setfnsymbol{circled}
+
+%图标编号按章节排序（可选）
+% \renewcommand {\thetable} {\thesection{}.\arabic{table}}
+% \renewcommand {\thefigure} {\thesection{}.\arabic{figure}}
+
+%修改目录
+
+\titlecontents{section} % set formatting for \section -
+                        % \subsection must be formatted separately 
+[2.3em]                 % adjust left margin
+{\heiti}             % font formatting
+{\contentslabel{2.3em}} % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[1pc]{.}\contentspage}
+
+\titleformat{\section}{\centering \zihao{3} \heiti \bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}{\flushleft \zihao{4} \heiti \bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\flushleft \zihao{-4} \heiti \bfseries}{\thesubsubsection}{1em}{}
+
+\geometry{a4paper,left = 2cm,right = 1.5cm,top = 2cm,bottom= 2cm}
+
+
+% 页眉：学校标志（教务处主页提供下载）：
+% 高度为0.98 cm，宽度为4.13 cm，居中放置。
+% 页码采用10.5号宋体字，居中放置，格式为：第1页。
+\pagestyle{fancy}
+\lhead{}
+\chead{\includegraphics[width = 4.13cm,height = 0.98cm]{head.png}}
+\rhead{}
+\lfoot{}
+\rfoot{}
+
+%目录和引用超链接
+\hypersetup{
+colorlinks=true,
+linkcolor=black,
+citecolor=cyan
+}
+
+% \tikzcdset{}
+
+% 新定理
+
+\newtheorem{theorem}{定理}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}[section]
+\newtheorem{defprop}[definition]{定义-命题}
+\newtheorem{example}[definition]{例}
+\newtheorem{proposition}{命题}[section]
+\newtheorem{lemma}[proposition]{引理}
+\newtheorem{corollary}[proposition]{推论}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注记}
+
+\crefname{definition}{定义}{定义}
+\crefname{proposition}{命题}{命题}
+\crefname{example}{例}{例}
+\crefname{lemma}{引理}{引理}
+\crefname{corollary}{推论}{推论}
+\crefname{defprop}{定义-命题}{定义-命题}
+\crefname{theorem}{定理}{定理}
+\crefname{equation}{}{}
+\crefname{remark}{注记}{注记}
+
+% 新命令
+% 数学对象
+    % 基础空间
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\C}{\mathbb{C}}
+    % 常量
+    % \newcommand{\e}{\mathrm{e}} %自然底数
+    % 群
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+% 算符&映射&函子
+    % 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+    \newcommand{\inject}{\hookrightarrow} %单射
+    \newcommand{\surject}{\twoheadrightarrow} %满射
+    % 范畴
+    \DeclareMathOperator{\id}{id}
+    \newcommand{\op}{\mathrm{op}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    \newcommand{\set}{\mathbf{Set}} %集合范畴
+    \newcommand{\abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\cring}{\mathbf{CRing}}
+    \DeclareMathOperator{\Id}{id}
+    %向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\spec}{Spec} %谱
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{Sym}
+    % 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+    \DeclareMathOperator{\gal}{Gal}
+    % 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    % \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    % 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+    % 流形
+    \DeclareMathOperator{\lie}{Lie}
+    % 代数几何
+    \DeclareMathOperator{\spf}{Spf}
+    % \DeclareMathOperator{\sp}{Sp}
+    \DeclareMathOperator{\proj}{Proj}
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\and}{\;\text{and}\;}
+
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\frp}{\mathfrak{p}}
+\newcommand{\compl}{\mathbf{Compl}_\O}
+\newcommand{\nilp}{\mathbf{Nilp}_\O}
+\newcommand{\nilpnr}{\mathbf{Nilp}_{\O^\nr}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\A}{\mathbb{A}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\cont}{\mathrm{cont}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\alg}{\mathbf{Alg}}
+\newcommand{\Mod}{\mathbf{Mod}}
+\newcommand{\comaug}{\mathbf{ComplAug}}
+\DeclareMathOperator{\rig}{rig}
+\DeclareMathOperator{\Sp}{Sp}
+\newcommand{\symm}[1]{\mathfrak{S}_{#1}}
+
+\newcommand{\nil}{\mathbf{Nil}}
+\newcommand{\nilaug}{\mathbf{NilAug}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\fra}{\mathfrak{a}}
+
+\newcommand{\myit}{$\diamond$}
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+
+\begin{document}
+\renewcommand{\bar}{\overline}
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+\newcommand{\nr}{\mathrm{nr}}
+
+\newcommand\dunderline[3][-1pt]{{%
+  \setbox0=\hbox{#3}
+  \ooalign{\copy0\cr\rule[\dimexpr#1-#2\relax]{\wd0}{#2}}}}
+
+% 2.3.1首页
+% 2.3.1.1论文编码： 12号黑体字，加粗，置顶，居右。
+% 2.3.1.2文头：“中国人民大学本科毕业论文（设计）”，在论文编码下一行， 28号黑体字，加粗，居中。
+% 2.3.1.3论文题名：论文文头下，隔一行，28号黑体字，加粗，居中。
+% 2.3.1.4论文副题名：居中排印在论文题名下，20号黑体字，加粗，副题名前加特殊符号中“长划线”。
+% 2.3.1.5作者、学院、专业、年级、学号、指导教师、论文成绩、日期：论文标题下隔六行，依次排印在论文副题名下，各占一行，距左端空5格，名称后用“：”， 20号黑体字，加粗，内容下需要加下划线，内容置于下划线中部，两端对齐。
+
+\begin{titlepage}
+\thispagestyle{fancy}
+\cfoot{}
+  \begin{flushright}
+    \heiti \textbf{论文编码：RUC-BK-070701-2020201699}
+  \end{flushright}
+
+  \fontsize{28pt}{\baselineskip}\textbf{\heiti{中国人民大学本科毕业论文（设计）}}
+
+  \vspace{24mm}
+  \centering
+  \fontsize{28pt}{\baselineskip}\textbf{\heiti $p$-进半平面与Drinfeld定理}
+
+  \vspace{3mm}
+
+  \begin{spacing}{1.2}
+    \LARGE\selectfont{\textbf{\heiti }}
+  \end{spacing}
+
+  \vspace{64mm}
+
+  \flushleft
+  \begin{spacing}{1.3}
+    \hspace{27mm}\heiti\LARGE\selectfont{\textbf{作\hspace{14mm}者：}\dunderline[-10pt]{1pt}{\makebox[78mm][c]{雷笔畅}}}
+  
+    \hspace{27mm}\heiti\LARGE\selectfont{\textbf{学\hspace{14mm}院：}\dunderline[-10pt]{1pt}{\makebox[78mm][c]{数学学院}}}
+
+    \hspace{27mm}\heiti\LARGE\selectfont{\textbf{专\hspace{14mm}业：}\dunderline[-10pt]{1pt}{\makebox[78mm][c]{数学拔尖人才实验班}}}
+
+    \hspace{27mm}\heiti\LARGE\selectfont{\textbf{年\hspace{14mm}级：}\dunderline[-10pt]{1pt}{\makebox[78mm][c]{2020级}}}
+
+    % \hspace{27mm}\heiti\LARGE\selectfont{\textbf{学\hspace{14mm}号：}\dunderline[-10pt]{1pt}{\makebox[78mm][c]{2020201699}}}
+    
+
+    \hspace{27mm}\heiti\LARGE\selectfont{\textbf{指导教师：}\dunderline[-10pt]{1pt}{\makebox[78mm][c]{王善文}}}
+    
+    \hspace{27mm}\heiti\LARGE\selectfont{\textbf{论文成绩：}\dunderline[-10pt]{1pt}{\makebox[78mm][c]{A-(87)}}}
+    
+    \hspace{27mm}\heiti\LARGE\selectfont{\textbf{完成日期：}\dunderline[-10pt]{1pt}{\makebox[78mm][c]{2024年5月25日}}}
+  \end{spacing}
+
+  \vspace{25mm}
+
+\end{titlepage}
+
+\newpage
+\begin{spacing}{1.625}
+    \begin{center}
+    {
+        \heiti\zihao{3}
+        \hspace*{\fill}
+        
+        \hspace*{\fill}
+        
+        中国人民大学学位论文原创性声明和使用授权说明
+    }
+    
+        \zihao{4} \textbf{原创性声明}
+    \end{center}
+    \zihao{-4}
+    
+    本人郑重声明:所呈交的学位论文,是本人在导师的指导下,独立进行研究工作所取得的成果.除文中已经注明引用的内容外,本论文不含任何其他个人或集体已经发表或撰写过的作品或成果.对本文的研究做出重要贡献的个人和集体,均已在文中以明确方式标明.
+    
+    \hspace*{\fill}
+    
+    \hspace*{\fill}
+
+    \begin{spacing}{2}
+        \hspace{23em}论文作者签名:
+    
+        \hspace{27em}日期:\hspace{2em}年\hspace{2em}月\hspace{2em}日
+    \end{spacing}
+
+    \begin{center}
+        \zihao{4}
+        \hspace*{\fill}
+
+        \hspace*{\fill}
+
+        \hspace*{\fill}
+
+        \textbf{学位论文使用授权说明}
+    \end{center}
+    \zihao{-4}
+
+    \hspace*{\fill}
+    
+    本人完全了解中国人民大学关于收集、保存、使用学位论文的规定,即:
+    \begin{itemize}
+        \item[\ding{108}] 按照学校要求提交学位论文的印刷本和电子版本；
+        \item[\ding{108}] 学校可以公布论文的全部或部分内容,可以采用影印、缩印或其他复制手段保存论文.
+    \end{itemize}
+      
+    \hspace*{\fill}
+    
+    \hspace*{\fill}
+    
+    \begin{spacing}{2}
+    \hspace{23em}论文作者签名:
+
+    \hspace{23em}指导教师签名:
+    
+    \hspace{27em}日期:\hspace{2em}年\hspace{2em}月\hspace{2em}日
+    \end{spacing}
+    
+\end{spacing}
+\cfoot{}
+
+
+% 中文摘要及关键词：
+% “摘要”，单倍行距，段前1行，段后1行，16号黑体字，加粗，居中。
+% 摘要内容， 12号宋体字，起行空两格，回行顶格， 1.5倍行距。
+% “关键词”，摘要下隔一行，左端顶格，12号黑体字，加粗，后面加“：”。
+% 关键词内容，直接放在“：”之后，词间间隔3格，12号宋体字。
+
+\newpage
+\input{abstract.tex}
+\renewcommand\contentsname{目录}
+% \renewcommand\listfigurename{插\ 图}
+% \renewcommand\listtablename{表\ 格}
+\tableofcontents
+%不需要图表目录可以删去下面两行
+% \listoffigures
+% \listoftables
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\cfoot{\zihao{5} 第 \thepage 页}
+% 按照自然段依次排列，每段起行空两格，回行顶格。12号宋体字，（重点文句，12号宋体字，加粗），1.25倍行距。
+%正文、注释双面打印，编排页码，自第1页起，设置页眉。
+\begin{spacing}{1.25}
+\input{introduction.tex}
+\input{0-notations.tex}
+\input{1-BTandRigid.tex}
+\input{2-FormalSchemeOmega.tex}
+\input{5-CartierTheory.tex}
+\input{3-Drinfeld.tex}
+
+\newpage
+\addcontentsline{toc}{section}{\heiti 附录}
+\section{附录}
+\input{Appendix.tex}
+
+\vspace{10em}
+\noindent{\heiti{\zihao{4} \textbf{作者签名:}}\dunderline[-2pt]{0.5pt}{\hspace{20em}}}
+
+
+\newpage
+\end{spacing}
+\nocite{*}
+\addcontentsline{toc}{section}{\heiti 参考文献}
+\bibliography{references}
+
+
+\newpage
+\addcontentsline{toc}{section}{\heiti 致谢}
+\section*{致谢}
+
+首先, 我想感谢亲人们长久以来在物质上和精神上对我的支持. 因为他们, 我才得以来到中国人民大学, 并在此学习数学; 他们始终如一的支持让我得以成长为今天的样貌.
+
+感谢老师们在过去四年对我的指导和帮助. 其中王善文老师不仅指导了我的本科毕业论文, 而且一直在数学上指引着我. 正是在他的引导下, 我产生了对数论与代数几何的强烈兴趣, 并立志在未来继续钻研.  
+
+感谢我的同学和朋友们, 他们的陪伴在学术和生活方面于我不可或缺.
+特别地, 我要感谢姜杰东师兄一次又一次耐心而详尽地解答我na\"ive的数学问题.
+
+本文至此结束, 但这只是一条长路的起点, 而我希望自己有意志与能力长久地走下去.
+
+\end{document}

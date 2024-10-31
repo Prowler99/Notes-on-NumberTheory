@@ -1,0 +1,38 @@
+\section{绪论}
+对复上半平面$\mathcal{H} = \{\tau \in\C : \Im\tau > 0\}\subset \P^1(\C)-\P^1(\R)$的研究由来已久. 
+作为复上半平面的$p$-进类比, $p$-进半平面$\Omega = \P^1_{\Q_p} - \P^1(\Q_p)$对于数论而言是同样重要的研究对象, 其应用之一是给出所谓的$p$-进单值化.
+
+在复几何中, 某个或某类空间的单值化(uniformisation)通常指给出其万有覆叠.
+例如, 熟知的黎曼单值化定理指出, 任何连通黎曼面一定同构于复平面$\A^1(\C)$, 复射影平面$\P^1(\C)$, 或者复上半平面$\mathcal{H}$的商. 在$p$-进的情形, 类似的结论被称为$p$-进单值化. 
+
+为了研究$p$-进半平面, 首先需要建立一种$p$-进域上的解析理论: 刚性解析几何.
+事实上, 最初正是Tate在研究$\Q_p$上的椭圆曲线及其单值化时发现了这种理论.
+粗略地讲, 刚性解析几何理论关心刚性解析空间(rigid analytic spaces)范畴. 正如复流形由$\C^n$中的高维圆盘(polydisk)粘合而成, 刚性解析空间是由仿射胚子集(affnoid subset)粘合而成的; 这种子集是$\C_p^n$或$\Q_p^n$中的高维圆盘的推广. 例如, 射影空间$\P^1(\C_p)$中的仿射胚子集就是$\P^1$挖去有限个开圆盘. 具体的理论可以参考\cite{BS14}和\cite{FvdP}.
+
+Raynaud发展了源自Tate的刚性解析几何, 并将其与形式概型的理论联系了起来. 对于环$A$及其理想$I$, 考虑$I$给出的进制拓扑以及$A$关于$I$-进拓扑的完备化$\hat{A} := \varprojlim A/I^n$.
+我们可以在Zariski拓扑空间$\spec A/I$上装备环层\[D(f)\mapsto A\left<f^{-1}\right> := \varprojlim A/I^n[f^{-1}],\] 所得环层空间(ringed space)记作$\spf \hat{A}$.所谓的形式概型(formal scheme)便是那些局部上形如$\spf \hat{A}$的环层空间.
+形式概型范畴与刚性解析空间范畴由函子$\rig$联系起来:
+取$\Z_p$上形式概型$X$的刚性泛在纤维(rigid generic fibre)可以得到$\Q_p$上的刚性解析空间$X^{\rig}$.
+% 可以在此放jjd的绝好图
+如果形式概型$X$的刚性泛在纤维是刚性解析空间$Y$, 我们就称$X$是$Y$的形式模型(formal model).
+在\cite{raynaud1974geometrie}中, Raynaud证明了每个可容许刚性解析空间(admissible rigid analytic space)都有形式模型, 并且在可容许爆破(admissible blow-up)的意义下唯一.
+具体的理论可以参考\cite{BS14}.
+% 而$\Q_p$上的刚性解析空间能够特殊化(specialise)到$\F_p$上的
+
+
+1976年, \v{C}erednik在\cite{vcerednik1976uniformization}中利用$p$-进半平面给出了一族志村曲线的单值化.
+设$D$是$\Q$上的四元数代数, $U$是$D(\A_f)^\times$的紧开子群, 其中$\A_f$是$\Q$的有限ad\'{e}le.
+\v{C}erednik证明了以下结果: 如果$U$在$p$位置的分量$U_p$为极大紧子群,
+则相应的志村曲线$S_U$基变换到$\Q_p$上所得曲线$S_U\otimes\Q_p$是一些$p$-进半平面关于$\mathrm{PGL}_2(\Q_p)$的离散子群的商之并; 这就是$S_U$的$p$-进单值化.
+其后, Drinfeld在\cite{drinfel1976coverings}给出了他的 ``基本定理'', 以形式群的模空间重现了$p$-进半平面$\Omega$; 更准确地说, 他证明了$\hat{\Omega}\hat{\otimes}_{\Z_p}\hat{\Z}_p^\nr$参数化了一族带有$D$的整数环的作用的高度$4$的形式群,
+其中$\hat{\Omega}$为$\Omega$的一个形式模型, $\hat{\Z}_p^\nr$是$\Z_p$的极大非分歧扩张的完备化.
+利用此结果, Drinfeld重新证明了\v{C}erednik的单值化定理, 并且揭示了其后更丰富的结构. 这一单值化结果就此被称为\v{C}erednik-Drinfeld定理.
+然而, Drinfeld的论文\cite{drinfel1976coverings}过于简短而难以阅读. 于是, Boutot与Carayol在\cite{BC91}中对一维情形更具体地解释了Drinfeld对\v{C}erednik-Drinfeld定理的证明.
+
+本文主要关心的是Drinfeld的基本定理, 即$p$-进半平面的模诠释.
+首先, Drinfeld使用了Deligne的函子来局部地描述$\hat{\Omega}$, 以此给出了$\hat{\Omega}$的一个模诠释. 随后, 利用形式群的Cartier理论, Drinfeld构造出了函子$\hat{\Omega}$到该模问题的自然变换, 并且证明其为同构, 从而完成基本定理的证明.
+
+本文主要参考了\cite{BC91}. 
+首先, 本文具体地构造和描述了$p$-进局部域$K$上的$p$-进半平面及其形式模型$\hat{\Omega}$. 随后, 本文回顾了形式群以及形式群的Cartier理论的主要结果. 最后, 本文陈述了Drinfeld定理并给出其中的主要构造.
+
+

@@ -1,0 +1,98 @@
+\section{$p$-进半平面的构造}
+
+设$K$是$p$-进局部域, $C$是$K$的代数闭包的完备化.
+$K$上的$p$-进半平面是一个$K$上的刚性解析空间$\Omega$,
+其$C$-点在集合意义上等于$\P^1(C)-\P^1(K)$.
+在这一节中, 我们将首先构造$\mathrm{PGL}_2(K)$的Bruhat-Tits树$I$及其几何实现$I_\R$, 以此构造出$\Omega(C) = \P^1(C) - \P^1(K)$上的刚性解析结构.
+然后, 我们通过粘合局部信息, 构造出$\Omega$的一个形式模型$\hat{\Omega}$.
+
+\subsection{$\mathrm{PGL}_2(K)$的Bruhat-Tits树}
+
+\subsubsection{定义}
+有限维$K$-向量空间$V$中的\textbf{格(lattice)}指$V$的满秩自由子$\O$-模.
+同一向量空间中的两个格$M$与$M'$称为是\textbf{位似的(homothetic)}, 如果存在$\lambda\in K^\times$, 使得$M' = \lambda M$.
+位似是一个等价关系.
+\begin{definition}
+    群$\mathrm{PGL}_2(K)$的\textbf{Bruhat-Tits树(Bruhat-Tits tree)}是无向图$I$, 定义如下:
+    \begin{enumerate}
+        \item [\myit] 顶点之集合为全体$K^2$中格的位似类. 格$M\subset K^2$对应的顶点记作$[M]$.
+        \item [\myit] 顶点$s$与$s'$被一条边$[s, s']$连接, 当且仅当存在$s$的代表元$M$和$s'$的代表元$M'$, 满足$\varpi M \subsetneq M'\subsetneq M$.
+    \end{enumerate}
+\end{definition}
+
+设$s' = [M']$与$s = [M]$相邻, 则选取代表元可以使得$\varpi M\subsetneq M' \subsetneq M$,
+即\[0\subsetneq M'/\varpi M\subsetneq M/\varpi M\simeq k^2,\]
+因此每个与$s$相邻的顶点对应着二维$k$-向量空间中$k^2$的一条直线,
+或$\P^1(k)$中的一个点. 容易看出这是一个双射, 因此与一个顶点邻接的顶点数或与其相连的边数总是$q+1$.
+
+
+\subsubsection{$I$的几何实现}
+按定义, 图$I$的几何实现$I_\R$是向$I$的每一条边$[s, s']$指定一条线段\[\{ts + (1-t)s' : 0\le t\le 1\}\]所得到的对象; 上式中的加法看作形式和.
+我们可以将$I_\R$与二维$K$-向量空间$K^2$中$K$-范数的$K^\times$-数乘等价类等同起来;
+这里我们称$K^2$中的两个$K$-范数$|\cdot|$与$|\cdot|'$是$K^\times$-数乘等价的, 如果存在$\lambda\in K^\times$, 使得$|\cdot| = \lambda|\cdot|'$.
+
+\begin{enumerate}
+    \item 对于顶点$s = [M]$, 定义范数$|\cdot|_M$为以$M$为单位球的$K^2$中范数.
+    具体地, 如果$M = \O e_1 + \O e_2$, 则\[|a_1e_1 + a_2e_2|_M := \max\{|a_1|, |a_2|\}.\]
+    对于不同的代表元, 这样定义出的范数自然也相差一个$K^\times$中元素的数乘.
+    \item 设顶点$s = [M]$与$s' = [M']$相邻, 且$\varpi M\subset M'\subset M$.
+    通过取$M/\varpi M$的$k$-基再提升回$M$中, 我们总是可以取得$M$的一组$\O$-基$e_1$, $e_2$, 使得$M' = \O e_1 + \O \varpi e_2$.
+    于是对于$v = a_1e_1 + a_2e_2\in K^2$, \begin{align*}
+        |v|_M &= \max\{|a_1|, |a_2|\},\\
+        |v|_{M'} &= \max\{|a_1|, q|a_2|\}.
+    \end{align*}
+    对于边$[s, s']$中的点$x = (1-t)s + ts'$, $0\le t\le 1$, 我们定义$K^2$上的范数$|\cdot|_x$为\[|v|_x = |v|_t := \max\{|a_1|, q^t|a_2|\}.\]
+    基于$K$上赋值的离散性, 我们看到\[\{v\in K^2 : |v|_t\le\lambda\} = \begin{cases}
+        M, & q^t\le \lambda < q,\\
+        M', & 1\le \lambda < q^t.
+    \end{cases}\]
+\end{enumerate}
+
+反之, 设$|\cdot|$是$K^2$上的范数. 
+首先注意到如果$|\cdot|$是$K^2$中的范数, 则闭球$M_\lambda := \{v\in K : |v|\le \lambda\}$对任何正实数$\lambda$都是$K^2$中的格,
+% 并且$|\cdot|$由其单位球$\{v\in K : |v|\le 1\}$决定.
+并且\[M_{\lambda'}\subset M_{\lambda}\iff \lambda' \le \lambda,\ \lambda,\lambda'\in\R_{>0}.\]
+又因为$\varpi M_{\lambda} = M_{q^{-1}\lambda}$, 所以格$M_\lambda$的位似类对于不同正实数$\lambda$至多取两个值, 并且$\lambda\mapsto[ M_{\lambda}]$是周期的.
+\begin{enumerate}
+    \item 如果$[M_\lambda] = s$恒成立, $|\cdot|$自然对应着$|\cdot|_s$.
+    \item 如果$[M_\lambda]$或者等于$s$, 或者等于$s'$, 则乘以适当的$K^\times$中元素后, \[M_\lambda = \begin{cases}
+        M, & q^t\le \lambda < q,\\
+        M', & 1\le \lambda < q^t.
+    \end{cases}\]于是$|\cdot|$对应于$(1-t)s + ts'\in [s, s']$.
+\end{enumerate}
+
+\subsection{刚性解析空间$\Omega$}
+
+记$\Omega := \P^1(C) - \P^1(K)$. 全体$K$-线性同态$K^2\to C$组成的空间
+% \[\Hom_K(K^2, C)\isomto  C^2,\ f \mapsto (f(1, 0), f(0, 1)),\]
+\[\Hom_K(K^2, C)\simeq\Hom_K(K^2, K)\otimes_K C\]
+是二维的$C$-线性空间; 并且在此同构下, $K^2\subset C^2$的原像正是那些满足$f(0, 1)$与$f(1, 0)$在$K$上线性相关的同态$f$之集合.
+因此存在自然的双射\[(\Hom_K(K^2, C) - \{0\})/C^\times\simeq \P^1(C),\]
+并且$\P^1(K)$在此双射下的原像为秩为$1$的同态之集合.
+于是$\Omega$作为集合可以与$K$-线性嵌入$K^2\inject C$之集合的$K^\times$-数乘等价类等同; 这里的数乘等价与范数的定义相似: 称$z, z':K^2\inject C$是$K^\times$-数乘等价的, 如果存在$\lambda\in K^\times$, 使得$z = \lambda z'$.
+对于每个这样的嵌入$z : K^2\inject C$, 可以定义出$K^2$上的范数$|\cdot|_z:= |z(\cdot)|$,
+由此定义出映射\[\lambda : \Omega\to I_\R,\ [z]\mapsto [|\cdot|_z].\]
+
+\begin{proposition}\label{preimages of lambda are affinoid}
+    固定$I$中相邻的顶点$s = [M]$和$s' = [M']$, 并且固定$M$的基$e_1, e_2$使得$M' = \O e_1 + \O \varpi e_2 $.
+    对$\Omega$中的每个嵌入的等价类, 选取代表元$z : K^2\inject C$使得$z(e_2) = 1$, 则$z(e_1)\in C - K$;
+    以$z\mapsto z(e_2) = \zeta$将$\Omega$与$C - K$等同.
+
+    在上述选取下, 我们有:
+    \begin{align*}
+        \lambda^{-1}(s) &= B(0, 1) - \bigcup_{a\in\O/\varpi\O} B^\circ(a, 1),\\
+        \lambda^{-1}(s') &= B(0, q^{-1}) - \bigcup_{b\in\varpi\O/\varpi^2\O} B^\circ(b, q^{-1}),\\
+        \lambda^{-1}(x) &= \{\zeta \in C : |\zeta| = q^{-t}\},\ x = (1-t)s + ts',\ 0\le t\le 1,\\
+        &\\
+        \lambda^{-1}([s, s']) &= B(0, 1) - \bigcup_{a\in(\O/\varpi\O)^\times} B^\circ(a, 1) - \bigcup_{b\in\varpi\O/\varpi^2\O} B^\circ(b, q^{-1}). 
+    \end{align*}
+    其中$B(x, r) = \{x\in C : |x|\le r\}$, $B^\circ(x, r) = \{x\in C : |x| < r\}$.
+\end{proposition}
+\begin{proof}
+    参见\cite[Chapter I, (2.3)]{BC91}.
+\end{proof}
+此命题说明任何Bruhat-Tits树的顶点和边在$\lambda$下的原像都是$\P^1_K(C)$中的仿射胚子集,
+即$\P^1_K(C)$中有限个开圆盘的补集; 并且$\lambda^{-1}(s)$与$\lambda^{-1}(s')$均为$\lambda^{-1}([s, s'])$的开子集.
+将所有边在$\lambda$下的原像沿相应顶点的原像粘合, 我们就得到了一个$K$上的刚性解析空间的$C$-点集, 它作为集合等于$\Omega(C)$.
+我们称刚性解析空间$\Omega$为$K$上的\textbf{$p$-进半平面($p$-adic half plane)}.
+

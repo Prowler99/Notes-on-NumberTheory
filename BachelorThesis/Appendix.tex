@@ -1,0 +1,143 @@
+本节考虑的概形统一认为是Noether的.
+\subsection{射影丛}
+考虑概形$X$上的一个分次$\O_X$-代数$\mathscr{B}$, 即带有$\O_X$-代数结构的拟凝聚分次$\O_X$-模.
+% 我们进一步假设$\mathscr{B}$的一次齐次部分$\mathscr{B}_1$为凝聚层, 并且$\mathscr{B}_1^n = \mathscr{B}_n$.
+任何$X$的仿射开子概形$U$都给出其上的概形$\proj \mathscr{B}(U) \to U$.
+如果$V$是$U$的仿射开子概形, 则
+\[\mathscr{B}(V) = \mathscr{B}(U)\otimes_{\mathscr{O}_X(X)}\mathscr{O}_X(V),\]
+因此$\proj\mathscr{B}(V) = \proj\mathscr{B}(U)\times_X V$.
+于是, 取$X$的仿射开覆盖$U_i$, $\proj \mathscr{B}(U_i)$可以粘合成为$X$上的概形, 记作$\proj \mathscr{B}\to X$.
+\begin{example}
+    取$\mathscr{B} = \mathscr{O}_X[T_0, \dots, T_n]$为多项式代数, 则$\proj \mathscr{B} = \P^n_X = \P^n_\Z\times_{\Z} X$.
+\end{example}
+
+对于$X$上的拟凝聚层$\mathscr{E}$, 我们定义$X$-概形范畴上取值在集合范畴$\set$中的函子$\P(\mathscr{E})$,
+将$h : Y\to X$映到二元对$(\mathscr{L},\ h^*\mathscr{E}\surject\mathscr{L})$的集合, 其中$\mathscr{L}$为$Y$上可逆层.
+由\cite[II, Proposition 7.12]{Ha77}知, 此函子由射影概形$\proj(\sym(\mathscr{E}))$表出, 因而为$X$上射影概形, 称为相应于$\mathscr{E}$的\textbf{射影丛(projective bundle)}.
+
+\begin{example}\label{eg: P(O^2)}
+    取$X = \spec \O$. 自由模$M = \O^2$给出$X$上的凝聚层$\tilde{M}$,
+    于是给出$\P(M) := \P(\tilde{M})$.
+
+    设$A$为$\O$-代数, 则$\P(M)$的$A$-点由\begin{align*}
+        \P(M)(A) &= \{M\otimes_\O A\surject L : L\text{ 为秩1的自由}\ A\text{ 模}\}\\
+        &=\{N\subset_A M\otimes_\O A : M\otimes_\O A/N \text{ 为秩1的自由}\ A\text{ 模}\}.
+    \end{align*}
+    如果$A = F$是一个域, 那么$\P(M)(F)$中可以实现为$F^2$中余维数$1$的$F$-子空间之集合, 因此$\P(M)(F) = \P^1(F)$.
+    特别地, $\P(M)(K) = \P^1(K)$, $\P(M)(k) = \P^1(k)$.
+    此外, 存在双射\[% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AFACgFkAlD04B5ASAC+pdJlz5CKAEzkqtRizadegngGlxE1TCgBzeEVAAzAE4QAtkjIgcEJAEZqcABZZLOR9QARjBgUEgAzE70zKyIIABynHZ0aHAuAASJ7BB4dvAA+qLpupLSIDb27tQuASDBoRFO3r7+iE4MdMEMXLJ4BGwMMH4g1NEacfEA5JwAximiAHqKnGY4mZOSFBJAA
+    \begin{tikzcd}
+    \P(M)(\O) \arrow[rr, "N\mapsto N\otimes_\O K", bend left] &  & \P(M)(K) \arrow[ll, "N'\cap\O^2\mapsfrom N'", bend left]
+    \end{tikzcd}.\] 
+\end{example}
+
+\subsection{爆破}
+\begin{definition}
+    设$\mathscr{I}$为$X$上的凝聚理想层.
+    称$\tilde{X} := \proj\left( \bigoplus_{n\ge 0} \mathscr{I}^n\right)\to X$为$X$沿理想层$\mathscr{I}$或闭子概形$Z := V(\mathscr{I})$的\textbf{爆破(blow up)}.
+\end{definition}
+由$\proj$的构造, 我们可以在仿射开集上作爆破再粘合.
+所以不妨设$X = \spec A$, 于是存在$A$的有限生成的理想$I = (f_1, \dots, f_n)$使得$\mathscr{I} = \tilde{I}$, 爆破$\tilde{X} = \proj B$,
+$B := \bigoplus_{d\ge 0}I^d$的分次$A$-代数结构给出态射$\tilde{X}\to X$.
+为了区分$B$的一次部分$I = B_1$和零次部分的子集$I\subset A = B_0$, 记$t_i = f_i\in B_1$, 而$f_i\in B_0$.
+考虑满同态\[\phi : A[T_1, \dots, T_n]\to B,\ T_i\mapsto t_i.\]
+这是分次代数同态, 因而$\tilde{X} = \proj B\simeq\proj A[T_1,\dots, T_n]/\ker\phi$是$\P_A^n$的闭子概形.
+注意到多项式$P(T_1, \dots, T_n)\in\ker\phi$当且仅当$P(f_1, \dots, f_n) = 0\in A$.
+% 让我们先考察两个简单的特殊情形.
+% \begin{enumerate}
+%     \item 理想$I$由单个正则元\footnote{regular element, 即非零因子}$f$生成, 则$\phi$是单射, 故$\tilde{X}\simeq \P^0_A\simeq X$.
+%     \item 理想$I$幂零, 则由\cite[Lemma 2.3.35]{Liu02}知, $\tilde{X} = \varnothing$.
+% \end{enumerate}
+
+\begin{proposition}\label{blow up eq proj if integral}
+    令$J := (f_iT_j-f_jT_i)_{1\le i, j\le n}$, 则$J\subset\ker\phi$.
+    如果$Z:=V_+(J)\subset\P_A^{n-1}$是整的(integral), 则$\tilde{X}\simeq Z$.
+\end{proposition}
+\begin{proof}
+    参见\cite[Lemma 8.1.2]{Liu02}.
+\end{proof}
+
+% \begin{theorem}\label{blow up of regular}
+%     设$X$是正则局部Noether概形, $Y = V(\mathscr{I})$为其正则闭子概形, $\tilde{X}$为$X$沿$Y$的爆破.
+%     则$\tilde{X}$正则, 且对任何点$x\in Y$, 纤维$\tilde{X}_x$同构于$\P^{r-1}_{\mathbf{k}(x)}$, 其中$r = \dim_x X-\dim_x Y$.
+% \end{theorem}
+% \begin{proof}
+%     参见\cite[Lemma 8.1.19]{Liu02}.
+% \end{proof}
+
+% \begin{example}\label{eg: blow up of A^n over a field}
+%     考虑$X = \A^n_k$沿原点$o$的爆破$\tilde{X}$, 其中$k$为域.
+%     记$A = k[T_1, \dots, T_n]$, $X = \spec A$, $I = (T_1,\dots, T_n)\subset A$, $B := \bigoplus_{d\ge 0}I^d$, 则$\tilde{X} = \proj B\to X$.
+% \end{example}
+
+\begin{example}\label{eg: blow up of A^1_Zp}
+    取$X = \A^1_{\Z_p} = \spec\Z_p[T]$. 我们考虑$X$沿极大齐次理想$I = (p, T)$定出的闭点${x} = V(I)$的爆破$\tilde{X}$.
+    记$A = \Z_p[T]$, $B = \bigoplus_{d\ge 0}I^d$.
+    我们考虑满同态$\phi : A[S, W]\to B$和理想$J = (TS - pW)\subset\ker\phi$.
+    由于$TS-pW$不可约, \cref{blow up eq proj if integral}\,导出\[\tilde{X}\simeq\proj\frac{A[S, W]}{TS-pW} = V_+(J)\subset \P^1_{A}.\]
+
+    开子概形\[D_+(W) = \spec \frac{\Z_p\left[ T, s \right]}{Ts-p},\ s = S/W\]
+    和\[D_+(S) = \spec\frac{\Z_p[T, w]}{T-pw}\simeq\spec\Z_p[w] \simeq \spec\Z_p[T/p],\ w = W/S\]
+    组成了$\tilde{X}$的一个仿射开覆盖; 它们透过同构
+    \[D_+(W)_S = \spec \Z_p[T, s, s^{-1}] = \spec \Z_p[T, w^{-1}, w] = D_+(S)_W\]
+    粘合成为$\tilde{X}$.
+
+    % 我们还关心$\tilde{X}$的特殊纤维.
+
+    % 首先, $\tilde{X}\to X$在爆破点$x\in X$上的纤维$\tilde{X}_x\simeq \P^1_{\F_p}$. 由\cref{blow up of regular}\,知,
+    % 只需证明$\dim_xX = 2$.
+    % 为此, 注意到以下事实: 若$X_0\subsetneq X_1\subsetneq\dots\subsetneq X_n$是$X$的不可约闭子集链, $x\in X_0$, 则对$X$的任何开子集$U$, $U\cap X_i$是$U$的不可约闭子集, 且
+    % \[X_0\cap U\subsetneq \dots\subsetneq X_n\cap U,\]
+    % 从而推出$\dim_x X\ge n$.
+    % 于是, 由$\{x\}\subsetneq \A^1_{\F_p}\subsetneq X$得到$\dim_xX \ge 2$; 而$\dim_x X\le \dim X = 2$, 故$\dim_xX = 2$.
+\end{example}
+
+\subsection{形式概形}
+
+\subsubsection{形式概形作为环层空间}
+如前所述, 形式概型是那些局部上形如$\spf A$的环层空间, 其中环$A$关于其理想$I$定出的进制拓扑完备.
+对于一般的概型$X$, 我们定义其沿其闭子概型$Y$的形式完备化(formal completion)为\[\hat{X} := \varinjlim X/\mathscr{I}^n = \left( Y, \varprojlim\mathscr{O}/\mathscr{I}^n\right),\]
+其中$\mathscr{I}$是截出$Y$的理想层. 这样的空间是形式概型. 本文中, 我们主要考虑的离散赋值环上的概形沿其特殊纤维的形式完备化.
+\begin{example}
+    考虑射影直线$\P^1_{\Z_p}= \proj\Z_p[T_0, T_1]$沿其特殊纤维$\P^1_{\F_p}$的形式完备化.
+    闭浸入$i : \P^1_{\F_p}\to\P^1_{\Z_p}$在仿射开集$D_+(T_0)$和$D_+(T_1)$上由模$p$给出,
+    因而$\P^1_{\Z_p}$沿其特殊纤维的形式完备化$\hat{\P}^1_{\Z_p} = \left(|\P^1_{\F_p}|, \varprojlim \mathscr{O}_{\P^1_{\Z_p}}/(\ker i^\#)^n\right)$
+    确为两片$\hat{\A}^1_{\Z_p}$透过$\spf\O\left< T, 1/T\right>$的自同构$T\mapsto 1/T$粘合而成, 是形式概型.
+\end{example}
+
+% \begin{example}
+%     考虑仿射概形$X = \spec\Z_p[T_0, T_1]/(T_0T_1 - p)$.
+% \end{example}
+
+\subsubsection{形式概形作为函子}\label{sec: formal scheme as functor}
+
+任何$\O$上的概形$X$定出$\O$-代数范畴$\alg_\O$上的函子$R\mapsto X(R)$, 其沿特殊纤维的完备化$\hat{X}$定出$\varpi$-进完备$\O$-代数范畴$\compl$上的函子\[R\mapsto \hat{X}(R) = \Hom_\O(\spf R, X).\]
+
+\begin{proposition}\label{fomal completion = restriction}
+    成立函子同构$\hat{X} \simeq X|_{\compl}$.
+\end{proposition}
+
+\begin{proof}
+    只需对仿射概形$X = \spec A$验证. 由于任何完备$\O$-代数都是$\varpi$-幂零$\O$-代数的逆向极限, 而逆向极限与$\Hom(A, -)$交换, 我们只要验证上述函子限制在$\nilp$上成立,
+    即\[\Hom_{\O}(A, R) \simeq \Hom_{\O, \cont}(\varprojlim A/\varpi^n, R),\ \forall R\in\nilp.\]
+
+    记$\hat{A} = \varprojlim A/\varpi^n$. 同态$\hat{A}\to R$自然给出同态$A \to\hat{A}\to R$.
+    反之, 给定$\O$-同态$A\to R$, 由于$\varpi$在$R$中幂零, 对充分大的自然数$n$有交换图\[
+    \begin{tikzcd}
+    A \arrow[d] \arrow[r]         & R, \\
+    A/\varpi^n \arrow[ru, dashed] &  
+    \end{tikzcd}\]
+    从而诱导出$\hat{A}\to R$. 可以直接验证这两个对应互逆.
+\end{proof}
+
+% \section{刚性解析几何}
+
+
+% \section{四元数代数}
+% \begin{definition}
+%     设$K$是特征不等于$2$的域, $a, b\in K^\times$. 定义$(a, b)_K$为由基$\{1, i, j, ij\}$生成的$K$-代数, 其乘法由\[i^2 = a,\ j^2 = b,\ ij = -ji\]给出.
+%     称$(a, b)_K$是$K$上的一个\textbf{四元数代数(quaternion algebra over $K$)}, $\{1, i, j, ij\}$是$(a, b)_K$的一组\textbf{四元数基(quaternion basis)}.
+% \end{definition}
+% Hamilton四元数即为$R$上的四元数代数$(-1, -1)_\R$.
+% \subsection{局部域上的四元数代数}
+% \subsection{$\Q$上的四元数代数}

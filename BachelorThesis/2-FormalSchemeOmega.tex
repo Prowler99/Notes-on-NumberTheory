@@ -1,0 +1,294 @@
+\subsection{形式概形$\hat{\Omega}$}
+
+
+% \subsubsection{形式概形$\hat{\Omega}_s$, $\hat{\Omega}_{[s, s']}$和$\hat{\Omega}$}
+对于$K^2$中的格$M$, 我们可以定义相应的射影空间$\P(M)$. 选取$M$的一组基等价于固定同构$M\simeq\O^2$, 从而诱导同构$\P(M)\simeq\P^1_\O$.
+而格之间的位似$M' = \lambda M$决定出唯一的同构$\P(M)\simeq\P(M')$, 因而我们可以任意选取$s = [M]$的代表元$M$, 定义$\P_s := \P(M)$.
+
+令$\Omega_s$为$\P_s$去除其特殊纤维的有理点得到的开子概形, $\hat{\Omega}_s$为$\Omega_s$沿其特殊纤维的形式完备化.
+
+\begin{proposition}\label{hatOmega - vertex}
+    我们有形式概形的同构\[\hat{\Omega}_s \simeq \spf\O\left<T,\ \frac{1}{T^q - T}\right>.\]
+\end{proposition}
+
+\begin{proof}
+    首先, $\Omega_s$的特殊纤维是$(\Omega_s)_k\simeq\mathbb{P}_{k}^1-\P_{k}^1(k) = \spec k[T, 1/(T^q-T)]$.
+    其次, 选取$\P^1_s$的仿射开覆盖$U_0 = \spec \O[T]$和$U_1 = \spec \O[1/T]$, 使得$\infty\in\P^1_k(k)$对应到$(p, 1/T)\in U_1$.
+    尽管\[\Omega_{s0} := U_0\cap \Omega_s = \A^1_\O - \A^1_k(k) = \A^1_K\cup (\A^1_k-\A^1_k(k))\]也不是仿射概形, 但随着$\A^1_K$在模可逆元$\varpi$时被消灭,\[\Omega_{s0}/\varpi^n = \Omega_{s0} \times_\O \O/\varpi^n = \spec \O/\varpi^n[T, 1/(T^q-T)]. \]
+    故$\hat{\Omega_{s0}} = \spf \O\left<T, 1/(T^q-T)\right>$. 同理$\hat{\Omega_{s1}} = \spf\O\left<1/T, T^q/(1-T^{q-1})\right>$.
+    这两片仿射空间相等, 并通过恒等映射粘合成$\hat{\Omega}_s = \spf\O\left<T, 1/T, 1/(T^{q-1}-1)\right>$.
+\end{proof}
+
+因此$\hat{\Omega}_s$的刚性泛在纤维$\Omega_s^{\rig}$同构于$\Sp K\left<T, 1/(T^q-T)\right>$,
+其$C$点正是$\P^1_K(C) = \P^1_\O(\O_C)$去除那些不特殊化到$\P^1_k(k)$的点.
+在\cref{preimages of lambda are affinoid}\;中的选取下, $\Omega_s^{\rig}(C) = \lambda^{-1}(s)$.
+
+然后, 考虑邻接$s$的顶点$s' = [M']$, 它按下述方式定出$\P^1_s$的特殊纤维上的一个有理点:
+选取代表元使得$\varpi M\subset M'\subset M$, 则满射\[M\otimes_\O k = M/\varpi M\surject M/M'\simeq k\]给出$\P(M) = \P_s$的特殊纤维的一个$k$点.
+不妨将此闭点记作$s'$.
+具体来说, 选取基使得\[M = \O e_1+\O e_2,\ M' = \O e_1 + \O \varpi e_2.\]
+在等同\[\P_s(k) = (\P_s)_k(k) \isomto \P(k\bar{e_1}+k\bar{e_2}) = \P^1(k) = \left\{[a : b] = \frac{b}{a}\in \P^1(k) = k\cup{\infty}\right\}\]下,
+$M'/\varpi = k\bar{e_1}\in\P_s(k)$对应到$[1 : 0] = 0$, 即$I := (\varpi, T_0)\in\proj\O[T_0, T_1]\simeq\P_s$.
+
+令$\P_{[s, s']}$为$\P_s$沿$s'$的爆破.
+命$\Omega_{[s, s']}$为$\P_{[s, s']}$去除其特殊纤维中$s'$以外的有理点所得开子概形, 再定义$\hat{\Omega}_{[s, s']}$为$\Omega_{[s, s']}$沿其特殊纤维的形式完备化.
+% 参考\cref{eg: blow up of A^1_Zp}得到\[\P_{[s, s']} = \proj \bigoplus_{n\ge 0} I^n = ? \to \P_s.\]
+% % 直观上, $\P_{[s, s']}$是两条分别对应$\P^1_s$和$\P^1_{s'}$的射影直线$\P^1_\O$交于一闭点.
+
+
+
+% 另一方面, 沿$\P_{s'}$中由$s$定义的闭点爆破, 所得概形同构于$\P_{[s, s']}$. 
+
+% 仿照\cref{hatOmega - vertex}的证明, 容易看出
+\begin{proposition}\label{hatOmega - edge}
+    我们有形式概形的同构\[\hat{\Omega}_{[s, s']} \simeq \spf\O\left.\left< T_0, T_1, \frac{1}{T_0^{q-1}-1}, \frac{1}{T_1^{q-1}-1} \right>\right/ (T_0T_1 - \varpi),\]
+    并且$T_0$, $T_1$分别给出$\hat{\Omega}_s$和$\hat{\Omega}_{s'}$到$\hat{\Omega}_{[s, s']}$的开浸入.
+\end{proposition}
+\begin{proof}
+    参考\cref{eg: blow up of A^1_Zp}\;和\cref{hatOmega - vertex}, 容易证明.
+\end{proof}
+
+最终, 沿\cref{hatOmega - edge}\;中的浸入粘合所有$\hat{\Omega}_{[s, s']}$, 我们就得到了$\O$上的形式概型$\Omega$, 其刚性泛在纤维的$C$-点等于$\Omega(C)$.
+
+\section{$\hat{\Omega}$的模诠释}
+
+\subsection{Deligne的函子}
+记$\alg_\O$为交换$\O$-代数范畴. 我们考虑$\alg_\O$的以下两个子范畴:
+\begin{enumerate}
+    \item [\myit] $\varpi$-幂零$\O$-代数范畴$\nilp$, 其对象为$\varpi$在其中幂零的交换$\O$-代数, 态射为$\O$-同态;
+    \item [\myit] 完备$\O$-代数范畴$\compl$, 其对象为$\varpi$-进完备交换$\O$-代数, 态射为连续$\O$-同态.
+\end{enumerate}
+易见$\nilp$是$\compl$的全子范畴, 而$\compl$可以看作$\nilp$的完备化.
+我们将形式概型看作$\compl$上的函子, 详见附录\;\ref{sec: formal scheme as functor}.
+
+对$I$的顶点$s = [M]$, 定义$\compl$上取值在集合范畴$\set$的函子$\mathcal{F}_s$如下. 对$R\in\compl$, 命$\mathcal{F}_s(R)$为二元对$(L, \alpha)$的同构类, 其中:
+\begin{enumerate}
+    \item [\myit] $L$为秩$1$的自由$R$-模, $\alpha : M\to L$为$\O$-模同态.
+    \item [\myit] 对每个$x\in\spec R/\varpi$, 
+    由于$\varpi$属于$x$对应的$R$中素理想$\frp$, 故从$\mathbf{k}(x) = R_\frp/\frp R_\frp$看出$\varpi M$落在$M\stackrel{\alpha}{\to} L\to L\otimes \mathbf{k}(x)$的核中,
+    于是可以定义$\alpha_x : M/\varpi\to L\otimes_R \mathbf{k}(x)$; 我们要求$\alpha_x$为单射.
+\end{enumerate}
+
+\begin{proposition}\label{hatOmega eq F - vertex}
+    函子$\mathcal{F}_s$由$\hat{\Omega}_s$表出.
+\end{proposition}
+\begin{proof}
+    同态$\alpha$的条件表明对任意$u\in M - \varpi M$, $\alpha(u)\in L$不等于$0$, 从而是$L$的生成元.
+    特别地, 这说明$\alpha\otimes\id_R : M\otimes_\O R \to L$为满射.
+    因此\[(L, \alpha)\mapsto \alpha\otimes\id_R : M\otimes_\O R \twoheadrightarrow  L\]给出了函子的嵌入\[\mathcal{F}_s(R)\inject\hat{\mathbb{P}}_s(R) = \mathbb{P}_s(R) = \{\tilde{M}\otimes_{\O}\mathscr{O}_{\spec R}\surject\mathscr{L} : \mathscr{L}\text{ 为可逆}\ \mathscr{O}_{\spec R}\text{ -模}\}/\simeq.\]
+
+    为了描述这个函子, 取$M$的一组基$e_1, e_2$. 则$\alpha(e_1), \alpha(e_2)$都是$L$的生成元,
+    故$(L, \alpha)$的同构类由唯一的$\zeta\in R$使得$\alpha(e_1) = \zeta\alpha(e_2)$决定; 事实上还立刻看出$\zeta\ne 0$.
+    不妨命$\alpha(e_2) = 1$.
+    定义等价于\[M/\varpi = ke_1\oplus ke_2\to L\otimes_R\mathbf{k}(x)\simeq R\otimes_R\mathbf{k}(x) = \mathbf{k}(x),\quad e_1\mapsto \bar{\zeta},\ e_2\mapsto 1\]
+    为单射, 即对所有$a\in k$, $\bar{\zeta} - a\cdot 1\ne 0\in \mathbf{k}(x)$.
+
+    另一方面, 由\cref{fomal completion = restriction}\,和\cref{hatOmega - vertex}\,知, \[\hat{\Omega}_s(R) = \Hom_\O(\spf R, \hat{\Omega}_s)\simeq\Hom_\O(\spec R, \spec \O[T, 1/(T^q-T)]).\]
+    注意到给出态射$\spec R\to \spec \O[T, 1/(T^q-T)]$等价于给出态射$\spec R\to\spec \O[T]$, 使得$\spec R$中的每个点$x$都不被映到$\A^1_k(k)\inject \spec\O[T]$中;
+    即对于对所有$x\in \spec R$和$a\in k$, 不存在交换图\[
+    \begin{tikzcd}
+    R \arrow[d]   & {\O[T]} \arrow[d] \arrow[l] \\
+    \mathbf{k}(x) & {k[T]/(T-a);} \arrow[l]     
+    \end{tikzcd}\]
+    因此, 给出态射$\spec R\to\spec\O[T]$等价于决定$T$在$\O[T]\to R$下的像$\zeta$, 而上述交换图不存在等价于$\zeta$在$\mathbf{k}(x)$中的像$\bar{\zeta}$满足$\bar{\zeta} - a\cdot 1\ne 0$, 对任何$a\in k$成立.
+    
+    如果$x\in \spec R[1/\varpi]\inject\spec R$, 则作为泛在纤维中的点, 其剩余类域$\mathbf{k}(x)$是$K$的扩张, 从而是特征零的域, 因此不存在态射$k\to\mathbf{k}(x)$.
+    所以只需考察$\spec R/\varpi\inject \spec R$中的点; 而$x$在$\spec R$与$\spec R/\varpi$中的剩余类域相等.
+    这正说明$\hat{\Omega}_s(R) = \mathcal{F}_s(R)$.
+\end{proof}
+
+对Bruhat-Tits树$I$的边$[s, s']$, 定义$\compl$上的函子$\mathcal{F}_{[s, s']}$如下. 取$s$与$s'$的代表元$M, M'$, 使得$\varpi M\subset M'\subset M$.
+命$\mathcal{F}_{[s, s']}(R)$为六元组$(L, L', \alpha, \alpha', c, c')$的同构类, 其中:
+\begin{enumerate}
+    \item [\myit] $L$, $L'$为秩$1$的自由$R$-模; $\alpha : M \to L$, $\alpha' : M \to L'$为$\O$-模同态; $c : L\to L'$, $c' : L' \to L$为$R$-模同态.
+    \item [\myit] 图\begin{equation}\label{diag : def edge functor}
+    \begin{tikzcd}
+    \varpi M \arrow[d, "\alpha/\varpi"] \arrow[r, hook] & M' \arrow[r, hook] \arrow[d, "\alpha'"] & M \arrow[d, "\alpha"] \\
+    L \arrow[r, "c"]                                    & L' \arrow[r, "c'"]                      & L                    
+    \end{tikzcd}\end{equation} 交换.
+    \item [\myit] 对每个$x\in \spec R/\varpi$, \begin{align*}
+        \ker[\alpha_x : M/\varpi\to L\otimes_R \mathbf{k}(x)]&\subset M'/\varpi M,\\
+        \ker[\alpha_x' : M'/\varpi \to L\otimes_R \mathbf{k}(x)] &\subset \varpi M/\varpi M';
+    \end{align*}
+\end{enumerate}
+
+\begin{proposition}\label{hatOmega eq F - edge}
+    函子$\mathcal{F}_{[s, s']}$由$\hat{\Omega}_{[s, s']}$表出.
+\end{proposition}
+\begin{proof}
+    选取基使得$M = \O e_1+\O e_2$, $M'=\O e_1+\O\varpi e_2$.
+    % 条件\[\ker[\alpha_x : M/\varpi\to L\otimes_R \mathbf{k}(x)]\subset M'/\varpi M\]
+    条件\begin{align*}
+        \ker[\alpha_x : M/\varpi\to L\otimes_R \mathbf{k}(x)]&\subset M'/\varpi M,\\
+        \ker[\alpha_x' : M'/\varpi \to L\otimes_R \mathbf{k}(x)] &\subset \varpi M/\varpi M'.
+    \end{align*}等价于\begin{align*}
+        \alpha_x : M/M' \simeq ke_2&\inject L\otimes_R \mathbf{k}(x)\simeq \mathbf{k}(x),\\
+        \alpha'_x : M'/\varpi M\simeq ke_1 &\inject L\otimes_R \mathbf{k}(x)\simeq \mathbf{k}(x).
+    \end{align*}
+    即$\alpha(e_2)$为$L$的生成元, $\alpha'(e_1)$为$L'$的生成元.
+    于是二元组$(L, \alpha)$和$(L', \alpha')$的同构类分别由唯一的$\zeta, \eta\in R$,
+    使得\[\alpha(e_1) = \zeta\alpha(e_2),\ \eta\alpha(e_1) = \alpha'(e_2)\]决定.
+    不妨命$\alpha(e_2) = 1\in L$, $\alpha'(e_1) = 1\in L'$.
+    为了得到六元组, 只需添入交换图\cref{diag : def edge functor}的信息; 直接的验算表明它等价于\[c = \eta,\ c' = \zeta,\ \zeta\eta = \eta\zeta = \varpi.\]
+    于是, 给出六元组的同构类归结为给出$\zeta, \eta\in R$, 使得$\zeta\eta = \varpi$, 且对所有$a, b\in k$, $\bar{\zeta} - a\cdot 1\ne 0\in\mathbf{k}(x)$, $\bar{\eta} - b\cdot 1\ne 0\in\mathbf{k}(x)$.
+    而\[\hat{\Omega}_{[s, s']}(R) = \Hom_\O\left( \O\left.\left[ T_0, T_1, \frac{1}{T_0^{q-1}-1}, \frac{1}{T_1^{q-1}-1} \right]\right/(T_0T_1-\varpi) ,\ R\right).\]
+    类似于\cref{hatOmega eq F - vertex}, 按定义展开即可看出$\hat{\Omega}_{[s, s']}(R) = \mathcal{F}_{[s, s']}(R)$.
+\end{proof}
+
+\subsection{Drinfeld的函子: 定义和陈述}
+对任何$\O$-代数$R$, 定义\[R[\Pi] := R[X]/(X^2-\varpi)\]
+并装备$\Z/2\Z$-分次: $R[\Pi]_0 = R$, $R[\Pi]_1 = R\Pi$.
+\begin{definition}\label{def: functor F}
+    定义$\nilp$上取值在集合范畴的函子$\mathcal{F}$如下.
+    任取$B\in\nilp$, 记$S = \spec B$. 定义$\mathcal{F}(B) = \mathcal{F}(S)$为四元组$(\eta, T, u, r)$的同构类, 其中:\begin{enumerate}
+        \item [\myit] $\eta = \eta_0\oplus\eta_1$为$S$上Zariski-可构造的平坦$\Z/2\Z$-分次$\O[\Pi]$-模.
+        \item [\myit] $T = T_0\oplus T_1$为$\Z/2\Z$-分次$\mathscr{O}_S[\Pi]$-模, 满足齐次分支$T_0$和$T_1$皆为$S$上可逆层.
+        \item [\myit] $u : \eta\to T$为$0$次$\O[\Pi]$-线性态射, 满足$u\otimes_\O\mathscr{O}_S : \eta\otimes_\O\mathscr{O}_S \inject T$为单射.
+        \item [\myit] $r : \underline{K}^2\to\eta_0\otimes_\O K$为$K$-线性同构.
+    \end{enumerate}
+    
+    并且这些资料被以下条件限制. 记$S_i$为$\Pi : T_i\to T_{i+1}$的零点集(zero locus).\begin{enumerate}
+        \item [C1] $\eta_i|_{S_i} = \underline{\O}^2$.
+        %,  即$\eta_i$在$S_i$上带有平凡的$\Pi$作用.
+        \item [C2] 对每个$S$的几何点$x$, $u$诱导的映射$\eta_x/\Pi\eta_x\inject T(x)/\Pi T(x)$为单射.
+        \item [C3] $\left.\bigwedge^2\eta_i\right|_{S_i} = \varpi^{-i}\left.\left( \bigwedge^2 \left( \Pi^i\, r\, \underline{\O}^2 \right) \right)\right|_{S_i}$.
+    \end{enumerate}
+\end{definition}
+
+让我们初步观察该定义.\begin{enumerate}
+    % \item $\O[\Pi]$是主理想整环, 因为多项式环$\O[X]$中的理想必为主理想或者形如$(\varpi, f(X))$,
+    % 而后者在$\O[\Pi]$中的像等于$(X^2, f(X)) = (\gcd(X^2, f(X)))$的像, 为主理想.
+    % \item 主理想整环上的模平坦当且仅当无挠. 于是由$\eta$为$\O[\Pi]$-平坦知, $\eta_i$是$\O$-平坦且无挠的,
+    % 并且$\Pi : \eta_i\to \eta_{i+1}$为单射.
+    % 同构$r$的存在则说明$\eta_0$的茎是有限生成$\O$-模, 故$\eta_0$的茎总是秩$2$的自由$\O$-模
+    % \footnote[1]{这不蕴涵$\eta_0$为常值层, 因为茎上的态射不能保证粘合为层的态射.};
+    % $\Pi : \eta_1\inject\eta_0$保证$\eta_1$的茎也同构于$\O^2$.
+    % % \textbf{这是否说明C1总是成立? 同构的层是 ``同一个层'' 吗?}
+    \item 给出层$\eta$与$T$上的$\Pi$作用和态射$u$等价于给出周期$2$的$\O$-模范畴中交换图\[
+    \begin{tikzcd}
+    \cdots \arrow[r, "\Pi"] & \eta_0 \arrow[r, "\Pi"] \arrow[d, "u_0"] & \eta_1 \arrow[r, "\Pi"] \arrow[d, "u_1"] & \eta_0 \arrow[r, "\Pi"] \arrow[d, "u_0"] & \cdots \\
+    \cdots \arrow[r, "\Pi"] & T_0 \arrow[r, "\Pi"]                     & T_1 \arrow[r, "\Pi"]                     & T_0 \arrow[r, "\Pi"]                     & \cdots
+    \end{tikzcd}\]
+    \item 取$S$的仿射开覆盖$\{U_j = \spec R_j\}_j$使得可逆层$T_0$与$T_1$限制在$U_j$上同构于$\mathscr{O}_{U_j}$.
+    于是$\Pi : T_i|_{U_j}\to T_1|_{U_j}$由元素$f_i\in R_j$给出, $i = 0, 1$. 按定义, 限制在$U_j$上, $\Pi = f_i$的零点集为\begin{align*}
+        \{\frp\in\spec R_j : [{R_j}_{\frp}\ni 1\mapsto f_i\in {R_j}_{\frp}] = 0\} = \{\frp\in\spec R_j : f_i\in\frp\} = V(f_i),
+    \end{align*}
+    即$S_i\cap U_j = V(f_i)$. 作为态射, $\Pi^2 = \varpi$; 故作为元素, $f_0f_1 = \varpi$.
+    由于$R_j$是$R$-代数, $\varpi$在$R$中幂零说明$\varpi$也在$R_j$中幂零, 所以\[(S_0\cap U_j)\cup(S_1\cap U_j) = V(f_0)\cup V(f_1) = V(\varpi) = \spec R_j.\]
+    因此, $S = S_0\cup S_1$.
+    % \item 取$S = \spec R$的几何点等价于取$\spec R/\varpi$的几何点.
+\end{enumerate}
+
+\begin{theorem}\label{hatOmega eq F}
+    函子$\mathcal{F} : \nilp\to\set$由形式概形$\hat{\Omega}$表出.
+\end{theorem}
+
+\subsection{自然变换$\hat{\Omega}\to\mathcal{F}$的构造}
+
+首先注意到以下事实.
+取Bruhat-Tits树$I$的顶点$s = [M]$. 由于$\bigwedge^2 M$是$\bigwedge^2 K = K$的$\O$-子模, 一定存在$n\in\Z$使得$\bigwedge^2 M = \varpi^n\O$.
+如果$\lambda M$是$s$的另一个代表元, 其中$\lambda = u\varpi^m$, $u\in\O^\times$, 则\[\bigwedge^2 \lambda M = \lambda^2\bigwedge^2 M = \varpi^{2m+n}\O,\]
+故整数$n$的奇偶性无关代表元$M$的选取.
+我们称顶点$s = [M]$是\textbf{奇的}(相应地, \textbf{偶的}), 如果上述整数$n$是奇数(相应地, 偶数).
+又注意到, 如果$s' = [M']$是邻接$s$的顶点, 且$\varpi M\subset M'\subset M$, 则\[\varpi^2\bigwedge M\subset\bigwedge^2 M'\subset\bigwedge M^2,\]
+因此$s'$的奇偶性与$s$相反.
+
+此后我们总是选取代表元$M$, 使得$\bigwedge^2 M = \varpi^{-1}\O$或者$\bigwedge^2 M = \O$,
+并且固定边$[s, s']$的定向, 使得$s$为奇而$s'$为偶.
+
+\subsubsection{嵌入$\mathcal{F}_s\to\mathcal{F}$}
+取$I$的顶点$s$和$B\in\nilp$.
+先考虑$s$为奇顶点的情形. 对每个点$(L, \alpha)\in \mathcal{F}_s(R)$, 我们定义交换图\[
+\begin{tikzcd}
+{} \arrow[r] & \eta_0=\underline{M} \arrow[r, "\Pi=1"] \arrow[d, "u_0=\alpha"] & \eta_1=\underline{M} \arrow[r, "\Pi=\varpi"] \arrow[d, "u_1=\alpha"] & \eta_0=\underline{M} \arrow[r] \arrow[d, "u_0=\alpha"] & {} \\
+{} \arrow[r] & T_0=\tilde{L} \arrow[r, "\Pi=1"]                         & T_1=\tilde{L} \arrow[r, "\Pi=\varpi"]                         & T_0=\tilde{L} \arrow[r]                         & {}
+\end{tikzcd}\]
+嵌入$M\inject K^2$诱导出同构$r : \underline{K}^2\isomto\underline{M}\otimes_\O K = \eta_0\otimes_{\O} K$.
+显然四元组$(\eta, T, u, r)$适合\cref{def: functor F}\,中的类型要求;
+我们来验证剩余的三个条件.
+\begin{enumerate}
+    \item [C1]
+    层$\eta_0$和$\eta_1$均为常值层$\underline{M}$, 条件显然成立. 
+    \item [C2]
+    取$S$的几何点$x$.
+    % 由于$\varpi$在$R$中幂零, 闭浸入$\spec R/\varpi\to \spec R$在集合上为满射.
+    在$\eta_x = \eta_{0, x} \oplus\eta_{1, x} = M\oplus M$上, $\Pi$的作用由\[\Pi : M^2\to M^2,\ (m_0, m_1)\mapsto (\varpi m_1, m_0),\]
+    给出, 于是商\[\eta_x/\Pi\eta_x = \frac{M\oplus M}{\varpi M\oplus M}\simeq M/\varpi M.\]
+    类似地, $T(x) = T_x\otimes_{R}\mathbf{k}(x) = L^2\otimes_R\mathbf{k}(x)$, \[\Pi : T(x) \to T(x),\ (l_0, l_1)\otimes a\mapsto (\varpi l_1, l_0)\otimes a,\]
+    商\[T(x)/\Pi T(x) = \frac{(L\oplus L)\otimes_R\mathbf{k}(x)}{(\varpi L\oplus L)\otimes_R\mathbf{k}(x)}\simeq \frac{\mathbf{k}(x)}{\varpi\mathbf{k(x)}}.\]
+    因为$\mathbf{k}(x)$是$R\in\nilp$上的代数, $\varpi$也在域$\mathbf{k}(x)$中幂零, 故$\varpi \mathbf{k}(x) = 0$, $T(x)/\Pi T(x)\simeq \mathbf{k}(x)$.
+    
+    态射$u$诱导出映射\[u_x : \eta_x\to T(x),\ (m_0, m_1)\mapsto (\alpha(m_0), \alpha(m_1))\otimes 1,\]
+    进而诱导出$M/\varpi M\simeq\eta_x/\Pi\eta_x \to \mathbf{k}(x)\simeq T(x)/\Pi T(x)$,
+    这正是$\mathcal{F}_s$定义中的单射$\alpha_x : M/\varpi\inject L\otimes_R\mathbf{k}(x)\simeq\mathbf{k}(x)$.
+    
+    \item [C3]
+    显然$S_0 = \varnothing$, 故$S_1 = S$. 观察$S$上任意一点$x$处的茎.
+    由定义, $r(\O^2) = M = \eta_{0, x}$, 而$\Pi|_{\eta_0} = 1$; 由奇顶点的定义立刻看到C3成立.
+\end{enumerate}
+
+若$s$为偶顶点, 则对每个点$(L, \alpha)\in \mathcal{F}_s(R)$, 我们定义交换图\[
+\begin{tikzcd}
+{} \arrow[r] & \eta_0=\underline{M} \arrow[r, "\Pi=\varpi"] \arrow[d, "u_0=\alpha"] & \eta_1=\underline{M} \arrow[r, "\Pi=1"] \arrow[d, "u_1=\alpha"] & \eta_0=\underline{M} \arrow[r] \arrow[d, "u_0=\alpha"] & {} \\
+{} \arrow[r] & T_0=\tilde{L} \arrow[r, "\Pi=\varpi"]                         & T_1=\tilde{L} \arrow[r, "\Pi=1"]                         & T_0=\tilde{L} \arrow[r]                         & {}
+\end{tikzcd}\]
+嵌入$M\inject K^2$诱导出同构$r : \underline{K}^2\isomto\underline{M}\otimes_\O K$.
+验证与奇顶点的情形类似, 略去不表.
+
+\subsubsection{嵌入$\mathcal{F}_{[s, s']}\to \mathcal{F}$}
+
+取$I$的边$[s, s']$, $B\in\nilp$和$\mathcal{F}_{[s s']}(B)$中的点
+\begin{equation}\label{embed-eq: pt of F edge}
+\begin{tikzcd}
+\varpi M \arrow[d, "\alpha/\varpi"] \arrow[r, hook] & M' \arrow[r, hook] \arrow[d, "\alpha'"] & M \arrow[d, "\alpha"] \\
+L \arrow[r, "c"]                                    & L' \arrow[r, "c'"]                      & L.                   
+\end{tikzcd}
+\end{equation}
+我们逐次构造如下.
+
+以图\[\begin{tikzcd}
+{} \arrow[r] & T_0=\tilde{L} \arrow[r, "\Pi=c"] & T_1=\tilde{L}' \arrow[r, "\Pi=c'"] & T_0=\tilde L \arrow[r] & {}
+\end{tikzcd}\]定义$T$及其上的$\Pi$-作用.
+于是$S_0$为$c : L'\to L$的零点集, $S_1$为$c' : L\to L'$的零点集. 令$U_0\subset S_0$收集所有使得$c'_x$可逆的$x\in S$, $U_1\subset S_1$收集所有使得$c_x$可逆的$x\in S$.
+
+在$U_0$和$U_1$上, \cref{embed-eq: pt of F edge}分别退化为$\mathcal{F}_s(U_0)$和$\mathcal{F}_{s'}(U_1)$的点, 从而对应到$\mathcal{F}(U)$和$\mathcal{F}(U')$的点.
+在$V := S - (U_0\cup U_1) = S_0\cap S_1$上, 我们以资料\[
+\begin{tikzcd}
+\underline{M}' \arrow[d] \arrow[r, hook] & \underline M \arrow[r, "\Pi=\varpi"] \arrow[d] & \underline M' \arrow[d] \\
+\tilde L' \arrow[r, "c'"]                & \tilde L \arrow[r, "c"]                        & \tilde L'              
+\end{tikzcd}
+.\]
+和$M'\inject K^2$定义$\mathcal{F}(V)$的一个点.
+
+然后, 我们证明这三个点粘合为$\mathcal{F}(S)$的点$(\eta, T, u, r)$, 其中$T$已经被定义. 我们以交换图\[
+    \begin{tikzcd}
+        {M|_{U_0}} & {M|_{U_0}} & {M|_{U_0}} \\
+        {M'|_V} & {M|_V} & {M'|_V} \\
+        {M'|_{U_1}} & {M'|_{U_1}} & {M'|_{U_1}}
+        \arrow[Rightarrow, no head, from=1-1, to=1-2]
+        \arrow["\varpi", from=1-2, to=1-3]
+        \arrow[hook, from=2-1, to=1-1]
+        \arrow[hook, from=2-1, to=2-2]
+        \arrow["\Id", from=2-1, to=3-1]
+        \arrow["\Id", from=2-2, to=1-2]
+        \arrow["\varpi", from=2-2, to=2-3]
+        \arrow["\varpi", from=2-2, to=3-2]
+        \arrow[hook, from=2-3, to=1-3]
+        \arrow["\Id", from=2-3, to=3-3]
+        \arrow["\varpi", from=3-1, to=3-2]
+        \arrow[Rightarrow, no head, from=3-2, to=3-3]
+    \end{tikzcd}
+\]
+定义\[\begin{tikzcd}
+	{\eta_0} & {\eta_1} & {\eta_0}
+	\arrow["\Pi", from=1-1, to=1-2]
+	\arrow["\Pi", from=1-2, to=1-3]
+\end{tikzcd}.\] 
+特别地, $\eta_0|_{S_0} = M$而$\eta_1|_{S_1} = M'$. 上图的交换性又表明三个点中的$r$粘合为$r : \underline{K}^2\simeq \eta_0\otimes_\O K$.
+最后, 定义$u_0|_{S_0} := \alpha'$, $u_0|_{U_1} := c^{-1}\alpha$, 并类似地定义$u_1$.
+这就给出了嵌入$\mathcal{F}_{_[s, s']}\inject\mathcal{F}$.
+粘合所有这些信息, 便得到$\hat{\Omega}\to\mathcal{F}$;
+\cite[I, 5.6]{BC91}证明了此自然变换为同构.
+
+
+% \subsection{$\hat{\Omega}$上的$\mathrm{PGL}_2(K)$作用}

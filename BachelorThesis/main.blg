@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: alpha.bst
+Database file #1: references.bib
+Warning--empty booktitle in BC91
+Warning--there's a number but no series in BC91
+Warning--empty publisher in BC91
+You've used 12 entries,
+            2543 wiz_defined-function locations,
+            658 strings with 6336 characters,
+and the built_in function-call counts, 4161 in all, are:
+= -- 397
+> -- 129
+< -- 19
++ -- 37
+- -- 36
+* -- 291
+:= -- 672
+add.period$ -- 40
+call.type$ -- 12
+change.case$ -- 56
+chr.to.int$ -- 12
+cite$ -- 15
+duplicate$ -- 208
+empty$ -- 344
+format.name$ -- 57
+if$ -- 856
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 19
+newline$ -- 66
+num.names$ -- 36
+pop$ -- 76
+preamble$ -- 1
+purify$ -- 75
+quote$ -- 0
+skip$ -- 144
+stack$ -- 0
+substring$ -- 204
+swap$ -- 40
+text.length$ -- 19
+text.prefix$ -- 9
+top$ -- 0
+type$ -- 68
+warning$ -- 3
+while$ -- 38
+width$ -- 17
+write$ -- 164
+(There were 3 warnings)

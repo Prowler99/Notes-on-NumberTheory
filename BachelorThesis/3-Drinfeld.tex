@@ -1,0 +1,206 @@
+\section{Drinfeld定理}
+从现在起, 让我们考虑$K$上的一个四元数代数除环$D$, 其整数环记作$\O_D$.
+记$\O^\nr$为$K$的极大非分歧扩张(maximal unramified extension)的整数环, $\hat{\O}^\nr$为$\O^\nr$的$\varpi$-进完备化.
+% (应该加点东西.)
+% 具体地, 我们考虑高度为$4$的特殊形式$\O_D$-模.
+% 在$k$的一个代数闭包$\bar{k}$上, 这些形式模落在同一个同源类中;
+% 选择并固定其中之一, 记作$\Phi$.
+Drinfeld的``基本定理''称形式$\O$-概形$\hat{\Omega}\hat{\otimes}_{\O}\hat{\O}^{\nr}$参数化了一族幂零$\O$-代数上高度为$4$的形式$\O_D$-模.
+
+\subsection{形式模}
+\subsubsection{形式$\O$-模的Cartier理论}
+% 本节内容详见\cite{Zi84}.
+\begin{definition}
+    一个$B$上的\textbf{形式$\O$-模(formal $\O$-module)}指$B$上的一个来自形式群律的光滑形式群$X$连同一个$\O$-作用,
+    即环同态$i : \O\to \enom X$;
+    并且, 我们要求此$\O$-作用在切空间$\lie X$上诱导的$\O$-作用与$\lie X$的$B$-代数结构诱导的$\O$-作用相同;
+    即对任何$a\in \O$, 相应的$B$上幂级数$i(a)(T)\equiv aT\pmod{T^2}$.
+    特别地, 对于$\O = \Z_p$, $B$上的形式$\Z_p$-模范畴与$B$上的形式群范畴等价.
+\end{definition}
+
+% {\color{red}  why????}
+
+% 因此对于$\O = \Z_p$, $B$上的形式$\Z_p$-模范畴与$B$上的形式群范畴等价.
+
+设$B$是一个$\O$-代数. 仿照Witt向量环的定义, 容易证明$B^\N$容许唯一的$\O$-代数结构, 记作$W_\O(B)$,
+使得鬼映射(ghost map) $w : W_\O(B)\to B^\mathbb{N}$为$\O$-代数同态, 其中$w = (w_n)_n$的分量由多项式映射\[w_n : (a_n)_n\mapsto a_0^{q^n} + \varpi a_1^{q^{n-1}} + \dots + \varpi^{n}a_n\]
+给出.
+同样地, 我们考虑$W_\O(B)$上的移位映射(Verschiebung map) \[\tau : (a_0, a_1, a_2,\cdots)\mapsto (0, a_0, a_1, \cdots),\]
+由关系\[w_n\sigma = w_{n+1},\ \forall n\in\mathbb{N}\]决定的Frobenius同态$\sigma$, 和Teichm\"uller提升\[[\cdot] : a \mapsto (a, 0, 0, \cdots).\]
+
+记$a\in \O$在结构映射$\O\to W_\O(B)$下的像为$a = a\cdot 1$, 则其鬼分量显然为$w_n(a) = a$.
+
+% \begin{remark}
+%     注意区分$W_\O(B)$作为$\O$-代数的结构映射\[\O\to W_\O(B),\ a\mapsto a := a\cdot 1\]与Techi\"muller提升在$\O$上的限制
+%     \[\O\to B\to W_\O(B),\ a\mapsto [a].\]
+% \end{remark}
+
+\begin{definition}\label{def: Cartier ring}
+    相应于$B$的Dieudonn\'e环被定义为非交换的$\O$-代数$W_\O(B)[F, V]$, 其中$F$和$V$满足: 对任何$x\in W_\O(B)$,\begin{align*}
+        Fx &= \sigma(x)F,\\
+        xV &= V\sigma(x),\\
+        VxF &= \tau(x),\\
+        FV &= \varpi
+    \end{align*}
+    我们在Dieudonn\'e环上装备由右理想$(V)$定出的$V$-进滤过,
+    并定义\textbf{Cartier 环}$E_\O(B)$为Dieudonn\'e环$W_\O(B)[F, V]$关于$V$-进拓扑的完备化.
+\end{definition}
+当$\O = \Z_p$时, $E_{\Z_p}(B)$正是上一节定义的局部Cartier环$\E_{B, p}$.
+因此, 我们可以平行于上一节的结论, 建立起形式$\O$-模的Cartier理论.
+
+每个$E_\O(B)$中元素$x$可以典范地写作\[x = \sum_{m, n\ge 0} V^m [a_{m, n}] F^n,\ a_{m, n}\in B,\ n\gg 0\implies a_{m, n} = 0.\]
+特别地, 嵌入$W_\O(B)\inject E_\O(B)$由\[(a_0, \cdots)\mapsto \sum_{n\ge 0} V^n[a_n]F^n\]给出.
+
+\begin{definition}
+    一个$B$上的\textbf{Cartier $\O$-模}指一个左$E_\O(B)$-模, 满足\begin{enumerate}
+        \item $M/VM$是有限秩自由$B$-模,
+        \item $V$在$M$上为单射,
+        \item $M$关于$V$-进拓扑分离且完备, 即$M \simeq\varprojlim M/V^nM$且$\bigcap_{n}V^nM = 0$.
+    \end{enumerate}这样的模也称为\textbf{既约Cartier $\O$-模}.
+\end{definition}
+
+仿照\cref{formal group equiv V-reduced Cartier module - local}\;的证明并结合\cref{from formal group law if free of finite rank},
+我们得到:
+\begin{theorem}
+    $B$上的形式$\O$-模范畴与$B$上的Cartier $\O$-模范畴等价.
+    而且, 如果$M$是相应于形式$\O$-模$X$的Cartier $\O$-模, 则$M/VM = \lie(X)$.\qedhere
+\end{theorem}
+
+% \subsubsection{Cartier模中元素的具体形式}
+% 设$M$是$B$上的Cartier模. 
+
+\subsubsection{形式$\O_D$-模的Cartier理论}
+回忆$D$是$K$上的四元数代数, $\O_D$为其整数环.
+% {\color{red}(so $D$ is required to be division?)}
+由\cite[Theorem 13.3.11]{Vo21}, $K$的二次非分歧扩张$K'$唯一地嵌入$D$.
+记$\O'$为$K'$的整数环, $\sigma\in\gal(K'/K)$为其Galois群中的非平凡元素.
+同样由\cite[Theorem 13.3.11]{Vo21}, 存在$\Pi\in\O_D$, 使得$\Pi^2 = \varpi$, 且对任何$a\in\O'$, $\Pi a = \sigma(a)\Pi$. 固定一个这样的$\Pi$.
+
+\begin{definition}
+    一个$B$上的\textbf{形式$\O_D$-模}指$B$上的形式$\O$-模$X$连同一个$\O_D$-作用$i : \O_D\to\enom X$延拓了$X$本身的$\O$-作用.
+    称形式$\O_D$-模$X$是\textbf{特殊(special)}的, 如果其$\O'$-作用使$\lie X$成为秩$1$自由$B\otimes_\O\O'$模.
+\end{definition}
+
+Cartier环$E_\O(B)$带有自然的$\Z/2\Z$-分次, 由$\deg F = \deg V = 1$定义;
+齐次分量为\begin{align*}
+    E_\O(B)_i = \left\{ \sum V^m[a_{m, n}]F^n : m + n\equiv i\!\!\pmod 2,\ \forall m, n \right\},\ i = 0, 1.
+\end{align*}
+特别地, $W_\O(B)\subset E_\O(B)_0$.
+
+\begin{definition}
+    一个\textbf{分次Cartier $\O[\Pi]$-模}指一个$\Z/2\Z$-分次Cartier $\O$-模$M = M_0\oplus M_1$连同一个$1$次$E_\O(B)$线性自同态$\Pi$,
+    满足$\Pi^2 = \varpi$. 此时$M_0$与$M_1$自动成为$W_\O(B)$-模. 称分次Cartier $\O[\Pi]$-模$M$是\textbf{特殊}的, 如果$M_0/VM_1$和$M_1/VM_0$皆为秩$1$自由$B$模.
+\end{definition}
+
+\begin{theorem}
+    \cite[II, 2.3]{BC91}
+    设$B$是$\O'$-模,
+    则$B$上的形式$\O_D$-模范畴与$B$上的分次Cartier $\O[\Pi]$-模范畴等价, 且此范畴等价保持特殊性.
+\end{theorem}
+
+% \subsubsection{形式模的高度}
+% 对于$\O$上的形式模而言, 一个重要的不变量是高度.
+% \begin{defprop}
+%     设$\phi(T)$是$\O$上作为形式群律的形式$\O$-模之间的态射$F\to G$, 且$\phi\neq 0$,
+%     则$\phi$具有形式\[,\]
+%     其中$h\ge 0$为自然数. 我们称$h$为$\phi$的\textbf{高度(height)}.
+%     定义形式$\O$-模$X$的高度为$\varpi\in\enom X$的高度.
+% \end{defprop}
+% \begin{proof}
+%     记$\phi = (\phi_1, \dots, \phi_m)$, 则\[\phi_i(F_1(X, Y), \dots, F_n(X, Y)) = G(\phi_1(X),\dots, \phi_m(X)).\]
+    
+% \end{proof}
+
+\subsection{Drinfeld定理: 陈述}
+
+
+% 本节将考虑代数闭包$\bar{k}$上形式模的一些概念和性质.
+回忆$\bar{k}$为$k$的代数闭包, 其Witt向量环为$W_\O(\bar{k}) = \hat{\O}^\nr$.
+根据\cite[II, 5.2]{BC91}, $\bar{k}$上高度$4$的特殊形式$\O_D$-模具有唯一的同源类.
+固定一个$\bar{k}$上高度$4$的特殊形式$\O_D$-模$\Phi$.
+
+\begin{definition}
+    定义$\nilp$上的函子$G$如下: 对$B\in\nilp$, $G(B)$为三元组$(\psi, X, \rho)$的同构类, 其中\begin{enumerate}
+        \item [\myit] $\psi : \bar{k}\to B/\varpi B$为$k$-同态,
+        \item [\myit] $X$为$B$上高度$4$的特殊形式$\O_D$-模,
+        \item [\myit] $\rho : \psi_*\Phi\to X_{B/\varpi B}$为高度$0$的拟同源.
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Drinfeld]\label{Drinfeld: G}
+    函子$G : \nilp\to\set$由形式$\O$-概形$\hat{\Omega}\hat{\otimes}_{\O}\hat{\O}^\nr$表出.
+\end{theorem}
+
+根据Witt向量环的泛性质, 给出一个$k$-同态$\psi:\bar{k}\to B/\varpi B$, 等价于给出一个$\O$-同态$\tilde{\psi} : \O^\nr\to B$.
+于是, 给出$G(B)$中的一个点等价于给出$\O$-同态\footnote{由于$\varpi$在$B$中幂零, 这等价于给出连续的$\O$-同态$\hat{\O}^\nr\to B$.}
+$\tilde{\psi} : \O^\nr\to B$连同$G(B_{\tilde{\psi}})$中的一个点,
+其中$B_{\tilde{\psi}}$表示赋予$B$以来自$\tilde{\psi}$的$\O^\nr$-代数结构,
+而$\bar{G}$定义如下.
+
+\begin{definition}
+    令$\nilpnr$为$\varpi$在其中幂零的$\O^\nr$-代数组成的范畴\footnote{自然也等于$\varpi$在其中幂零的$\hat{\O}^\nr$-代数组成的范畴.}.
+    定义$\nilpnr$上的函子$\bar{G}$如下: 对$B\in\nilpnr$, $\bar{G}(B)$为二元对$(X, \rho)$的同构类, 其中\begin{enumerate}
+        \item [\myit] $X$为$B$上高度$4$的特殊形式$\O_D$-模,
+        \item [\myit] $\rho : \Phi_{B/\varpi B}\to X_{B/\varpi B}$为高度$0$的拟同源.
+    \end{enumerate}
+\end{definition}
+
+
+注意到给出$\Hom_{\hat{\O}^\nr}(B, \hat{\Omega}\hat{\otimes}_{\O}\hat{\O}^\nr)$中的一个点等价于给出交换图
+\[\begin{tikzcd}
+    \spf B \arrow[r, "f"] \arrow[rd, "\psi^*"] & \hat{\Omega}\hat{\otimes}_{\O}\hat{\O}^\nr \arrow[d] \\
+                                               & \spf \hat{\O}^\nr                                   
+    \end{tikzcd}\]
+其中$f\in\Hom_{\O}(B, \hat{\Omega}\hat{\otimes}_{\O}\hat{\O}^\nr)$, $\psi\in\Hom_{\O, \cont}(\hat{\O}^\nr, B) = \Hom_{\O}(\O^\nr, B)$.
+因此为了证明\cref{Drinfeld: G}, 只需证明下述定理.
+
+\begin{theorem}[Drinfeld]\label{Drinfeld: G bar}
+    函子$\bar{G} : \nilpnr\to\set$由形式$\hat{\O}^\nr$-概形$\hat{\Omega}\hat{\otimes}_{\O}\hat{\O}^\nr$表出.
+\end{theorem}
+
+记$\bar{H} : \nilpnr\to \set$为\cref{def: functor F}\,中的函子$F : \nilp\to\set$在$\nilpnr$上的限制.
+因为$F$由形式$\O$-概形$\hat{\Omega}$表出, 所以$\bar{H}$由形式$\hat{\O}^\nr$-概形$\hat{\Omega}\otimes_\O\hat{\O}^\nr$表出.
+\cref{Drinfeld: G bar}\,也就是说函子$\bar{G}$同构于$\bar{H}$.
+我们将在下一小节中构造自然变换$\xi : \bar{G}\to\bar{H}$; $\xi$实为同构的证明请参阅\cite{BC91}或\cite{drinfel1976coverings}.
+% 下一步便是构造自然变换$\xi :\bar{G}\to \bar{H} $, 再证明$\xi$为同构.
+\subsection{自然变换$\xi : \bar{G}\to\bar{H}$的构造}
+
+设$B\in\nilpnr$, $M$是$B$上的分次Cartier $\O[\Pi]$-模.
+
+回忆Frobenius同态$\sigma : W_\O(B)\to W_\O(B)$为$\O$-代数同态.
+将$M$透过$\sigma$进行系数限制(restriction of scalars)得到一个$W_\O(B)$-模, 记作$M^\sigma$.
+
+我们定义$N(M)$为$\O$-模同态\[M\to M\oplus M^\sigma,\ m\mapsto (Vm, -\Pi m)\]的余核,
+其上带有来自$M\oplus M$的$\Z/2\Z$-分次.
+由于$m\mapsto (Vm, -\Pi m)$对于$V$和$\Pi$的作用等变,
+$N(M)$上也带有$V$和$\Pi$的1次作用.
+
+定义映射\[\lambda_M : N(M)\to M,\ [(m, m')]\mapsto \Pi m + Vm'.\]
+\begin{proposition}
+    存在唯一的映射$L_M : M\to N(M)$, 满足:\begin{enumerate}
+        \item $\lambda_M\circ L_M = F$,
+        \item $L_M$对$B$呈函子性: 对任何$\O$-同态$B\to B'$, 图\[% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFkQBfU9TXfIRQBGclVqMWbAHIAKdgEpuvEBmx4CRMsPH1mrRBwDkyvusFFRO6nqmG57I0q7iYUAObwioAGYAnCABbJDIQHAgkUQl9NgAZAH1OHl8A4MRQ8KQAJmSQfyDs6kzEAGYbSQMQBKSVfLSo4pKXLiA
+        \begin{tikzcd}
+        M \arrow[r, "L_M"] \arrow[d] & N(M) \arrow[d] \\
+        M' \arrow[r, "L_{M'}"]          & N(M')         
+        \end{tikzcd}\]交换, 其中$M' = M\hat{\otimes}_{E_\O(B)} E_\O(B')$.
+    \end{enumerate}
+\end{proposition}
+
+定义\[\phi_M : N(M)\to N(M),\ [(m, m')]\mapsto L_M(m) + [(m', 0)].\]
+再取$\phi_M$的不动点\[\eta_M := N(M)^{\phi_M} = \{z\in N(M) : \phi(z) = z\}.\]
+则$\eta_M$继承了来自$N(M)$的分次$\O[\Pi]$-模结构.
+
+有了以上的准备, 我们就能够对$(X, \rho)\in \bar{G}(B)$定义四元组$\xi(X, \rho) = (\eta_X, T_X, u_X, r_{X, \rho})$如下. 记$M(Y)$为形式$\O_D$-模$Y$的分次Cartier $\O[\Pi]$-模, $S = \spec B$.
+\begin{enumerate}
+    \item [\myit] $\eta_X$为$X$上的层, 在每个仿射开集$\spec A\subset S$上取值$\eta_X(\spec A) = \eta_{M(X_A)}$.
+    \item [\myit] $T_X$为$X$上的层, 在每个仿射开集$\spec A\subset S$上取值$T_X(\spec A) = \lie X_A = M_{X_A}/VM_{X_A}$.
+    \item [\myit] $u_X : \eta_X\to T_X$, 在每个仿射开集$\spec A\subset S$由$[(m, m')]\mapsto m\bmod V$定义.
+    \item [\myit] $r_{X, \rho} : \underline{K}^2\to \eta_{X, 0}\otimes_\O K$由$\rho$根据\cite[II, 7.5]{BC91}\;诱导而出.
+\end{enumerate}
+这便是我们寻求的自然变换$\xi : \bar{G}\to\bar{H}$.
+% \subsubsection{$N(M)$与$\eta_M$上的滤过}
+
+% \subsubsection{刚性化}
+
+% \subsection{}

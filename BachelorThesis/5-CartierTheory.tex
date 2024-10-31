@@ -1,0 +1,445 @@
+\section{形式群与Cartier理论}
+
+形式群在有些文献中被定义为满足类似群乘法性质的形式幂级数, 即形式群律;
+有些文献中则将形式群看作一类群函子. 
+本节将主要参考\cite{Zi84}, 采用函子的观点建立形式群的Cartier理论.
+囿于篇幅限制, 陈述的大多数结论将不给出证明.
+
+% 于是, 一个$n$维形式群律$G$给出一个态射\[\mu : A[[X_1,\dots, X_n]]\to A[[X_1, \dots, X_n, Y_1, \dots, Y_n]],\]
+% 将$X_i$映至$G_i(X, Y)$;
+% \cref{def: formal group}\;中的三条公理分别对应以下三张交换图: \[
+% \begin{tikzcd}
+%                                                     & {A[[X, Y]]}                                                    &                                           \\
+%                                                     &                                                                &                                           \\
+% {A[[X]]} \arrow[ruu, "1\otimes\epsilon"]            &                                                                & {A[[X]]} \arrow[luu, "\epsilon\otimes 1"] \\
+%                                                     &                                                                &                                           \\
+%                                                     & {A[[X]]} \arrow[ruu, "1"] \arrow[luu, "1"] \arrow[uuuu, "\mu"] &
+% \end{tikzcd}\]\[
+% \begin{tikzcd}
+%                                        & {A[[X, Y, Z]]}                                 &                                        \\
+%                                        &                                                &                                        \\
+% {A[[X, Y]]} \arrow[ruu, "1\otimes\mu"] &                                                & {A[[X, Y]]} \arrow[luu, "\mu\otimes1"] \\
+%                                        &                                                &                                        \\
+%                                        & {A[[X]]} \arrow[luu, "\mu"] \arrow[ruu, "\mu"] &                                       
+% \end{tikzcd}\]\[
+% \begin{tikzcd}
+% {A[[X, Y]]} \arrow[rr, "{X\mapsto Y,\ Y\mapsto X}"] &                                                  & {A[[X, Y]]} \\
+%                                                     &                                                  &             \\
+%                                                     &                                                  &             \\
+%                                                     & {A[[X]]} \arrow[luuu, "\mu"] \arrow[ruuu, "\mu"] &            
+% \end{tikzcd}\]
+
+% 类似地, 形式群律的态射$\varphi : G\to H$定出坐标环之间的反向态射\[\varphi^* : A[[Y_1, \dots, Y_m]]\to A[[X_1, \dots, X_n]],\]
+% 将$Y_i$映到$\varphi_i(X)$, 要求$\varphi^*$保持余态射: \[% 
+% \begin{tikzcd}
+% {A[[X, X']]}                  &  & {A[[Y, Y']]} \arrow[ll, "\varphi^*\otimes\varphi^*"]  \\
+%                               &  &                                                       \\
+%                               &  &                                                       \\
+% {A[[X]]} \arrow[uuu, "\mu_G"] &  & {A[[Y]]} \arrow[uuu, "\mu_H"] \arrow[ll, "\varphi^*"]
+% \end{tikzcd}\]
+
+% \begin{definition}
+%     设$\mu : A[[X]]\to A[[X, Y]]$是形式群律$G$的余态射.
+%     其\textbf{不变导数(invariant derivation)}指坐标环$A[[X]]$的一个导数$D : A[[X]]\to A[[X]]$, 使得
+%     \[% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBmAXVJADcBDAGwFcYkQBBZZADUspABfUuky58hFACYK1Ok1bsuvfkJEgM2PASJlichizaJO3HqQAEATVXDRWiURn6ahxSeXnrtuTCgBzeCJQADMAJwgAWyQyEBwIJBl5I3YAHVTI5jVQiOjEAEYaeJjXBWMQABFskHCopEK4hMRyUpSTdMzq2ryWxsTW9xB89Ig8SPgLKsFKQSA
+%     \begin{tikzcd}
+%     {A[[X, Y]]}                 &  & {A[[X, Y]]} \arrow[ll, "1\otimes D"]        \\
+%                                 &  &                                             \\
+%                                 &  &                                             \\
+%     {A[[X]]} \arrow[uuu, "\mu"] &  & {A[[X]]} \arrow[ll, "D"] \arrow[uuu, "\mu"]
+%     \end{tikzcd}\]交换.
+% \end{definition}
+
+\subsection{形式群: 函子观点}
+我们以幂零代数上的函子定义形式群, 并指出形式群律与作为函子的形式群的联系.
+
+\subsubsection{形式群}
+环$R$上的一个\textbf{幂零代数(nilpotent algebra)}指$R$-代数$N$, 使得存在某个自然数$r$, $N^r = 0$.
+记$\nil_R$为$R$上幂零代数构成的范畴.
+
+任何非零的幂零代数都不含幺, 但是我们可以将幂零$R$-代数范畴嵌入含幺$R$-代数的范畴中: 设$N$为幂零$R$-代数, 我们在$R\oplus N$上定义自然的乘法:\[(r_1, n_1)\cdot(r_2, n_2) := (r_1r_2, r_1n_2 + r_2n_1 + n_1n_2).\]
+于是$R\oplus N\in\alg_R$. 注意到投影$R\oplus N\surject R$与嵌入$R\inject R\oplus N$的复合等于$\Id_R$,
+于是我们可以具体描述$\nil_R$在$\alg_R$中的像.
+\begin{definition}
+    一个\textbf{增广$R$-代数(augmented $R$-algebra)}指含幺的$R$代数$A$并装备以\textbf{增广同态(augmentation)} $\epsilon : A\to R$, 使得同态的复合$R\to A\stackrel{\epsilon}{\to} R$为恒等同态$\Id_R$,
+    其中第一个箭头为$A$的结构映射(structure map). 记$A^+ := \ker\epsilon$为增广$R$-代数$A$的\textbf{增广理想(augmentation ideal)}.
+    称增广代数$A$是幂零的, 如果其增广理想$A^+$是幂零的. 记$\nilaug_R$为幂零的增广$R$-代数范畴.
+\end{definition}
+结合以上讨论, 容易看出范畴$\nil_R$与范畴$\nilaug_R$等价.
+
+\begin{definition}
+    一个$R$上的\textbf{光滑交换形式群(smooth commutative formal group)}, 简称\textbf{形式群(formal group)}, 指保持无穷直和的正合函子$G : \nil_R\to\abel$.
+\end{definition}
+最简单的两个例子是加法群\[\mathbb{G}_\mathrm{a} : N\mapsto (N, +)\]和乘法群\[\mathbb{G}_\mathrm{m} : N\mapsto (1 + N)^\times,\]
+其中$(N, +)$表示$N$的加法群, 而$(1 + N)^\times$表示形如$1 + n, n\in N$的元素组成的集合连同显然的乘法.
+下面的例子是$\mathbb{G}_\mathrm{m}$的推广.
+\begin{example}
+    设$S$为增广$R$代数. 我们定义$\nil_R$上的函子\[\mathbb{G}_\mathrm{m}S : N\mapsto (1 + S^+\otimes_R N)^\times.\]
+    此函子保持直和, 且当$S$在$R$上平坦(flat)时正合, 从而是形式群.
+    特别地, \[\Lambda_R :=\mathbb{G}_\mathrm{m}R[t] : N \mapsto \Lambda(N) = (1 + tN[t])^\times\]是形式群,
+    并且在Cartier理论中发挥至关重要的作用.
+\end{example}
+
+现在我们考虑$\nil_R$范畴的 ``完备化''.
+一个完备的增广$R$-代数指增广$R$-代数$A$连同一列理想降链$\{\mathfrak{a}_n\}$, 满足$\mathfrak{a}_1 = A^+$,
+且$A$对这组理想给出的拓扑完备, 即$A\simeq\varprojlim A/\mathfrak{a_n}$.
+完备的增广$R$代数连同其间的连续同态组成一个范畴, 记作$\comaug_R$.
+我们有显然的嵌入$\nil_R\inject\comaug_R$, 且任何$\nil_R$上的函子$H$都能延拓到$\comaug_R$上:
+\[H(A) := H(A^+) := \varprojlim H(A^+/\mathfrak{a}_n).\]
+例如, $\Lambda_R$在$R[[X]]$上的取值$\Lambda_R(R[[X]])$为幂级数环$R[[X, t]]$中形如\[1 + \sum_{m,n\ge 1}b_{mn}X^mt^n\]的元素组成的集合,
+装备以$R[[X, t]]$中的乘法, 其中$b_{mn}\in R$, 且对固定的$m$, 当$n$充分大时$b_{mn} = 0$.
+
+% \subsubsection{可表性与投射可表性}
+
+% \begin{lemma}
+%     设$A\in\comaug_R$, $N\in\nil_R$, 则\[\Hom_{R, \cont}(A, R\oplus N)\simeq \varinjlim\Hom_R(\fra/\fra_n, N).\]
+% \end{lemma}
+% \begin{proof}
+%     首先, \[\Hom_{R, \cont}(A, R\oplus N) = \Hom_{R, \cont}(\varprojlim \fra/\fra_n, N).\]
+%     记$\hat{\fra} := \varprojlim \fra/\fra_n$.
+%     我们有自然的映射\[\Hom_{R}(\fra/\fra_n, N)\to \Hom_{R, \cont}(\hat{\fra}, N)\footnote{前者带离散拓扑, 因而其中元素总为连续同态.};\]
+%     如果$g\in\Hom_{R}(\fra/\fra_m, N)$满足$[f] = [g]$, 则存在$k$使得图\[\begin{tikzcd}
+%         & {\fra/\fra_n} \\
+%         {\hat{\fra}} & {\fra/\fra_k} & N \\
+%         & {\fra/\fra_m}
+%         \arrow["f", from=1-2, to=2-3]
+%         \arrow[from=2-1, to=1-2]
+%         \arrow[from=2-1, to=2-2]
+%         \arrow[from=2-1, to=3-2]
+%         \arrow[from=2-2, to=1-2]
+%         \arrow[from=2-2, to=3-2]
+%         \arrow["g"', from=3-2, to=2-3]
+%     \end{tikzcd}\]交换,
+%     因而我们得到良定的映射\[\varinjlim\Hom_{R}(\fra/\fra_n, N)\to \Hom_{R, \cont}(\hat{\fra}, N),\; [f]\mapsto f\circ (\hat{\fra}\to \fra_n).\]
+%     反之, 由于$N$带有离散拓扑, 对任何连续同态$f : \fra\to N$都存在某个$n$使得$\fra_n = \ker f$, 因而$f$穿过$\fra\to \fra/\fra_n$, 从而给出$[\fra/\fra_n\to N]\in\varinjlim\Hom_R(\fra/\fra_n, N)$.
+% \end{proof}
+
+\subsubsection{切空间}
+通过定义平凡的乘法, 我们可以将$R$上的模范畴嵌入$R$上的幂零代数范畴, 即对$x, y\in M\in\Mod_R$定义$xy := 0$.
+称函子$H : \nil_R\to\set$在$\Mod_R\inject\nil_R$上的限制为$H$的\textbf{切函子(tangent functor)}, 记作$t_H$.
+
+注意到如果函子$t : \Mod_R\to\set$保持有限直积, 则$t$将透过忘却函子$\Mod_R\to\set$分解;
+即对任何$M\in\Mod_R$, $t(M)$容许典范的$R$-模结构.
+而且, 如果$t : \Mod_R\to\abel$保持有限直积, 则$t(M)$由此获得的加法与其Abel群结构的加法相同.
+
+对于函子$t : \Mod_R\to\Mod_R$, 我们可以构造自然变换$(-)\otimes_R t(R)\to t$如下:
+设$M\in\Mod_R$, 每个$m\in M$给出$R$线性同态\[c_m : K\to M,\ 1\mapsto m;\]
+于是定义\begin{equation}\label{cart-eq: tensor t(R) to t}
+    M\otimes_R t(R)\to t(M),\ m\otimes\xi\mapsto t(c_m)\xi.
+\end{equation}
+\begin{defprop}\label{def: tangent space}
+    如果$t : \Mod_R\to \Mod_R$是保持无穷直和的右正合函子, 则自然变换(\ref{cart-eq: tensor t(R) to t})为同构.
+    特别地, 任何$R$上的形式群$G$的切函子$t_G$都透过这样的函子分解, 因此$t_G$由$t_G(R) = G(R)$决定;
+    记$\lie(G) := G(R)$, 称为$G$的\textbf{切空间(tangent space)}.
+\end{defprop}
+\begin{proof}
+    两侧的函子皆右正合, 因而取模的展示便将问题划归为对自由模$R^{(I)}$证明(\ref{cart-eq: tensor t(R) to t})为同构; 由于两侧的函子保持无穷直和, 问题再次划归为证明(\ref{cart-eq: tensor t(R) to t})对$R$成立; 这是显然的.
+\end{proof}
+
+\begin{definition}
+    如果形式群$G$的切空间$\lie G$是秩为$d$的有限生成射影模, 我们就称$G$的维度有限, 并记$\dim G = d$.
+\end{definition}
+
+正如实李群的情形,
+形式群之间的态射如果诱导出切空间的同构, 则此态射本身也是同构.
+为此, 我们需要利用函子与自然变换的光滑性.
+\begin{definition}
+    设$H, G : \nil_R\to\set$. 自然变换$\xi : H\to G$称为是\textbf{光滑的(smooth)},
+    如果对任何$\nil_R$中的满射$M\surject N$, \[H(M)\to H(N)\times_{G(N)}G(M)\]也是满射.
+    称函子$H$光滑, 如果典范的态射$H\to\Hom(R, -)$光滑.
+\end{definition}
+注意到函子$H$光滑当且仅当$H$保持满射, 所以特别地, 形式群皆光滑.
+
+\begin{theorem}\label{isom of tangent isom}
+    \cite[Theorem 2.30]{Zi84}
+    设$H, G : \nil_R\to\set$正合. 若自然变换$\alpha : H\to G$诱导出切函子的同构$\alpha|_{\Mod_R} : t_H\to t_G$,
+    则当$H$或$\alpha$光滑时, $\alpha : H\to G$为同构.
+\end{theorem}
+
+\subsubsection{形式群律}
+\begin{definition}\label{def: formal group law}
+    交换环$R$上的一个\textbf{维数$n$的形式群律(formal group law of dimension $n$)}指幂级数的$n$元组$G = (G_1, \dots, G_n)$,
+    其中$G_i(X, Y)\in R[[X_1, \dots, X_n, Y_1, \dots, Y_n]]$, 满足以下公理.\begin{enumerate}
+        \item [\myit] $G_i(X, 0) = G_i(0, X) = X_i$; 特别地, 这说明$G_i(X, Y) = X_i + Y_i + {}$\!同时包含$X_i$与$Y_i$的高阶项.
+        \item [\myit] $G_i(G(X, Y), Z) = G_i(X, G(Y, Z))$.
+        \item [\myit] $G_i(X, Y) = G_i(Y, X)$.
+    \end{enumerate}
+    称环$R[[X]] = R[[X_1, \dots, X_n]]$为$G$的坐标环(coordinate ring).
+    
+    若$G$是$R$上$n$维的形式群律, $H$是$R$上$m$维的形式群律, 其间的态射$\varphi : G \to H$定义为$m$个$n$元形式幂级数\[\varphi(X) = \varphi_i(X_1, \dots, X_n)\in A[[X_1, \dots, X_n]],\quad 1\le i\le m,\]
+    满足\[\varphi(G(X, Y)) = H(\varphi(X), \varphi(Y)),\]
+    即\[\varphi_i(G_1(X, Y),\dots, G_n(X, Y)) = H_i(\varphi_1(X), \dots, \varphi_m(X), \varphi_1(Y), \dots, \varphi_m(Y)),\ 1\le i\le m.\]
+\end{definition}
+加法群律$\mathbb{G}_{\mathrm{a}}(X, Y) = X + Y$和乘法群律$\mathbb{G}_{\mathrm{m}}(X, Y) = X + Y + XY$是最简单的一维形式群律, 可以定义在任何交换环上.
+后者的表达式$\mathbb{G}_{\mathrm{m}}(X, Y) = (1 + X)(1+Y)-1$更清楚地显示出$\mathbb{G}_{\mathrm{m}}$表示着乘法.
+
+设$G$为维数$n$的形式群律, $N$为幂零$R$-代数. 在$N^n$上, $G$定义出运算\[(a_n)_n +_G (b_n)_n := (G_n(a, b)).\]
+形式群律的定义和\cite[Corollary 1.5]{Zi84}表明$+_G$赋予了$N^n$一个新的群结构.
+容易验证\[\tilde{G} : \nil_R\to\abel,\ N\mapsto (N^n, +_G)\]是$n$维的形式群.
+不仅如此, 在态射层面, 如果$H$是形式群律, 则\[\Hom(G, H)\simeq\Hom(\tilde{G}, \tilde{H}).\]
+
+注意到$\tilde{G}$的切空间$\lie(G) = R^n$的Abel群结构仍是直和$R^n$的群结构.
+反过来, 观察切空间即可确定形式群是否来自形式群律.
+
+\begin{theorem}\label{from formal group law if free of finite rank}
+    \cite[Corollary 2.32]{Zi84}
+    设$H$为$R$上的形式群. 若切空间$\lie(H)$为$R$上有限秩的自由模, 则$H$来自形式群律, 即存在形式群律$G$使得$H = \tilde{G}$.
+\end{theorem}
+
+\subsection{Cartier理论的主定理}
+
+\subsubsection{第一主定理与Cartier环}
+
+回忆$n$元对称群$\symm{n}$在$n$元多项式环$A[X_1, \dots, X_n]$上以重排变元作用着, 其中$A$为环;
+并且\[A[X_1, \dots, X_n]\to A[X_1, \dots, X_n]^{\symm{n}},\ X_i\mapsto \sigma_i(X) \]
+为环同构\footnote{参见\cite[定理5.8.5]{Li19}}, 其中$\sigma_i(X)$为初等对称多项式.
+
+\begin{definition}\label{def: weak symm}
+    称函子$H : \nil_R\to\set$是\textbf{弱对称}的, 如果对任何$n\ge 1$和$A\in\nilaug_R$,
+    嵌入\[A[[X_1, \dots, X_n]]^{\symm{n}}\inject A[[X_1, \dots, X_n]]\]
+    诱导出的映射\[H(A[[X_1, \dots, X_n]]^{\symm{n}})\to H(A[[X_1, \dots, X_n]])^{\symm{n}}\]为同构.
+\end{definition}
+
+\begin{example}
+    % 如果要证, 写这里
+    左正合函子弱对称. 特别地, 形式群弱对称.
+\end{example}
+
+\begin{theorem}[Cartier第一主定理]\label{Hom(Lambda H) isomto H(R[[X]])}
+    \cite[Theorem 3.5]{Zi84}
+    设函子$H : \nil_K\to\abel$是弱对称的, 则我们有Abel群的同构
+    \begin{align*}
+        \lambda_H : \Hom(\Lambda_R, H)&\stackrel{\sim}{\longrightarrow} H(R[[X]])\\
+                    \Phi&\longmapsto\Phi_{R[[X]]}(1-Xt).
+    \end{align*}
+\end{theorem}
+% 因此, 对于任何形式群$H$, 存在同构$\lambda_H : \Hom(\Lambda, H)\simeq H(R[[X]])$.
+\begin{definition}
+    命$\E_R := \left( \enom \Lambda_R \right)^\op$, 称为$R$的\textbf{Cartier 环}.
+    对任何函子$H$, 群$\Hom(\Lambda, H)$带有$\enom(\Lambda)$自然的右作用, 相应的左$\E$-模记作$M_H$,
+    称为$H$的\textbf{Cartier 模}.
+\end{definition}
+
+我们考虑Cartier环$\E$中的一些特殊元素. 透过同构$\lambda_\Lambda : \E_R\simeq \Lambda(R[[X]])\subset R[[X, t]]$, 我们定义:
+    \begin{align*}
+    V_n &:= \lambda_\Lambda^{-1}(1-X^nt),\qquad n\in\mathbb{N},\\
+    F_n &:= \lambda_\Lambda^{-1}(1-Xt^n),\qquad n\in\mathbb{N},\\
+    [c] &:= \lambda_\Lambda^{-1}(1-cXt),\qquad c\in R.
+\end{align*}
+利用这些元素, 我们可以具体地描述Cartier环中的元素.
+
+\begin{theorem}
+    \cite[Theorem 3.12]{Zi84}每个$\xi\in\E$具有唯一的展开式\[x = \sum_{m, n\ge 0} V_m [a_{m, n}] F_n,\]
+    其中$a_{m, n}\in B,$ 且对固定的$m$, 当$n\gg 0$时$a_{m, n} = 0$.
+\end{theorem}
+
+\subsubsection{既约Cartier模与第二主定理}
+
+\begin{definition}
+    一个\textbf{$V$-既约Cartier模($V$-reduced Cartier module)}是一个左$\E$-模$M$装备以一族Abel群的滤过
+    \[M = M^1\supset M^2 \supset \cdots,\]
+    满足以下条件:
+    \begin{enumerate}
+        \item $V_m[c]M^n\subset M^{mn}$, $\forall m, n\in\mathbb{N}$, $c\in K$;
+        \item $F_m$是连续自同态, 即对任何$n$, 存在$r$, $F_mM^r\subset M^n$;
+        \item $V_m : M/M^2\to M^m/M^{m+1}$为双射;
+        \item $M$完备, 即$M = \varprojlim M/M^n$.
+    \end{enumerate}
+\end{definition}
+
+例如, \cite[Example 3.10]{Zi84}\;指出正合函子$H$的Cartier模$M_H$是既约的,
+其滤过由\[M_H^n := \im \left[ H(X^nR[[X]])\to H(XR[[X]]) \right]\]给出.
+对于$M_\Lambda \simeq\E$, 我们命\[\E_n := M_\Lambda^n.\]
+
+设$M$是$V$-既约Cartier模.
+我们将对每个既约Cartier模构造一个$\nil_R$上的右正合函子.
+
+设$Q$是右$\E$-模. 对每个自然数$n$, 置\[Q_n := \{x\in Q : x\E_n = 0\}.\]
+于是$\{Q_n\}$构成$Q$的子模升链. 称$Q$是\textbf{扭}的右$\E$-模, 如果存在$n$使得$Q = Q_n$
+\begin{defprop}
+    设$M$为既约左$\E$-模, $Q$为右$\E$-模. 对自然数$n$,
+    记\[Q_n\circ M^n := \im \left[ Q_n\otimes_\Z M^n\to Q\otimes_\E M \right].\]
+    成立$Q_n\circ M^n\subset Q_{n+1}\circ M^{n+1}$,
+    于是可以定义\[(Q\otimes_\E M)_\infty := \varinjlim Q_n\circ M^n\]
+    和\textbf{既约张量积(reduced tensor product)}\[Q\bar{\otimes}_\E M := \frac{Q\otimes_\E M}{(Q\otimes_\E M)_\infty}.\]
+\end{defprop}
+
+\begin{lemma}\label{exact seq of torsion module is exact after tensor}
+    \cite[Theorem 3.21]{Zi84}
+    如果\[Q_1\to Q_2\to Q_3\to 0\]是扭的右$\E$-模的正合列, 则\[Q_1\bar{\otimes}_\E M\to Q_2\bar{\otimes}_\E M\to Q_3\bar{\otimes}_\E M\to 0\]正合.
+\end{lemma}
+
+\begin{defprop}\label{def: functor - nil tensor V-reduced module}
+    设$N\in\nil_R$.
+    定义函子\[\Lambda\bar{\otimes}_\E M : N\mapsto \Lambda(N) \bar{\otimes}_\E M,\]则$\Lambda\bar{\otimes}_\E M$是$\nil_R\to\abel$的右正合函子.
+\end{defprop}
+\begin{proof}
+    取$\Phi\in\E$和$x\in N$, 右作用按\[x\cdot\Phi := \Phi_N(n)\]定义并延拓至$\Lambda(N)$. \cite[Theorem 3.22]{Zi84}证明了$\Lambda(N)$为扭, 故\cref{exact seq of torsion module is exact after tensor}给出右正合性.
+\end{proof}
+
+% \begin{example}[一些既约张量积]
+%     \begin{enumerate}
+%     \item $\E/\E_n\bar{\otimes}_\E M = M/M^n$.
+%     \end{enumerate}
+% \end{example}
+
+\begin{definition}
+    称$V$-既约Cartier模$M$是\textbf{$V$-平坦的($V$-flat)}如果$M/M^2$是平坦的$R$-模.
+    % 如果
+\end{definition}
+
+\begin{theorem}[Cartier第二主定理]\label{formal group equiv V-flat V-reduced Cartier module}
+    环$R$上的形式群范畴与$V$-平坦$V$-既约Cartier模范畴等价, 相应的函子分别由\[H\longmapsto M_H\]
+    和\[\Lambda\bar{\otimes}_\E M\longmapsfrom M\]给出.
+\end{theorem}
+
+\subsection{局部Cartier理论}
+记$\Z_{(p)}$为$\Z$在素理想$(p) = p\Z$处的局部化.
+从现在起, 我们设$R$为$\Z_{(p)}$-代数.
+
+\subsubsection{$p$-典型元素}
+
+设$H$为$R$上的形式群. 如果$n$是与$p$互素的整数,
+则乘以$n$的自同态$n : H\to H$为同构; 因为根据\cref{isom of tangent isom}\,和\cref{def: tangent space},
+只需要验证$n$在$t_H(R) = H(R)$上为同构. 特别地, $n\in\E^\times$.
+
+我们定义\[\epsilon_1 := \prod_{\ell}\left( 1-\frac{1}{\ell}F_\ell V_\ell \right)\in\E,\]
+其中$\ell$取遍不等于$p$的素数. 对于与$p$互素的整数$n$, 定义\[\epsilon_n := \frac{1}{n}V_n\epsilon_1 F_n\in\E_n.\]
+\begin{lemma}
+    $\epsilon_n$构成$\E$的一组投影子(projector), 即\[\epsilon^2 = \epsilon,\ \epsilon_n\epsilon_m=0(m\ne n),\ \sum_{p \nmid n}\epsilon_n = 1.\]
+\end{lemma}
+\begin{proof}
+    归结到$R$为$\Q$-代数的情形. 参见\cite[Lemma 4.11]{Zi84}.
+\end{proof}
+
+因此对于任何幂零$R$-代数$N$, 有分解\[\Lambda(N) = \bigoplus_{p\nmid n}\Lambda(N)\epsilon_n.\]
+置$\Lambda_n(N) := \Lambda(N)\epsilon_n$.
+由于$\epsilon_n$为投影子, $\Lambda_n$均为形式群.
+记$\hat{W} := \Lambda_1$, 称为\textbf{Witt向量的形式群(formal group of Witt vectors)}.
+
+注意到$F_nV_n = n$, 故右乘$V_n$与右乘$\frac{1}{n}F_n$给出互逆的态射$\Lambda_n\to\hat{W}$和$\hat{W}\to\Lambda_n$.
+因此上述分解可以重写为同构\[\Lambda\simeq\bigoplus_{p\nmid n}\hat{W}.\]
+此同构能够转移到所有既约Cartier模上.
+\begin{definition}
+    设$M$为既约Cartier模. 子群$\epsilon_1M\subset M$中的元素称为是\textbf{$p$-典型的($p$-typical)}.
+\end{definition}
+\begin{theorem}
+    元素$m\in M$是$p$-典型的当且仅当\[F_nm = 0,\;\forall n > 1,\, p\nmid n.\]
+    每个元素$m\in M$能唯一地分解为\[m = \sum_{p\nmid n} V_nm_n,\]
+    其中$m_n$为$p$-典型元素.
+\end{theorem}
+\begin{proof}
+    由于$F_{\bullet}$对下标具乘性, 只要考虑素数$\ell\neq p$即可验证$p$-典型性的判别. 直接计算得证.
+
+    分解取$m_n := \frac{1}{n}\epsilon_1 F_nm$.
+\end{proof}
+
+\subsubsection{主定理的局部版本}
+
+设$H$为$R$上的形式群.
+结合\cref{Hom(Lambda H) isomto H(R[[X]])}, 我们得到同构
+\[\Hom(\hat{W}, H) = \Hom(\Lambda\epsilon_1, H) \simeq \epsilon_1\Hom(\Lambda, H)\simeq\epsilon_1 H(R[[X]]).\]
+
+\begin{defprop}
+    Witt向量的形式群之自同态环$\enom \hat{W}\simeq \epsilon_1\E\epsilon_1$.
+    定义关联于素数$p$的\textbf{局部Cartier环(local Cartier ring)}为
+    $\E_p := \epsilon_1\E\epsilon_1$. 命\[V := \epsilon_1V_p = V_p\epsilon_1,\ F := \epsilon_1F_p = F_p\epsilon_1,\ [a]_p := \epsilon_1[a] = [a]\epsilon_1\, (a\in R),\]
+    则$\E_p$的每个元素具有唯一的分解\[x = \sum_{m, n\ge 0} V^m [a_{m, n}] F^n,\] 其中$a_{m, n}\in B$, 且对固定的$m$, 有$n\gg 0\implies a_{m, n} = 0$.
+\end{defprop}
+\begin{proof}
+    参见\cite[Definition and Theorem 4.17]{Zi84}.
+\end{proof}
+
+\begin{definition}
+    称左$\E_p$-模$M$是\textbf{$V$-既约的}, 如果:
+    \begin{enumerate}
+        \item $V : M\to M$为单射,
+        \item $M$为$V$-进完备, 即$M\simeq\varprojlim M/V^nM$.
+    \end{enumerate}
+\end{definition}
+
+% \begin{theorem}
+%     若$M$为$V$-既约Cartier模, 则存在典范同构\[\hat{W}\otimes_{\E_p}\epsilon_1M\simeq\Lambda\bar{\otimes}_\E M.\]
+% \end{theorem}
+
+\begin{theorem}[Cartier第二主定理, 局部版本]\label{formal group equiv V-reduced Cartier module - local}
+    设$H:\nil_R\to\abel$为形式群.
+    \begin{enumerate}
+        \item Cartier模$M_H = H(R[[X]])$的$p$-典型元素之集$\epsilon_1H(R[[X]])$具有$V$-既约$\E_p$-模结构,
+        记作$M_{p, H}$.
+        \item 存在典范同构\[\hat{W}\otimes_{\E_p} M_{p, H}\simeq H.\]
+        \item 函子$H\mapsto M_{p,H}$给出了$R$上形式群与$V$-既约$\E_p$-模中那些$M_p/VM_p$为平坦$R$-模的元素组成的子范畴之间的等价,
+        且$H$的切空间$\lie(H)$在此等价下被映到$M_{p, H}/VM_{p, H}$.
+    \end{enumerate}
+\end{theorem}
+
+\subsubsection{Witt向量}
+回顾对于素数$p$, 取Witt向量环给出了交换环范畴到自身的函子$W : \cring\to\cring$;
+它由以下性质刻画: 作为集合, $W(R) = R^\N$, 装备以环结构使得\[W(R)\to R^\N,\ (a_n)_n\mapsto (w_n(a_0, \dots, a_n))_n\]
+为环同态, 其中多项式\[w_n(X_0, \dots, X_n) = X_0^{p^n} + pX_1^{p^{n-1}} + \dots + p^nX_n\in \Z[X_0, \dots, X_n].\]
+本小节中, 我们将以另一种方式刻画Witt向量的形式群$\hat{W}$, 并建立它与Witt向量的一些联系.
+
+\begin{lemma}
+    取$N\in\nil_R$.
+    群$\Lambda(N)$的每个元素可以唯一地表示为有限乘积\[\prod_{i=1}^n \left( 1- x_it^i \right),\; x_i\in N;\]
+    而$\hat{W}(N)$的每个元素可以唯一地表示为有限乘积\[\prod_{i=1}^n \left( 1- y_it^{p^i} \right)\epsilon_1,\; y_i\in N.\]
+\end{lemma}
+\begin{proof}
+    考虑一般并非群同态的映射\begin{equation}\label{cart-eq: direct sum to Lambda}
+        \bigoplus_{i=1}^\infty N\to\Lambda(N),\; (x_i)\mapsto\prod_i(1-x_it^i).
+    \end{equation}
+    注意到右边的乘积有限, 且此映射对于$N$呈函子性;
+    我们断言{\cref{cart-eq: direct sum to Lambda}}是自然同构, 从而说明每个$\Lambda(N)$中元素可唯一地表作有限积.
+    由\cref{isom of tangent isom}, 只要在$N^2 = 0$时证明;
+    此时$\prod_i(1-x_it^i) = 1 - \sum_i x_it^i$. 按定义, 右边的求和唯一, 是故\cref{cart-eq: direct sum to Lambda}为同构.
+
+    因为$F_\ell\epsilon_1 = 1$在素数$\ell\neq p$时成立, 所以每个$\hat{W}$中元素都可写作
+    \[\prod(1-x_it^i)\epsilon_1 = \prod(1-x_it)F_i\epsilon_1 = \prod(1-x_{p^j}t)F_{p^j}\epsilon_1.\]
+    我们证明将$\Lambda\to\Lambda\epsilon_1$限制到$\bigoplus_{i = p^n} N$在同构\cref{cart-eq: direct sum to Lambda}下的像上为到$\hat{W}$的同构.
+    仍然只需在$N^2 = 0$处检验: 此时对任何$m > 1$, 当$(m, p) = 1$时
+    \[(1-y_nt^{p^n})V_m = (1-y_nt)F_{p^n}V_m = (1-y_n^mt)F_{p^n} = 1\cdot F_{p^n} = 1,\]
+    故\[(1-y_nt^{p^n})\epsilon_m = (1-y_nt^{p^n})\frac{1}{m}V_m\epsilon_1F_m = 1\cdot\frac{1}{m}\epsilon_1F_m  = 1;\]
+    因此当$\prod (1-y_nt^{p^n}) = 1$时, \[\prod(1-y_nt^{p^n}) = \prod\sum_{p\nmid m}(1-y_nt^{p^n})\epsilon_m = 1,\]
+    明所欲证.
+\end{proof}
+
+\begin{theorem}
+    多项式族$\{w_n\}$定出了群函子同态\begin{align*}
+        \hat{W}(N)&\longrightarrow \bigoplus_{n= 0}^\infty\mathbb{G}_{\mathrm{a}}(N)\\
+        \prod (1-y_nt^{p^n})&\longmapsto (w_n(y_0, \dots, y_n))_n.
+    \end{align*}
+    是故嵌入$\bigoplus_{n\ge0}N\to N^\N$诱导出群同态\begin{align*}
+        \hat{W}(N)&\longrightarrow W(N)\\
+        \prod (1-y_nt^{p^n})&\longmapsto (y_n)_n.
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    由于$N$幂零, 上述映射良定. 同态性参见\cite[Theorem 4.2.5]{Zi84}
+\end{proof}
+借助Witt环, 我们可以给出局部Cartier环的另一种描述.
+\begin{corollary}
+    映射\begin{align*}
+        W(R)&\longrightarrow\E_p\\
+        (a_n)&\longmapsto\sum_{n}V^n[a_n]F^n
+    \end{align*}
+    是环的嵌入. 透过此嵌入将$W(R)$视为局部Cartier环$\E_p$的子环,
+    则$\E_p$同构于$W(R)[V, F]$关于右理想滤过$\{(V^n)\}_n$的完备化.
+\end{corollary}
+
+\subsubsection{高度}
+高度是形式群的一个重要不变量. 为此, 我们要先定义同源的概念. 
+\begin{definition}
+    设$G, H$为来自形式群律的$R$上形式群. 态射$\varphi : G\to H$称为一个\textbf{同源(isogeny)},
+    如果$\ker\varphi : \nil_R\to \set$可表.
+\end{definition}
+
+设$\varphi : G\to H$为同源, 则$\ker\varphi$由有限生成的射影$R$-代数$A$表出. 
+考虑$A$的素理想$\mathfrak{p}$的剩余类域$\mathbf{k}(\mathfrak{p}) = A_\mathfrak{p}/\mathfrak{p}A_\mathfrak{p}$. \cite[Theorem 5.3]{Zi84}表明存在自然数$h(\mathfrak{p})$使得$\dim_{\mathbf{k}(\mathfrak{p})} A\otimes_R\mathbf{k}(\mathfrak{p}) = p^{h(\mathfrak{p})}$.
+交换代数的结果指出$\mathfrak{p}\mapsto h(\mathfrak{p})$是局部常值函数.
+\begin{definition}
+    称同源$\varphi$的\textbf{高度(height)}为$h\in\N$, 如果$h(\mathfrak{p}) = h$对所有$\mathfrak{p}\in\spec A$成立.
+    称形式群$G$的高度为$h$, 如果$p\in\enom G$为同源且高度为$h$.
+\end{definition}
+
+例如, 设$R$的特征为$p$, 我们考察$\mathbb{G}_{\mathrm{m}/R}$的乘$p$同态\[\mathbb{G}_{\mathrm{m}}(N)\to\mathbb{G}_{\mathrm{m}}(N),\ 1 + n\mapsto (1+n)^p = 1 + n^p.\]
+则$\ker\varphi$由$R[X]/X^p$表出, 因此$p : \mathbb{G}_{\mathrm{m}}\to \mathbb{G}_{\mathrm{m}}$是高度为$1$的同源, $\mathbb{G}_{\mathrm{m}}$的高度为$1$.

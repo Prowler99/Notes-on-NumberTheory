@@ -1,0 +1,77 @@
+\begin{thebibliography}{FvdP04}
+
+\bibitem[BC91]{BC91}
+J.-F. Boutot and H.~Carayol.
+\newblock Uniformisation {$p$}-adique des courbes de {S}himura: les
+  th\'{e}or\`emes de \v{C}erednik et de {D}rinfeld.
+\newblock Number 196-197, pages 7, 45--158. 1991.
+\newblock Courbes modulaires et courbes de Shimura (Orsay, 1987/1988).
+
+\bibitem[Bos14]{BS14}
+Siegfried Bosch.
+\newblock {\em Lectures on formal and rigid geometry}, volume 2105 of {\em
+  Lecture Notes in Mathematics}.
+\newblock Springer, Cham, 2014.
+
+\bibitem[{\v{C}}er76]{vcerednik1976uniformization}
+IV~{\v{C}}erednik.
+\newblock Uniformization of algebraic curves by discrete arithmetic subgroups
+  of {$\mathrm{PGL}_2(k_w)$} with compact quotients.
+\newblock {\em Mathematics of the USSR-Sbornik}, 29(1):55, 1976.
+
+\bibitem[Dri76]{drinfel1976coverings}
+Vladimir~G Drinfel'd.
+\newblock Coverings of p-adic symmetric regions.
+\newblock {\em Functional Analysis and its Applications}, 10(2):107--115, 1976.
+
+\bibitem[FvdP04]{FvdP}
+Jean Fresnel and Marius van~der Put.
+\newblock {\em Rigid analytic geometry and its applications}, volume 218 of
+  {\em Progress in Mathematics}.
+\newblock Birkh\"{a}user Boston, Inc., Boston, MA, 2004.
+
+\bibitem[Har77]{Ha77}
+R.~Hartshorne.
+\newblock {\em Algebraic geometry}, volume No. 52 of {\em Graduate Texts in
+  Mathematics}.
+\newblock Springer-Verlag, New York-Heidelberg, 1977.
+
+\bibitem[Liu02]{Liu02}
+Qing Liu.
+\newblock {\em Algebraic geometry and arithmetic curves}, volume~6 of {\em
+  Oxford Graduate Texts in Mathematics}.
+\newblock Oxford University Press, Oxford, 2002.
+\newblock Translated from the French by Reinie Ern\'{e}, Oxford Science
+  Publications.
+
+\bibitem[Ray74]{raynaud1974geometrie}
+Michel Raynaud.
+\newblock G{\'e}om{\'e}trie analytique rigide d’apres tate, kiehl.
+\newblock {\em Table ronde d’analyse non archim{\'e}dienne (Paris, 1972)},
+  pages 319--327, 1974.
+
+\bibitem[SS91]{SS91}
+P.~Schneider and U.~Stuhler.
+\newblock The cohomology of {$p$}-adic symmetric spaces.
+\newblock {\em Invent. Math.}, 105(1):47--122, 1991.
+
+\bibitem[Voi21]{Vo21}
+John Voight.
+\newblock {\em Quaternion algebras}, volume 288 of {\em Graduate Texts in
+  Mathematics}.
+\newblock Springer, Cham, [2021] \copyright 2021.
+
+\bibitem[Zin84]{Zi84}
+Thomas Zink.
+\newblock {\em Cartiertheorie kommutativer formaler {G}ruppen}, volume~68 of
+  {\em Teubner-Texte zur Mathematik [Teubner Texts in Mathematics]}.
+\newblock BSB B. G. Teubner Verlagsgesellschaft, Leipzig, 1984.
+\newblock With English, French and Russian summaries.
+
+\bibitem[{李}19]{Li19}
+{李文威}.
+\newblock {\em 代数学方法 (第一卷)}, volume 67.1 of {\em
+  现代数学基础丛书}.
+\newblock 北京: 高等教育出版社, 2019.
+
+\end{thebibliography}

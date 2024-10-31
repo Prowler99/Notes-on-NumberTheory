@@ -1,0 +1,51 @@
+\renewcommand{\abstractname}{\textbf{\Large \heiti 摘要}}
+\renewenvironment{abstract}{%
+    \par\small
+    \noindent\mbox{}\hfill{\bfseries \abstractname}\hfill\mbox{}\par
+    \vskip 2.5ex}{\par\vskip 2.5ex} 
+%中文摘要及关键词放在扉页一、外文摘要及关键词放在扉二，页码编排为Ⅰ，Ⅱ，设置页眉
+\begin{abstract}
+%1.5倍行距
+\begin{onehalfspace}
+设$D$是在素数$p$处分歧的$\Q$上的四元数代数. Cerednik-Drinfeld定理给出了相应于$D(\A_f)^\times$的紧开子群$U$的志村曲线的$p$-进单值化.
+此定理最初由Cerednik证明; 而Drinfeld利用他的 ``基本定理'', 即$p$-进半平面$\Omega = \P^1_{\Q_p} - \P^1(\Q_p)$的一个形式模型$\hat{\Omega}$参数化了一族$p$-可除群,
+重新导出了Cerednik的原始结果. 
+为了证明Drinfeld的定理, 首先需要利用Deligne与Drinfeld的函子给出$\hat{\Omega}$的一个模诠释, 然后利用形式模的Cartier理论构造出Drinfeld定理中所需的同构.
+这篇文章将主要跟随\cite{BC91}, 构造$p$-进半平面及其形式模型, 并补充其中部分细节, 随后参照\cite{Zi84}给出Cartier理论的主要内容, 最后陈述Drinfeld定理.
+\\[12pt]
+\textbf{\textbf{\heiti 关键词：}}$p$-进半平面\quad Cartier理论 \quad Drinfeld定理
+\end{onehalfspace}
+\end{abstract}
+\setcounter{page}{1}
+\pagenumbering{Roman}
+\cfoot{\footnotesize \thepage}
+\newpage
+
+
+% 外文摘要及关键词：
+% Abstract，单倍行距，段前1行，段后1行，16号Times New Roman字，加粗，居中。
+% 内容使用12号Times New Roman字，起行空两格，回行顶格，两倍行距。
+% Key Words，英文摘要内容下隔一行，左端顶格，12号Times New Roman字，
+% 加粗，后面加“：”。
+% 关键词内容，直接放在“：”之后，互相之间间隔3格，12号Times New Roman字。
+
+\newcommand{\enabstractname}{\textbf{\Large Abstract}}
+\newenvironment{enabstract}{%
+    \par\small
+    \noindent\mbox{}\hfill{\bfseries \enabstractname}\hfill\mbox{}\par
+    \vskip 2.5ex}{\par\vskip 2.5ex}  
+\begin{enabstract}
+\begin{doublespace}
+Let $D$ be a quaternion algebra over $\Q$, ramified at a prime $p$.
+The Cerednik-Drinfeld theorem gives the $p$-adic uniformisation of Shimura curves associated to compact open subgroups $U$ of $D(\A_f)^\times$. This theorem was first proved by Cerednik. Then Drinfeld reinterpreted Cerednik's original result in another way using his theorem using his ``fundamental theorem'', which states that a formal model $\hat{\Omega}$ of the $p$-adic half plane $\Omega = \P^1_{\Q_p} - \P^1(\Q_p)$ parameterised a family of $p$-divisible groups.
+
+To prove the Drinfeld's  theorem, the first step is to give a modular discription of $\hat{\Omega}$ through Deligne's and Drinfeld's functor. Then with the help of the Cartier theory on formal modules, one can construct the isomorphism in Drinfeld's theorem.
+Following mainly to \cite{BC91}, this article will construct the $p$-adic half plane and its formal model with more details depicted. Then, the main contents of Cartier theory will be given with reference to \cite{Zi84}.
+Finally, we state Drinfeld's theorem.
+\\[12pt]
+\textbf{Keywords：}$p$-adic half plane \quad  Cartier theory  \quad Drinfeld's theorem
+\end{doublespace}
+\end{enabstract}
+\cfoot{\thepage}
+\newpage
+\cfoot{}

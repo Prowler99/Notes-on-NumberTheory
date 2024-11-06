@@ -11,14 +11,19 @@ citecolor=blue,
 \usepackage{bbm}
 \usepackage{tikz-cd}
 
-\newtheorem{theorem}{Theorem}
-
 \theoremstyle{definition}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{defthm}[theorem]{Def-Theorem}
+
 \newtheorem{definition}{Definition}
 \newtheorem{exercise}{Exercise}[section]
 \newtheorem{problem}{Problem}
 \newtheorem{example}{Example}
+
 \newtheorem{proposition}{Proposition}[section]
+\newtheorem{defprop}[proposition]{Def-Proposition}
+
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{corollary}{Corollary}[section]
 
@@ -108,12 +113,17 @@ citecolor=blue,
 
 
 \newcommand{\myit}{$\diamond$}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\hecke}{\mathcal{H}}
+\newcommand{\bico}[3]{{#2}\backslash {#1}\slash {#3}}
+\DeclareMathOperator{\supp}{supp}
 
-\title{}
-\author{}
-\date{}
+
+\title{Note on Modular Forms}
+\author{Lei}
 
 \begin{document}
 \maketitle
+\input{hecke_operator.tex}
 
 \end{document}

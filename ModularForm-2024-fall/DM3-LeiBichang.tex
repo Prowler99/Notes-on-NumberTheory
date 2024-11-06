@@ -1,0 +1,480 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs, stmaryrd}
+\usepackage{enumitem}
+\usepackage[colorlinks,
+linkcolor=cyan,
+anchorcolor=blue,
+citecolor=blue,
+]{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[margin = 1in, headheight = 12pt]{geometry}
+\usepackage{bbm}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Exercise}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\renewcommand{\Im}{\mathop{\mathrm{Im}}}
+
+% 新命令
+% 数学对象
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \DeclareMathOperator{\GL}{GL}
+    \DeclareMathOperator{\SL}{SL}
+    \newcommand{\p}{\mathfrak{p}}
+    \renewcommand{\P}{\mathbb{P}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\F}{\mathbb{F}}
+% 集合
+    \newcommand{\sminus}{\smallsetminus} %(集合)差
+% 范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
+    \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\isom}{Isom} %同构
+    \DeclareMathOperator{\aut}{Aut} %自同构
+    \DeclareMathOperator{\im}{im} %像
+    \newcommand{\Set}{\mathbf{Set}} %集合范畴
+    \newcommand{\Abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\Ring}{\mathbf{Ring}}
+    \newcommand{\Cring}{\mathbf{CRing}}
+    \newcommand{\Alg}{\mathbf{Alg}}
+    \newcommand{\Mod}{\mathbf{Mod}}
+    \DeclareMathOperator{\Id}{id}
+%向量空间, 矩阵
+    \DeclareMathOperator{\rank}{rank} %秩
+    \DeclareMathOperator{\tr}{Tr} %迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
+    \DeclareMathOperator{\codim}{codim} %余维数
+    \DeclareMathOperator{\diag}{diag} %对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
+    \DeclareMathOperator{\lspan}{span} %张成
+    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+% 群
+    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} %正规子群
+    \newcommand{\gsn}{\vartriangleright} %正规子群
+    \DeclareMathOperator{\ord}{ord} %元素的阶
+    \DeclareMathOperator{\stab}{Stab} %稳定化子
+    \DeclareMathOperator{\sgn}{sgn} %符号函数
+% 环, 域
+    \DeclareMathOperator{\cha}{char} %特征
+    \DeclareMathOperator{\spec}{Spec} %素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
+    \DeclareMathOperator{\gal}{Gal}
+% 微积分
+    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+% 流形
+    \DeclareMathOperator{\lie}{Lie}
+%代数几何
+    \DeclareMathOperator{\proj}{Proj}
+%多项式
+    \DeclareMathOperator{\disc}{disc} %判别式
+    \DeclareMathOperator{\res}{res} %结式
+
+% 结构简写
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+% 文字缩写
+    \newcommand{\opin}{\;\mathrm{open\;in}\;}
+    \newcommand{\st}{\;\mathrm{s.t.}\;}
+    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
+
+% 重定义命令
+\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\vec}{\boldsymbol}
+\newcommand{\e}{\mathrm{e}}
+% 编号
+\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
+\newcommand{\rmnum}[1]{\romannumeral #1}
+
+\newcommand{\prim}{\mathrm{prim}}
+\newcommand{\under}{\backslash}
+\newcommand{\myit}{$\diamond$}
+\DeclareMathOperator{\vol}{vol}
+\newcommand{\new}{\mathrm{new}}
+\newcommand{\old}{\mathrm{old}}
+
+\title{Modular Forms}
+\author{Lei Bichang}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{example}
+Let $(n, N) = 1$.
+Because $n\mapsto a_n$ and $n\mapsto \langle n\rangle$ are multiplicative, it suffices to prove the result for $n = p^e$ a power of a prime $p\nmid N$. We do induction on $e$.
+
+If $n = p$, then since $T_p^* = \langle p^{-1}\rangle T_p$, we have $T_p^*f = \chi(p^{-1})a_pf = \overline{\chi}(p)a_pf$, and thus\begin{align*}
+    \overline{a_p}\gene{f, f} &= \gene{f, a_pf}
+    = \gene{f, T_pf} = \gene{T_p^*f, f}
+    =\gene{\overline{\chi(p)}a_pf, f} = \overline{\chi(p)}a_p\gene{f, f}.
+\end{align*}
+As $f\ne 0$, $\overline{a_p} = \overline{\chi(p)} a_p$.
+
+Next, assume the result holds for $n = p^r$ with $1\le r \le e$.
+For $n = p^{e+1}$,
+% \[T_{p^{e+1}} = T_pT_{p^e} - p^{k-1}\gene{p}T_{p^{e-1}}.\]
+\begin{align*}
+    \overline{a_{p^{e+1}}} &= \overline{a_pa_{p^{e}} - p^{k-1}\chi(p)a_{p^{e-1}} }
+    \\ &= \overline{\chi(p)} a_p\overline{\chi(p^e)}a_{p^e}
+    - p^{k-1}\overline{\chi(p)}\overline{\chi(p^{e-1})}a_{p^{e-1}}\\ 
+    &= \overline{\chi(p^{e+1})} \left( a_pa_{p^e} - p^{k-1}\chi(p)a_{p^{e-1}} \right) = \overline{\chi(p^{e+1})}a_{p^{e+1}}.
+\end{align*}
+
+
+\end{example}
+
+\begin{example}
+\begin{enumerate}
+    \item     
+    Let $(d, N) = 1$
+    and take \[\gamma_d = \begin{pmatrix}
+        a & b \\ c & d
+    \end{pmatrix}\in\Gamma_0(N).\]
+    Then \[\tilde{\gamma} := w_N\gamma_dw_N^{-1} = \begin{pmatrix}
+        d & -c/N \\ -Nb & a
+    \end{pmatrix}.\]
+    Since $1 = ad - bc \equiv ad \pmod N$,
+    the matrix $\tilde\gamma\in\Gamma_0(N)$ is a lift of $a\bmod N = (d\bmod N)^{-1}\in(\Z/N\Z)^\times$.
+    Therefore,\begin{align*}
+        \langle d\rangle (w_Nf) &= f|_k(w_N\gamma_d) = f|_k(\tilde\gamma w_N)
+        = w_N\left(\langle d^{-1}\rangle f\right)
+        \\ &= w_N(\chi(d^{-1})f) = w_N(\overline{\chi(d)}f) = \overline{\chi(d)} (w_Nf).
+    \end{align*}
+    \item Assume that $T_nf = \lambda f$ for a specific $n$ prime to $N$.
+    
+    If $f = 0$, the statement is trivial.
+    Otherwise, $a_1(f)\ne 0$.
+    Without loss of generality, we may assume $a_1(f) = 1$,
+    so $a_n(f) = \lambda$.
+    By Exercise 1, \[\bar{\lambda} = \overline{a_n(f)} = \overline{\chi(n)}a_n(f) = \overline{\chi(n)}\lambda.\]
+    Since $w_Nf\in M_1(\Gamma_1(N), \bar{\chi})$,
+    \[\bar{\lambda}w_Nf
+    = \lambda\overline{\chi(n)} w_Nf
+    = \lambda\gene{n}w_Nf
+    = \gene{n}w_N(\lambda f) = \gene{n}w_NT_nf.\]
+    So we need to show that $\gene{n}w_NT_nf = T_nw_Nf$.
+    % If $n = p$ a prime, then $w_NT_pw_N^{-1} = T_p^* = \gene{p}^{-1}T_p$, so $\gene{p}w_NT_p = T_pw_N$.
+\begin{lemma}
+    If $(n, N) = 1$, then $T_n^* = \gene{n}^{-1}T_n$.
+\end{lemma}
+\begin{proof}
+    It suffices to prove this for $n = p^e$ a prime power with $p\nmid N$.
+    We do induction on $e$.
+
+    The case of $n = p$ is already known.
+    Suppose the lemma holds for $n = p^r$ with $1\le r\le e$.
+    For $n = p^{e + 1}$,\begin{align*}
+        T_{p^{e+1}}^* &= \left(T_pT_{p^e} - p^{k-1}\gene{p}T_{p^{e-1}}\right)^*\\ &
+        = T_{p^e}^*T_p^* - p^{k-1}T_{p^{e-1}}^* \overline{\gene{p}}\\ &
+        = \gene{p^e}^{-1}T_{p^e}\gene{p}^{-1}T_p -
+        p^{k-1}\gene{p^{e-1}}^{-1}T_{p^{e-1}}\gene{p}^{-1}\\ &
+        = \gene{p^{e+1}}^{-1}\left( T_{p^e}T_p - p^{k-1}\gene{p}T_{p^{e-1}} \right) = \gene{p^{e+1}}^{-1}T_{p^{e+1}}.\qedhere
+    \end{align*}    
+\end{proof}
+Therefore, $w_NT_nw_N^{-1} = T_n^* = \gene{n}^{-1}T_n$, and thus \[\bar{\lambda}w_Nf = \gene{n}w_NT_nf = T_nW_Nf.\qedhere\]
+
+
+\end{enumerate}
+\end{example}
+
+\begin{example}
+\begin{enumerate}
+    \item Let $f\in M_k(\Gamma)$.
+    \begin{itemize}
+        \item As $f$ is holomorphic, $c(f) : z\mapsto \overline{f(-\bar{z})}$ is also holomorphic.
+        \item If $\gamma = \begin{pmatrix}
+            a & b\\ c&d
+        \end{pmatrix}\in\SL_2(\Z)$, then $C\gamma C^{-1} = \begin{pmatrix}
+            a&-b\\ -c&d
+        \end{pmatrix}$.
+        So for all $z\in\mathcal{H}$, \begin{align*}
+            c(f)|_k (C\gamma C^{-1}) (z)
+            &= (-cz+d)^{-k} c(f)\left(\frac{az-b}{-cz+d}\right) 
+            \\ &= (-cz+d)^{-k} \overline{f\left( 
+                \frac{a\bar{z} - b}{c\bar{z} - d}
+             \right)}
+            \\ &= \overline{(-c\bar{z} + d)^{-k}f\left( \frac{-a\bar{z} + b}{-c\bar{z + d}} \right)}
+            \\ &= \overline{f|_k \gamma (-\bar{z})}.
+        \end{align*}
+        For $\gamma\in\Gamma$, we obtain\begin{align*}
+            c(f)|_k (C\gamma C^{-1}) (z)= \overline{f(-\bar{z})} = c(f)(z).
+        \end{align*}
+\item 
+Consider a cusp $g\infty$ of $C\Gamma C^{-1}$, where
+$g\in\SL_2(\Z)$.
+Let $f|_kg(z) = \sum_{n\ge 0}a_nq_N^n$ be the $q$-expansion of $f|_kg$.
+Then by the computation in \textbf{1.} and $\overline{\e^s} = \e^{\bar{s}}$ for all $s\in\C$,
+\begin{align}\label{q-exp of c(f)}
+    c(f)|_k(CgC^{-1})(z) 
+    = \overline{f|_kg (-\bar{z})}
+    = \overline{\sum_{n\ge 0} a_n\e^{-\frac{2\pi i}{N}\bar{z}}}
+        = \sum_{n\ge 0}\overline{a_n}\e^{\frac{2\pi i}{N}z} = \sum_{n\ge 0}\overline{a_n}q_N^n,
+\end{align}
+which gives a $q$-expansion of $c(f)|_k(CgC^{-1})$.
+As $f|_kg$ is bounded at the cusp $\infty$, so is $c(f)|_k(CgC^{-1})$.
+Now $CgC^{-1}$ permutes all elements of $\SL_2(\Z)$ as $g$ goes through $\SL_2(\Z)$, so we see that $c(f)$ is bounded at every cusps.
+    \end{itemize}
+    In conclusion, $c(f)\in M_k(C\Gamma C^{-1})$.
+    \item As we have computed,
+    \[C\begin{pmatrix}
+        a&b\\c&d
+    \end{pmatrix} C^{-1} = \begin{pmatrix}
+        a&-b\\ -c&d
+    \end{pmatrix}.\]
+    So $C\Gamma_1(N)C^{-1} = \Gamma_1(N)$.
+    \item Set $g = 1$ in \cref{q-exp of c(f)}.
+    \item Let $f\in M_k(\Gamma_1(N), \chi)$.
+    If $n\in(\Z/N\Z)^\times$ and $\gamma_n $
+    %  = \begin{pmatrix}
+    %     a & b \\ c & d
+    % \end{pmatrix}$
+    is a lift of $n$ in $\Gamma_0(N)$, then the computation in Exercise 3.2 shows that $C\gamma_n C^{-1}$ is also a lift of $n$. Hence
+    \begin{align*}
+        \left(\gene{n}c(f)\right)(z) &= c(f)|_k(C\gamma_n C^{-1})(z)\\ 
+        &= \overline{f|_k\gamma_n(-\bar{z})}
+        \\ &= \overline{\left(\gene{n}f\right)(-\bar{z})}
+        \\ &= \overline{\chi(n)f(-\bar{z})} = 
+        \overline{\chi(n)}c(f)(z).
+    \end{align*}
+    This means $c(f)\in M_k(\Gamma_1(N), \bar{\chi})$.
+
+    \item Assume that $T_nf = \lambda f$.
+    % Let $f = \sum_{n\ge 0}a_nq^n$ be the $q$-expansion of $f$, then 
+    By the formula of $T_n$ action on $q$-expansion and Exercise 3.3,
+    \begin{align*}
+        a_m(T_nc(f)) &=
+        \sum_{d\mid (m, n)} \bar\chi(d) d^{k-1}a_{mn/d^2}(c(f))\\ &
+        =
+        \sum_{d\mid (m, n)} \bar\chi(d) d^{k-1}\overline{a_{mn/d^2}(f)}\\ &
+        = \overline{\sum_{d\mid (m, n)} \chi(d) d^{k-1}a_{mn/d^2}(f)}\\ &
+        = \overline{a_m(T_nf)} = \overline{\lambda a_m(f)} = \bar{\lambda}a_m(c(f)).
+    \end{align*}
+    Hence $c(f)$ is is an eigenvector for $T_n$ with eigenvalue $\bar{\lambda}$.
+
+    \item We first show that, $f$ being old $\implies c(f)$ being old.
+    This can be deduced via computation.
+    Let $M\mid N$, $d \ \left|\ {N\over M}\right.$, and $h\in S_k(\Gamma_1(M))$.
+    Then
+    \begin{align*}
+        i_d(c(h))(z) &= d^{1-k}\left( c(h)\left|_k\begin{pmatrix}
+            d & \\ & 1
+        \end{pmatrix}\right.\right)(z)\\ &
+        = d^{1-k} \overline{\left( h\left|_k C^{-1}\begin{pmatrix}
+            d & \\ & 1
+        \end{pmatrix}C\right.\right)(-\bar{z})}\\ &
+        = \overline{d^{1-k}\left( h\left|_k\begin{pmatrix}
+            d & \\ & 1
+        \end{pmatrix}\right.\right)(-\bar z) }\\ &
+        = \overline{i_d(h)(-\bar{z})}
+        = c(i_d(h))(z).
+    \end{align*}
+    Every form $f\in S_k(\Gamma_1(N))^\old$ is a finite sum of elements in the form $i_{d, M, N}(h)$,
+    and note that $c(f_1 + f_2) = c(f_1) + c(f_2)$,
+    we can conclude that $c(f)$ is also old.
+
+
+    To prove that $f$ being new $\implies$ $c(f)$ being new, we use the following result.
+    \begin{lemma}\label{c preserves ortho}
+        $\gene{c(f), c(g)}  = \gene{g, f},\quad \forall f, g\in S_k(\Gamma_1(N)).$
+        % The operator $c : S_k(\Gamma_1(N)) \to S_k(\Gamma_1(N))$ 
+        % is a $\C$-conjugate-linear involution that respects the Petersson inner product,
+        % i.e., \[\gene{c(f), c(g)} = \gene{f, g},\quad \forall f, g\in S_k(\Gamma_1(N)).\]
+    \end{lemma}
+\begin{proof}
+Let $D$ be a fundamental domain of $\Gamma_1(N)$.
+Let $f, g\in S_k(\Gamma_1(N))$, then\begin{align*}
+\gene{c(f), c(g)}
+&= \frac{1}{\vol(\Gamma_1(N)\under\mathcal{H})}\int_{D}
+\overline{f(-\bar{z})}g(-\bar{z})\Im(z)^kd\mu(z),
+        \end{align*}
+where $d\mu(z) = y^{-2}dxdy$.
+Under the change of variable $t := -\bar{z} = -x+iy$,
+% $d\mu(z) = -d\mu(t)$, and
+$D$ is converted to $D' = \{t\in\mathcal{H}\mid -\bar{t}\in D\}$
+Put $\tau(z) := -\bar{z}$ so that $D' = \tau(D)$.
+
+We know that $\SL_2(\Z)$ has a fundamental domain $D_0$ that is mirror-symmetric along the $y$-axis,
+i.e., \[D_0 = \{-\bar{z}\mid z\in D_0\}.\]
+Write $\SL_2(\Z) = \bigsqcup_{g}g\Gamma_1(N)$ so that $D = \bigcup_{g}gD_0$ for finitely many $g\in\SL_2(\Z)$.
+Then since \[-\overline{\begin{pmatrix}
+    a & b \\ c & d
+\end{pmatrix}z} = \begin{pmatrix}
+    a & -b \\ -c & d
+\end{pmatrix}(-\bar{z}) = C\begin{pmatrix}
+    a&b\\c&d
+\end{pmatrix} C^{-1}(-\bar{z}),\]
+we find that \[\tau(gD_0) =\left\{ -\overline{gz}\mid z\in D_0 \right\} = \left\{ (CgC^{-1})(-\bar z)\mid z\in D_0\right\} = CgC^{-1}D_0.\]
+Hence \[D' = \bigcup_{g}\tau(gD_0) = \bigcup_{g}CgC^{-1}D_0.\]
+By Exercise 4.2, \[\SL_2(\Z) = C\SL_2(\Z)C^{-1} = \bigsqcup_g Cg\Gamma_1(N)C^{-1} = \bigsqcup_g CgC\Gamma_1(N).\]
+As $C = C^{-1}$, the above shows that $D'$
+is also a fundamental domain for $\Gamma_1(N)$.
+
+Therefore, the integral becomes\[
+\frac{1}{\vol(\Gamma_1(N)\under\mathcal{H})}\int_{D'}
+\overline{f(t)}g(t)\Im(t)^kd\mu(t) = \gene{g, f}.
+\qedhere
+\]
+\end{proof}
+
+Note that $c\circ c = \Id$.
+Therefore, if $f$ is new and $g$ is old, then \[\gene{c(f), g} = \gene{c(g), f} = 0\]
+because $c(g)$ is also old.
+This implies that $c(f)$ is new.
+
+\end{enumerate}
+\end{example}
+
+\begin{example}
+\begin{enumerate}
+\item Because $f$ is a primitive form,
+Exercise 3 shows that $c(f)$ is also a primitive form,
+and Exercise 2 shows that $w_Nf$ is an eigenform for $\mathbb{T}_1^\circ(N) = \mathbb{T}_1^{(N)}(N)$.
+Moreover, $c(f)$ and $w_Nf$
+have the same eigenvalues for $T\in \mathbb{T}_1^\circ(N)$.
+
+By the weak multiplicity one theorem,
+once we verify that $w_Nf$ is new,
+we shall see that $w_Nf$ is a nonzero multiple of $c(f)$.
+Note that
+% {\color{red} This is suspectful!}
+\[w_N^2f = (-1)^kN^{k-2}f,\] so we use a strategy similar to Exercise 3.6.
+\begin{lemma}\label{w_N preserves old}
+    If $f\in S_k(\Gamma_1(N))$ is old, then $w_N(f)$ is old.
+\end{lemma}
+\begin{proof}
+    It suffices to show that $w_N$ stabilises $S_k(\Gamma_1(N))^{p\text{-}\old}$ for every $p\mid N$.
+
+    Let $h\in S_k(\Gamma_1(N/p))$.
+    Then \begin{align*}
+        w_N(i_1h) &= h\left|_k\begin{pmatrix}
+            &-1\\ N&
+        \end{pmatrix}\right.\\ &
+        = f\left|_k\begin{pmatrix}
+            &-1\\ N/p&
+        \end{pmatrix}\begin{pmatrix}
+            p & \\ &1
+        \end{pmatrix}\right.\\ &
+        = p^{k-1}i_p(w_{N/p}h)\in i_pS_k(\Gamma_1(N)),\\
+        w_N(i_ph) &= p^{1-k}h\left|_k\begin{pmatrix}
+            p & \\ &1
+        \end{pmatrix}\begin{pmatrix}
+            &-1\\ N&
+        \end{pmatrix}\right.
+        = p^{1-k}h\left|_k\begin{pmatrix}
+            &-p\\ N&
+        \end{pmatrix}\right.\\ &
+        = p^{1-k}h\left|_k\begin{pmatrix}
+            & -1\\N/p &
+        \end{pmatrix}\begin{pmatrix}
+            p&\\ &p
+        \end{pmatrix}\right.\\ &
+        = p^{1-k}w_{N/p}h\left|_k\begin{pmatrix}
+            p & \\ &p
+        \end{pmatrix}\right.
+        = p^{1-k}(p^2)^{k-1}p^{-k} w_{N/p}f \\ &
+        = p^{-1}i_1(w_{N/p}h)\in i_1S_k(\Gamma_1(N/p)).
+    \end{align*}
+    We thus proved that $S_k(\Gamma_1(N))^{p\text{-}\old} = i_1(S_k(\Gamma_1(N/p))) + i_p(S_k(\Gamma_1(N/p)))$ is stable under $w_N$.
+    % \begin{align*}
+    %     i_d(w_Mh)&
+    %     = d^{1-k}\left( h|_k\ w_M \right)\left|_k \begin{pmatrix}
+    %         d & \\ & 1
+    %     \end{pmatrix}\right.\\ &
+    %     = d^{1-k} h\left|_k
+    %         \begin{pmatrix}
+    %             & -1 \\ M & 
+    %         \end{pmatrix}\begin{pmatrix}
+    %             d & \\ & 1
+    %         \end{pmatrix}
+    %     \right.\\ &
+    %     = d^{1-k} h\left|_k
+    %         \begin{pmatrix}
+    %             & -1 \\ dM & 
+    %         \end{pmatrix}
+    %     \right. = d^{1-k}w_{dM}h.
+    % \end{align*}
+\end{proof}
+% \begin{lemma}\label{w_N preserves ortho}
+%     $\gene{w_Nf, w_Ng} = N^{k-2}\gene{f, g},\quad\forall f, g\in S_k(\Gamma_1(N))$.
+% \end{lemma}
+% \begin{proof}
+%     So\[
+%         \gene{w_Nf, w_Ng} = \gene{w_N^*w_Nf, g} = \gene{(-1)^k w_N^2f, g} = N^{k-2}\gene{f, g}.
+%         \qedhere\]
+% \end{proof}
+% \cref{w_N preserves old} says that $w_N$ stabilises $S_k(\Gamma_1(N))^\old$,
+% and \cref{w_N preserves ortho} implies that
+% $w_N$ preserves orthogonal relation.
+% Simliar to Exercise 3.6, we deduce that $w_N$ stabilises $S_k(\Gamma_1(N))^\new$.
+Since $W_N = i^kN^{1-\frac{k}{2}}w_N$ is self-adjoint,
+we have $w_N^* = (-1)^kw_N$, and thus
+\[\gene{w_Nf, g} = \gene{f, (-1)^kw_Ng} = 0\]
+because $f$ is new and $(-1)^kw_Ng$ is old by \cref{w_N preserves old}.
+Hence $w_N(f)$ is new, and applying the weak multiplicity one theorem completes the proof.
+
+\item
+By definition, \[w_N^2f = w_N(\eta_fc(f)) = \eta_f(w_Nc(f)) = \eta_f\eta_{c(f)}c(c(f)) = \eta_f\eta_{c(f)}f.\]
+As $w_N^2f = (-1)^kN^{k-2}f = (-N)^{k-2}f$ and $f\ne 0$,
+we get $\eta_f\eta_{c(f)} = (-N)^{k-2}$.
+
+We have seen that $w_N^* = (-1)^kw_N$, so\begin{align*}
+    &\eta_{c(f)}\gene{f, f} = \gene{\eta_{c(f)}f, f}
+    =\gene{w_Nc(f), f}
+    \\ ={}& \gene{c(f), (-1)^kw_Nf} 
+    =\gene{c(f), (-1)^k\eta_fc(f)} = (-1)^k\overline{\eta_f}\gene{c(f), c(f)}.
+\end{align*}
+By \cref{c preserves ortho}, $\gene{f, f} = \gene{c(f), c(f)} \ne 0$,
+which implies $\eta_{c(f)} = (-1)^k\overline{\eta_f}$.
+
+Since $|\eta_f|^2 = |\eta_f\eta_{c(f)}| = N^{k-2}$,
+we have $|\eta_f| = N^{k/2 -1}$.
+
+
+\end{enumerate}
+\end{example}
+
+\begin{example}
+Since $\gene{\cdot}$ is multiplicative,
+it suffices to show that every $\gene{p}$, in which $p\nmid N$ is a prime, can be generated by the $T_n$'s with $n$ prime to $N$.
+
+For $p\nmid N$, we have\[p^{k-1}\gene{p} = T_p^2 - T_{p^2}.\]
+By Dirichlet's theorem on arithmetic progression,
+$\{p + Nk\mid k\in\Z_{\ge 1}\}$ contains infinitely many primes.
+In particular, there exists a prime $q\ne p$
+s.t  $q\equiv p\pmod N$, and hence\[q^{k-1}\gene{p} = q^{k-1}\gene{q} = T_q^2 - T_{q^2}.\]
+Since $(p^{k-1}, q^{k-1}) = 1$, there exists $u, v\in\Z$ s.t. $1 = up^{k-1} + vq^{k-1}$,
+which yields
+\[\gene{p} = up^{k-1}\gene{p} + vq^{k-1}\gene{p} = u(T_p^2 - T_{p^2}) + v(T_q^2 - T_{q^2}).\qedhere\]
+
+
+\end{example}
+
+% Let $D$ be a bounded subset of $\C$ (e.g., a fundamental domain for $\Gamma_1(N)\under\mathcal{H}$),.$f : D\to\C$. Write $z = x+iy$, and consider
+% \begin{align*}
+%     \int_{D} f(-\bar{z})dxdy.
+% \end{align*}
+% Apply the change of variable $t := -\bar{z} = -x + iy$, do we get \[-\int_{D'} f(t)dxdy?\]
+
+
+\end{document}

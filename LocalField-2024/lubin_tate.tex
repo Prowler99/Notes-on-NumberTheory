@@ -98,9 +98,10 @@ Note that \[[\varpi]_f = f.\]
 Fix an algebraic closure $K^\alg$ of $K$.
 Each $f\in\mathcal{F}_\varpi$ associates to $\mathfrak{m}_{K^\alg}$ an $\O_K$-module structure via \[\alpha +_{F_f}\beta := F_f(\alpha, \beta)\]and \[a\cdot \alpha := [a]_f(\alpha)\footnote{These power serieses converges because they actually falls in a finite extension of $K$.}.\]for $|\alpha| < 1, |\beta| < 1$ and $a\in \O_K$.
 We denote this $\O_K$-module by $\Lambda_f$.
-If $g\in\mathcal{F}_\pi$, then the canonical isomorphism $[1] : F_f\to F_g$ yields $\Lambda_f\isomto\Lambda_g$.
+If $g\in\mathcal{F}_\pi$, then the canonical isomorphism $[1] : F_f\to F_g$ yields an isomorphism of $\O_K$-modules $\Lambda_f\isomto\Lambda_g$.
 
-The $\varpi^n$-torsion part of $\Lambda_f$ is denoted by $\Lambda_{f, n}$, i.e., $\Lambda_{f, n} := \Lambda_f[[\varpi]_f^n]$. Because $[\varpi]_f = f$, $\Lambda_{f, n}$ is the $\O_K$-module consisting of the roots of $f^{(n)} := f\circ\cdots\circ f$.
+The $\varpi^n$-torsion part of $\Lambda_f$ is denoted by $\Lambda_{f, n}$ or $F_f[n]$, i.e., \[\Lambda_{f, n} = F_f[n] := \Lambda_f[[\varpi]_f^n].\]
+Because $[\varpi]_f = f$, $\Lambda_{f, n}$ is the $\O_K$-module consisting of the roots of $f^{(n)} := f\circ\cdots\circ f$.
 If one takes $f$ to be an Eisenstein polynomial, then all the roots of $f^{(n)}$ lie in $\mathfrak{m}_{K^\alg}$, so $\Lambda_{f, n}$ is precisely the set of roots of $f^{(n)}$ equipped with the $\O_K$-module structure from $F_f$.
 
 \begin{lemma}\label{pi^n torsion cyclic of}
@@ -132,7 +133,7 @@ If one takes $f$ to be an Eisenstein polynomial, then all the roots of $f^{(n)}$
     \[\tau F(\alpha_1, \dots, \alpha_n) = F(\tau\alpha_1, \dots, \alpha_n).\]
 \end{lemma}
 \begin{proof}
-    Note that $\tau$ acts continuously on $L$, becaunse the extension of valuation for local fields is unique.
+    Note that $\tau$ acts continuously on $L$, because the extension of valuation for local fields is unique.
     Therefore writing $F = \lim_{m\to\infty} F_m$ gives the desired result.
 \end{proof}
 
@@ -147,6 +148,7 @@ If one takes $f$ to be an Eisenstein polynomial, then all the roots of $f^{(n)}$
     \end{enumerate}
 \end{theorem}
 \begin{proof}
+    Since $F_f[n]\simeq_{\O_K} F_g[n]$, the extesnions over $K$ given by them equal.
     Let $f$ be a polynomial $T^q + \dots + \varpi T$.
 
     Choose a nonzero root $\varpi_1$ of $f(T)$ and, inductively, a root $\varpi_n$ of $f(T) - \varpi_{n-1}$.
@@ -168,12 +170,20 @@ If one takes $f$ to be an Eisenstein polynomial, then all the roots of $f^{(n)}$
     Moreover, if \[f(X) = a_dX^d + a_{d-1}X^{d-1} + \dots + a_0,\]then \[N_{L/K}(\alpha) = (-1)^{de}a_0^e,\qquad \tr_{L/K}(\alpha) = -ea_{d-1}.\]
 \end{lemma}
 \begin{remark}
-    This can be deduced from $N_{L/K} = N_{L/K(\alpha)}\circ N_{K(\alpha)/K}$ and $\tr_{L/K} = \tr_{L/K(\alpha)}\circ \tr_{K(\alpha)/K}$.
+    This follows directly from $N_{L/K} = N_{K(\alpha)/K}\circ N_{L/K(\alpha)}$ and $\tr_{L/K} = \tr_{L/K(\alpha)}\circ \tr_{K(\alpha)/K}$.
+    For example,
+    \begin{align*}
+        N_{L/K}(\alpha) &= N_{L/K(\alpha)}\left( N_{K(\alpha)/K}\alpha \right)\\ &
+        = \left( \prod_{\sigma\in\Hom_{K}(K(\alpha), \bar K)}\sigma\alpha \right)^{[L : K(\alpha)]} = \left( \prod_{i=1}^d\alpha_i  \right)^{[L : K(\alpha)]}.\qedhere
+    \end{align*}
 \end{remark}
 
 
 Define \[K_\varpi := \bigcup_{n} K_{\varpi, n}.\]
-The isomorphisms in \cref{construction of K_{varpi, n}} (b) are \[(\O_K/\varpi^n)^\times\to \gal(K_{\varpi, n}/K)\quad \bar{u}\mapsto (\Lambda_{f, n}\ni \alpha\mapsto [u]_f(\alpha)),\] and clearly lift to an isomorphism \[A^\times\simeq \gal(K_\varpi/K).\]
+The isomorphisms in \cref{construction of K_{varpi, n}} (b) are
+\[(\O_K/\varpi^n)^\times\to \gal(K_{\varpi, n}/K)\quad \bar{u}\mapsto (\Lambda_{f, n}\ni \alpha\mapsto [u]_f(\alpha)),\]
+and clearly lift to an isomorphism
+\[\O_K^\times\simeq \gal(K_\varpi/K).\]
 
 \subsubsection*{The local Artin map}
 The \textbf{local Artin map} is a homomorphism \[\phi_\varpi : K^\times\to \gal(K_\varpi K^\nr/K) = \gal(K^\nr/K)\times \gal(K_\varpi/K)\] defined as follows.

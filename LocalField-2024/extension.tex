@@ -51,8 +51,210 @@ Let $f\in A[X]$ be an \textbf{Eisenstein polynomial}, i.e., \[f = X^n + a_{n-1}X
 \end{proof}
 Similar to \cref{simple ext of dvr - unramified - is field}, $f$ is irreducible and $L$ is a field with $B_f$ the integral closure of $A$ in $L$.
 
+\subsection{Hensel's Lemma}
+Let $K$ be a local field, or CDVF
+\footnote{We define a \textbf{local field} to be a complete discretely valued field, without the assumption of residue field being finite.}.
+
+There are many versions of Hensel's lemma.
+A relatively complicated one is: the decomposition of a polynomial modulo $\m_K$ into \textit{coprime} factors can be lifted to $K$.
+\begin{theorem}
+    [Hensel's lemma]\label{hensel lemma - lift coprime factors}
+    Let $f\in\O_K[X]$, $\gamma, \eta\in k[X]$
+    s.t. \[\begin{cases}
+        \bar{f} = \gamma\eta,\\
+        (\gamma, \eta) = 1
+    \end{cases}\text{  in }k[X].\]
+    Then there exists $g, h\in\O_K[X]$ s.t.\[\begin{cases}
+        f = gh, &\text{ in } \O_K[X],\\
+        \bar{g} = \gamma, \bar{h} = \eta &\text{ in } k[X].
+    \end{cases}\]
+\end{theorem}
+Also the most famous ones about lifting roots in residue fields.
+\begin{theorem}
+    \label{hensel lemma - lift simple root}
+    Let $f\in \O_K[X]$, $\pi\in\m_K$, $\alpha_0\in \O_K$ s.t. \[\begin{cases}
+        P(\alpha_0)\in\pi O_K,\\ 
+        P'(\alpha_0)\in\O_L^\times.
+    \end{cases}\]
+    Then $\exists !\ \alpha\in \alpha_0 + \pi\O_K$ s.t. \[P(\alpha) = 0.\]
+\end{theorem}
+\begin{theorem}
+    \label{hensel lemma - variant}
+    Let $f\in\O_K[X]$, $0\le \lambda < 1$,
+    $\alpha_0\in\O_K$ s.t. \[|P(\alpha_0)|\le \lambda |P'(\alpha)|^2.\]
+    Then $\exists!\ \alpha\in\O_K$ s.t. \[\begin{cases}
+        P(\alpha) = 0,\\ 
+        |\alpha - \alpha_0| \le\lambda |P'(\alpha_0)|.
+    \end{cases}\]
+\end{theorem}
+Note that in both cases, the lift is \textit{unique}.
+
+\subsubsection*{Proof of Hensel's lemma}
+We propose two kind of proofs for them. Full proof is only given to \cref{hensel lemma - lift coprime factors}.
+
+The first one is the traditional $\pi$-adic approximation.
+\begin{lemma}\label{bezout with deg condition}
+    If $k$ is a field, $P, Q\in k[X]$ are coprime and $R\in k[X]$,
+    then \[\exists A, B\in k[X],\quad R = AP + BQ\ \st \deg A\le \deg Q - 1.\]
+\end{lemma}
+\begin{proof}
+    Let $R = A_0P + B_0Q$, then $R = (A_0 - uQ)P + (B_0 + uP)Q$ are all the possibilities.
+    By Euclidean division, dividing $A_0$ by $Q$ gives us $u\in k[X]$ with $\deg (A_0 - uQ)\le \deg Q - 1$. 
+\end{proof}
+
+\begin{proof}[Proof of \cref{hensel lemma - lift coprime factors}]
+    % Write $\deg f = d$, $\deg \gamma = m$, $\implies\deg \eta\le d - m$.
+    Let $\pi$ be a uniformiser.
+    Take a lift $g_1$ of $\gamma$ with $\deg g_1 = \deg \gamma$, and a lift $h_1$ of $\eta$ with $\deg h_1 = \deg\eta$.
+    We seek for : $\{g_n\}_n, \{h_n\}_n\subset\O_K[X]$ s.t. \[f \equiv g_nh_n\bmod \pi^n,\quad g_{n + 1} = g_n + \pi^ny_n,\ h_{n+1} = h_n + \pi^nz_n .\]
+    In order $\lim_n g_n, \lim_n h_n\in\O_K[X]$,
+    we require $\deg y_n \le \deg \gamma$, $\deg z_n\le \deg \eta$.
+
+    Assume we have found $g_nh_n\equiv f\bmod \pi^n$,
+    then we need\begin{align*}
+        &{} f\equiv (gn+\pi^ny_n)(h_n + \pi^nz_n)\equiv g_nh_n + \pi^n(g_nz_n + h_ny_n) &\bmod \pi^{n+1}\\
+        \implies & \O_K[X]\ni \frac{f - g_nh_n}{\pi^n}\equiv g_nz_n+h_ny_n \equiv \gamma z_n + \eta y_n&\bmod\pi.
+    \end{align*}
+    Via \cref{bezout with deg condition},
+    we find $z_n, y_n\in\O_K[X]$ with \[\deg y_n\le\deg\gamma -1,\implies\deg z_n \le \deg f - \deg\eta.\qedhere\]
+\end{proof}
+
+
+Another proof uses the \textit{fixed point theorem}
+\begin{lemma}
+    [Fixed point theorem]
+    Let $C$ be a complete metric space, $f : C\to C$ a \textbf{contracting map}, i.e, \[\exists\alpha, 0\le \alpha\ {\color{red}< 1} \st\ |f(x) - f(y)|\footnotemark <\alpha |x-y|,\ \forall x, y\in C. \]
+    \footnotetext{Not a right notation, but anyway.}
+    Then $f$ has a \textit{unique} fixed point in $C$.
+\end{lemma}
+
+Recall that the $K[X]$ is equipped with the \textbf{Gauss nrom}: for $f = \sum_{i=0}^n a_iX^i$,
+\[|f| := \max\{a_0, \dots, a_n\}.\]
+
+(T.B.C.)
+% \begin{proposition}
+%     The Gauss norm is an ultrametric norm on the $K$-algebra $K[X]$\footnote{
+%         The Gauss norm is also complete on $K\gene{X_1, \dots, X_n} = \varprojlim_m K[X_1, \dots, X_n]/\pi^m$}. 
+% \end{proposition}
+% \begin{proof}
+    
+% \end{proof}
+
+% \begin{proof}
+%     [Proof of \cref{hensel lemma - lift coprime factors}]
+%     Recall that:
+    
+% \end{proof}
+
+\subsection{Extending the norm}
+Let $K$ be a complete normed field\footnote{By a \textbf{complete normed field} $K$,
+we always require an \textit{ultrametric / nonarchimedean} norm $|\cdot|_K$. The norm corresponds to a valuation $\val : K\to\R\cup\{\infty\}$ by $\val(x) = -\log_a|x|$ for any chosen $a\in \R_{\ge 1}$, which is not necessarily discrete.
+Then \begin{center}
+    $K$ is a local field $\iff \m_K$ is a principal ideal $\iff \val(K^\times)$ is a discrete subgroup of $\R$.
+\end{center}
+}.
+Consider an algebraic extension $L/K$, we wonder if the norm extend to $L$.
+% For this, we first show that: all equivalent complete norm on $K$ are actually \textit{equal}.
+
+Recall: two norms $|\cdot|_1$ and $|\cdot|_2$
+on a $K$-vector space $V$ are \textbf{equivalent} \begin{center}
+    $:=$ they give the same topology
+\end{center}\[\iff (|x_n|_1\to 0\iff |x_n|_2\to 0).\]
+\begin{proposition}
+    If $|\cdot|_1$ and $|\cdot|_2$ are two equivalent norms on $K$, then \[\exists\alpha > 0,\quad |\cdot|_1 = |\cdot|_2^\alpha\]
+\end{proposition}
+\begin{proof}
+    ($\impliedby$) Assume $|\cdot|_1\sim|\cdot|_2$.
+    \begin{itemize}
+\item Let $y\in K$. $|y^n|_i\to 0\iff |y|_i < 1$,
+\[\implies \left( |y|_1 < 1\iff |y|_2 < 1 \right).\]
+    \end{itemize}
+Fix $y\in K^\times$ with $|y|_1\ne 1$. Then $|y|_2\ne 1$.
+\begin{itemize}
+    \item Let $x\in K$.
+    By previous computation, 
+    \begin{align*}
+        &{} |x^my^{-n}|_1 < 1\iff |x^my^{-n}|_2 < 1, &\forall m, n\in\Z,\\
+    \implies &{} |x|_1 < |y|_1^{r}\iff |x|_2 < |y|_2^{r}, &\forall r\in\Q,\\
+    \implies &{} |x|_1 < |y|_1^{s}\iff |x|_2 < |y|_2^{s}, &\forall s\in\R\\
+    \implies &{} |x|_2 = |x|_1^{\alpha}. &
+    \end{align*}
+    where $\alpha > 0$ is determined by $|y_2| = |y_1|^\alpha$.\qedhere
+\end{itemize}
+\end{proof}
+\begin{theorem}[Artin]
+    Let $K$ be complete normed field, $V$ a f.d.$K$-vector space.
+    Then all norms on $V$ are equivalent, and $V$ is complete for them.
+\end{theorem}
+Note that we don't require $K$ to be locally compact; as a price, the norm on $V$ need to be ultrametric too (which is our convention).
+\begin{proof}
+    Let $e_1, \dots, e_d$ be a $K$-basis of $V$, $\norm{\cdot}_{\infty}$ the corresponding sup-norm. The sup-norm is complete.
+    Then we do induction on $d$ to show $\norm{\cdot}\sim \norm{\cdot}_{\infty}$ for any norm $\norm{\cdot}$. Omitted.
+\end{proof}
+
+\begin{corollary}
+    Let $K$ is a complete normed field, $L/K < \infty$. If the norm on $K$ extends to a norm on $L$, then their is at most one way to do so, and $L$ will be complete.
+\end{corollary}
+\begin{proof}
+    All such norm will be $|\cdot|^\alpha$ for a fixed norm $|\cdot|$.
+    These norms coincide on $K$, so $\alpha = 1$.
+\end{proof}
+
+In case of complete \textit{discretely valued} fields, there is indeed such an extension.
+\begin{theorem}\label{unique extension of norm for fintie extension local field}
+    Let $K$ is a local field, $L/K < \infty$.
+    Then there the norm on $K$ extends uniquely to $L$, making $L$ also a local field.
+    The norm is given by \[|x|_L = \left|N_{L/K}(x)\right|_K^{1/[L : K]},\]
+    and $\O_L = $ integral closure of $\O_K$ in $L$. 
+\end{theorem}
+We give two proofs.
+\begin{proof}
+    [Proof (algebraic)]Recall that:
+\begin{lemma}\label{extension of Dedekind: integral closure of Dedekind domain in finite extension of its fraction field is Dedekind domain}
+    If $A$ is a Dedekind, $L/\Frac(A) < \infty$, $B$ is the integral closure of $A$ in $L$, then: $B$ is a Dedekind domain.
+\end{lemma}
+Apply this to $A = \O_K$,
+we see that $B :=$ integral closure of $\O_K$ in $L$ is a Dedekind domain.
+Let \[\m_KB = \mathfrak{P}_1^{e_1}\cdots\mathfrak{P}_r^{e_r}\] be the decomposition of $\m_K$ in $B$. Define $v_i(x) := $ exponent of $\mathfrak{P}_i$ in $xB$.
+One verifies that $v(\cdot)/e_i$ extends the valuation $v_K$ on $K$ with value group $\Z$.
+The uniqueness forces $r = 1$, and $\O_L = \{x\in L\mid v_i(x) > 0\} = B$.
+\end{proof}
+Another proof gives the explicit formula for the norm. We need a result on integrality.
+\begin{proposition}
+    Let $K$ be a local field, $P(X) = a_dX^d + a_{d-1}X^{d-1} + \dots + a_0\in K[X]$ an irreducible polynomial with $a_0a_d\ne 0$.
+    Then the Gauss norm of $f$ is
+    \[|f| = \max\{|a_0|, |a_d|\}.\]
+    In particular, if $f$ is monic and its constant term $a_0\in\O_K$, then $P(X)\in\O_K[X]$.
+\end{proposition}
+\begin{proof}\label{monic polynomial integral iff const coeff}
+    Let $n\in\Z$ s.t. $\pi^nP\in \O_K[X]$ and $\overline{\pi^nP}\ne 0\in k[X] $.
+    Let $r$ be the Weierstrass degree of $\pi^nP$,so that \[\pi^nP(X)\bmod\pi = \pi^nX^r(a_r + a_{r+1}X + \dots + a_dX^{d-r}).\] 
+    If $0 < r < d$,
+    then the decomposition lift to a nontrivial decomposition of $\pi^nP$ in $K[X]$ via \cref{hensel lemma - lift coprime factors}.
+    Therefore $r = 0$ or $r = d$.
+    Now nate that $|f| = |a_r|$.
+\end{proof}
+\begin{proof}
+    [Proof of \cref{unique extension of norm for fintie extension local field} (analytic)]
+    Let $d := [L : K]$.
+    We show that $|\cdot|_L := |N_{L/K}(\cdot)|_K^{1/d}$ is indeed a norm on $L$ (it obviously extends $|\cdot|_K$).
+    The only nontrivial step is to check the strong triangle inequality, which is equivalent to \[|z|_L < 1\implies |1 + z|_L < 1.\]
+    Let $P(X)$ be the minimal polynomial of $z$ over $K$.
+    Since
+    $N_{L/K}(z) = (-1)^{d} P(0)^{[L : K(z)]}$\footnote{Simple fact, see \cref{compute norm and trace from minimal polynomial}.},
+    so by \cref{monic polynomial integral iff const coeff}, \[|z| \le 1\iff P(0)\in\O_K[X]\implies \text{minimal polynomial of }z+1\in \O_K[X]\implies |1 + z| \le 1.\qedhere\]
+\end{proof}
+\begin{corollary}
+    Let $K$ be a local field.
+    \begin{enumerate}
+        \item [(1)]    The norm on $K$ extends uniquely to its algebraic closure $K^\alg$\footnote{Note that $K^\alg$ is not a local field and not complete. We'll see this later.}.
+        \item [(2)] If $L$ and $L'$ are two algebraic extension of $K$,
+        then any $K$-embedding $\sigma\in \Hom_K(L, L')$ preserves the norm; i.e., $|\sigma(x)|_{L'} = |x|_L$.
+    \end{enumerate}
+\end{corollary}
+
 \subsection{Unramified Extensions of Local Fields}
-Let $K$ be a local field.
+Let $K$ be a local field (i.e., CDVF).
 We assume further that both $K$ and its residue field $k = \mathcal{O}_K/\mathfrak{m}$ are perfect.
 
 The slogan is that unramified extensions are just extensions of residue fields.
@@ -97,4 +299,113 @@ Let $K$ be a CDVF with perfect residue field $k$, $L/K<\infty$ Galois. We will s
 
 
 
+\subsection{\texorpdfstring{Krasner's lemma and the noncompleteness of $\bar\Q_p$}{Krasner's lemma and the noncompleteness of bar Qp}}
+Fix an algebraic closure $\bar\Q_p = \Q_p^\alg$ of $\Q_p$.
+Krasner's lemma states that if $\beta\in\bar\Q_p$ is closer to $\alpha\in\bar\Q_p$ than any other conjugate of $\alpha$ over $F$,
+then $\alpha\in F(\beta)$. Therefore, if two polynomials are ``close enough'', they will give the same extension.
+\begin{theorem}
+    [Krasner's lemma]\label{Krasner lemma}
+    Let $F/\Q_p < \infty$, $\alpha, \beta\in \bar{\Q}_p$. If \[|\alpha - \beta| < |\alpha-\alpha_i|,\quad i = 2, \dots, n,\]
+    where $\alpha_1 = \alpha, \alpha_2, \dots, \alpha_n$ are all the conjugates of $\alpha$ over $F$,
+    then \[F(\alpha)\subset F(\beta).\]
+\end{theorem}
+\begin{proof}
+    Let $K/F$ be finite Galois with $\alpha, \beta\in K$. Then $g\alpha, g\in\gal(K/F)$ are all the conjugates of $\alpha$ over $F$.
+    Now if $g\in \gal(K/F(\beta))$, then \begin{align*}
+        |g\alpha - \alpha|
+        &= |(g\alpha - g\beta) + (\beta - \alpha)|\\ &
+        \le\min\{|g\alpha - g\beta| , |\alpha - \beta|\} =\footnotemark |\alpha - \beta|
+    \end{align*}
+    \footnotetext{Because embeddings of finite extensions of $\Q_p$ are isometries (the uniqueness of norm extension).}
+    So by the assumption,
+    we have $\alpha = g\alpha$,
+    i.e., $\alpha\in K^{\gal(K/F(\beta))} = F(\beta)$.
+\end{proof}
 
+\begin{theorem}
+    For every $d\ge 1$, $\Q_p$ has only finitely many extensions of degree $d$.
+\end{theorem}
+\begin{proof}
+    Every finite extension has a unique maximal unramified extension, so it suffices to show that: there is only finitely many unramified extensions of each $F/\Q_p < \infty$ of given degree $e$.
+
+    For $e\ge 1$, the set of Eisenstein polynomials over $F$ is in bijection with \[\Pi := (\m_F\setminus\m_F^2)\times \underbrace{\m_F\times\dots\times\m_F}_{e-1},\]
+    which is compact.
+    So we just need to show that for each Eisenstein polynomial $P$, its corresponding point in $\Pi$ has a neighbourhood, in which all polynomials give the same extension.
+
+    (T.B.C.)
+\end{proof}
+
+\begin{corollary}
+    $\bar{\Q}_p$ is not complete.
+\end{corollary}
+\begin{proof}
+    Now we know $\bar{\Q}_p$ is a countable union of finite dimensional $\Q_p$-vector spaces.
+    Recall what Baire's theorem says:
+    \begin{theorem}
+        [Baire category theorem]\label{Baire thm}
+        A complete metric space is a Baire space;
+        i.e, a countable intersection of open dense sets is dense.
+
+        As a corollary, a complete metric space is not a countable union of nowhere dense\footnote{Being \textbf{nowhere dense} means its closure has empty interior.} sets.
+    \end{theorem}
+    A finite dimensional $\Q_p$-vector space is closed and nowhere dense, so the union is not complete.
+\end{proof}
+
+Let $\C_p := \widehat{\overline{\Q_p}}$ be the completion of $\bar{\Q}_p$.
+Note that neither reidue field nor value group are not extended from $\bar\Q_p$ to $\C_p$:
+\begin{itemize}
+    \item $v_p(\C_p) = v_p(\bar\Q_p) = \Q$\footnote{
+        Consider a Cauchy sequence $\{a_n\}_n$ in $\bar{\Q}_p$.
+        The difference $a_m-a_{m + d}$ will eventually have valuation $>v_p(a_m)$,
+        making $v_p(\lim_{n}a_n) = v_p(a_m)$.
+    }.
+    \item $k_{\C_p} = \O_{\C_p}/\m_{\C_p}\simeq\O_{\bar{\Q}_p}/\m_{\bar\Q_p}\simeq\F_p^\alg$.\footnote{
+        In a sum $\sum_n a_n\in\C_p$,
+        a.e. $a_n\in\m_{\C_p}$. 
+    }
+\end{itemize}
+
+\begin{theorem}
+    $\C_p$ is algebraically closed.
+\end{theorem}
+\begin{proof}
+    The idea is simple: root of lim of polynomial = lim of root of polynomial. Let's make this clear.
+
+    Let $P\in \C_p[X]$ be monic of degree $d$.
+    Replacing $P(X)$ by $p^{kd}P(p^{-k} X)$ for $k\gg 0$, we may assume $P\in\O_{\C_p}[X]$.
+
+
+\end{proof}
+
+\subsection{Ax-Sin-Tate theorem and closed subfields of \texorpdfstring{$\C_p$}{Cp}}
+Let $\Q_p\subset K\subset\bar\Q_p$, $G_K := \gal(\bar\Q_p/K)$ the absolute Galois group of $K$.
+Galois theory eastablishes a bijection \[
+    \{\text{subextension of }\bar\Q_p/\Q_p\}\longleftrightarrow
+    \{\text{closed subgroup of }\gal(\bar\Q_p/\Q_p)\}
+\] via $K = \bar\Q_p^{G_K}$.
+We are going to expand this relation to (certain) subextensions of $\C_p/\Q_p$.
+
+Any $g\in\gal(\bar\Q_p/\Q_p)$ is an isometry, thus extends to an isometry and (continuous) field automorphism of $\C_p$, denoted still by $g$.
+So what is $\C_p^{G_K}$?
+\begin{theorem}
+    [Ax-Sin-Tate]
+    $\C_p^{G_K} = \widehat K$.
+\end{theorem}
+
+\begin{lemma}
+    Let $P(X)\in\bar\Q_p[X]$ be monic of degree $n$,
+    s.t. all the roots $\alpha$ of $P$ have bounded valuation bounded from below; i.e., $v_p(\alpha) > c$ for some $c\in\R$.
+    Let $n = p^kd$ with $p\nmid d$ or $p = d$.
+    Then $P^{(p^k)}$ has a root $\beta$ with \[\begin{cases}
+        v_p(\beta)\ge c, &n = p^kd, p\nmid d,\\ 
+        v_p(\beta)\ge c - \dfrac{1}{p^k(p-1)},
+        &n = p^{k+1}.
+    \end{cases}\]
+\end{lemma}
+\begin{proof}
+    Write $P(X) = X^n + a_{n-1}X^n + \dots + a_0$, and $q := p^k$.
+    \begin{itemize}
+        \item $v_p(a_i)\ge (n-i)c$, because $a_i = \pm$ sum of product of $n - i$ roots.
+        \item 
+    \end{itemize}
+\end{proof}

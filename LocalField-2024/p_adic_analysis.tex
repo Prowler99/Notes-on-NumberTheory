@@ -1,4 +1,4 @@
-\section{\texorpdfstring{A Bit of $p$-adic Analysis}{}}
+\section{\texorpdfstring{A Bit of $p$-adic Analysis}{A bit of p-adic analysis}}
 In this section, we consider some basic properties concerning powerseries over a closed subfield $K$ of $\C_p$ as functions.
 
 Let $f(X) = \sum_{i\ge 0} a_iX^i\in K\llbracket X\rrbracket $. We can evaluate $f$ at $z\in \C_p$ iff $a_iz^i\to\infty$, so the \textbf{radius of convergence}
@@ -67,7 +67,7 @@ For $f(X) = \sum_{i\ge 0}a_iX^i\in\O_K\llbracket X \rrbracket$, we define its \t
     \item $\wideg(f) = \infty\iff f\in\m_{K}\llbracket X \rrbracket$.
     \item $\wideg(f) = 0\iff a_0\in\O_K\times\iff f\in\left( \O_K\llbracket X \rrbracket \right)^\times$.
     \item If $K/\Q_p < \infty$, then for $f\in K\otimes_{\O_K}\O_K\llbracket X \rrbracket$,
-    $\exists ! n\in\Z$ s.t. $\pi^n f$ has finite Weierstrass degree, which is the smallest degree of the term in $f$ with minimum valuation.
+    $\exists ! n\in\Z$ s.t. $\pi^n f$ has finite Weierstrass degree, which is the smallest degree of the term in $f$ with minimum valuation (maximum norm).
 \end{itemize}
 \begin{remark}
     The last statement fails if $K$ is not finite over $\Q_p$, i.e., if there is no uniformiser. For example, $f(X) = \sum_{i\ge 1}\frac{1}{p^i}X^i$.
@@ -98,6 +98,9 @@ From now on, assume $K/\Q_p < \infty$ with uniformiser $\pi$.
     If $qf + r = 0$, then $\underbrace{\bar{q}\bar{f}}_{\text{divided by }X^n} + \underbrace{\bar{r}}_{\deg\le n - 1} = 0$, so $\bar{q}\bar{f} = \bar{r} = 0$.
     Deduce inductively $\bmod \pi^n$.
 \end{proof}
+\begin{remark}
+    Jiang Jiedong provided a proof for this theorem when $K$ is not finite over $\Q_p$.
+\end{remark}
 
 For a polynomial $P(X)\in \O_K[X]$, we say $P(X)$ is \textbf{distinguished}, if it is monic with other coefficients in $\m_K$, i.e, \[P(X) = X^n + a_{n-1}X^{n-1} + \dots + a_0,\quad a_{n-1},\dots, a_0\in\m_{K}.\]
 \begin{itemize}
@@ -128,7 +131,7 @@ So, power series over $K$ with bounded coefficients would have finitely many zer
 \end{theorem}
 \begin{remark}
     $f\in H_K$ \textit{could} have infinitely many zeros in $\m_{\C_p} = B(0, 1)$.
-    For example, we see in the homework that the zeros of $\log_F$ in $\m_{\C_p}$ are $F[p^\infty]$, which is infinite in many cases, such as $F = \Gm$.
+    For example, we saw in the homework that the zeros of $\log_F$ in $\m_{\C_p}$ are $F[p^\infty]$, which is infinite in many cases, such as $F = \Gm$.
 \end{remark}
 \begin{proof}
     We may assume $\rho\in|\C_p|$.
@@ -140,13 +143,22 @@ So, power series over $K$ with bounded coefficients would have finitely many zer
 \end{proof}
 
 Now we can prove the converse of \cref{zero of power series with bounded coefficients}.
-\begin{theorem}
+\begin{theorem}\label{power series bounded iff has finite zeros in open unit disk}
     If $f\in H_K$, then\[f\in K\otimes_{\O_K}\O_K\llbracket X \rrbracket\iff f\text{ has finitely many zeros in }\m_{\C_p}.\]
 \end{theorem}
 \begin{proof}
     ($\impliedby$)
-    First, take $\rho\in \m_{\C_p}$ and $\alpha\in \m_{\Q_p}$ with $|\alpha| = \rho$.
+    Assume that $f = \sum_{i\ge 0}f_iX^i$ has $n$ zeros in $\m_{\C_p}$.
 
+    Take $\rho\in \m_{\C_p}$ and $\alpha\in \m_{\Q_p}$ with $|\alpha| = \rho$.
+    By previous results, \begin{align*}
+        \# \{\text{zero of } f\text{ in }B(0, \rho)\} &
+        = \text{``Weierstrass degree" of } f(\alpha X)\\ &
+        = \min\left\{j\in\Z_{\ge 0}\left| \rho^j|f_j| = \max_{i\in\Z_{\ge 0}}\rho^i|f_i|\right.\right\}.
+    \end{align*}
+    Hence \[\min\left\{j\in\Z_{\ge 0}\left| \rho^j|f_j| = \max_{i\in\Z_{\ge 0}}\rho^i|f_i|\right.\right\}\le n,\]
+    \[\iff \rho^i|f_i|\le \max \left\{|f_0|, \rho|f_1|,\dots, \rho^n|f|_n\right\},\; \forall i\ge 0.\]
+    Letting $i\to\infty$ tells us that the coefficients of $f$ are bounded.
 \end{proof}
 
 \subsection{\texorpdfstring{$p$-adic Banach Spaces}{}}

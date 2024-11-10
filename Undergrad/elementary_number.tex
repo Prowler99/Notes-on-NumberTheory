@@ -1,0 +1,32 @@
+\section{Elementary Number Theory}
+
+\subsection{Valuation of Binomial Coefficients}
+
+\begin{proposition}\label{valuation of factorial}
+    Let $n\in\Z_{\ge 1}$, then \[v_p(n!) = \sum_{i\ge 1}\floor{\frac{n }{p^i}}.\]
+\end{proposition}
+\begin{proof}
+    Think and you'll find it trivial.
+\end{proof}
+
+\begin{corollary}\label{valuation of binomial coeff}
+    Let $a, b\in\Z_{\ge 1}$, then
+    \vspace{-1em}\begin{proof}[]
+        \[v_p\left( \binom{a + b}{b} \right)
+        = \sum_{i\ge 1}
+        \left( \floor{\frac{a + b}{p^i}}
+            - \floor{\frac{a }{p^i }}
+            - \floor{\frac{b}{p^i}} \right).\qedhere\]    
+    \end{proof}
+\end{corollary}
+\begin{corollary}[Kummer]
+    Expand $a, b\in\Z_{\ge 1}$ in base $p$,
+    then \[v_p\left( \binom{a + b}{b} \right) = \#\text{ of carries when compute } a + b \text{ in base } p.\]
+\end{corollary}
+\begin{proof}
+    Note that if $n = \sum_{i\ge 0}n_ip^i$ for $0\le n_i\le p - 1$,
+    then \[\floor{\frac{n}{p^i}} = \frac{n - (n_0 + n_1p + \dots + n_{i-1}p^{i-1})}{p^i}.\]
+    By definition, there is a carry at $p^i$ in $a + b$ means that
+    \[(a_0 + a_1p + \dots + a_{i-1}p^{i-1}) + (b_0 + b_1p + \dots + b_{i-1}p^{i-1})\ge p^{i}.\]
+    So \cref{valuation of factorial} gives the result.
+\end{proof}

@@ -13,7 +13,7 @@ citecolor=blue,
 \usepackage{bbm}
 \usepackage{tikz-cd}
 
-\setmainfont{Arial}
+% \setmainfont{Arial}
 
 \linespread{1.2}
 
@@ -48,11 +48,14 @@ citecolor=blue,
     \newcommand{\p}{\mathfrak{p}}
     \renewcommand{\P}{\mathbb{P}}
     \newcommand{\A}{\mathbb{A}}
+    \newcommand{\Ga}{{\mathbb{G}_{\mathrm{a}}}}
+    \newcommand{\Gm}{{\mathbb{G}_{\mathrm{m}}}}
 % 集合
     \newcommand{\sminus}{\smallsetminus} %(集合)差
 % 范畴
     \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
     \DeclareMathOperator{\enom}{End} %自态射
+    \DeclareMathOperator{\End}{End} %自态射
     \DeclareMathOperator{\isom}{Isom} %同构
     \DeclareMathOperator{\aut}{Aut} %自同构
     \DeclareMathOperator{\im}{im} %像
@@ -122,7 +125,6 @@ citecolor=blue,
 \newcommand{\fring}[1]{\llbracket #1 \rrbracket}
 
 \newcommand{\myit}{$\diamond$}
-\newcommand{\Gm}{\mathbb{G}_{\mathrm{m}}}
 \renewcommand{\O}{\mathcal{O}}
 \newcommand{\nr}{\mathrm{nr}}
 \newcommand{\alg}{\mathrm{alg}}
@@ -133,7 +135,9 @@ citecolor=blue,
 \newcommand{\m}{\mathfrak{m}}
 \DeclareMathOperator{\wideg}{wideg}
 \DeclareMathOperator{\val}{val}
-
+\DeclareMathOperator{\height}{ht}
+\newcommand{\cyc}{\mathrm{cycl}}
+\DeclareMathOperator{\art}{Art}
 % \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
 %     cells={nodes={scale=#1}}}}
 
@@ -148,6 +152,7 @@ citecolor=blue,
 \input{p_adic_analysis.tex}
 \input{lubin_tate.tex}
 \input{cycl_ext_Qp.tex}
+\input{periods.tex}
 % \input{group_cohomo.tex}
 
 \end{document}

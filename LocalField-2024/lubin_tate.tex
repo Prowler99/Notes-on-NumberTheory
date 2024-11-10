@@ -1,18 +1,191 @@
 \section{Lubin-Tate Theory}
 
 \subsection{Formal Groups}
-In this section, a formal group means a commutative formal group law of dimension one. If $f\in A\llbracket T\rrbracket$ and $g\in A\fring{X_1, \dots, X_n}$, then \begin{align*}
-    f \circ g &:= f(g(X_1, \dots, X_n)),\\
-    g\circ f &:= g(f(X_1), \dots, f(X_n)).
-\end{align*}
-
-\begin{lemma}\label{power series invertible iff}
+Let $A$ be a commutative ring.
+\begin{itemize}
+    \item If $f\in A\llbracket T\rrbracket$ and $g\in A\fring{X_1, \dots, X_n}$, then \begin{align*}
+        f \circ g &:= f(g(X_1, \dots, X_n)),\\
+        g\circ f &:= g(f(X_1), \dots, f(X_n)).
+    \end{align*}
+    \item If $F\in A\llbracket X_1, \cdots, X_n  \rrbracket$, we put $F_i := $ the partial derivative of $F$ w.r.t.\! the $i$-th variable $X_i$.    
+\end{itemize}
+\begin{lemma}\label{power series reversible iff}
     Let $f = \sum_{i\ge 1}a_iT^i\in A\fring{T}$. Then
-    \[\exists g\in A\fring{T} \st f\circ g = g\circ f = T\iff a_1\in A^\times.\]
+    \[\exists g\in A\fring{T} \st f\circ g = g\circ f = T\iff a_1 = f'(0)\in A^\times.\]
+    Such a power series is called \textbf{reversible}.
 \end{lemma}
 \begin{proof}
     Use $A\fring{T} = \varprojlim A[T]/T^n$. For details, see the proof of \cref{fund prop of F_varpi}.
 \end{proof}
+
+
+In this section, a \textbf{formal group} means a (commutative) formal group law of dimension one.
+
+A \textbf{homomorphism} $h : F\to G$ between formal groups $F$ and $G$ over $A$
+\[:= h\in XA\llbracket X \rrbracket,\ \st h\circ G = F\circ h,\]
+that is $h(G(X, Y)) = F(h(X), h(Y))$.
+\begin{itemize}
+    \item A homomorphism $h : F\to G$ is an isomorphism $\iff h'(0)\in A^\times$.
+    \item Every integer $n\in\Z$ gives rise to an endomorphism $[n] = nX + O(X^2) \in \enom(F)$,
+    yielding a ring homomorphism $\Z\to\enom(F)$.
+\end{itemize}
+
+A \textbf{differential form} on $F$ 
+\[:= \omega(X) = p(X)dX\in A\llbracket X \rrbracket dX,\ \st\]
+\[\omega(f(X)) = p(f(X))df(X) := p(f(X))f'(X)dX,\ \forall f(X).\]
+We say $\omega(X)$ is \textbf{invariant}, if $\omega\circ F(-, Y) = \omega$;
+i.e,  \[p(F(X, Y))F_1(X, Y) = p(X).\]
+Set $X = 0$, we see that \[p(Y) = p(0)\frac{1}{F_1(0, Y)}.\]
+Hence any invariant differential takes the form \[\omega(X) = \frac{a\cdot dX}{F_1(0, X)}.\]
+Conversely, we define \[\omega_F := \frac{dX}{F_1(0, X)}\] and call it \textbf{normalized invariant differential}. This name is verified as below.
+\begin{proposition}
+    $\omega_F$ is invariant for $F$.
+\end{proposition}
+\begin{proof}
+    Take $\left.\frac{d}{dZ}\right|_{Z = 0}$ for \[F(Z, F(X, Y)) = F(F(Z, X), Y),\]
+    we get \[F_1(0, F(X, Y)) = F_1(X, Y)F_1(0, X).\qedhere\]
+\end{proof}
+\begin{itemize}
+    \item If $h \in \Hom(F, G)$,
+    then \[\omega_G\circ h = h'(0)\cdot\omega_F.\] 
+\end{itemize}
+
+\subsection{Formal Groups over local fields}
+
+Let $K$ be an extension of $\Q_p$ inside $\C_p$.
+
+\subsubsection{The Logarithm}
+Let $F$ be a formal group over $K$ and $\omega_F$ the normalized invariant differential.
+We define \[\log_F(X) := \int\omega_F\in K\fring{X},\quad \st \log_F(0) = 0.\]
+\begin{itemize}
+    \item If $\omega(X) = (1 + p_1X + p_2X^2 + \cdots)dX$, then \[\log_F(X) = X + \frac{p_1X^2}{2} + \frac{p_2X^3}{3} + \cdots\in X A\llbracket X  \rrbracket.\]
+    \item $\log_F(X)\in H_K$ if $F$ is defined over $\O_K$.
+\end{itemize}
+
+\begin{proposition}\label{log is additive}
+    $\log_F(X + Y) = \log_F(X) + \log_F(Y)$, so $\log_F : F\to_{K} \Ga$ is an isomorphism \textit{over} $K$.
+\end{proposition}
+\begin{proof}
+    Let $E(X) := \log_F(X + Y) - \log_F(X)$.
+    Then $dE(X) = \omega_F\circ F - \omega_F = 0$,
+    thus $E(X) = E(0) = \log_F(Y)$.
+\end{proof}
+\begin{example}
+    $\log_{\Ga}(X) = X$, $\log_{\Gm}(X) = \log(1 + X)$.
+\end{example}
+\begin{example}
+    $\Ga$ and $\Gm$ are \textit{NOT} isomorphic over $\O_K$, because \[(\m_{\C_p}, +_{\Ga})
+     = (\m_{\C_p}, +)
+     \not\simeq (1 + \m_{\C_p}, \ \cdot)
+     \simeq (\m_{\C_p}, +_{\Ga}),\]
+    as the former is torsion-free while the latter has many torsion.
+\end{example}
+\begin{remark}
+    \cref{log is additive} holds for any formal group over a $\Q$-algebra $A$.
+    As the proof involves not the axiom of commutativity,
+    it shows that any formal group (of dimension $1$) over a $\Q$-algebra is necessarily commutative.
+\end{remark}
+
+\subsubsection{The Height}
+Let $k$ be a ring of characteristic $p >0$.
+If $F, G$ are formal groups over $k$,
+and $f\in\Hom(F, G)$, we define the \textbf{height} of $f$ to be
+\[\height(f) := \text{largest integer } h\in\Z ,\st f(X) = g\left( X^{p^h} \right) \text{ for some } g\in k\llbracket X \rrbracket.\]
+\begin{proposition}
+    If $f\in \Hom(F, G)$ and $f(X) = g\left( X^{p^h} \right)$ with $h = \height(f)$,
+    then $g'(0)\ne 0$.
+\end{proposition}
+\begin{proof}
+    Two steps.
+    \begin{itemize}
+        \item If $f\in \Hom(F, G)$ with $f'(0) = 0$,
+        then $f(X) = g\left( X^{p^h} \right)$ for some $g$.
+
+        This is because \[0 = f'(0)\omega_F = \omega_G\circ f = \frac{f'(X)dX }{G_1(0, X )},\]
+        So $f'(X) = 0$. As $\cha k = p$,
+        this leads to the result.
+        \item If $F\in\Hom(F, G)$, $f(X) = g\left( X^{p^h} \right)$, then $g\in\Hom(F^{\frob_{p^h}}, G)$.
+
+        Write $F = \sum a_{ij}X^iY^j$, so $F^{\frob_{p^h}}(X) = \sum a_{ij}^{p^h}X^iY^j$. As $\cha k = p$, $F^{\frob_{p^h}}$ is also a formal group over $k$.
+        What left is obvious.
+    \end{itemize}
+\end{proof}
+
+\subsubsection{The Torsion of Formal Groups and the Tate Module}
+Let $K/\Q_p < \infty$, $ k = \O_K/\pi$ the residue field, $F$ a formal group over $\O_K$.
+\begin{itemize}
+    \item Note that $F$ can be regarded as a formal group over $K$, and $\bar F := F\bmod \pi\in k\llbracket X \rrbracket$ is a formal group over $k$.
+\end{itemize}
+We define the \textbf{height} of $F$ to be \[\height(F) := \text{height of } [p]\in\End_k(\bar F).\]
+\begin{example}
+    For $\Ga$, $[p](X) = 0$ in $k\llbracket X \rrbracket$, so $\height(\Ga_{/{\O_K}}) = \infty$.
+
+    For $\Gm$, $[p](X) = (1 + X)^p - 1 = X^p$ in $k\llbracket X \rrbracket$,
+    so $\height(\Gm_{/\O_K}) = 1$.
+\end{example}
+
+and consider the $p^n$-torsion points of $F$, namely \[F[p^n] := \{z\in\m_{\C_p}\mid [p^n]_F(x) = 0\}.\]
+\begin{itemize}
+    \item $F[p^n]$ is a subgroup of $(\m_{\C_p}, +_F)$ and a $\Z/p^n\Z$-module.
+    \item $[p] : F[p^{n+1}]\hookrightarrow F[p^n]$
+    is a surjective homomorphism of $\Z/p^{n+1}\Z$-module
+\end{itemize}
+We look at the equation $[p](z) = y$ with $y\in\m_{\bar\Q_p}$ first.
+\begin{itemize}
+    \item If $h = \height(F) < \infty$,
+    then $[p](X)\in \O_K\llbracket X \rrbracket$ has Weierstrass degree $p^h$.\par
+    $\implies [p](z) = y$ has $p^h$ solutions in $\m_{\bar\Q_p}$.
+    \item From $\omega_F\circ [p] = [p]'(0)\omega_F$, one deduce that $[p]'(X) = p(1 + O(X))$.\par
+    $\implies$ all roots of $[p](z) = y$ are simple.
+\end{itemize}
+Therefore, if $\height(F) < \infty$, then \[\# F[p^n] = p^{hn}.\]
+Now define \[T_pF := \varprojlim_n F[p^n].\]
+\begin{itemize}
+    \item $T_pF$ is a $\Z_p$-module.
+    \item If $z = (z_1, z_2, \dots)\in T_pF$,
+    then $pz = (0, z_1, z_2, \dots)$.\par
+    $\implies T_pF$ is torsion-free. In addition,
+    \[\bigcap_{n\ge 0} p^nT_pF = \{0\}.\footnotemark\]
+    \footnotetext{We say $T_pF$ is seperated.}
+    \item We have an isomorphism
+    \begin{align*}
+        T_pF/p^nT_pF &\simeq F[p^n]\\ 
+        \overline{(z_1, z_2, \dots)} &\mapsto z_n.
+    \end{align*}
+\end{itemize}
+\begin{proposition}
+    $T_pF$ is a free $\Z_p$-module of rank $h = \height F$.
+\end{proposition}
+\begin{proof}
+    Let $m_1, \dots, m_h$ be a lift of a $\F_p$-basis of the dimension $h$ vector space $F_pF/pT_pF\simeq F[p]$.
+    We claim that $m_1, \dots, m_h$ is a $\Z_p$-basis for $T_pF$.
+    \begin{itemize}
+        \item (linear independence.)
+        Suppose $\lambda_1m_1 + \cdots + \lambda_h m_h = 0$ with $\lambda_i\in\Z_p\setminus \{0\}$.
+        $T_pF$ is torsion-free, so $\exists j$ s.t. $p\nmid \lambda_j$.
+        Hecen it will give a nontrivial relation modulo $p$.
+        \item (generate $T_pF$.)
+        Use the standard method.
+        Obtain \[m = \sum_i \lambda_i^{(k)} m_i + p^kn^{(k)}\] inductively for all $k\ge 1$
+        Take $\lambda_i := \lim_k\lambda_i^{(k)}$
+        by $\lambda_i^{(k+1)}\equiv \lambda_i^{(k)}\bmod p^{k}$.
+        Then \[m - \sum_{i}\lambda_im_i\in\cap_{k\ge 1}p^kT_pF = 0.\qedhere\]
+    \end{itemize}
+\end{proof}
+
+
+\subsubsection{Galois representation attached to a formal group}
+The Galois group $G_K = \gal(\bar\Q_p/K)$ acts $\Z/p^n$-linearly on $F[p^n]$,\\
+$\leadsto G_K$ acts $\Z_p$-linearly on $T_pF$.\\
+$\leadsto$ continuous group homomorphism \[\rho_F : G_K\to\aut_{\Z_p}(T_pF)\mathop{\isomto}_{\text{choose basis}} \GL(h, \Z_p).\]
+\begin{example}
+    For $K = \Q_p$ and $F = \Gm$, $\rho_F = $ cyclotomic charater $\chi_\cyc$.
+\end{example}
+
+
+
+
+
 
 \subsection{Lubin-Tate formal groups}
 From now on, we write $A := \O_K$.
@@ -80,7 +253,7 @@ So Lubin-Tate formal groups exist. Now we investigate their homomorphisms.
         [a]_{g, f} = aT + \dots,\\
         g\circ [a]_{g, f} = [a]_{g, f} \circ f,
     \end{cases}\]and $[a]_{g, f}\in\hom(F_f, F_g)$, i.e. \begin{align*} F_g\circ [a]_{g, f} = [a]_{g, f}\circ F_f.\end{align*}
-    As a corollary of \cref{power series invertible iff}, each $u\in A^\times$ gives an isomorphism $[u]_{g, f} : F_f\isomto F_g$, and there is a unique isomorphism $F_f\simeq F_g$ of the form $T + \cdots$.
+    As a corollary of \cref{power series reversible iff}, each $u\in A^\times$ gives an isomorphism $[u]_{g, f} : F_f\isomto F_g$, and there is a unique isomorphism $F_f\simeq F_g$ of the form $T + \cdots$.
     \qed
 \end{proposition}
 
@@ -169,36 +342,73 @@ If one takes $f$ to be an Eisenstein polynomial, then all the roots of $f^{(n)}$
     then \[N_{L/K}(\alpha) = \left(\prod_{i = 1}^d \alpha_i\right)^e,\qquad \tr_{L/K}(\alpha) = e\sum_{i = 1}^d \alpha_i.\]
     Moreover, if \[f(X) = a_dX^d + a_{d-1}X^{d-1} + \dots + a_0,\]then \[N_{L/K}(\alpha) = (-1)^{de}a_0^e,\qquad \tr_{L/K}(\alpha) = -ea_{d-1}.\]
 \end{lemma}
-\begin{remark}
+\begin{proof}
     This follows directly from $N_{L/K} = N_{K(\alpha)/K}\circ N_{L/K(\alpha)}$ and $\tr_{L/K} = \tr_{L/K(\alpha)}\circ \tr_{K(\alpha)/K}$.
     For example,
     \begin{align*}
         N_{L/K}(\alpha) &= N_{L/K(\alpha)}\left( N_{K(\alpha)/K}\alpha \right)\\ &
         = \left( \prod_{\sigma\in\Hom_{K}(K(\alpha), \bar K)}\sigma\alpha \right)^{[L : K(\alpha)]} = \left( \prod_{i=1}^d\alpha_i  \right)^{[L : K(\alpha)]}.\qedhere
     \end{align*}
-\end{remark}
+\end{proof}
 
 
 Define \[K_\varpi := \bigcup_{n} K_{\varpi, n}.\]
+Then $K_\varpi/K$ is totally ramified, Galois, and abelian.
 The isomorphisms in \cref{construction of K_{varpi, n}} (b) are
 \[(\O_K/\varpi^n)^\times\to \gal(K_{\varpi, n}/K)\quad \bar{u}\mapsto (\Lambda_{f, n}\ni \alpha\mapsto [u]_f(\alpha)),\]
 and clearly lift to an isomorphism
 \[\O_K^\times\simeq \gal(K_\varpi/K).\]
+We call \[\chi_\varpi : G_K\to\gal(K_\varpi/K)\isomto \O_K^\times,\quad g\alpha = [\chi_\varpi(g)]_{f}(\alpha),\forall\alpha\in \Lambda_f = F_f[\pi^\infty]\]
+the \textbf{Lubin-Tate charater} attached to $\varpi$.
 
-\subsubsection*{The local Artin map}
-The \textbf{local Artin map} is a homomorphism \[\phi_\varpi : K^\times\to \gal(K_\varpi K^\nr/K) = \gal(K^\nr/K)\times \gal(K_\varpi/K)\] defined as follows.
-Let $a = u\varpi^m\in K^\times$, then 
-\begin{itemize}
-    \item $\phi_\varpi(a)|_{K^\nr} := \frob^m$;
-    \item $\phi_\varpi(a)(\lambda) := [u^{-1}]_f(\lambda)$, $\forall \lambda\in\bigcup_n\Lambda_n$.
+
+\subsection{Local Class Field Theory: Statement}
+Let $K_\pi = K_\pi(F[\pi^\infty])$ be the Lubin-Tate extension. We have $\gal(K_\pi/K)\simeq \O_K^\times$.
+
+Recall that the maximal unramified extension $K^\nr/K$ has Galois group \[\gal(K^\nr/K)\simeq\gal(\bar k/k)\simeq\widehat\Z.\]
+If $q = \# k$, then $\frob_q : x\mapsto x^q$ generates a dense subgroup of $\gal(\bar k/k)$.
+
+We define the \textbf{local Artin map} to be the group homomorphism
+\[\art_K : K^\times\simeq \pi^\Z\times \O_K^\times\to \gal(K_\pi/K)\times\gal(K^\nr/K)\simeq\footnotemark\gal(K_\pi K^\nr/K)\]
+\footnotetext{$K_\pi$ and $K^\nr$ are disjoint.}
+s.t.\begin{itemize}
+    \item $\pi\mapsto \frob_q$,
+    \item $\O_K^\times\ni u\mapsto g\in\gal(K_\pi/K)$ s.t. $\chi_\pi(g) = \chi_\pi(\art_K(u)) = u^{-1}$.
 \end{itemize}
-
 \begin{theorem}
-    The field $K_{\varpi}K^\nr$ is independent of the choice of $\varpi$.
+    [Local Class Field Theory]
+    \begin{enumerate}
+        \item [(1)] $K^\ab := K_\pi K^\nr$ is the maximal abelian extension of $K$.
+        \item [(2)] $\art_K : K^\times\to K^\ab$ is independent of all choices.
+        \item [(3)] If $L/K < \infty$, then the Artin map induces \[K^\times/N_{L/K}(L^\times)\simeq\gal(L/K),\]
+        which gives a bijection\footnote{
+            In particular, all open subgroups of $K^\times$ are norm of some $L^\times$.
+        }\[\{\text{open subgroup of }K^\times\} = \{\text{finite extension of }K\}.\]
+        \item [(4)] If $L/K < \infty$,
+        then % https://q.uiver.app/#q=WzAsNCxbMCwwLCJMXlxcdGltZXMiXSxbMSwwLCJcXGdhbChMXlxcYWIvTCkiXSxbMSwxLCJcXGdhbChLXlxcYWIvSykiXSxbMCwxLCJLXlxcdGltZXMiXSxbMCwxLCJcXGFydF9LIl0sWzEsMiwiXFxtYXRocm17cmVzfSJdLFswLDMsIk5fe0wvS30iLDJdLFszLDIsIlxcYXJ0X0wiLDJdXQ==
+        \[\begin{tikzcd}
+            {L^\times} & {\gal(L^\ab/L)} \\
+            {K^\times} & {\gal(K^\ab/K)}
+            \arrow["{\art_K}", from=1-1, to=1-2]
+            \arrow["{N_{L/K}}"', from=1-1, to=2-1]
+            \arrow["{\mathrm{res}}", from=1-2, to=2-2]
+            \arrow["{\art_L}"', from=2-1, to=2-2]
+        \end{tikzcd}\]commutes.
+    \end{enumerate}
 \end{theorem}
 
+\begin{corollary}\label{norm of lubin-tate char = cycl char * unramified char}
+    $\exists$ unramified charater $\eta : G_K = \gal(\bar\Q_p/K)\to\Z_p^\times$, s.t.\[\forall g\in G_K,\ N_{K/\Q_p}(\chi_\pi(g)) = \chi_\cyc(g)\eta(g).\]
+\end{corollary}
+We say a charater $\eta$ on $G_K$ is \textbf{unramified}, if it restricts to the trivial charater on the inertia subgroup $I_K = I(\bar\Q_p/K)$.
+That is, $\eta$ is lifted from a charater on $\gal(K^\nr/K)\simeq\gal(\bar k/k)\simeq G_K/ I_K$.
+\begin{proof}
+    We construct this charater $\eta$ on the dense subgroup \[\im(\art_K) = \gal(K_\pi/K)\times\gene{\frob_q}\] first.
+    Let $g\in\gal(\bar\Q_p/K)$ with \[g|_{K^\nr} = \frob_q^n\] for $n(g)\in\Z$ so that $g\in \im(\art_K)$.
+    Write $q = p^f$.
+    Then we know from 
 
-\subsection{The Local Kronecker-Weber theorem}
+\end{proof}
 
 \subsection{The Case of \texorpdfstring{$\Q_p$}{}}
 Let $K = \Q_p$ and $\varpi = p$. Then $f(T) := (1 + T)^p - 1\in\mathcal{F}_p$.
@@ -206,7 +416,7 @@ Note that $f$ is an endomorphism of \[\Gm(X, Y) = X + Y + XY,\] so $F_f = \Gm{}_
 \[(\mathfrak{m}, +_{\Gm})\simeq (1 + \mathfrak{m},\ \cdot\ ),\]
 the endomorphism $f : a\mapsto (1 + a)^p - 1$ is converted to the Frobenius map $a\mapsto a^p$.
 
-\subsubsection*{The field $(\Q_p)_p$}
+\subsubsection*{The field \texorpdfstring{$(\Q_p)_p = \Q_p(\mu_{p^\infty})$}{Qpp = Qp mup infty}}
 
 For each $r\ge 1$, the $p^r$-torsion part of $\Lambda_f$ is
 \[\Lambda_{f, r} = \left\{\alpha\in\Q_p^\alg\left|(1 + \alpha)^{p^r} = 1\right.\right\}\simeq
@@ -216,7 +426,8 @@ The isomorphism is for $\O_K$-modules.
 So choose primitive $p^r$-th roots of unity $\zeta_{p^r}$ s.t. $\zeta_{p^r}^p = \zeta_{p^{r-1}}$,
 then $\varpi_r := \zeta_{p^r} - 1$ forms a sequence of compatible generators of $\Lambda_{f, r}$.
 Therefore \[(\Q_p)_{p, r} = \Q_p(\varpi_r) = \Q_p(\mu_{p^r}),\]
-and the ``maximal totally ramified abelian extension''\footnote{Not sure if this terminology is correct ...?} of $\Q_p$ is $(\Q_p)_p = \Q_p(\mu_{p^\infty})$.
+and the Lubin-Tate extension of $\Q_p$ given by uniformiser $p$ is $(\Q_p)_p = \Q_p(\mu_{p^\infty})$,
+the cyclotomic extension.
 
 \subsubsection*{The local Artin map \texorpdfstring{$\phi_p : \Q_p^\times\to \gal(\Q_p^\ab/\Q_p)$}{}}
 

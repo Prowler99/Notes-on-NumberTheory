@@ -295,7 +295,163 @@ the \textbf{Newton polygon} of $P := \mathrm{NP}(P) := $ convex hull of points \
 
 \subsection{Ramification Groups}
 
-Let $K$ be a CDVF with perfect residue field $k$, $L/K<\infty$ Galois. We will study the Galois group \[G := \gal(L/K)\] by giving filtrations on it.
+Let $K$ be a local field with residue field $k$, $L/K<\infty$ Galois. We will study the Galois group \[G := \gal(L/K)\] by giving filtrations on it.
+
+Let $\val_L$ be the valuation on $L$ normalized by $\val_L(L^\times) = \Z$.
+Assume $\cha k_K = \cha k_L = p > 0$ and $k_L/k_K$ separable.
+The Galois group $G$ acts on $L/K$,
+and its decomposition subgroup, by definition, acts on the integers $\O_L/\O_K$, and descends modulo $\pi_L$ to $k_L/k_K$.
+We know that $G$ acts by isometries,
+so the decomposition subgroup $= G$,
+giving a surjection $\gal(L/K)\to \gal(k_L/k_K)$,
+and the \textbf{inertia subgroup}\[I(L/K) = \ker\left( \gal(L/K)\to\gal(k_L/k_K) \right) = \{g\in G\mid \val_L(ga - a)\ge 1,\ \forall a\in\O_L\}.\]
+We develop this idea, giving a filtration of $G$ by how ``small'' the effect of $g\in G$ is.
+
+\subsubsection{Lower Ramification Filtration}
+For $g\in \gal(L/K)$, define \[i_{L/K}(g) := \inf_{a\in\O_L}\val_L(ga - a).\]
+\begin{itemize}
+    \item If $\O_L = \O_K[x]$, then $i_L(g) = \val_L(gx - x)$.
+\end{itemize}
+\begin{proposition}\label{property of lower index}
+    Let $g, h\in G = \gal(L/K)$.\begin{enumerate}
+        \item [(1)] $i_L$ is a class function: $i_L(ghg^{-1}) = i_L(h)$.
+        \item [(2)] $i_L$ verifies the strong triangle inequality: $i_L(gh)\ge \min\{i_L(g), i_L(h)\}$, with ``$=$'' $\iff i_L(g)\ne i_L(h)$.
+        \item [(3)] $i_L(g^{-1}) = i_L(g)$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Since $k_L/k_K$ is separable, we can write $\O_L = \O_K[x]$.
+    Note that \[\O_L = \O_K[x]\implies \O_L = \O_K[gx], \forall g\in G.\]
+    So:
+\[i_L(ghg^{-1}) = \val(ghg^{-1}x - x) \mathop{=}_{G\text{ preserves val}} \val(hg^{-1}x - g^{-1}x) = i_L(h),\]
+\[i_L(gh) = \val((ghx - hx) + (hx - x))\ge \min{i_L(g), i_L(h)}.\]
+The last assertion is as trivial.
+\end{proof}
+
+Now for $G = \gal(L/K)$, a real number $u\in\R_{\ge -1}$,
+we define\footnote{It is ok to put $G_u := G$ for $u < -1$.} the lower ramification group
+\begin{align*}
+    G_u := {}& \left\{ g\in G\mid i_L(g)\ge u + 1 \right\}\\
+    = {}& \{g\in G\mid ga \equiv a\bmod {\pi_L^{\lfloor u+1\rfloor}},\forall a\in\O_L\}.
+\end{align*}
+
+\begin{itemize}
+    \item $G_u\vartriangleleft G$ by \cref{property of lower index}.
+    \item $G_u = G_{\lfloor u\rfloor}$.
+    \item $G_{-1} = G$, $G_0 = I(L/K)$.
+    \item If $u\ge \max_{g\ne 1} i_L(g)$,
+    then $G_u = 1$.
+\end{itemize}
+
+Let $L_0 := L^{G_0} = L^{I(L/K)}$.
+This is the maximal unramified subextension of $L/K$, hence $\O_L = \O_{L_0}[\pi_L]$.
+Therefore, \begin{itemize}
+    \item if $g\in G_0$,
+then \[i_L(g) = \val_L\left( \frac{g\pi_L}{\pi_L} - 1 \right) + 1,\]
+    \item if $u\ge 0$, then \begin{align*}
+        G_u = {}& \left\{g\in G_0\,\left|\, \val\left( \frac{g\pi_L}{\pi_L} - 1 \right)\right.\ge u\right\}\\
+        = {}& \left\{ g\in G_0\,\left|\,
+            \frac{g\pi_L}{\pi_L}\equiv 1\bmod\pi_L^{\lfloor u\rfloor}
+        \right. \right\}.
+    \end{align*}
+\end{itemize}
+\begin{lemma}
+    If $n\in\Z_{\ge 1}$,
+    then $G_n^p\subset G_{n+1}$.
+\end{lemma}
+\begin{proof}
+    Take $g\in G_n$ and write \[\frac{g\pi_L}{\pi_L} = 1 + \alpha,\ \alpha\in\m_L^n.\]
+    Then\footnote{\label{lem: gx/x = 1 + a => h(gx)/gx = 1 + ha}
+    Note that 
+        \[\dfrac{g\pi_L}{\pi_L} = 1 + \alpha
+        \implies
+        \frac{hg\pi_L}{g\pi_L} = 1 + h\alpha.\]
+        }
+    \[\frac{g^p\pi_L }{\pi_L} = \frac{g\pi_L }{\pi_L}\frac{g^2\pi_L}{g\pi_L}\cdots\frac{g^p\pi_L}{g^{p-1}\pi_L} = (1 + \alpha)(1 + g\alpha)\cdots(1 +g^{p-1}\alpha).\]
+    Note that $g\alpha\equiv\alpha\bmod\pi_L^{n+1}$,
+    so the product\[\equiv (1 + \alpha)^{p}\equiv 1\bmod\pi_L^{n+1}.\qedhere\]
+\end{proof}
+
+\begin{proposition}\label{G1 is unique Sylow-p of G0}
+    $G_1$ is the unique Sylow $p$-group of $G_0$.
+\end{proposition}
+\begin{proof}
+    By the last lemma,
+    $G_1^{p^n}\subset G_{1 + n}$ for all $n$,
+    $\implies G^{p^n} = 1$ for $n\gg 0$,
+    $\implies G$ is a $p$-group.
+
+    We show that: if $g\in G_0$ and $g^p\in G_1$,
+    then $g\in G_1$.
+    This would imply that all elements of $p$-power order fall in $G_1$.
+
+    Take $g\in G_0$ and write $\dfrac{g\pi_L}{\pi_L} = \alpha\in\O_K^\times$.
+    \begin{itemize}
+\item $g\in G_0\implies g\alpha\equiv\alpha\bmod\pi_L\implies \dfrac{g^p\pi_L}{\pi_L}\equiv \alpha^p\bmod\pi_L$.
+\item $g^p\in G_1\implies \dfrac{g^p\pi_L}{\pi_L}\equiv 1\bmod\pi_L$.
+    \end{itemize}
+    $\implies \alpha\equiv \alpha^p \equiv 1\bmod\pi_L\iff g\in G_1$.
+\end{proof}
+
+Write $[L : L_0] = p^kt$, $p\nmid t$.
+By \cref{G1 is unique Sylow-p of G0},
+$L_1 := L^{G_1}$ has degree $t$ over $L_0$, and $L_1/K$ is the unique maximal tamely ramified subextension.
+
+The next gaol is to investigate the subquotients $G_n/G_{n+1}$ of the filtration $G\subset G_0\subset G_1\subset\cdots$.
+
+\begin{proposition}\label{subquotients of lower ramification filtration}
+    Let $n\in \Z_{\ge 0}$.
+\begin{itemize}
+    \item $G/G_0\simeq\gal(k_L/k_K)$.
+    \item $G_0/G_1\hookrightarrow \O_L^\times/(1 + \m_L^\times)\simeq k_L^\times$ via $g\mapsto \dfrac{g\pi_L }{\pi_L } $.
+    \item $G_n/G_{n+1}\hookrightarrow (1 + \m_L^n)/(1 + \m_L^{n+1})\simeq \m_L^n/\m_L^{n+1}\simeq k_L$ via $g\mapsto \dfrac{g\pi_L }{\pi_L } \mapsto \dfrac{g\pi_L - \pi_L}{\pi_L^{n+1}}$.
+\end{itemize}
+In particular, all the quotients $G_n/G_{n+1}(n\ge 0)$ are finite abelian, and hence $G_0$ is solvable.
+\end{proposition}
+\begin{proof}
+    $G/G_0$ is known and $G_0/G_1$ is a sepcial case of $G_n/G_{n+1}$.
+
+    Injectivity is clear once we prove the multipliciy.
+    For $g\in G_n$, let \[\frac{g\pi_L}{\pi_L} = 1 + \alpha_g,\ \alpha_g\in\m_L^n.\]
+    Then $g\alpha_h \equiv\alpha_h\bmod \pi^n$.
+    So\footnote{See \ref{lem: gx/x = 1 + a => h(gx)/gx = 1 + ha}.}
+    % \footnotemark[\ref{lem: gx/x = 1 + a => h(gx)/gx = 1 + ha}]
+     \[
+    \dfrac{gh\pi_L}{\pi_L} \equiv (1 + g\alpha_h)(1 + \alpha_g)\equiv (1 + \alpha_h)(1 + \alpha_g)\bmod\m_L^{n+1}.\qedhere
+    \]
+\end{proof}
+
+
+
+\subsubsection{Upper Ramification Filtration and Ramification Groups of Infinite Extensions}
+
+The lower ramification filtration is compatible with \textit{subgroup}s:
+\begin{proposition}
+    If $H < G$, then \[H_u = G_u\cap H.\]
+    Namely, if $L\mid F\mid K$ is a tower of finite extensions,
+    then \[\gal(L/F)_u = \gal(L/K)_u\cap \gal(L/F).\]
+\end{proposition}
+
+Bu in practice, we usually fix the bottom $K$ rather than the top $L$; we want a filtration compatible with quotients.
+This is given by Herbrand's theorem.
+
+Define \textbf{Herbrand's $\phi$} function\[\phi_{L/K} :\R_{\ge -1}\to\R_{\ge -1},\ \phi_{L/K}(u) := \int_0^u \frac{1}{[G_0 : G_t]}dt.\]
+\begin{itemize}
+    \item $\phi_{L/K}(0) = 0$, $\phi_{L/K}(-1) = -1$.
+    \item $\phi_{L/K}$ is piece-wise affine, continuous, strictly increasing, concave, and a homeomorphism.
+\end{itemize}
+This gives \[\psi_{L/K} : \R_{\ge -1}\to\R_{\ge -1} := \phi_{L/K}^{-1},\]
+and we define \[G^u := G_{\psi_{L/K}(u)}.\]
+This upper ramification filtration is compatible with \textit{quotients}.
+\begin{theorem}
+    If $H\vartriangleleft G$,
+    then \[(G/H)^v = G^vH/H = \text{ image of }G^v\text{ in }G/H.\]
+    Namely, if $L\mid F\mid K$ is a tower of extensions,
+    then \[\gal(F/K)^v = \im\left( \gal(L/K)^v\hookrightarrow\gal(L/K)\twoheadrightarrow\gal(F/K) \right).\]
+\end{theorem}
+Since the upper ramification filtration is compatible with quotients,
+it extends to any infinite Galois extension $L/K$ by
+\[\gal(L/K)^v := \varprojlim_F\left( \gal(F/K)^v \right).\]
 
 
 
@@ -374,7 +530,7 @@ Note that neither reidue field nor value group are not extended from $\bar\Q_p$ 
     Let $P\in \C_p[X]$ be monic of degree $d$.
     Replacing $P(X)$ by $p^{kd}P(p^{-k} X)$ for $k\gg 0$, we may assume $P\in\O_{\C_p}[X]$.
 
-
+    (T.B.C.)
 \end{proof}
 
 \subsection{Ax-Sin-Tate theorem and closed subfields of \texorpdfstring{$\C_p$}{Cp}}
@@ -392,12 +548,12 @@ So what is $\C_p^{G_K}$?
     $\C_p^{G_K} = \widehat K$.
 \end{theorem}
 
-\begin{lemma}
+\begin{lemma}\label{lem: if root bounded from below then root of derivative bounded from below}
     Let $P(X)\in\bar\Q_p[X]$ be monic of degree $n$,
     s.t. all the roots $\alpha$ of $P$ have bounded valuation bounded from below; i.e., $v_p(\alpha) > c$ for some $c\in\R$.
     Let $n = p^kd$ with $p\nmid d$ or $p = d$.
     Then $P^{(p^k)}$ has a root $\beta$ with \[\begin{cases}
-        v_p(\beta)\ge c, &n = p^kd, p\nmid d,\\ 
+        v_p(\beta)\ge c, &n = p^kd,\ p\nmid d,\\ 
         v_p(\beta)\ge c - \dfrac{1}{p^k(p-1)},
         &n = p^{k+1}.
     \end{cases}\]
@@ -405,7 +561,100 @@ So what is $\C_p^{G_K}$?
 \begin{proof}
     Write $P(X) = X^n + a_{n-1}X^n + \dots + a_0$, and $q := p^k$.
     \begin{itemize}
-        \item $v_p(a_i)\ge (n-i)c$, because $a_i = \pm$ sum of product of $n - i$ roots.
-        \item 
+        \item $v_p(a_i)\ge (n-i)c$, because $a_i = \pm$ sum of product of $n - i$ roots; multipliciy counted.
+        \item $\dfrac{1}{q!}P^{(q)}(X) = \sum_{i=0}^{n-q}\binom{n-i }{q }a_{n-i }X^{n-i-q}$,
+        so the product of roots of $P^{(q)} = \pm\dfrac{a_q }{\binom{n}{q}}$.
+    \end{itemize}
+    Hence, $\exists$ root $\beta$ of $P^{(q)}$, s.y.\[
+        v_p(\beta)\ge \frac{1}{\deg P^{(q)}}v_p\left( \dfrac{a_q }{\binom{n}{q}} \right) \ge c - \frac{1}{n-q}v_p\left( \binom{n}{q} \right).\]
+    By looking at carries\footnote{
+        $v_p\left( \binom{a + b}{b} \right) = \#\text{ of carries when compute } a + b \text{ in base } p$.
+    }, one varifes that \[v_p\left( \binom{n}{q } \right) = \begin{cases}
+        0, &n = qd = p^kd,\ p\nmid d,\\ 
+        1, &n = qp = p^{k+1}.
+    \end{cases}\qedhere\]
+\end{proof}
+
+For $\alpha\in\bar\Q_p$, we define \[\Delta_K(\alpha) := \inf_{g\in G_K} v_p(g\alpha - \alpha).\]
+\begin{theorem}
+    [Ax]
+    $\forall \alpha\in\bar\Q_p$, $\exists\delta\in K$, s.t. \[v_p(\alpha - \delta)\ge\Delta_K(\alpha) - \frac{p}{(p-1)^2}.\]
+\end{theorem}
+\begin{proof}
+    We do induction on $n := [K(\alpha) : K]$ to show a stronger estimate: $\exists\delta\in K$ s.t.
+    \[v_p(\alpha - \delta) \ge \Delta_K(\alpha) - \sum_{k=1}^{m}\frac{1}{p^k(p-1)},\]
+    where $m\in\Z$ such that $p^{m+1}$ is the largest $p$-power $\le n$.
+
+    Let $Q(X)\in K[X]$ be the minimal polynomial of $\alpha$ over $K$,
+    and set $P(X) := Q(X +\alpha)\in\bar\Q_p[X]$.
+    The roots of $P$ are $g\alpha - \alpha$, where $g\in G_K$.
+
+    Apply \cref{lem: if root bounded from below then root of derivative bounded from below}
+    to $v_p(g\alpha - \alpha)\ge \Delta_K(\alpha)$,
+    we obtain a root $\beta\in\bar\Q_p$ of $P^{(q)}(X)$,
+    where $q = p^k$,
+    s.t. \[\begin{cases}
+        v_p(\beta)\ge \Delta_K(\alpha), &n \text{ is not a power of } p, q\,\|\,n\\
+        v_p(\beta)\ge \Delta_K(\alpha) - \dfrac{1}{p^m(p-1)}, &n = p^{m + 1} = qp, k = m.
+    \end{cases}\]
+    Consider $\alpha' := \alpha + \beta$, a root of $Q^{(q)}(X)\in K[X]$.
+    We have \[[K(\alpha') : K]\le\deg Q^{(q)} < \deg Q = [K (\alpha) : K]
+    \] as $q > 0$, so by induction hypothesis,
+    $\exists\delta\in K$ s.t. \[v_p(\alpha - \delta)\ge \Delta_K(\alpha') - \sum_{i=1}^{r}\frac{1}{p^i(p-1)},\]
+    where $p^{r+1}$ is the largest $p$-power $\le n - q = \deg Q^{(q)}$.
+    Now we estimate $\Delta_K(\alpha')$.
+    Note that \[g\alpha' - \alpha'
+    = \underbrace{g\alpha' - g\alpha}_{=g\beta}
+    +\underbrace{g\alpha - \alpha}_{v_p\ge \Delta_K(\alpha)}
+    +\underbrace{\alpha - \alpha'}_{ = -\beta}.\]
+\begin{itemize}
+    \item If $n = qd$ with $p\nmid d$,
+    then $\Delta_K(\alpha')\ge \Delta_K(\alpha)$,
+    and the estimation holds for $\alpha$.
+    \item If $n = p^{m+1}$, then $\Delta_K(\alpha')\ge \Delta_K(\alpha) - \dfrac{1}{p^m(p-1)}$.
+    Since $r < m$, the estimation of $\alpha$ still holds.\qedhere
+\end{itemize}
+\end{proof}
+
+Ax-Sin-Tate theorem is a direct corollary of Ax's theorem.
+\begin{proof}
+    [Proof of Ax-Sin-Tate]
+    The inclusion $\widehat{K}\subset \C_p^{G_K}$ come from the fact that $G_K$ acts on $\C_p$ continuously.
+
+    For the other inclusion, take $\alpha\in \C_p^{G_K}$ and write $\alpha = \lim_{n}\alpha_n$ with $\alpha_n\in\bar\Q_p$.
+    Note that \[\alpha\in\C_p^{G_K}\iff \Delta_K(\alpha_n)\to \Delta_K(\alpha) = +\infty.\]
+    So by Ax's theorem,
+    there exists $\delta_n\in K$ with \[v_p(\delta_n - \alpha_n)\ge \Delta_K(\alpha_n) - \frac{p}{(p-1)^2}\to+\infty,\]
+    and thus $\alpha = \lim_n\delta_n\in\widehat{K}$.
+\end{proof}
+
+\begin{theorem}
+    There is a bijection
+    \begin{align*}
+        \{\text{subfield of }\bar\Q_p\}&\longleftrightarrow
+        \{\text{closed subfield of }\C_p\}\\
+        K&\longmapsto \widehat{K}\\ 
+        L\cap\bar\Q_p&\longmapsfrom L.
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    \begin{itemize}
+\item Show $K < \bar\Q_p\implies \widehat{K}\cap\bar\Q_p = K$.
+\item Show $L\stackrel{\text{closed}}{<}\C_p\implies \widehat{L\cap\bar\Q_p} = L$, i.e.,
+$L\cap\bar\Q_p$ is dense in $L$.
     \end{itemize}
 \end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -356,7 +356,7 @@ Define \[K_\varpi := \bigcup_{n} K_{\varpi, n}.\]
 Then $K_\varpi/K$ is totally ramified, Galois, and abelian.
 The isomorphisms in \cref{construction of K_{varpi, n}} (b) are
 \[(\O_K/\varpi^n)^\times\to \gal(K_{\varpi, n}/K)\quad \bar{u}\mapsto (\Lambda_{f, n}\ni \alpha\mapsto [u]_f(\alpha)),\]
-and clearly lift to an isomorphism
+and clearly lift to an continuous isomorphism
 \[\O_K^\times\simeq \gal(K_\varpi/K).\]
 We call \[\chi_\varpi : G_K\to\gal(K_\varpi/K)\isomto \O_K^\times,\quad g\alpha = [\chi_\varpi(g)]_{f}(\alpha),\forall\alpha\in \Lambda_f = F_f[\pi^\infty]\]
 the \textbf{Lubin-Tate charater} attached to $\varpi$.
@@ -391,9 +391,10 @@ s.t.\begin{itemize}
             {K^\times} & {\gal(K^\ab/K)}
             \arrow["{\art_K}", from=1-1, to=1-2]
             \arrow["{N_{L/K}}"', from=1-1, to=2-1]
-            \arrow["{\mathrm{res}}", from=1-2, to=2-2]
+            \arrow["{\mathrm{res}}\footnotemark", from=1-2, to=2-2]
             \arrow["{\art_L}"', from=2-1, to=2-2]
         \end{tikzcd}\]commutes.
+        \footnotetext{Here \[\res : \gal(L^\ab/L)\hookrightarrow\gal(L^\ab/K)\twoheadrightarrow \gal(K^\ab/K).\]}
     \end{enumerate}
 \end{theorem}
 
@@ -403,11 +404,27 @@ s.t.\begin{itemize}
 We say a charater $\eta$ on $G_K$ is \textbf{unramified}, if it restricts to the trivial charater on the inertia subgroup $I_K = I(\bar\Q_p/K)$.
 That is, $\eta$ is lifted from a charater on $\gal(K^\nr/K)\simeq\gal(\bar k/k)\simeq G_K/ I_K$.
 \begin{proof}
-    We construct this charater $\eta$ on the dense subgroup \[\im(\art_K) = \gal(K_\pi/K)\times\gene{\frob_q}\] first.
+    We construct this charater $\eta$ on the dense subgroup \[\im(\art_K) = \gene{\frob_q}\times\gal(K_\pi/K)\] first.
     Let $g\in\gal(\bar\Q_p/K)$ with \[g|_{K^\nr} = \frob_q^n\] for $n(g)\in\Z$ so that $g\in \im(\art_K)$.
-    Write $q = p^f$.
-    Then we know from 
-
+    Write $q = p^f$, and note that \[\frob_q|_{\Q_p^\nr} = \frob_p^f,\]
+    Then we have the commutative diagram% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHBpXntuKGcpfVxcY2hpX1xccGkoZyleey0xfSJdLFsyLDAsImc9Il0sWzIsMSwiZ3xfe1xcUV9wXlxcYWJ9PSJdLFswLDEsIlxcbGVmdChOX3tLL1xcUV9wfVxccGlcXHJpZ2h0KV57bihnKX0gTl97Sy9cXFFfcH1cXGxlZnQoXFxjaGlfXFxwaShnKV57LTF9XFxyaWdodCkge1xcY29sb3J7Z3JlZW59ID19ICJdLFsxLDAsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbMSwyLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzAsM10sWzIsMywiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
+    \[\begin{tikzcd}
+        {\pi^{n(g)}\chi_\pi(g)^{-1}} &&
+        {g=\left( \frob_q^{n(g)}, g \right)} \\
+        {\left(N_{K/\Q_p}\pi\right)^{n(g)} N_{K/\Q_p}\left(\chi_\pi(g)^{-1}\right)
+        {\color{orange} =}
+        \ p^{fn(g)}\chi_\cyc(g)^{-1}}
+        && {g|_{\Q_p^\ab}= \left( \frob_p^{fn(g)}, g \right)}
+        \arrow[from=1-1, to=2-1]
+        \arrow[maps to, from=1-3, to=1-1]
+        \arrow[maps to, from=1-3, to=2-3]
+        \arrow[maps to, from=2-3, to=2-1]
+    \end{tikzcd}\]
+    and we thereby find \[N_{K/\Q_p}\left( \chi_\pi(g) \right) = \left( 
+        \frac{N_{K/\Q_p}\pi }{p^f }
+    \right)^{n(g)}\chi_\cyc(g)\]
+    and $\eta(g) := N_{K/\Q_p}(\chi_\pi(g))/\chi_\cyc(g)$ indeed defines an unramified character on $\im(\art_K)$.
+    Hence it is unramified also on $G_K$.
 \end{proof}
 
 \subsection{The Case of \texorpdfstring{$\Q_p$}{}}

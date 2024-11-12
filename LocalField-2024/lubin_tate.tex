@@ -157,7 +157,7 @@ Now define \[T_pF := \varprojlim_n F[p^n].\]
     $T_pF$ is a free $\Z_p$-module of rank $h = \height F$.
 \end{proposition}
 \begin{proof}
-    Let $m_1, \dots, m_h$ be a lift of a $\F_p$-basis of the dimension $h$ vector space $F_pF/pT_pF\simeq F[p]$.
+    Let $m_1, \dots, m_h$ be a lift of a $\F_p$-basis of the dimension $h$ vector space $T_pF/pT_pF\simeq F[p]$.
     We claim that $m_1, \dots, m_h$ is a $\Z_p$-basis for $T_pF$.
     \begin{itemize}
         \item (linear independence.)
@@ -165,6 +165,7 @@ Now define \[T_pF := \varprojlim_n F[p^n].\]
         $T_pF$ is torsion-free, so $\exists j$ s.t. $p\nmid \lambda_j$.
         Hecen it will give a nontrivial relation modulo $p$.
         \item (generate $T_pF$.)
+        % {\color{red} Can I use Nakayama to prove this directly?}
         Use the standard method.
         Obtain \[m = \sum_i \lambda_i^{(k)} m_i + p^kn^{(k)}\] inductively for all $k\ge 1$
         Take $\lambda_i := \lim_k\lambda_i^{(k)}$

@@ -4,7 +4,7 @@
 Let $K$ be a field.
 We want to know when are two polynomials $f, g\in K[X]$ coprime.
 \begin{lemma}\label{not coprime over field iff fu = gv}
-    $(f, g)\ne 1\iff \exists u, v\in A[X]\setminus \{0\}$ s.t. \(\begin{cases}
+    $(f, g)\ne 1\iff \exists u, v\in K[X]\setminus \{0\}$ s.t. \(\begin{cases}
         fu = gv,\\ 
         \deg u <\deg g,\ \deg v < \deg f.
     \end{cases}\)
@@ -35,9 +35,10 @@ Now assume $fu = gv$ for some $u, v\in K[X]$ with $\deg u  < \deg g, \deg v < \d
          & &  &  & b_m & \cdots & b_0
     \end{matrix}\right.
 \end{vmatrix},\]
-    a determinant of a $(n + m)\times (n + m)$-matrix over $A$.
+    a determinant of an $(n + m)\times (n + m)$-matrix over $A$.
 \end{definition}
-So we can rephrase \cref{not coprime over field iff fu = gv} into: $f, g\in K[X]$ are coprime if and only if their resultant $\res_X(f, g) \ne 0$.
+So we can rephrase \cref{not coprime over field iff fu = gv} into:
+$f, g\in K[X]$ are coprime if and only if their resultant $\res_X(f, g) \ne 0$.
 
 Now assume that both $f$ and $g$ split in $K$.
 Then $(f, g)\ne 1\iff f$ and $g$ share at least one same root. This suggests that $\res_X(f, g)$ should be divided by \textit{all} $x - y$, where $x$ is a root of $f$ and $y$ is a root of $g$; multiplicity are considered here.
@@ -51,10 +52,10 @@ In particular, we can study if a polynomial has multiple roots (in its splitting
 \begin{definition}
     Let $A$ be a commutative ring and $f(X) = a_nX^n + \dots + a_0\in A[X]$.
     The \textbf{discriminant} of $f$ is\[\disc(f) := \frac{(-1)^{\frac{1}{2}n(n-1)}}{a_n}\res_X(f, f')\in A,\]
-    where $f'(X) = na_nX^n + \dots + a_1$ is the derivative of $f$.
+    where $f'(X) = na_nX^{n - 1} + \dots + a_1$ is the derivative of $f$.
 
     Note that $\res_X(f, f')$ is a multiple of $a_n$,
-    because the first column is $^t(a_n\ 0\ \cdots\ 0\ na_n\ 0\ \cdots\ 0)$, and we require $a_n\ne 0$. Thus $\disc(f)$ is well-defined.
+    because its first column is $^t(a_n\ 0\ \cdots\ 0\ na_n\ 0\ \cdots\ 0)$, and we require $a_n\ne 0$. Thus $\disc(f)$ is well-defined.
 \end{definition}
 So $f$ has multiple roots iff $\disc(f) = 0$.
 \begin{example}

@@ -120,7 +120,7 @@ The first one is the traditional $\pi$-adic approximation.
 \end{proof}
 
 
-Another proof uses the \textit{fixed point theorem}
+Another proof uses the \textit{fixed point theorem}.
 \begin{lemma}
     [Fixed point theorem]
     Let $C$ be a complete metric space, $f : C\to C$ a \textbf{contracting map}, i.e, \[\exists\alpha, 0\le \alpha\ {\color{red}< 1} \st\ |f(x) - f(y)|\footnotemark <\alpha |x-y|,\ \forall x, y\in C. \]
@@ -130,7 +130,10 @@ Another proof uses the \textit{fixed point theorem}
 
 Recall that the $K[X]$ is equipped with the \textbf{Gauss nrom}: for $f = \sum_{i=0}^n a_iX^i$,
 \[|f| := \max\{a_0, \dots, a_n\}.\]
-
+$K[X]$ is not complete w.r.t.\! Gauss norm,
+but each subspace\[K[X]_n := \{f\in K[X]\mid \deg f\le n - 1\}\]
+is complete, since it is a sup-norm on a f.d.\! $K$-vector space;
+see \cref{f.d. vector space over complete normed field is complete with all norms equivalent}.
 (T.B.C.)
 % \begin{proposition}
 %     The Gauss norm is an ultrametric norm on the $K$-algebra $K[X]$\footnote{
@@ -182,7 +185,7 @@ Fix $y\in K^\times$ with $|y|_1\ne 1$. Then $|y|_2\ne 1$.
     where $\alpha > 0$ is determined by $|y_2| = |y_1|^\alpha$.\qedhere
 \end{itemize}
 \end{proof}
-\begin{theorem}[Artin]
+\begin{theorem}[Artin]\label{f.d. vector space over complete normed field is complete with all norms equivalent}
     Let $K$ be complete normed field, $V$ a f.d. $K$-vector space.
     Then all norms on $V$ are equivalent, and $V$ is complete for them.
 \end{theorem}

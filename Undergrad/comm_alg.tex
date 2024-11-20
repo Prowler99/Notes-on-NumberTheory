@@ -1,0 +1,101 @@
+\section{Commutative Algebra}
+
+% \subsection{Exact Functors}
+\subsection{Nakayama Lemma}
+
+\subsection{Flatness}
+Recall:
+\begin{center}
+    preserve $\varprojlim\impliedby$
+    right-adjoint
+    $\implies$ left-exact
+    $\iff$ right-derivative
+    $\iff$ preserve \textit{finite} $\varprojlim$
+\end{center}
+
+\subsubsection{Definition}
+Let $A$ be a commutative ring, $M$ an $A$-module.
+We say $M$ is \textbf{flat} over $A$,
+if the tensor-with-$M$ functor $(-)\otimes_A M$ is exact;
+i.e., the tensor-with-$M$ functor preserves injections:
+\[N\hookrightarrow N'\implies
+N\otimes_A M\hookrightarrow N'\otimes_A M'.\]
+\begin{proposition}
+[Basic properties of flat modules]\label{basic property of flat}
+Let $A$ be a commutative ring, $B$ an $A$-algebra.
+\begin{enumerate}
+    \item [(a)] free $\implies$ flat.
+    \item [(b)] (Tensor) $M$ flat over $A$ \& $N$ flat over $A\implies$
+    $M\otimes_A N$ flat over $A$.
+    \item [(c)] (Base change)
+    $M$ flat over $A\implies M\otimes_A B$ flat over $B$.
+    \item [(d)] (Transitivity)
+    $B$ flat over $A$ \& $M$ flat over $B\implies M$ flat over $A$. 
+\end{enumerate}
+\end{proposition}
+
+\begin{theorem}
+    An $A$-module $M$ is flat if and only if for every ideal $I$ of $A$,
+    $I\otimes_A M\to IM$ is an isomorphism.
+\end{theorem}
+\begin{corollary}
+    Over a PID, flat $\iff$ torsion-free.
+\end{corollary}
+
+\subsubsection{Local Nature of Flatness}
+
+\begin{corollary}
+    Over a Dedekind domain, flat $\iff$ torsion-free.
+\end{corollary}
+
+
+
+\subsection{Cyclotomic Extensions}
+
+Fix an algebraic closure $\bar{F}$ of a field $F$.
+An $n$-th root of unity is $\zeta\in F$ s.t. $\zeta^n = 1$.
+A \textbf{primitive $n$-th root of unity} is an $n$-th root of unity $\zeta\in\mu_n(\bar{F})$ s.t. \[\zeta^d = 1\iff n\mid d.\]
+\begin{proposition}\label{basic property of mu-n when char not divide n}
+    Assume $\cha F\nmid n$, then:
+\begin{itemize}
+    \item $\mu_n(\bar{F})\simeq \Z/n\Z$ as group, and the generatos of $\mu_n(\bar{F})$ are precisely the $n$-th \textit{premitive} roots of unity.
+    \item $F(\mu_n)$ is the splitting field of $X^n - 1$ over $F$, and $F(\mu_n)/F$ is Galois with an embedding \[\chi_n : \gal(F(\mu_n)/F)\hookrightarrow (\Z/n\Z)^\times\]
+    defined by \[\sigma(\zeta) = \zeta^{\chi_n(\sigma)},\quad \forall \zeta\in \mu_n,\ \sigma\in\gal(F(\mu_n)/F).\]
+\end{itemize}
+\end{proposition}
+
+\subsubsection*{Cyclotomic Polynomials}
+
+\begin{definition}
+    The $n$-th \textbf{cyclotomic polynomial} is \[\Phi_n(X) := \prod_{d\mid n}\left( X^d - 1 \right)^{\mu(n/d)},\]where $\mu : \Z_{\ge 1}\to \{0, \pm 1\}$ is the Mobi\"us function.
+\end{definition}
+
+\begin{example}
+    If $p\in\Z$ is a prime,
+    then \[\Phi_{p^n}(X) = \frac{X^{p^n} - 1}{X^{p^{n-1}} - 1},\quad\forall n\in\Z_{\ge 1}.\]
+\end{example}
+
+\begin{theorem}\label{characterise cyclotomic polynomials}
+    The polynomial $\Phi_n(X)\in\Z[X]$ is monic
+    with integral coefficients of degree $\varphi(n) = \# \Z/n\Z$. These polynomials are characterised by\[\prod_{d\mid n}\Phi_d(X) = X^n - 1,\quad \forall n\ge 1.\]
+    In addition, $\Phi_n(X)$ is irreducible over $\Q$.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

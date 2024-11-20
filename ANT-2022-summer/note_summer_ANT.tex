@@ -1,99 +1,6 @@
 \documentclass{article}
-\usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs}
-\usepackage{enumitem}
-\usepackage[capitalize]{cleveref}
-\usepackage[margin = 1in, headheight = 12pt]{geometry}
-\usepackage{bbm}
-\usepackage{tikz-cd}
 
-\newtheorem{theorem}{Theorem}
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{exercise}{Exercise}[section]
-\newtheorem{problem}{Problem}
-\newtheorem{example}{Example}
-\newtheorem{proposition}{Proposition}[section]
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{corollary}{Corollary}[section]
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
-\DeclareMathOperator{\gal}{Gal}
-
-\renewcommand{\Re}{\mathop{\mathrm{Re}}}
-\renewcommand{\Im}{\mathop{\mathrm{Im}}}
-\renewcommand{\bar}{\overline}
-\renewcommand{\tilde}{\widetilde}
-\renewcommand{\hat}{\widehat}
-
-% 新命令
-% 数学对象
-    % 基础空间
-    \newcommand{\R}{\mathbb{R}}
-    \newcommand{\C}{\mathbb{C}}
-    \newcommand{\Q}{\mathbb{Q}}
-    \newcommand{\Z}{\mathbb{Z}}
-    % 常量
-    % \newcommand{\e}{\mathrm{e}} %自然底数
-    % 群
-    \DeclareMathOperator{\GL}{GL}
-    \DeclareMathOperator{\SL}{SL}
-% 算符&映射&函子
-    % 集合
-    \newcommand{\sminus}{\smallsetminus} %(集合)差
-    % 范畴
-    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
-    \DeclareMathOperator{\enom}{End} %自态射
-    \DeclareMathOperator{\isom}{Isom} %同构
-    \DeclareMathOperator{\aut}{Aut} %自同构
-    \DeclareMathOperator{\im}{im} %像
-    %向量空间, 矩阵
-    \DeclareMathOperator{\rank}{rank} %秩
-    \DeclareMathOperator{\tr}{Tr} %迹
-    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
-    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
-    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
-    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
-    \DeclareMathOperator{\codim}{codim} %余维数
-    \DeclareMathOperator{\diag}{diag} %对角阵
-    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
-    \DeclareMathOperator{\spec}{Spec} %谱
-    \DeclareMathOperator{\lspan}{span} %张成
-    \DeclareMathOperator{\sym}{\mathfrak{Y}}
-    % 群
-    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
-    \newcommand{\nsg}{\vartriangleleft} %正规子群
-    \newcommand{\gsn}{\vartriangleright} %正规子群
-    \DeclareMathOperator{\ord}{ord} %元素的阶
-    \DeclareMathOperator{\stab}{Stab} %稳定化子
-    \DeclareMathOperator{\sgn}{sgn} %符号函数
-    % 环, 域
-    \DeclareMathOperator{\cha}{char} %特征
-    % \DeclareMathOperator{\spec}{Spec} %素谱
-    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
-    % 微积分
-    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
-    % 流形
-    \DeclareMathOperator{\lie}{Lie}
-% 结构简写
-    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
-    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
-    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
-% 文字缩写
-    \newcommand{\opin}{\;\mathrm{open\;in}\;}
-    \newcommand{\st}{\;\mathrm{s.t.}\;}
-    \newcommand{\ie}{\;\mathrm{i.e.,}\;}
-
-% 重定义命令
-\renewcommand{\hom}{\mathop{Hom}}
-\renewcommand{\vec}{\boldsymbol}
-\renewcommand{\and}{\;\text{and}\;}
-
-% 编号
-\newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
-\newcommand{\rmnum}[1]{\romannumeral #1}
+\input{../_NoteHead.tex}
 
 \newcommand{\adele}[1]{\mathbb{A}_{#1}}
 \newcommand{\idele}[1]{\mathbb{A}_{#1}^{\times}}
@@ -109,11 +16,8 @@
 \DeclareMathOperator{\vol}{vol}
 \newcommand{\e}{\mathrm{e}}
 \newcommand{\frp}{\mathfrak{p}}
-\DeclareMathOperator{\disc}{disc}
-\DeclareMathOperator{\res}{res}
 \DeclareMathOperator{\cl}{Cl}
 
-\newcommand{\myit}{$\diamond$}
 
 \title{Notes on Algebraic Number Theory}
 \author{LEI Bichang}

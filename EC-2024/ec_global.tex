@@ -1,0 +1,201 @@
+\section{Elliptic Curves over Global Fields}
+
+\subsection{Mordell-Weil Theorem}
+\begin{theorem}
+    Ler $K$ be a number field, $E$ an elliptic curve over $K$.
+    Then $E(K)$ is of finite type.
+\end{theorem}
+Consequently, \[E(K) = \Z^r\oplus E(K)_\tor.\]
+We call $r\in\Z_{\ge 0}$ the \textbf{rank} of $E/K$.
+\begin{remark}
+    In contrast, if $K$ is a local field (here we mean $K = \R, \C$ or a finite extension of $\Q_p$) or algebraically closed,
+    then $E(K)$ is NOT finitely generated. See DM5.
+\end{remark}
+
+\subsection{Step 1 - A Special Case: \texorpdfstring{$E/\Q$, $E(\Q)[2]\ne 0$}{E/Q, E(Q)[2] ne 0}}
+Take an elliptic curve $E : y^2 = A(x)$ with some rational $2$-torsion point on it,
+namely $A(x_0) = 0$ for an $x_0\in\Q$.
+Translating \& scaling if necessary, we assume $A(X)\in\Z[X]$ and $x_0 = 0$,
+so that $(0, 0)\in E(\Q)[2]$, and then write
+\[E : y^2 = x(x^2 + ax + b),\quad a, b\in\Z,\ b\ne 0\footnotemark, a^2 - 4b\ne 0\]
+\footnotetext{Because $A(X)$ can't have multiple roots.}
+
+\subsubsection*{Determine \texorpdfstring{$E' = E/\gene{(0, 0)}$}{E' = E/<(0, 0)>}}
+
+Define \[t : E\to E\quad P\mapsto P + (0, 0).\]
+This is an involution over $\Q$ of algebraic curves, thus induces an involution
+\[t^* : \Q(E)\to \Q(E).\]
+The quotient map $E\to E/\gene{(0, 0)}$ is induced by $t$,
+so $K(E/\gene{(0, 0)})$ is isomorphic to the subfield of $K(E)$ fixed by $t^*$.
+
+Let $P = (x, y)\in E$, $P_1 = (x_1, y_1) = t(P)$.
+What is $P_1$? The line through $P$ and $(0, 0)$ takes the form
+\[L : \begin{cases}
+    X = \lambda x,\\ Y = \lambda y,
+\end{cases},\quad \lambda\in\bar\Q,\]
+and intersects $E$ also at $-P_1 = (x_1, -y_1)$\footnote{
+    $E$ is not in short Weierstrass equation.
+    For a long Weierstrass equation,
+    \[-P = \left( x, -y-a_1x-a_3 \right).\]
+}.
+Hence \[-\frac{y_1}{x_1} = \frac{y}{x},\implies \left( \frac{y_1}{x_1} \right)^2 = \left( \frac{y }{x } \right)^2.\]
+One checks that \[f := \left( \frac{y }{x } \right)^2\in \Q(E)\]is invariant under $t^*$.
+
+(Why do) We need another function invariant under $t^*$.
+Observe that \[g := y + y_1\in\Q(E)^{t^* = \Id},\]
+because $t$ has order $2$.
+Now $f, g$ must have algebraic relation.
+Begin by compute $P_1$.
+Subsituting $L$ into $E$,
+we get \[L\cap E : \lambda(x^3\lambda^2 + (ax^2 - y^2)\lambda + bx) = 0.\]
+Here $\lambda = 0$ corresponds to $(0, 0)$,
+and $\lambda = 1$ corresponds to $P$.
+Denote by $\lambda = \lambda_1$ the parameter of $-P_1$,
+then \[1\cdot \lambda_1 = \dfrac{b }{x^2},
+\quad\implies\begin{cases}
+    x_1 = \dfrac{b }{x},\\ y_1 = -\dfrac{by}{x^2},
+\end{cases}\]
+\begin{align*}
+    \implies g^2 = \left( y - \frac{by}{x^2} \right)^2
+    = \frac{y^2}{x^2}\left( x^2 - 2b + \frac{b^2}{x^2} \right).
+\end{align*}
+As \[f = \left( \frac{y}{x} \right)^2 = \frac{x^2+b}{x} + a,\]
+we have \begin{align*}
+    g^2 = f\left( \left( \frac{x^2+b}{x} \right)^2 - 4b \right) = f\left( (f-a)^2 - 4b \right).
+\end{align*}
+Therefore, we get a rational map\[\phi := (f, g) : E\to E',\]
+where \[E' : y'^2 = x'(x'^2 + a_1x' + b_1),\quad\begin{cases}
+    a_1 = -2a \\ b_1 = a^2 - 4b
+\end{cases}\in\Z.\]
+Because $\ord_O(x) = -2$ and $\ord_O(y) = -3$, we have $\ord_O(f) = -2$ and $\ord_O(g) = -3$.
+So $\phi$ sends $O$ to \begin{align*}
+    \phi(O) = \left[ f(O) : g(O) : 1 \right] = [0 : 1 : 0] = O'.
+\end{align*}
+Moreover, \[\phi(P) = O\implies f(P) = \infty\iff P = O\text{ or } P = (0, 0),\]
+hence $\phi$ is a non-constant isogeny.
+The field $\Q$ has characteristic $0$, so $\phi$
+is separable, and $\deg \phi = \#\ker\phi = 2$.
+Comparing degree shows that \[\Q(E')\simeq\Q(f, g) = \Q(E)^{t^* = \Id}.\]
+
+\subsection*{Study $E\to E'\to E$}
+The curve $E'$ takes a much similar form to $E$,
+so we can do the same thing again, and get an isogeny \[\psi : E'\to E''\]
+of degree $2$ with $\ker\psi = \{O, (0, 0)\}$, and \begin{align*}
+    E'' : y''^2 = x''(x''^2  + 4ax'' + 16b ).
+\end{align*}
+This time $E''$ is isomorphic to $E$ via \(\begin{cases}
+    x = x''/4, \\ y = y''/8.
+\end{cases}\)
+So we obtain an endomorphism $E\to E$ given by $\psi\circ\phi$, whose kernel is $\ker (\psi\circ\phi) = E[2]$,
+because \[\phi^{-1}((0, 0)) = \{(x, y)\in E = E(\bar\Q)\mid x^2 + ax + b = 0\} = \text{ the other 2-torsion points on }E.\]
+Moreover, $\aut(E) = \{[\pm 1]\}$;
+one verifies this by noting that: an automorphism is just a change of variable $(u; r, s, t)$ with $u$ invertible that fixes the equation.
+Hence $\psi\circ\phi = [\pm 2]$,
+and $\psi(\phi(E)) = 2E$.
+
+\subsection*{Study \texorpdfstring{$\phi(E)\subset E'$}{phi(E)}}
+% Let $P = (x, y)\in E$ and $\phi(P) = (u, v)\in E'$.
+% We express $(x, y)$ in terms of $(u, v)$.
+% By definition,\[\begin{cases}
+%     u = \dfrac{y^2}{x^2}, \\ v = x + \dfrac{b}{x} + a.
+% \end{cases}\]
+\begin{lemma}
+    If $(u, v)\in E'(\Q)$,
+    then \[(u, v)\in\phi(E(\Q))\iff u\in(\Q^\times)^2\text{ or }\begin{cases}
+        u = 0, \\ a^2 - 4b\in (\Q^\times)^2.\qedhere
+    \end{cases}\]
+\end{lemma}
+
+This suggests us to consider \[q : E'(\Q)\to\Q^\times/(\Q^\times)^2\quad \begin{aligned}
+    (u, v) &\mapsto\begin{cases}
+        [u], & u\ne 0,\\ [a^2 - 4b], & u = 0
+    \end{cases}\\
+    O&\mapsto [1].
+\end{aligned}\]
+
+\begin{lemma}
+    $q$ is a group homomorphism.
+\end{lemma}
+\begin{proof}
+    We need to prove: if $P_1, P_2, P_3\in E'(\Q)$ and $P_1 + P_2  + P_3 = O$,
+    then \[q(P_1)q(P_2)q(P_3) \in \left( \Q^\times \right)^2.\]
+    Not hard.
+\end{proof}
+
+So we can write $\phi(E(\Q)) = \ker q$.
+\begin{lemma}\label{E'(Q) to Q/Q2 has finite image}
+    The image of $q$ is finite.
+\end{lemma}
+\begin{proof}
+    Any element in $\Q^\times/(\Q^\times)^2$ can be written \textit{uniquely} as $[r]$,
+    where $r\in\Z$ and $r$ is square-free.
+    We show that: \[[r]\in\im q\implies r\mid b_1.\]
+    
+    Assume that $(u, v)\in E'(\Q)$, and $q((u, v)) = [r]$,
+    where $r\in\Z$ is square free.
+    No matter $u = 0$ or not,\[\exists s, t\in\Q,\quad \begin{cases}
+        u = rt^2,\\u^2 + a_1u + b_1 = rs^2.
+    \end{cases}\]
+    Write \[t = \dfrac{l}{m}, \quad l, m\in\Z,\  (l, m) = 1.\]
+    Elliminating $u$ in the above equation, we get\begin{equation}\label{eq: a condition on phi(E(Q))}
+        r^2l^4 + a_1rl^2m^2 + b_1m^4 = rn^2,\quad\text{where }n := m^2s.
+    \end{equation}
+    The LHS is in $\Z$ and it is not square-free,
+    yet $r$ is square-free, so $n = m^2s\in\Z$.
+    Suppose that there is a prime $p\mid r$ but $p\nmid b_1$.
+    From \cref{eq: a condition on phi(E(Q))},
+    we have \begin{align}
+        p\mid b_1m^4\stackrel{p\nmid b_1}{\implies}
+        p\mid m\implies
+        p^2\mid rn^2\stackrel{r\text{ square-free}}{\implies}
+        p\mid n\implies
+        p^3\mid r^2l^4\implies
+        p\mid l,
+    \end{align}
+    contradicting $(l , m) = 1$.
+\end{proof}
+
+
+
+Therefore, we deduce that:\begin{theorem}
+    $E'(\Q)/\phi(E(\Q))\simeq \im q$ is finite.
+\end{theorem}
+
+\begin{corollary}[a special case of weak Mordell-Weil]
+    $E(\Q)/2E(\Q)$ is finite.
+\end{corollary}
+
+\subsection*{Some remarks}
+This proof is not effective in general; i.e,
+it doesn't always give generators of $E(\Q)/2E(\Q)$.
+But there is something we can say.
+
+We try to find $(u, v)$ with $q((u, v)) = [r]$.
+one need to first solve
+\cref{eq: a condition on phi(E(Q))}, namely
+\[r^2l^4 + a_1rl^2m^2 + b_1m^4 = rn^2.\]
+\cref{E'(Q) to Q/Q2 has finite image} tells us that $r\mid b_1$,
+so there are finitely many equations.
+There is no algorithm to solve it, so this method is not effective.
+But we can mod $p$ to show it has no solution.
+\begin{example}
+    $E : y^2 = x(x^2 - x + 6)$.
+\begin{itemize}
+\item Determine $E'(\Q)/\phi(E(\Q))$.\par
+We have $a = -1$, $b = 6$, $a_1 = -2a = 2$, $b_1 = a^2 - 4b = -23$,
+$\implies r\mid 23, \implies$ \[r = \pm1,\pm 23.\]
+
+
+\end{itemize}
+    
+\end{example}
+
+
+
+
+
+
+
+\subsection{Step 1 - General Case}
+
+\subsection{Step 2 - For \texorpdfstring{$E/\Q$}{E/Q}}

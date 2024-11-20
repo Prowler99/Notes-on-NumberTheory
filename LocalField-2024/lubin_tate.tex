@@ -107,7 +107,7 @@ and $f\in\Hom(F, G)$, we define the \textbf{height} of $f$ to be
         \item If $F\in\Hom(F, G)$, $f(X) = g\left( X^{p^h} \right)$, then $g\in\Hom(F^{\frob_{p^h}}, G)$.
 
         Write $F = \sum a_{ij}X^iY^j$, so $F^{\frob_{p^h}}(X) = \sum a_{ij}^{p^h}X^iY^j$. As $\cha k = p$, $F^{\frob_{p^h}}$ is also a formal group over $k$.
-        What left is obvious.
+        What left is obvious.\qedhere
     \end{itemize}
 \end{proof}
 
@@ -270,7 +270,8 @@ Note that \[[\varpi]_f = f.\]
 
 \subsection{Construction of \texorpdfstring{$K_\varpi$}{}}
 Fix an algebraic closure $K^\alg$ of $K$.
-Each $f\in\mathcal{F}_\varpi$ associates to $\mathfrak{m}_{K^\alg}$ an $\O_K$-module structure via \[\alpha +_{F_f}\beta := F_f(\alpha, \beta)\]and \[a\cdot \alpha := [a]_f(\alpha)\footnote{These power serieses converges because they actually falls in a finite extension of $K$.}.\]for $|\alpha| < 1, |\beta| < 1$ and $a\in \O_K$.
+Each $f\in\mathcal{F}_\varpi$ associates to $\mathfrak{m}_{K^\alg}$ an $\O_K$-module structure via \[\alpha +_{F_f}\beta := F_f(\alpha, \beta)\]and
+\[a\cdot \alpha := [a]_f(\alpha).\]for $|\alpha| < 1, |\beta| < 1$ and $a\in \O_K$.
 We denote this $\O_K$-module by $\Lambda_f$.
 If $g\in\mathcal{F}_\pi$, then the canonical isomorphism $[1] : F_f\to F_g$ yields an isomorphism of $\O_K$-modules $\Lambda_f\isomto\Lambda_g$.
 
@@ -286,7 +287,8 @@ If one takes $f$ to be an Eisenstein polynomial, then all the roots of $f^{(n)}$
     then $M_n\simeq \O_K/\varpi^n$.
 \end{lemma}
 \begin{proof}
-    Do induction on $n$. The structure theorem of f.g.\! modules over a PID shows that $M_1$ having $q$ elements implies that $M_1\simeq A/\varpi$.
+    Do induction on $n$. The structure theorem of f.g.\! modules over a PID shows that:
+    if $M_1$ having $q$ elements, then $M_1\simeq A/\varpi$.
     Now assume it true for $n-1$.
     Look at the sequence \[0\to M_1\to M_n\stackrel{\varpi}{\to} M_{n-1}\to 0.\] Surjectivity of $\varpi$ implies the exactness of this sequence, and thus $M_n$ has $q^n$ elements. In addition, $M_n$ must be cyclic, otherwise $M_1 = M_n[\varpi^n]$ is not cyclic.
 \end{proof}

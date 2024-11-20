@@ -1,0 +1,129 @@
+\section{Group Cohomology}
+Recall that for a group $G$ and a $G$-mod $M$,
+we define \begin{align*}
+    H^1(G, M) = \frac{Z^1(G, M )}{B^1(G, M )}
+    = \frac{\{f  :G\to M\mid f(ab) = af(b) + f(a)\}}{\{g\mapsto gm - m\mid m\in M \}}.
+\end{align*}
+We apply this construction to:\begin{itemize}
+    \item $G = $ a congruence subgroup $\Gamma < \SL_2(\Z)$,
+    \item $M = V_n(R)$ as follows. Let $R$ be a ring, $n\in\Z_{\ge 1}$.
+    Define \[R[X, Y]_n := \{\text{homogeneous polynomials of degree }n\},\]
+    a free $R$-module of rank $n+1$.
+    The monoid $\mathrm{M}_2(\Z)\cap\GL_2(\Q)^+$ acts on $R[X, Y]_n$ by
+    \[\left( \begin{pmatrix}
+        a & b\\ c & d
+    \end{pmatrix}P \right)(X, Y) := P\left( \begin{pmatrix}
+        X & Y 
+    \end{pmatrix} \begin{pmatrix}
+        a & b \\ c & d
+    \end{pmatrix}\right) = P(aX + cY, bX + dY);\]
+    this is the \textit{left} action on $R[X, Y]\hookrightarrow \{\text{function } R\times R\to R\}$
+    induced by the \textit{right} action on $R\times R$.
+    \par $\leadsto V_n(R) := R[X, Y]_n$ with its $\SL_2(\Z)$-action.
+
+    Note that $V_n(R)\simeq \mathrm{Sym}^nR^2$, where $R^2$ is equipped with the standard $\SL_2(\Z)$-action.
+\end{itemize}
+We will show that $H^1(\Gamma, V_n(\C))$ ``resembles''
+a space of modular forms. It has an integral structure
+\[H^1(\Gamma, V_n(\Z))\hookrightarrow H^1(\Gamma, V_n(\C)),\]
+which could give rise to the $\Z$-lattice we used in the last section.
+\begin{proposition}
+    If $S$ is flat over $R$, then as $S$-modules,
+    \[H^1(\Gamma, V_n(S))\simeq H^1(\Gamma, V_n(R))\otimes_R S. \]
+\end{proposition}
+% \begin{proof}
+% Flatness of $R\to S$ yields an exact sequence
+% \[0\to B^1_R\otimes_RS\to Z^1_R\otimes_RS\to H^1_R\otimes_RS\to 0.\]
+% \begin{itemize}
+% \item $B^1_R\otimes_RS\simeq B^1_S$.\par
+% For $P\in V_n(R)$, define $\alpha_P\in B^1_R$ by
+% \[\alpha_P(g) := gP - P,\quad g\in\Gamma.\]
+% The embedding $B^1_R\hookrightarrow C^1_R$ gives an embedding $B^1_R\otimes_R S\hookrightarrow C^1_R\otimes_RS$.
+% As symmetric powers are preserved by base change,
+% $V_n(R)\otimes_R S \simeq V_n(S)$ as $S$-modules.
+% Since $R\to S$ is flat,
+% \[C^1_R\otimes_R S =\left( \prod_\Gamma V_n(R) \right)\otimes_R S
+% \simeq \prod_\Gamma\left( V_n(R)\otimes_R S  \right) \simeq C^1_S.\]
+% Finally, the image of $B_R^1\otimes S\to C^1_R\otimes_R S \simeq C^1_S$
+% is the set of finite sum\[\sum_{i}s_i\alpha_{P_i} = \alpha_{\sum_i s_iP_i},\quad s_i\in S, P_i\in V_n(R),\]
+% which is exactly $B^1_S$.
+
+% \item $Z^1_R\otimes_R S \simeq Z^1_S$.\par
+% Again, this is equivalent to
+% $\im (Z^1_R\otimes_RS\to C_S^1) = Z_S^1$.
+% Let $f\in Z_S^1$.
+% Since $\Gamma$ is finitely generated, the cocycle $f$ is determined by its values on a finite set of generators $\{g_1, \dots, g_r\}$ of $\Gamma$.
+% Now for $g\in \Gamma$,
+% write \[f(g) = \sum_{i=0}^{n}s_i(g)X^iY^{n-i}.\]
+
+
+
+
+
+
+% \end{itemize}
+
+
+% \end{proof}
+
+\subsection{The Eichler-Shimura map}
+Define the space of \textbf{anti-holomorphic cusp forms}
+\[\overline{S_k(\Gamma)} := \{z\mapsto \overline{f(z)}\mid f\in S_k(\Gamma)\}.\]
+
+\begin{definition}
+    For $n\ge 0$, $u, v\in \mathcal{H}$, $f\in M_{n+2}(\Gamma)$,
+    define \begin{align*}
+        I_f(u, v) &:= \int_u^v f(z) (Xz + Y)^n dz\\
+        I_{\bar{f}}(u, v) &:=
+        \int_u^v \overline{f(z)}(X\bar{z} + Y)^n dz.
+    \end{align*}
+    These integrals are in $V_n(\C)$.
+\end{definition}
+\begin{lemma}\label{lem: property of If(u v)}
+    Let $f\in M_{n+2}(\Gamma)$ or $S_{n+2}(\Gamma)$, $u, v, w\in\mathcal{H}$.\begin{itemize}
+        \item $I_f(u, w) = I_f(u, v) + I_f(v, w)$.
+        \item If $\gamma\in \mathrm{M}_2(\Z)\cap\GL_2(\Q)^+$,
+        then \[I_f(\gamma u, \gamma v) = \left( \det g \right)^{-n}\gamma I_{f\mid_{n+2}\gamma}(u, v).\]
+        In particular, if $\gamma\in\Gamma$, then \[I_f(\gamma u, \gamma v) = \gamma I_f(u, v).\]
+    \end{itemize}
+\end{lemma}
+\begin{proof}
+    The first identity is a part of definition of integral.
+    We compute the second.
+    \begin{align*}
+        I_f(\gamma u, \gamma v) = 
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    The map
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJNX3tuKzJ9KFxcR2FtbWEpXFxvcGx1cyBcXG92ZXJsaW5le1Nfe24rMn0oXFxHYW1tYSl9Il0sWzEsMCwiSF4xKFxcR2FtbWEsIFZfbihcXEMpKSJdLFswLDEsIihmLCBcXGJhcntnfSkiXSxbMSwxLCJcXGxlZnQoIFxcZ2FtbWFcXG1hcHN0byBJX2YoYSwgXFxnYW1tYSBhKSArIElfe1xcYmFye2d9fShiLCBcXGdhbW1hIGIpIFxccmlnaHQpIl0sWzAsMV0sWzIsMywiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
+\[\begin{tikzcd}
+	{M_{n+2}(\Gamma)\oplus \overline{S_{n+2}(\Gamma)}} & {H^1(\Gamma, V_n(\C))} \\
+	{(f, \bar{g})} & {\left( \gamma\mapsto I_f(a, \gamma a) + I_{\bar{g}}(b, \gamma b) \right)}
+	\arrow[from=1-1, to=1-2]
+	\arrow[maps to, from=2-1, to=2-2]
+\end{tikzcd}\]
+where $a, b\in\mathcal{H}$ are arbitarily chosen, is a well-defined isomorphism, called the \textbf{Eichler-Shimura map}.
+\end{theorem}
+It won't be proved in this course that this is an isomorphism.
+\begin{proof}
+    [Proof that this is well defined]
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

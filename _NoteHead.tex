@@ -1,24 +1,44 @@
-\documentclass{article}
+% \documentclass{article}
 \usepackage{fontspec}
 \usepackage{amsmath, amssymb, amsthm, amsbsy, mathrsfs}
 \usepackage{stmaryrd}
 \usepackage{enumerate}
+
+\usepackage{xr-hyper} % 支持跨文件的超链接
 \usepackage[colorlinks,
 linkcolor=cyan,
 anchorcolor=blue,
 citecolor=blue,
 ]{hyperref}
 \usepackage[capitalize]{cleveref}
+
+\externaldocument[UND-]{../Undergrad/something}
+\externaldocument[ANT-]{../ANT-2022-summer/note_summer_ANT}
+\externaldocument[EC-]{../EC-2024/notes_elliptic_curves}
+\externaldocument[LF-]{../LocalField-2024/notes_cft}
+\externaldocument[MF-]{../ModularForm-2024-fall/note_modularForm}
+
 \usepackage[margin = 1in, headheight = 12pt]{geometry}
 \usepackage{bbm}
 \usepackage{tikz-cd}
 
+% \setmainfont{Arial}
+
 \linespread{1.2}
+
+\theoremstyle{definition}
 
 \newtheorem{theorem}{Theorem}
 
-\theoremstyle{definition}
+% This environment is terrible
+\newenvironment{theoremprime}[1]
+  {\renewcommand{\thetheorem}{\ref{#1}$'$}%
+   \addtocounter{theorem}{-1}%
+   \begin{theorem}}
+  {\end{theorem}}
+
 \newtheorem{definition}{Definition}
+\newtheorem{propdef}[definition]{Prop-Def}
 \newtheorem{exercise}{Exercise}[section]
 \newtheorem{problem}{Problem}
 \newtheorem{example}{Example}
@@ -31,6 +51,9 @@ citecolor=blue,
 
 \renewcommand{\Re}{\mathop{\mathrm{Re}}}
 \renewcommand{\Im}{\mathop{\mathrm{Im}}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
 
 % 新命令
 % 数学对象
@@ -43,83 +66,83 @@ citecolor=blue,
     \newcommand{\p}{\mathfrak{p}}
     \renewcommand{\P}{\mathbb{P}}
     \newcommand{\A}{\mathbb{A}}
+    \newcommand{\Ga}{{\mathbb{G}_{\mathrm{a}}}}
+    \newcommand{\Gm}{{\mathbb{G}_{\mathrm{m}}}}
 % 集合
-    \newcommand{\sminus}{\smallsetminus} %(集合)差
+    \newcommand{\sminus}{\smallsetminus} % (集合)差
+    \newcommand{\inject}{\hookrightarrow} % 单射
+    \newcommand{\surject}{\twoheadrightarrow}
 % 范畴
-    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} %反范畴
-    \DeclareMathOperator{\enom}{End} %自态射
-    \DeclareMathOperator{\isom}{Isom} %同构
-    \DeclareMathOperator{\aut}{Aut} %自同构
-    \DeclareMathOperator{\im}{im} %像
-    \newcommand{\Set}{\mathbf{Set}} %集合范畴
-    \newcommand{\Abel}{\mathbf{Ab}} %群范畴
+    \newcommand{\op}[1]{{#1}^{\mathrm{op}}} % 反范畴
+    \DeclareMathOperator{\Hom}{Hom}
+    \DeclareMathOperator{\enom}{End} % 自态射
+    \DeclareMathOperator{\End}{End} % 自态射
+    \DeclareMathOperator{\isom}{Isom} % 同构
+    \DeclareMathOperator{\aut}{Aut} % 自同构
+    \DeclareMathOperator{\im}{im} % 像
+    \newcommand{\Set}{\mathbf{Set}} % 集合范畴
+    \newcommand{\Abel}{\mathbf{Ab}} % 群范畴
     \newcommand{\Ring}{\mathbf{Ring}}
     \newcommand{\Cring}{\mathbf{CRing}}
     \newcommand{\Alg}{\mathbf{Alg}}
     \newcommand{\Mod}{\mathbf{Mod}}
     \DeclareMathOperator{\Id}{id}
 %向量空间, 矩阵
-    \DeclareMathOperator{\rank}{rank} %秩
-    \DeclareMathOperator{\tr}{Tr} %迹
-    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} %转置
-    \newcommand{\ctran}[1]{{#1}^{\dagger}} %共轭转置
-    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} %逆转置
-    \newcommand{\ictran}[1]{{#1}^{-\dagger}} %逆共轭转置
-    \DeclareMathOperator{\codim}{codim} %余维数
-    \DeclareMathOperator{\diag}{diag} %对角阵
-    \newcommand{\norm}[1]{\left\| #1\right\|} %范数
-    \DeclareMathOperator{\lspan}{span} %张成
-    \DeclareMathOperator{\sym}{\mathfrak{Y}}
+    \DeclareMathOperator{\rank}{rank} % 秩
+    \DeclareMathOperator{\tr}{Tr} % 迹
+    \newcommand{\tran}[1]{{#1}^{\mathrm{T}}} % 转置
+    \newcommand{\ctran}[1]{{#1}^{\dagger}} % 共轭转置
+    \newcommand{\itran}[1]{{#1}^{-\mathrm{T}}} % 逆转置
+    \newcommand{\ictran}[1]{{#1}^{-\dagger}} % 逆共轭转置
+    \DeclareMathOperator{\codim}{codim} % 余维数
+    \DeclareMathOperator{\diag}{diag} % 对角阵
+    \newcommand{\norm}[1]{\left\| #1\right\|} % 范数
+    \DeclareMathOperator{\lspan}{span} % 张成
 % 群
-    \DeclareMathOperator{\inn}{Inn} %(群)内自同构
-    \newcommand{\nsg}{\vartriangleleft} %正规子群
-    \newcommand{\gsn}{\vartriangleright} %正规子群
-    \DeclareMathOperator{\ord}{ord} %元素的阶
-    \DeclareMathOperator{\stab}{Stab} %稳定化子
-    \DeclareMathOperator{\sgn}{sgn} %符号函数
+    \DeclareMathOperator{\inn}{Inn} % (群)内自同构
+    \newcommand{\nsg}{\vartriangleleft} % 正规子群
+    \newcommand{\gsn}{\vartriangleright} % 正规子群
+    \DeclareMathOperator{\ord}{ord} % 元素的阶
+    \DeclareMathOperator{\stab}{Stab} % 稳定化子
+    \DeclareMathOperator{\sgn}{sgn} % 符号函数
 % 环, 域
-    \DeclareMathOperator{\cha}{char} %特征
-    \DeclareMathOperator{\spec}{Spec} %素谱
-    \DeclareMathOperator{\maxspec}{MaxSpec} %极大谱
-    \DeclareMathOperator{\gal}{Gal}
+    \DeclareMathOperator{\cha}{char} % 特征
+    \DeclareMathOperator{\spec}{Spec} % 素谱
+    \DeclareMathOperator{\maxspec}{MaxSpec} % 极大谱
+    \newcommand{\spm}{\maxspec} %极大谱
+    \DeclareMathOperator{\gal}{Gal} % Galois群
+    \DeclareMathOperator{\Gal}{Gal} % Galois群
+    \DeclareMathOperator{\Frac}{Frac} % 分式环
+% 同调代数
+    \DeclareMathOperator{\ext}{Ext} 
+    \DeclareMathOperator{\Tor}{Tor}
 % 微积分
-    % \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
+    \newcommand*{\dif}{\mathop{}\!\mathrm{d}} %(外)微分算子
 % 流形
     \DeclareMathOperator{\lie}{Lie}
 %代数几何
-    \DeclareMathOperator{\proj}{Proj}
+    \DeclareMathOperator{\proj}{Proj} % 射影谱
 %多项式
-    \DeclareMathOperator{\disc}{disc} %判别式
-    \DeclareMathOperator{\res}{res} %结式
-
+    \DeclareMathOperator{\disc}{disc} % 判别式
+    \DeclareMathOperator{\res}{res} % 结式
 % 结构简写
-    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} %偏微分式
-    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} %有向同构
-    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} %生成对象
+    \newcommand{\pdfrac}[2]{\dfrac{\partial #1}{\partial #2}} % 偏微分式
+    \newcommand{\isomto}{\stackrel{\sim}{\rightarrow}} % 有向同构
+    \newcommand{\gene}[1]{\left\langle #1 \right\rangle} % 生成对象
 % 文字缩写
     \newcommand{\opin}{\;\mathrm{open\;in}\;}
     \newcommand{\st}{\;\mathrm{s.t.}\;}
     \newcommand{\ie}{\;\mathrm{i.e.,}\;}
 
 % 重定义命令
-\renewcommand{\hom}{\mathop{Hom}}
+\renewcommand{\hom}{\mathop{\mathrm{Hom}}}
 \renewcommand{\vec}{\boldsymbol}
 \renewcommand{\and}{\;\text{and}\;}
 
 % 编号
 \newcommand{\cnum}[1]{$#1^\circ$} %右上角带圆圈的编号
 \newcommand{\rmnum}[1]{\romannumeral #1}
-
-
 \newcommand{\myit}{$\diamond$}
 
-\title{}
-\author{}
-
-\begin{document}
-\maketitle
-
-\section{}
-
-
-\end{document}
+% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+%     cells={nodes={scale=#1}}}}

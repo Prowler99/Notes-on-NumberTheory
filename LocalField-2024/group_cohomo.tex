@@ -1,17 +1,22 @@
 \section{Group Cohomology}
+In this section we fix a commutative ring $\K$.
 \subsection{Cohomology}
-Let $G$ be a group. A \textbf{$G$-module} is an abelian group together with an additive \textit{left} $G$-action. Hence the category of $G$-modules is isomorphic to the category of $\Z[G]$-modules.
+Let $G$ be a group. A \textbf{$G$-module} with coefficients in $\K$ is a $\K$-module together with a $\K$-linear \textit{left} $G$-action. Hence the category of $G$-modules with coefficients in $\K$ is isomorphic to the category of $\K[G]$-modules.
+\begin{remark}
+    In particular, a $G$-module with coefficients in $\Z$ is an abelian group with additive left $G$-action. 
+\end{remark}
+
 \begin{example}
 We list some important constructions of $G$-modules here.
 \begin{enumerate}[(a)]
-    \item The \textbf{trivial $G$-module} is $\Z$ with the trivial $G$-action.
-    \item The group ring $\Z[G]$ is a $G$-module with $G$ acting by left-multiplication.
-    \item Direct sum and product. Both direct sums and products for $G$-modules as abelian groups can be lifted to $G$-modules, by giving $G$-action diagonally.
-    \item Tensor products. For $M, N\in \Mod_G$, define $M\otimes N\in \Mod_G$ to be $M\otimes_\Z N$ with the diagonal $G$-action \[g(x\otimes y) := gx\otimes gy,\quad x\in M, y\in N.\]
-    \item Hom module. For $M, N\in\Mod_G$, define $\hom(M, N)\in \Mod_G$ to be $\hom_{\Z}(M, N)$ with the $G$ acting ``conjugately'': \[(gf)(x) := g f(g^{-1}x),\quad f\in\Hom_\Z(M, N), x\in M.\]
+    \item The \textbf{trivial $G$-module} is $\K$ with the trivial $G$-action.
+    \item The group ring $\K[G]$ is a $G$-module with $G$ acting by left-multiplication.
+    \item Direct sum and product. Both direct sums and products for $G$-modules as $\K$-modules can be lifted to $G$-modules, by giving $G$-action diagonally, i.e, \[g((m_i)_i) := \left( (gm_i)_i \right).\]
+    \item Tensor products. For $M, N\in \Mod_G$, define $M\otimes N\in \Mod_G$ to be $M\otimes_\K N$ with the diagonal $G$-action \[g(x\otimes y) := gx\otimes gy,\quad x\in M, y\in N.\]
+    \item Hom module. For $M, N\in\Mod_G$, define $\hom(M, N)\in \Mod_G$ to be $\hom_{\K}(M, N)$ with $G$ acting ``by conjugation'': \[(gf)(x) := g f(g^{-1}x),\quad f\in\Hom_\K(M, N), x\in M.\]
     \begin{itemize}
         \item We have \[\Hom_G(M, N) = \Hom(M, N)^G\] as $G$-modules.
-        \item The adjoint $L\otimes_\Z (-) \dashv \Hom_\Z(L, -)$ in $\Abel$ holds in $\Mod_G$, i.e,
+        \item The adjoint $L\otimes_\K (-) \dashv \Hom_\K(L, -)$ in $\Mod_\K$ holds in $\Mod_G$, i.e,
 \[\begin{tikzcd}
 	{\Hom(L\otimes M,N)} & {\Hom(L, \Hom(M, N))} \\
 	\varphi & {x\mapsto y\mapsto\varphi(x\otimes y)} \\
@@ -21,23 +26,26 @@ We list some important constructions of $G$-modules here.
 	\arrow[maps to, from=3-2, to=3-1]
 \end{tikzcd}\]
     are isomorphisms of $G$-modules.
+    \begin{remark}
+        The $K$-modules $M\otimes_\K N$ and $\hom_\K(M, N)$ with their $G$-module structures are \textit{NOT} the tensor product or $\Hom$-set in $\K[G]$-module.
+    \end{remark}
     \end{itemize}
-    \item Induced module. Let $H < G$ be a subgroup, $N$ a $H$-module. Then $\Ind_H^G N$ is the abelian group of $H$-invariant functions $G\to N$, i.e., \[\Ind_H^G N := \{\varphi : G \to N\mid \varphi(hg) = h\varphi(g),\;\forall h\in H, g\in G\}\simeq\Hom_H(\Z[G], N).\]
+    \item Induced module. Let $H < G$ be a subgroup, $N$ a $H$-module. Then $\Ind_H^G N$ is the $K$-module of $H$-invariant functions $G\to N$, i.e., \[\Ind_H^G N := \{\varphi : G \to N\mid \varphi(hg) = h\varphi(g),\;\forall h\in H, g\in G\}\simeq\Hom_H(\K[G], N).\]
     The group $G$ acts on $\Ind_H^G N$ from the left by \[(g\varphi)(x) := \varphi(xg).\]
     We obtain a functor $\Ind_H^G : \Mod_H\to\Mod_G$ by sending $\alpha : N\to N'$ to \[\alpha_* : \Ind_H^G N\to\Ind_H^G N' := \varphi\mapsto\alpha\circ\varphi.\]
     \begin{itemize}
-        \item $\Ind_H^G$ is right adjoint to the forgetful functor $\Mod_G\to\Mod_H$. The isomorphism is given by
+        \item $\Ind_H^G$ is \textit{right adjoint to the forgetful functor} $\Mod_G\to\Mod_H$. The isomorphism is given by
         \[\begin{tikzcd}
             {\Hom_G\left(M, \Ind_H^GN\right)} & {\Hom_H(M, N)} \\
             \alpha & {x\mapsto \alpha(x)(1_G)} \\
             {\left[ x\mapsto (g\mapsto \beta(gx) \right]} & \beta
             \arrow["\sim", leftrightarrow, from=1-1, to=1-2]
             \arrow[maps to, from=2-1, to=2-2]
-            \arrow[from=3-2, to=3-1]
+            \arrow[maps to, from=3-2, to=3-1]
         \end{tikzcd}\]
         where $M\in \Mod_G$, $N\in \Mod_H$.
         \item $\Ind_H^G$ is an exact funtor.
-        \item For any abelian group, we define \[\Ind^G M := \Ind_{\{1\}}^G M =\{\varphi : G\to M\}.\] An \textbf{induced module} is a $G$-module of the form $\Ind^GM$ for some abelian group $M$.
+        \item For any $\K$-module $M$, we define \[\Ind^G M := \Ind_{\{1\}}^G M =\{\varphi : G\to M\}.\] An \textbf{induced module} is a $G$-module of the form $\Ind^GM$ for some $\K$-module $M$.
         \item Let $M$ be a $G$-module. Define $M_* := \Ind^G M$, then we have an embedding \[M\hookrightarrow M_* := x \mapsto [g\mapsto gx]\]of $G$-modules. The exact sequence \begin{equation}
             0\to M\to M_*\to M_\dagger \to 0
         \end{equation} in $\Mod_G$, where $M_\dagger := M_*/M$, will be used many times in ``dimensional shifting''.
@@ -46,7 +54,7 @@ We list some important constructions of $G$-modules here.
 \end{example}
 
 Let $M$ be a $G$-module, $r\ge 0$ a natural number.
-We define the \textbf{ $r$-th cohomology groups of $G$ with coefficients in $M$} to be the value of the $r$-th right derived functor of the left-exact functor \[(-)^G\simeq \Hom_G(\Z, -) : \Mod_G\to\Abel\] at $M$.
+We define the \textbf{ $r$-th cohomology groups of $G$ with coefficients in $M$} to be the value of the $r$-th right derived functor of the left-exact functor \[(-)^G\simeq \Hom_G(\K, -) : \Mod_G\to\Mod_K\] at $M$.
 But for this definition to make sense, we need to show that:
 \begin{lemma}\label{Mod G has enough injectives}
     The category $\Mod_G$ has enough injectives.

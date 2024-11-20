@@ -1,5 +1,6 @@
 \section{Periods}
-
+{\color{red}Question: do we asssume all characters and $G_K$-action continuous?
+}
 \subsection{Periods of Characters}
 
 Let $K$ be an algebraic extension of $\Q_p$,
@@ -15,17 +16,306 @@ then a \textbf{period in $\C_p$ for $\eta$} \[:= \alpha\in\C_p\ \st \eta(g) = \f
         \item In general, for $\alpha\in\C_p$, $g\mapsto \dfrac{g\alpha}{\alpha}$ is a cocycle, but not a character.
     \end{itemize}
 \end{remark}
-\begin{theorem}
+So, what characters has periods in $\C_p$? 
+\begin{theorem}\label{unramified character is Cp-admissible}
     If $\eta : G_K\to\Z_p^\times$ is unramified,
     then $\exists y\in\O_{\widehat{K^\nr}}^\times$, s.t. $\eta(g) = \dfrac{gy }{y}$. 
 \end{theorem}
+Note that if $\alpha\in\C_p$ is a character for an
+unramified character, then
+$\alpha\in \C_p^{I_K} = \widehat{K^\nr}$. 
+\begin{proof}
+    Let $K$ be a finite extension of $\Q_p$ with residue field $k = \F_q$, so that
+    $\sigma = \frob_q\in\gal(K^\nr/K)$ is a generator.
+
+    % Question: do we have\begin{center}
+    %     $\forall x\in\O_{\widehat{K^\nr}}^\times$, $\exists y\in \O_{\widehat{K^\nr}}^\times$, s.t. $x = \dfrac{\sigma(y)}{y}$?
+    % \end{center}
+
+    % This step is used to prove that unramified characters are $\C_p$-admissible, but it seems to hold only for $x\in 1 + \pi\O_{K^\nr}$.
+
+    % My argument: Assume such $y$ exists.
+    % Then modulo $\pi$, \[x = \frac{\sigma(y)}{y} \equiv \frac{y^{q}}{y} = y^{q-1} = 1\]
+    % Assume that $x\in\widehat{K^\nr}\subset\C_p$ is a period for an unramified
+    % character $\eta : G_K\to\Z_p^\times$, namely $\eta(g) = \dfrac{gx}{x}$ for all $g\in G_K$.
+
+    % Let $\sigma\in G_K$ be a lift of $\frob_q\in G_K/I_K = \gal(K^\nr|K)$,
+    % then $g(\sigma^n) = \dfrac{\sigma^nx}{x}$.
+    % In particular,\begin{align*}
+    %     \frac{\sigma^2x}{x} = \eta(\sigma^2) = \eta(\sigma)^2
+    % \end{align*}
+    An unramified character $\eta$ arose from a character \[\eta:\gal(K^\nr/K) = \gene{\frob_q}\to\Z_p^\times.\]
+    Write $\sigma := \frob_q\in G_K/I_K$.
+    Assume that we have found $y$ s.t. $\eta(\sigma) = \dfrac{\sigma y}{y}$.
+    Note that $\eta(\sigma)\in \Z_p^\times\subset K$,
+    so \begin{align*}
+        \eta(\sigma^n) = \eta(\sigma)^n
+        = \prod_{i=0}^{n-1}\sigma^{i}(\eta(\sigma))
+        = \prod_{i=0}^{n-1}\frac{\sigma^{i+1}y }{\sigma^i y}
+        = \frac{\sigma^n y }{y }.
+    \end{align*}
+    By continuity, $\eta(g) = \dfrac{gy }{y}$ for all $g\in G_K$.
+
+    We prove a stronger statement: \begin{center}
+        $\forall x\in\O_{\widehat{K^\nr}}^\times$, $\exists y\in \O_{\widehat{K^\nr}}^\times$, s.t. $x = \dfrac{\sigma(y)}{y}$.
+    \end{center}\par
+    Take $x\in\O_{\widehat{K^\nr}}^\times$.
+    We construct $y_i\in\O_{K^\nr}^\times$ s.t. \[x \equiv {\sigma(y_i)\over y_i}\bmod (1 + \pi^{i}\O_{K^\nr}),\] where $\pi$ is a uniformizer of $K$ (and of $K^\nr$),
+    so that $y = \lim_i y_i\in
+    \varprojlim_{i}\O_{K^\nr}^\times/(1 + \pi^i\O_{K^\nr})
+    = \O_{\widehat{K^\nr}}^\times $ works\footnote{
+        We can alternatively use the additive approximation.
+    }.\par
+    For $y_1$,
+    we need \[0\equiv \frac{x}{\sigma y_1 / y_1}-1
+    \equiv \frac{x}{y_1^{q-1}} - 1\mod \pi.\]
+    That is, $\bar{x} = \bar{y}_1^{q-1}\in\bar{\F}_q$. So choose any $(q-1)$-th root of $\bar{x}$ in the algebraically closed field $\bar{\F}_q$ then lift it to define $y_1$.\par
+    Assume that there is $y_i\in\O_{K^\nr}^\times$ s.t. \[x = \frac{\sigma y_i}{y_i }(1 + \pi^i x_i),\ x_i\in \O_{\widehat{K^\nr}}.\]
+    We search for $y_{i+1} \equiv y_i\bmod(1 + \pi^i\O_{K^\nr})$,
+    so write $y_{i+1} = y_i(1 + \pi^iz_i)$ with $z_i\in\O_{K^\nr}$.
+    Then \[\frac{\sigma y_{i+1}}{y_{i+1}}
+    = \frac{\sigma y_i}{y_i}\frac{1 + \pi^i\sigma z_i }{1 + \pi^iz^i}
+    = \frac{x(1 + \pi^i\sigma z_i)}{(1 + \pi^ix_i)(1 + \pi^iz_i)},\]
+    \[\implies \frac{\sigma y_{i+1}}{y_{i+1}x} - 1 = \frac{(1 + \pi^i\sigma z_i) - (1 + \pi^ix_i)(1 + \pi^iz_i)}{1 + \pi(\cdots)}
+    \equiv \pi^i(\sigma z_i - z_i - x_i)
+    \mod \pi^{i+1}.\]
+    We require that $\dfrac{\sigma y_{i+1}}{y_{i+1}x} - 1\equiv 0\bmod \pi^{i+1}$,
+    so we need\[0\equiv \sigma z_i - z_i - x_i \equiv z_i^q - z_i - x_i\mod \pi.\]
+    So pick a root of $Z^q - Z - \bar{x_i}\in\bar{\F}_q[Z]$ and lift it to define $z_i$.
+\end{proof}
+
+\subsection{Periods of Lubin-Tate Characters - Not Exist}
+Let $K$ be finite over $\Q_p$ and $\pi$ a uniformizer of $K$.
+We study the Lubin-Tate character $\chi_\pi : G_K\to\O_K^\times$ attached to $\pi$.
+For simplicity, assume that $K/\Q_p$ is unramified of degree $h$. In particular, $K/\Q_p$ is Galois with $\gal(K/\Q_p) = \gene{\frob_p} \simeq\Z/h\Z$.
+Put $q := p^h$.
+\subsubsection{Periods of Twisted Lubin-Tate Characters}\label{subsubsec: Periods of Twisted Lubin-Tate Characters}
+Observe that if $\eta : G_K\to\O_K^\times$ is a character, and $\tau : K\hookrightarrow \bar\Q_p$
+is an embedding, then we can twist $\eta$ by $\tau$ to obtain a character $\tau\circ\eta : G_K\to\bar\Q_p^\times$.
+\begin{theorem}\label{nontrivial twist of Lubin-Tate character is Cp-admissible}
+    If $1\le k\le h - 1$,
+    then: $\exists x_k\in\C_p^\times$, s.t.
+    \[\left( \frob_p^k\circ\chi_\pi \right)(g) = \frac{g(x_k )}{x_k },\ \forall g\in G_K.\]
+\end{theorem}
+
+\begin{remark}
+    The proof of \cref{nontrivial twist of Lubin-Tate character is Cp-admissible}
+    works only for \textit{nontrivial} twist;
+    for $k = 0$, it provides $x_0 = 0$.
+    In particular, \cref{nontrivial twist of Lubin-Tate character is Cp-admissible}
+    is vacuous (say nothing) for $K = \Q_p$.
+\end{remark}
+\begin{remark}
+    \cref{nontrivial twist of Lubin-Tate character is Cp-admissible} holds for any $K/\Q_p < \infty$, which is stated as follows.
+\end{remark}
+\begin{theoremprime}
+    {nontrivial twist of Lubin-Tate character is Cp-admissible}
+    % {unramified character is Cp-admissible}
+    If $\Id\ne \tau\in\hom_{\Q_p}(K, \bar\Q_p)$,
+    then $\exists x_\tau\in \C_p^\times$,
+    s.t. \[g(x_\tau) = \tau(\chi_\pi(g))x_\tau,\quad \forall g\in\gal\left(\bar{\Q}_p / K^{\gal}\right),\]
+    where $K^{\gal}$ is the Galois closure of $K$ in $\bar{\Q}_p$.
+\end{theoremprime}
+    
+
+
+In this \cref{subsubsec: Periods of Twisted Lubin-Tate Characters}, let $\sigma := \frob_p\in\gal(K/\Q_p)$.
+Let $F$ be the Lubin-Tate group attached to $\pi$ with \[[\pi](X) = \pi X + X^q.\]
+
+The Galois group $\gal(K/\Q_p)$ acts on $K\llbracket X \rrbracket$ on the coefficients, namely for $f(X) = \sum_{i} f_iX^i\in\llbracket X \rrbracket$ and $\tau\in\gal(K/\Q_p)$,
+\[ f^\tau(X) := \sum_i \tau(f_i) X^i.\]
+
+\begin{lemma}\label{lem: lemma 1 for period of twisted lubin-tate}
+    If $x, y\in\m_{\C_p}$ and $x\equiv y\bmod p^n$,
+    then $[\pi]^\tau(x)\equiv [\pi]^\tau(y)\bmod p^{n+1}$.
+\end{lemma}
+\begin{proof}
+    The series $[\pi](X) = \pi X + X^q$ has only two terms.\begin{itemize}
+\item $\tau(\pi)\in p\O_K$, because $K$ is unramified over $\Q_p$, which implies $\pi \O_K = p\O_K$; and $\tau$ preserves valuation.
+\item If $y = x + p^nz$, then $y^q = (x + p^nz)^q\equiv x^q\bmod p^{n+1}$.\qedhere
+    \end{itemize}
+\end{proof}
+
+Let $\{\pi_n\}_n\subset\m_{\C_p}$ form a generator of the Tate module $T_pF$ (simultaneously, a series of generators for the extensions $K_n = K(F[\pi^n])$ over $K$), i.e, \[[\pi](z_1) = 0,\ z_1\ne 0, \quad [\pi](z_{n+1}) = z_n.\]
+
+\begin{lemma}\label{lem: lemma 2 for period of twisted lubin-tate}
+    The sequence \[\left\{ \left[ \pi^n  \right]^{\sigma^k }\left( z_n^{p^k } \right) \right\}_{n\ge 1}\]
+    converges in $\m_{\C_p}$.
+\end{lemma}
+\begin{proof}
+    Note that \[[\pi]^{\sigma^k}(z_{n + 1}^{p^k})\equiv z_{n+1}^{p^kq}\equiv \left( [\pi](z_{n+1}) \right)^{p^k} = z_{n}^{p^k} \mod p,\]
+    because we have $[\pi](X)\equiv X^q\bmod \pi$,
+    which implies $[\pi]^{\sigma^k}(X)\equiv X^q\bmod \pi$.
+    
+    Since \[(f\circ g)^\tau = f^\tau\circ g^\tau,\]
+    we apply the previous \cref{lem: lemma 1 for period of twisted lubin-tate} $n$-times and get
+    \[\left[ \pi^{n+1}  \right]^{\sigma^k}\left( z_{n+1}^{p^k}  \right)\equiv \left[ \pi^n \right](z_n^{p^k })\mod p^{n+1}.\qedhere\]
+\end{proof}
+
+Let $\displaystyle y_k := \lim_{n\to\infty}\left[ \pi^n  \right]^{\sigma^k }\left( z_n^{p^k } \right)$, the limit of the sequence in the last lemma.
+\begin{lemma}\label{lem: lemma 3 for period of twisted lubin-tate}
+    $v_p(y_k) = 1 + \dfrac{p^k}{q - 1}$.
+\end{lemma}
+\begin{proof}
+    We prove that \[v_p\left( \left[ \pi^n  \right]^{\sigma^k }\left( z_n^{p^k } \right) \right) = 1 + \dfrac{p^k}{q-1} \]constantly.
+
+    $[\pi^n](X)$ is a monic polynomial of degree $q^n$,
+    so \[[\pi^n]^{\sigma^k }\left(z_n^{p^k}\right) = \prod_{[\pi^n]^{\sigma^k}(\omega) = 0}
+    \left( z_n^{p^k} - \omega \right).\]
+
+    (T.B.C.)
+\end{proof}
+
+\begin{lemma}\label{lem: lemma 4 for period of twisted lubin-tate}
+    If $g\in G_K$, then $\displaystyle g(y_k) = \left[ \chi_\pi(g) \right]^{\sigma^k}(y_k)$.
+\end{lemma}
+
+\begin{proof}
+    By the definition of Lubin-Tate character,
+    $g(z_n) = [\chi_\pi(g)](z_n)$
+    because $z_n\in F[\pi^n]$.
+    Hence \[g(z_n^{p^k}) = \left( [\chi_\pi(g)](z_n) \right)^{p^k} 
+    \equiv
+    % \footnotemark{}
+    [\chi_\pi(g)]^{\sigma^k}(z_n^{p^k})\mod p,\]
+    % \footnotetext{
+    %     Note that $f(X)^p\equiv f(X^p)\bmod p$.
+    % }
+    Apply $[\pi]^{\sigma^k}$ to this identity $n$-times via \cref{lem: lemma 1 for period of twisted lubin-tate}, then as we have all commutativity required, taking limits give the desired result.
+\end{proof}
+
+\begin{proof}
+    [Proof of \cref{nontrivial twist of Lubin-Tate character is Cp-admissible}]
+    \cref{lem: lemma 4 for period of twisted lubin-tate} provides us a ``multiplicative'' result, while the period is an ``additive'' result. So, we use $\log_F : F\to_{/K} \Ga$, with it also twisted.
+    
+    Let $x_k := \log_F^{\sigma^k}(y_k)\in\m_{\C_p}$, then\begin{align*}
+        g(x_k) &= \log_F^{\sigma^k}(g(y_k))
+        = \log_F^{\sigma^k} \left( \left[ \chi_\pi(g) \right]^{\sigma^k}(y_k) \right) \\ &
+        = \left( \log_F\circ [\chi_\pi(g)] \right)^{\sigma^k}(y_k) \\ &
+        = (\chi_\pi(g)\log_F)^{\sigma^k}(y_k) = \sigma^k(\chi_\pi(g))x_k.
+    \end{align*}
+    It remains (important!) to show that $x_k\ne 0$.
+    Since \[\log_F(X) = X + \sum_{j\ge 2} \frac{a_j}{j}X^j\]for some $a_i\in \O_K$,
+    and $v_p(y_k) > 1$ by \cref{lem: lemma 3 for period of twisted lubin-tate},
+    we have $v_p\left( \dfrac{\sigma^ka_j}{j}y_k^j \right) > v_p(y_k)$,
+    thus $v_p(x_k) = v_p(y_k)$.
+\end{proof}
+
+\subsubsection{Tate's Normalized Trace}
+Our next goal is to show that characters ``too ramified'', like cyclotomic and Lubin-Tate characters, have no period in $\C_p$.
+
+We look at $\chi_\cyc$ first.
+If $\alpha\in\C_p$ is a period for $\chi_\cyc$,
+then $x\in \C_p^{\gal(\bar\Q_p/\Q_p(\mu_{p^\infty}))} = \widehat{\Q_p(\mu_{p^\infty})}$.
+That leads us to study the field $\widehat{\Q_p(\mu_{p^\infty})}$.
+
+Let $F := \Q_p$,
+$F_n := \Q_p(\mu_{p^n})\ni \pi_n := \zeta_p - 1$,
+$F_\infty := \Q_p(\mu_{p^\infty})$.
+
+If $n\in\Z_{\ge 1}$ and $x\in F_\infty$, then for $k\gg 0$,
+$x\in F_{n+k}$;
+we thus define \[R_n(x) := \frac{1}{p^k }\tr_{F_{n+k}/F_n}(x)\in F.\]
+\begin{itemize}
+\item $R_n(x)$ is independent to $k$, bacause $[F_{n+k} : F_n] = p^k$.
+\item $R_n : F_\infty\to F_n$ is an $F_n$-linear projection\footnote{Here, projection = idempotent.}, and it is $G_F$-equivariant.
+\item $R_n\circ R_m = R_{n + m}$.
+\end{itemize}
+
+\begin{lemma}
+    For $n\ge 1$ and $k\ge 0$,
+    \[R_n(\zeta_{p^{n+k}}^j) = \begin{cases}
+        1, & j  = 0,\\ 0, &1\le j\le p^{k}-1.
+    \end{cases}\]
+\end{lemma}
+\begin{proof}
+    % The extension $F_{n+k} = F_n(\zeta_{p^{n + k}})$ over $F_n$ is cyclotomic, so $\gal(F_{n+k}/F_n)\hookrightarrow \left( \Z/p^{n+k}\Z \right)^\times$\footnote{
+    %     See \cref{UND-basic property of mu-n when char not divide n}.
+    % }.
+    % If $a\in \left( \Z/p^{n+k}\Z \right)^\times$ comes from $\sigma\in \gal(F_{n+k}/F_n)$,
+    % then \[\sigma(\zeta_{p^{n+k}}) = \zeta_{p^{n+k}}^a\notin F_n,\]
+    % namely $\zeta_{p^{n+k}}^a\notin \mu_{p^n}$,
+    % so $a < $
+    $\gal(F_{n+k}/F_n)$ corresponds to the subgroup of $\left( \Z/p^{n+k}\Z \right)^\times$ defined by \[\ker\left( \left( \Z/p^{n+k}\Z \right)^\times\to \left( \Z/p^{n}\Z \right)^\times \right)
+    = \left\{a\in \left.\left( \Z/p^{n+k}\Z \right)^\times\right|a\equiv 1\bmod p^n \right\} = 1 + p^n\Z/p^{n+k}\Z.\]
+    So the conjugates of $\zeta\in\mu_{p^{n+k}}$ are
+    \[\zeta^{1 + bp^n} = \zeta\cdot(\zeta^{p^n})^b, \quad b\in \Z/p^{k}\Z.\]
+
+    Hence
+{\color{red}    (not true: for, say $j = p$, $\zeta^j$ is not primitive and thus $\zeta^{jp^n}$ do not permute $\mu_{p^k}$.)
+}    \[\tr_{F_{n+k}/F_n}(\zeta_{p^{n+k}}^j) = \zeta_{p^{n+k}}^j\sum_{\eta\in\mu_{p^k}}\eta.\qedhere\]
+\end{proof}
+Therefore, since $\O_{F_{n+k}} = \O_{F_n}[\zeta_{p^{n+k}}]$, the map $R_n$ sends $\O_{F_\infty}$ to $\O_{F_n}$,
+and in addition, \[R_n(\pi_n^i\O_{F_\infty}) \subset \pi_n^i\O_{F_n},\ \forall i\in\Z.\]
+\begin{corollary}
+    $v_p(R_n(x)) > v_p(x) - v_p(\pi_n)$, $\forall x\in F_\infty$.
+\end{corollary}
 \begin{proof}
     
 \end{proof}
 
-\subsection{Periods of Lubin-Tate Characters - Not Exist}
-\subsubsection{Periods of Twisted Lubin-Tate Characters}
+Hence, $R_n : F_\infty\to F_n$ is \textit{uniformly continuous},
+thereby extends to an $F_n$-linear $G_F$-equivariant continuous map
+\[R_n : \widehat{F_\infty}\to F_n.\]
 
-\subsubsection{Tate's Normalized Trace}
+(T.B.C.)
+
+\begin{theorem}
+    If $\psi : \gal(F_\infty|F)\to\Z_p^\times$
+    is a character of infinite order,
+    and $x\in\C_p$ s.t. $gx = \psi(g)x, \forall g\in G_F$, then $x = 0$.
+\end{theorem}
+
+\begin{corollary}
+    There is no period for $\chi_\cyc$ in $\C_p^\times$.
+\end{corollary}
+
+To study Lubin-Tate characters this way, we need to define $R_n$ for cyclotomic extensions of $K$.
+
+\begin{corollary}
+    If $\psi : \gal(K_\infty|K)\to\Z_p^\times$
+    is a character of infinite order,
+    and $x\in\C_p$ s.t. $gx = \psi(g)x, \forall g\in G_K$, then $x = 0$.
+\end{corollary}
+
+\begin{corollary}
+    The Lubin-Tate character $\chi_\pi$ has no period in $\C_p$:
+    If $x\in\C_p$ s.t. $gx = \chi_\pi(g)x, \forall g\in G_K$, then $x = 0$.
+\end{corollary}
+
 
 \subsection{Rings of Periods and Admissible Representations}
+
+Let $V$ be a \textbf{$p$-adic representation} of $G_K$ of dimension $d$, i.e, $V$ is a $\Q_p$-vector space of dimension $d$ with a $\Q_p$-linear $G_K$-action.
+
+The $\C_p$-vector space $\C_p\otimes_{\Q_p} V$ is equipped with $G_K$-action on both $\C_p$ and $V$,
+called a \textbf{semi-linear $\C_p$-representation} of $G_K$ of dimension $d$.
+Consider the $K$-vector space \[D(V) := \left( \C_p\otimes_{\Q_p} V  \right)^{G_K}\]
+with the map \begin{align*}
+    \alpha : \C_p\otimes_{K} D(V)&\to \C_p\otimes_{\Q_p} V\\
+    \lambda\otimes(\mu\otimes v)&\mapsto \lambda\mu\otimes v.
+\end{align*}
+
+
+\begin{example}
+Let $\eta : G_K\to\Z_p^\times$ be a character.
+Define a $1$-dimensional representation by\[\Q_p(\eta) := \Q_p\cdot e_\eta,\ \text{ with } g(e_\eta) = \eta(g)e_\eta.\]
+The $G_K$-action on \[\C_p(\eta) := \C_p\otimes_{\Q_p} \Q_p(\eta) = \C_p\cdot e_\eta\]
+is given by \[g(\lambda e_\eta) = g(\lambda) \eta(g)e_\eta,\quad \lambda\in\C_p.\]
+The space $\C_p(\eta)^{G_K}$ is a $K$-vector space of dimension $1$ or $0$, depending on if $\eta$ has a period in $\C_p$.
+
+\begin{proof}
+    For $y\in\C_p(\eta)$,
+\end{proof}
+\end{example}
+
+\begin{proposition}
+    $\alpha : \C_p\otimes_{K} D(V)\to\C_p\otimes_{\Q_p}V$ is a $\C_p$-linear injection.
+\end{proposition}
+\begin{corollary}
+    $\dim_K D(V)\le d$.
+\end{corollary}
+
+We say $V$ is \textbf{$\C_p$-admissible},
+if $\dim_K D(V) = \dim_{\Q_p} V$,
+whence \[\alpha : \C_p\otimes_{K} D(V)\simeq\C_p\otimes_{\Q_p} V.\]

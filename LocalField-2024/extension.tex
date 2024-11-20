@@ -131,23 +131,33 @@ Another proof uses the \textit{fixed point theorem}.
 Recall that the $K[X]$ is equipped with the \textbf{Gauss nrom}: for $f = \sum_{i=0}^n a_iX^i$,
 \[|f| := \max\{a_0, \dots, a_n\}.\]
 $K[X]$ is not complete w.r.t.\! Gauss norm,
-but each subspace\[K[X]_n := \{f\in K[X]\mid \deg f\le n - 1\}\]
+but on each subspace\[K[X]_n := \{f\in K[X]\mid \deg f\le n - 1\}\]
 is complete, since it is a sup-norm on a f.d.\! $K$-vector space;
 see \cref{f.d. vector space over complete normed field is complete with all norms equivalent}.
-(T.B.C.)
-% \begin{proposition}
-%     The Gauss norm is an ultrametric norm on the $K$-algebra $K[X]$\footnote{
-%         The Gauss norm is also complete on $K\gene{X_1, \dots, X_n} = \varprojlim_m K[X_1, \dots, X_n]/\pi^m$}. 
-% \end{proposition}
-% \begin{proof}
-    
-% \end{proof}
-
-% \begin{proof}
-%     [Proof of \cref{hensel lemma - lift coprime factors}]
-%     Recall that:
-    
-% \end{proof}
+Same if we replace $K$ by $\O_K$.
+\begin{proof}
+    [Proof of \cref{hensel lemma - lift coprime factors}]
+    Let $g$ resp.\! $h$ be a lift of $\gamma$ resp.\! $\eta$ with degree $m$ resp.\! $n$,
+    so that $\deg f = m + n$.
+    Consider\[\theta : \O_K[X]_n\times \O_K[X]_m\to \O_K[X]_{n+m},\ (u, v)\mapsto gu + hv.\]
+    This is an $\O_K$-linear map, with determinant $\res(g, h)\in \O_K$.
+    As $\overline{\res(g, h)} = \res(\gamma, \eta)\in k$
+    while $\gamma$ and $\eta$ are coprime, we have $\res(g, h)\in\O_K^\times$ and hence $\theta$ is invertible.
+    Now let $V := \O_K[X]_n\times \O_K[X]_m$ and consider \[\phi : V\to V,\quad \phi(u, v) := \theta^{-1}(f - gh - uv).\]
+    If $\phi$ has a fixed point $(u, v)$,
+    then \[f - gh - uv = \theta(u, v) = gu + hv\implies f = (g + v)(h + u).\]
+    So we seek for such point in $B(0, 1)\subset V $.
+    As \begin{align*}
+        |\phi(u, v) - \phi(u', v')| &= |\theta^{-1}(uv - u'v')|\\ &
+        \le |\res(g, h)^{-1}| |uv - u'v'| = |uv - u'v'|\\ &
+        \le \max\{|uv - u'v|, |u'v - u'v'|\}
+        \le \max\{|v|, |u'|\}|(u - u', v - v')|,\\
+        |\phi(u, v)| &\le\max\{|f - gh|, |uv|\},
+    \end{align*}
+    and $|f - gh| < 1$,
+    we deduce that $\phi$ is a contracting map on $B(0, |f - gh|)$.
+    Hence the fixed point theorem completes the proof.
+\end{proof}
 
 \subsection{Extending the norm}
 Let $K$ be a complete normed field\footnote{By a \textbf{complete normed field} $K$,
@@ -223,19 +233,20 @@ One verifies that $v(\cdot)/e_i$ extends the valuation $v_K$ on $K$ with value g
 The uniqueness forces $r = 1$, and $\O_L = \{x\in L\mid v_i(x) > 0\} = B$.
 \end{proof}
 Another proof gives the explicit formula for the norm. We need a result on integrality.
-\begin{proposition}
+\begin{proposition}\label{monic polynomial integral iff const coeff}
     Let $K$ be a local field, $P(X) = a_dX^d + a_{d-1}X^{d-1} + \dots + a_0\in K[X]$ an irreducible polynomial with $a_0a_d\ne 0$.
     Then the Gauss norm of $f$ is
     \[|f| = \max\{|a_0|, |a_d|\}.\]
     In particular, if $f$ is monic and its constant term $a_0\in\O_K$, then $P(X)\in\O_K[X]$.
 \end{proposition}
-\begin{proof}\label{monic polynomial integral iff const coeff}
+\begin{proof}
     Let $n\in\Z$ s.t. $\pi^nP\in \O_K[X]$ and $\overline{\pi^nP}\ne 0\in k[X] $.
-    Let $r$ be the Weierstrass degree of $\pi^nP$,so that \[\pi^nP(X)\bmod\pi = \pi^nX^r(a_r + a_{r+1}X + \dots + a_dX^{d-r}).\] 
+    Let $r$ be the Weierstrass degree of $\pi^nP$,
+    so that \[\pi^nP(X)\bmod\pi = \pi^nX^r(a_r + a_{r+1}X + \dots + a_dX^{d-r}).\] 
     If $0 < r < d$,
-    then the decomposition lift to a nontrivial decomposition of $\pi^nP$ in $K[X]$ via \cref{hensel lemma - lift coprime factors}.
+    then the decomposition lifts to a nontrivial decomposition of $\pi^nP$ in $K[X]$ via Hensel's lemma (\cref{hensel lemma - lift coprime factors}).
     Therefore $r = 0$ or $r = d$.
-    Now nate that $|f| = |a_r|$.
+    Now note that $|f| = |a_r|$.
 \end{proof}
 \begin{proof}
     [Proof of \cref{unique extension of norm for fintie extension local field} (analytic)]
@@ -364,11 +375,8 @@ then \[i_L(g) = \val_L\left( \frac{g\pi_L}{\pi_L} - 1 \right) + 1,\]
 \end{lemma}
 \begin{proof}
     Take $g\in G_n$ and write \[\frac{g\pi_L}{\pi_L} = 1 + \alpha,\ \alpha\in\m_L^n.\]
-    Then\footnote{\label{lem: gx/x = 1 + a => h(gx)/gx = 1 + ha}
-    Note that 
-        \[\dfrac{g\pi_L}{\pi_L} = 1 + \alpha
-        \implies
-        \frac{hg\pi_L}{g\pi_L} = 1 + h\alpha.\]
+    Then\footnote{
+        More precisely,\[\frac{g^2\pi_L}{g\pi_L} = \frac{g((1 + \alpha)\pi_L)}{g\pi_L} = 1 + g\alpha.\]
         }
     \[\frac{g^p\pi_L }{\pi_L} = \frac{g\pi_L }{\pi_L}\frac{g^2\pi_L}{g\pi_L}\cdots\frac{g^p\pi_L}{g^{p-1}\pi_L} = (1 + \alpha)(1 + g\alpha)\cdots(1 +g^{p-1}\alpha).\]
     Note that $g\alpha\equiv\alpha\bmod\pi_L^{n+1}$,
@@ -406,7 +414,7 @@ The next gaol is to investigate the subquotients $G_n/G_{n+1}$ of the filtration
     Let $n\in \Z_{\ge 0}$.
 \begin{itemize}
     \item $G/G_0\simeq\gal(k_L/k_K)$.
-    \item $G_0/G_1\hookrightarrow \O_L^\times/(1 + \m_L^\times)\simeq k_L^\times$ via $g\mapsto \dfrac{g\pi_L }{\pi_L } $.
+    \item $G_0/G_1\hookrightarrow \O_L^\times/(1 + \m_L)\simeq k_L^\times$ via $g\mapsto \dfrac{g\pi_L }{\pi_L } $.
     \item $G_n/G_{n+1}\hookrightarrow (1 + \m_L^n)/(1 + \m_L^{n+1})\simeq \m_L^n/\m_L^{n+1}\simeq k_L$ via $g\mapsto \dfrac{g\pi_L }{\pi_L } \mapsto \dfrac{g\pi_L - \pi_L}{\pi_L^{n+1}}$.
 \end{itemize}
 In particular, all the quotients $G_n/G_{n+1}(n\ge 0)$ are finite abelian, and hence $G_0$ is solvable.
@@ -414,12 +422,13 @@ In particular, all the quotients $G_n/G_{n+1}(n\ge 0)$ are finite abelian, and h
 \begin{proof}
     $G/G_0$ is known and $G_0/G_1$ is a sepcial case of $G_n/G_{n+1}$.
 
-    Injectivity is clear once we prove the multipliciy.
+    Injectivity is clear once we prove the multiplicity.
     For $g\in G_n$, let \[\frac{g\pi_L}{\pi_L} = 1 + \alpha_g,\ \alpha_g\in\m_L^n.\]
-    Then $g\alpha_h \equiv\alpha_h\bmod \pi^n$.
-    So\footnote{See \ref{lem: gx/x = 1 + a => h(gx)/gx = 1 + ha}.}
+    Note that $g\mapsto \dfrac{gx}{x}$ is a cocycle,
+    and $g\alpha_h \equiv\alpha_h\bmod \pi^n$ for $g\in G_n$.
+    So
     % \footnotemark[\ref{lem: gx/x = 1 + a => h(gx)/gx = 1 + ha}]
-     \[
+    \[
     \dfrac{gh\pi_L}{\pi_L} \equiv (1 + g\alpha_h)(1 + \alpha_g)\equiv (1 + \alpha_h)(1 + \alpha_g)\bmod\m_L^{n+1}.\qedhere
     \]
 \end{proof}
@@ -428,14 +437,14 @@ In particular, all the quotients $G_n/G_{n+1}(n\ge 0)$ are finite abelian, and h
 
 \subsubsection{Upper Ramification Filtration and Ramification Groups of Infinite Extensions}
 
-The lower ramification filtration is compatible with \textit{subgroup}s:
+The lower ramification filtration is compatible with \textit{subgroups}:
 \begin{proposition}
     If $H < G$, then \[H_u = G_u\cap H.\]
     Namely, if $L\mid F\mid K$ is a tower of finite extensions,
     then \[\gal(L/F)_u = \gal(L/K)_u\cap \gal(L/F).\]
 \end{proposition}
 
-Bu in practice, we usually fix the bottom $K$ rather than the top $L$; we want a filtration compatible with quotients.
+In practice, we usually fix the bottom $K$ rather than the top $L$; we want a filtration compatible with quotients.
 This is given by Herbrand's theorem.
 
 Define \textbf{Herbrand's $\phi$} function\[\phi_{L/K} :\R_{\ge -1}\to\R_{\ge -1},\ \phi_{L/K}(u) := \int_0^u \frac{1}{[G_0 : G_t]}dt.\]
@@ -453,7 +462,7 @@ This upper ramification filtration is compatible with \textit{quotients}.
     then \[\gal(F/K)^v = \im\left( \gal(L/K)^v\hookrightarrow\gal(L/K)\twoheadrightarrow\gal(F/K) \right).\]
 \end{theorem}
 Since the upper ramification filtration is compatible with quotients,
-it extends to any infinite Galois extension $L/K$ by
+it can be defined for any infinite Galois extension $L/K$ by
 \[\gal(L/K)^v := \varprojlim_F\left( \gal(F/K)^v \right).\]
 
 
@@ -536,7 +545,7 @@ Note that neither reidue field nor value group are not extended from $\bar\Q_p$ 
     (T.B.C.)
 \end{proof}
 
-\subsection{Ax-Sin-Tate theorem and closed subfields of \texorpdfstring{$\C_p$}{Cp}}
+\subsection{Ax-Sen-Tate theorem and closed subfields of \texorpdfstring{$\C_p$}{Cp}}
 Let $\Q_p\subset K\subset\bar\Q_p$, $G_K := \gal(\bar\Q_p/K)$ the absolute Galois group of $K$.
 Galois theory eastablishes a bijection \[
     \{\text{subextension of }\bar\Q_p/\Q_p\}\longleftrightarrow
@@ -547,7 +556,7 @@ We are going to expand this relation to (certain) subextensions of $\C_p/\Q_p$.
 Any $g\in\gal(\bar\Q_p/\Q_p)$ is an isometry, thus extends to an isometry and (continuous) field automorphism of $\C_p$, denoted still by $g$.
 So what is $\C_p^{G_K}$?
 \begin{theorem}
-    [Ax-Sin-Tate]
+    [Ax-Sen-Tate]
     $\C_p^{G_K} = \widehat K$.
 \end{theorem}
 
@@ -619,9 +628,9 @@ For $\alpha\in\bar\Q_p$, we define \[\Delta_K(\alpha) := \inf_{g\in G_K} v_p(g\a
 \end{itemize}
 \end{proof}
 
-Ax-Sin-Tate theorem is a direct corollary of Ax's theorem.
+Ax-Sen-Tate theorem is a direct corollary of Ax's theorem.
 \begin{proof}
-    [Proof of Ax-Sin-Tate]
+    [Proof of Ax-Sen-Tate]
     The inclusion $\widehat{K}\subset \C_p^{G_K}$ come from the fact that $G_K$ acts on $\C_p$ continuously.
 
     For the other inclusion, take $\alpha\in \C_p^{G_K}$ and write $\alpha = \lim_{n}\alpha_n$ with $\alpha_n\in\bar\Q_p$.
@@ -642,10 +651,24 @@ Ax-Sin-Tate theorem is a direct corollary of Ax's theorem.
 \end{theorem}
 \begin{proof}
     \begin{itemize}
-\item Show $K < \bar\Q_p\implies \widehat{K}\cap\bar\Q_p = K$.
+\item $K < \bar\Q_p\implies \widehat{K}\cap\bar\Q_p = \C_p^{G_K}\cap\bar\Q_p = \left( \C_p\cap \bar\Q_p  \right)^{G_K} = K$.
 \item Show $L\stackrel{\text{closed}}{<}\C_p\implies \widehat{L\cap\bar\Q_p} = L$, i.e.,
 $L\cap\bar\Q_p$ is dense in $L$.
-    \end{itemize}
+\par
+Take $z\in L$ and $c > 0$.
+Then there exists $\alpha\in\bar\Q_p$ s.t. $v_p(\alpha - z)\ge c$.
+Note that $K := L\cap\bar\Q_p$ is algebraically closed in $L$,
+so \begin{center}
+    the minimal polynomial of $\alpha$ over $K$ = minimal polynomial of $\alpha$ over $L$. 
+\end{center}
+This is because if $P = QR\in K[X]$ with $Q, R\in L[X]$, then the coefficients of $Q$ and $R$ are algebraic over $K$.\par
+Let $\alpha_1, \alpha_2, \dots, \alpha_n$ be are all the conjugates of $\alpha$ over $K$ (which are the same over $L$).\\
+$\implies \alpha_1 - z, \alpha_2 - z, \dots, \alpha_n - z$ are all the conjugates of $\alpha - z$ over $L$.
+\\ $\implies v_p(\alpha_i - \alpha) = v_p\left( (\alpha_i - z) - (\alpha - z) \right)\ge \min\{c, c\} = c$ for all $i$, 
+\\ $\implies\Delta_K(\alpha)\ge c$.
+By Ax's theorem, $\exists\delta\in K$ s.t. $v_p(\alpha - \delta)\ge \Delta_K(\alpha) - \frac{p}{(p-1)^2}\ge c - \frac{p}{(p-1)^2}$.
+Apply this to all $c$, we see that $\alpha\in \widehat K$.
+\end{itemize}
 \end{proof}
 
 

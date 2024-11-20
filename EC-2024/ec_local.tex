@@ -1,0 +1,224 @@
+\section{Elliptic Curves over Local Fields}
+In this section, let $K$ be a perfect local field with valuation $v$
+and value group $\Z$. Let $R = \O_K$, $\pi$ a uniformizer,
+and $k = R/\pi$ the residue field.
+Denote the quotient map $\O_K\to k$ by $t\mapsto \tilde{t}$.
+\subsection{Minimal Weierstrass Equation}
+
+\begin{definition}
+    Let $A$ be a ring, \[E : 
+    y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6,\quad a_i\in A\]
+    an Weierstrass equation over $A$.
+    We define many quantities in $\Z[a_1, a_2, a_4, a_3, a_4, a_6]$:
+    \[b_2,\ b_4,\ b_6,\ b_8,\ \Delta,\ c_4,\ c_6.\]
+    Among them, $\Delta$ is the most important one, called \textbf{discriminant}.
+\end{definition}
+\begin{remark}
+\begin{itemize}
+\item Under the change of variable \[y = \frac{1}{2}(y' - a_1x - a_3),\]
+the long Weierstrass equation is converted to\footnote{
+    Careful!! I am not very clear about the notion of ``change of variable''.}
+\[
+y'^2 = 4x^3 + b_2x + 2b_4x + b_6.\]
+\item Under the change of variable \[(u; r, s, t) := \quad
+\begin{cases}
+    x = u^2x' + r,\\ y = u^3y' + u^2sx' + t,
+\end{cases}\]
+the discriminant is converted to \[\Delta' = u^{-12}\Delta.\]
+\item For a short Weierstrass equation\[
+y^2 = x^3 + ax + b,\]
+we have \begin{align*}
+    \Delta &= -16(4a^3 + 27b^2),\\
+    c_4 &= -48a,\\
+    c_6 &= -864b.
+\end{align*}
+\end{itemize}
+
+\begin{proposition}
+    If $E$ is defined over a field, then $E$ is nonsingular $\iff \Delta \ne 0$.
+\end{proposition}
+
+
+\end{remark}
+Back to our setting that $K = $ local field.
+We need some particular integral equation that modulo $\pi$ gives something nontrvial.
+\begin{definition}
+    A Weierstrass equation $E$ over $K$ is called \textbf{minimal}, if it is integral (i.e, all coefficients $a_i\in \O_K$), and the valuation of the discriminant $v(\Delta)$ is minimized.
+\end{definition}
+\begin{lemma}
+    Every elliptic curve $E/K$ admits some minimal Weierstrass equation.\par
+    Moreover, an integral Weierstrass equation with $v(\Delta) < 12$ is minimal.
+\end{lemma}
+\begin{proof}
+    First, we need to find Weierstrass over $\O_K$.
+    Starting from any equation over $K$,
+    the change of variable $(u; 0, 0, 0)$ sends $a_i$ to \[a_i' = u^ia_i.\]
+    Hence for $v(u)\gg 0$, it will give an integral equation.
+
+    For integral Weierstrass equations, $\Delta\in \Z[\{a_i\}_i]\subset \O_K$, so it can be minimized.
+
+    Since $v(\Delta)\equiv v(\Delta')\bmod 12$
+    for any $(u; r, s, t)$, an integral equation with $v(\Delta)  <12$ must be minimal.
+\end{proof}
+
+\begin{remark}
+    \begin{itemize}
+        \item Minimal Weierstrass equations are not unique.
+        \item For a similar reason, \[v(c_4) < 4\text{ or } v(c_6) < 6\]
+        are also sufficient for being minimal.
+        \item If $\cha K \ne 2, 3$,
+        then \[\text{minimal }\iff v(\Delta) < 12\text{ or } v(c_4) < 4.\]
+    \end{itemize}
+\end{remark}
+
+\subsection{Reduction and Reduction Type}
+Let \[E : 
+    y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6,\quad a_i\in \O_K\]
+be a Weierstrass equation for an elliptic curve over $K$.
+Then it reduces modulo $\pi$ to a projective curve $\tilde{E}$, defined also by Weierstrass equation,
+over $k$.
+\begin{itemize}
+    \item The discriminant of $\tilde{E}$ is $\tilde{\Delta} = \Delta\mod\pi$.
+    In particular,\[\tilde{E}\text{ is smooth }\iff \Delta\in\O_K^\times.\]
+\end{itemize}
+
+\begin{proposition}
+    Let $E$ be an elliptic curve over $K$.
+    Then the reductions $\tilde{E}/k$ are isomorphic for all change of variable between minimal Weierstrass equations.
+\end{proposition}
+\begin{proof}
+    Suppose that $(u; r, s, t)$ changes a minimal equation to another, then $u\in\O_K^\times$, so it is an isomorphism over $K$.
+    It is left (and necessary!) to prove that we can take $r, s, t\in \O_K$.
+\end{proof}
+
+Then we classify different kind of reductions.
+We say that $E$ has \textbf{good reduction} if $\tilde{E}$ is an elliptic curve, namely $\tilde{E}$ is smooth or $\Delta\in\O_K^\times$; other wise it has \textbf{bad reduction}.
+
+Assume that $E$ has bad reduction.
+Then $\tilde{E}$ has a \textit{unique} singular point.
+(T.B.C.)
+
+
+\subsection{Reduction of Rational Poitns}
+Let $E$ be an elliptic curve over $K$.
+For all $P \in E(K)$,
+we can write $P = [x : y : z]$ with \begin{itemize}
+    \item $x, y, z\in\O_K$, and
+    \item at least one of the coordinates is in $\O_K^\times$.
+\end{itemize}
+$\leadsto \tilde{P} := [\tilde{x}, \tilde{y}, \tilde{z}]\in \tilde{E}(k)$.
+This is independent to the choice of coordinate,
+giving a map \[\pi : E(K)\to\tilde{E}(k).\]
+
+\begin{definition}
+    Denote by $\tilde{E}_\ns$ the set of non singular points of $\tilde{E}$, and $\tilde{E}_\ns(k) = \tilde{E}_\ns\cap\tilde{E}(k)$.
+    Let
+    \begin{align*}
+        E_0(K) &:= \{P\in E(K)\mid \pi(P)\in \tilde{E}_{\ns}(k)\},\\ 
+        E_1(K) &:= \{P\in E(K)\mid \pi(P) = \tilde{O}\}
+    \end{align*}
+\end{definition}
+
+\begin{proposition}\label{reduction is a group homomorphism on E0}
+    We have an exact sequence of \textit{groups}:
+    \[0\to E_1(K)\to E_0(K)\stackrel{\pi}{\to} \tilde{E}_\ns(k)\to 0.\]
+\end{proposition}
+\begin{proof}[Proof (when $E$ has good reduction)]
+    In case $\tilde{E}$ smooth, $\tilde{E}_\ns = \tilde{E}$ is an elliptic curve, and $E_0(K) = E(K)$.
+    \begin{itemize}
+\item $\pi$ is a homomorphism := by \par
+Note that $\pi$ sends a line to a line. A real proof needs to take care of the tangent lines.
+\item $\pi$ is surjective := by \par
+Hensel's lemma. Choose a minimal (integral) equation $E : F(x, y) = 0$.
+Let $(\tilde{x}, \tilde{y})\in \tilde{E}_\ns(k)$.
+Smoothness means
+\[\pdfrac{\tilde{F}}{X}(\tilde{x}, \tilde{y})\ne 0\text{
+or }\pdfrac{\tilde{F}}{Y}(\tilde{x}, \tilde{y})\ne 0.\]
+Hence, say, $\pdfrac{F}{X}(x, y) \in \O_K^\times$.
+By Hensel's lemma, there is a unique $x'\in\O_K$ s.t. $F(x', y) = 0$.\qedhere
+    \end{itemize}
+\end{proof}
+\begin{remark}
+    In case $\tilde{E}$ singular, \cref{reduction is a group homomorphism on E0} still holds. In particular,
+    \begin{itemize}
+\item $\tilde{E}_\ns$ is a group, with $\tilde{E}_\ns(k)$ being a subgroup.
+    \end{itemize}
+\end{remark}
+
+\begin{proposition}
+    $E_0(K)$ has finite index in $E(K)$.
+\end{proposition}
+
+
+\subsection{Torsion points}
+Let $E$ be an elliptic curve over the local field $K/\Q_p < \infty$ defined by a Weierstrass equation.
+
+The first step is to look at the group \[E_1(K) = \ker \left( E_0(K)\to\tilde{E}_\ns(k) \right).\]
+A point $P = (x, y) = [x : y : 1]\in E(K)$ reduces to $\tilde{P} = \tilde{O}\in \tilde{E}(k)$,
+iff \[v(y) < \min\{0 = v(1), v(x)\}.\]
+If $v(x)\ge 0$, then $v(y^2 + a_1xy + a_3y)\ge 0 $;
+hence $v(x) < 0$.
+Meanwhile,\[v(x^3 + a_2x^2 + a_4x + a_6) =v(y^2 + a_1xy + a_3y).\]
+As $v(x), v(y) < 0$, we have
+\[3v(x) = 2v(y).\]
+So \[v(x) = -2n,\ v(y) = -3n,\quad n\ge 1.\]
+Conversely, if $(x, y)\in E(K)$ and $v(x) < 0$,
+the above computation holds.
+So \[E_1(K) = \{(x, y)\in E(K)\mid v(x)\le -2\}.\]
+This leads to the following filtration on $E_1(K)$.
+\begin{definition}
+    For $n\in\Z_{\ge 1}$,
+    set \[E_n(K) := \{(x, y)\in E(K)\mid v(x)\le -2n, v(y)\le -3n\}\cup\{O\}.\]
+\end{definition}
+
+\begin{lemma}
+    $E_n(K)$ are subgroups of $E_1(K)$.
+\end{lemma}
+\begin{proof}
+    Consider the change of variable \[\begin{cases}
+        x = \pi^{-2n}x', \\ y = \pi^{-3n}y'
+    \end{cases}\] on $E$.
+    This gives a non-minimal integral equation,
+    which reduces mod $\pi$ to \[\tilde{E}_n : y'^2 = x'^3\] and gives a map \[\pi_n : E(K)\to \tilde{E}_n(k).\]
+    One verifies that:
+\begin{itemize}
+    \item $(0, 0)$ is the only singular point of $\tilde{E}_n$, and $\tilde{E}_{n, \ns}(k)\simeq k$ as additive groups.
+    \item $E_n(K) = \pi_n^{-1}(\tilde{E}_{n, \ns}(k))$.
+    \item $E_{n+1}(K) = \ker\left( \pi_n : E(K)\twoheadrightarrow \tilde{E}_{n, \ns}(k)\simeq k \right)$.\qedhere
+\end{itemize}
+\end{proof}
+
+\begin{proposition}
+$E_1(K)[m] = 0$ for $m\in\Z$ prime to $p$.
+\end{proposition}
+\begin{proof}
+    Let $P\in E_1(K)[m]$.
+    Then \[ 0 = \pi_1(mP) = m(\pi_1(P))\in k.\]
+    As $p\nmid m$, this implies $\pi_1(P) = 0$,
+    i.e, $P\in  E_2(P)$.
+    Inductively, we see that $P\in E_n(P)$ for all $n$, so $P = O$.
+\end{proof}
+    
+\begin{corollary}
+    If $E/K$ has good reduction, and $p\nmid m$,
+    then \[E(K)[m]\hookrightarrow \tilde{E}(k)\] injectively.
+\end{corollary}
+
+\subsubsection*{Bounding the denominators of torsion points}
+
+\begin{theorem}
+    Let $P\in E(K)$ be a torsion point of order $m\ge 2$.
+    \begin{enumerate}
+\item [(1)] If $m$ is not a power of $p$,
+then $x(P), y(P)\in\O_K$.
+\item [(2)] If $m = p^n$,
+then \[\pi^{2r}x(P), \pi^{3r}y(P)\in\O_K,\quad r = \left\lfloor  \frac{v(p)}{p^n - p^{n-1}}\right\rfloor\ge 0.\]
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Let\[E : y^2 = x^3 + ax + b,\quad a, b\in\Z,\ \Delta := 4a^3 + 27b^2\ne 0.\]
+    If $P = (x, y)\in E(\Q)$ is a torsion point,
+    then $x, y\in\Z$, and either $y = 0$ or $y\mid \Delta$\footnote{Note that this $\Delta$ is the discriminant of a polynomial, rather than discriminant of a elliptic curve.}.
+\end{theorem}
+

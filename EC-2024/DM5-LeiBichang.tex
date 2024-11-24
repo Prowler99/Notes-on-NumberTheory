@@ -138,7 +138,13 @@ So $\rank (E_1(K)/\ker\phi_K)\le \rank E_2(K)$.
 Since $\ker\phi_K \subset \ker\phi$ is finite,
 we have \[\rank E_1(K) = \rank (E_1(K)/\ker\phi_K).\]
 Hence $\rank E_1(K)\le \rank E_2(K)$.
-Doing the same thing to a non-constant isogeny $E_2\to E_1$ over $K$ (how??),
+Doing the same thing to a non-constant isogeny $E_2\to E_1$ over $K$,
+say $\hat{\phi}$\footnote{
+I don't recall if we have shown in class that: if $\phi$ is defined over $K$,
+then $\hat{\phi}$ is defined over $K$.
+This can be proved by checking directly that: all the three maps in
+\[E_2\to\Div_0(E_2)\stackrel{\phi^*}{\to}\Div_0(E_1)\to E_1\]
+are $G_K$-invariant.},
 we get $\rank E_2(K)\le \rank E_1(K)$.
 So the ranks of $E_1$ and $E_2$ are equal.
 \item [(b)]
@@ -153,17 +159,125 @@ over $\Q(u)$.
 \begin{enumerate}
 \item [(a)] $E : y^2 = x(x^2 + 3x + 5)$.\par
 $a = 3,\ b = 5,\ a_1 = -2a = -6,\ b_1 = a^2-4b = -11$.
-So the integers $r\mid b_1$ are \[r = \pm 1, \pm 11.\]
+\begin{itemize}
+\item \textbf{Determine $\psi(E'(\Q)/\phi(E(\Q)))$}.\par
+The integers $r\mid b_1$ are \[r = \pm 1, \pm 11.\]
 Write \[\begin{cases}
     u = rt^2,\\  u^2 + a_1u + b_1 = \dfrac{v^2}{u} = rs^2,
-\end{cases}\quad t = \frac{l}{m},\quad n = m^2s \]
-which give the equation\begin{equation}\label{eq: the eq to find E(Q)/2E(Q)}
-    r^2l^4 + a_1rl^2m^2 + b_1m^4 = rn^2.
+\end{cases}\quad t = \frac{l}{m},\; (l, m) = 1,\quad s = \frac{n }{m^2}. \]
+which gives the equation\begin{equation}\label{eq: 2-1 phi}
+    r^2l^4 + a_1rl^2m^2 + b_1m^4 = rn^2,
 \end{equation}
+i.e, $r^2l^4 -6rl^2m^2 -11m^4 = rn^2$.
 The value $r = -11 = b_1 = a^2 - 4b$ corresponds to $(0, 0)$.
+Since $\im q$ is a group, it must be $\{[1], [-11]\}$ or $\{[1], [-11], [-1], [11]\}$.
+
+Substitute $r = -1$ in \cref{eq: 2-1 phi} gives
+\begin{equation}\label{eq: 2-1 phi r=-1}
+    l^4 + 6l^2m^2 - 11m^4 = -n^2,
+\end{equation}
+which has a solution $(l, m, n) = (1, 1, 2)$,
+corresponding to \[(u, v) = \left( \frac{rl^2}{m^2}, \frac{rnl}{m^3} \right) = (-1, -2)\in E'(\Q).\]
+The image of $(-1, -2)$ in $E''(\Q)$ is
+\[\psi(u, v) = \left( u + a_1 + \frac{b_1}{u}, v - \frac{b_1v}{u^2} \right) = (4, -24).\]
+The isomorphism $E''\to E$ is \[x = x''/4,\quad y = y''/8,\]
+so the corresponding point in $E(\Q)$ is $(1, -3)$.
+
+\item \textbf{Determine $E(\Q)/\psi(E'(\Q))$}.\par
+Next, solve \begin{equation}\label{eq: 2-1 psi}
+    r^2l^4 + 3rl^2m^2 + 5m^4 = rn^2
+\end{equation}
+for $r\mid 5$.
+The value $r = b = 5$ corresponds to $(0, 0)$.
+Because $a^2 - 4b < 0$, we have $rs^2 = u^2 + au + b > 0$, so $r > 0$. Hence $[-1], [-5]\notin \im q'$,
+and thus $(0, 0)$ generates $E(\Q)/\psi(E'(\Q))$.
+
+\end{itemize}
+
+Finally, $E(\Q)/2E(\Q) = \gene{(0, 0), (1,-3)}\simeq \left( \Z/2\Z \right)^2$.
+\begin{itemize}
+\item [\textbf{Rank}.]
+The rank of $E$ is $1$.
+Since $(0, 0)$ has order $2$,
+the rank of $E$ is $0$ or $1$, depending on whether $(1, -3)$ has finite order or not.
+I don't know how to do this by hand without spending too much time and ink, but using Sage I can tell that $(1, -3)$ has infinite order by computing $iP$ for $2\le i\le 12$ or by letting the program tell me its order directly.
+
+\end{itemize}
 
 
+% $\implies \{0, 1\}\ni l^4  = -m^4\bmod 3$
+\item [(b)] $E:y^2=x(x^2-2x+9)$.\par
+$a = -2,\ b = 9,\ a_1 = -2a = 4,\ b_1 = a^2 - 4b = -32$.
+\begin{itemize}
+\item Solve \begin{equation}
+    rl^4 + 4l^2m^2  - \frac{32}{r} m^4 = n^2
+\end{equation}
+for $r\mid 32$ square-free, that is $r = \pm1, \pm2$. $[r] = [-2] = [-32]$ corresponds to $(0, 0)$,
+so $\im q = \{[1], [-2]\}$ or $\{[1], [-2], [-1], [2]\}$.
+Let $r = 2$, so that \begin{equation}\label{eq: 2-2 phi r=2}
+    2l^4 + 4l^2m^2 - 16m^4 = n^2.
+\end{equation}
+Completing the square then modulo $3$
+\[\implies\{0, 2\}\ni 2(l^2 + m^2)^2 = n^2 \in \{0, 1\}\bmod 3,\]
+\[\implies l^2\equiv m^2\equiv n^2\equiv 0\bmod 3,\]
+$\implies 3\mid l$ and $3\mid m$, contradicting $(l, m) = 1$.
+Hence \cref{eq: 2-2 phi r=2} has no nontrivial solution in $\Z^3$.
+\item Solve\begin{equation}
+    rl^4 - 2l^2m^2 + \frac{9}{r}m^4 = n^2
+\end{equation}
+for $r\mid 9$ square free, i.e., $r = \pm1, \pm 3$.
+$[r] = [1] = [9]$ corresponds to $(0, 0)$.
+$b_1 = a^2 - 4b < 0$,
+so $rs^2 = u^2 + au + b > 0$.
+Thus it remains to check $r = 3$:
+\begin{equation}
+    3l^4 - 2l^2m^2 + 3m^4 = n^2.
+\end{equation}
+This equation has solution $(l,m,n) = (1,1,2)$,
+corresponding to \[(u, v) = \left( \frac{rl^2}{m^2},\frac{rln}{m^3} \right) = (3, 6)\in E(\Q).\]
+Since $(0, 0)$ corresponds to the identity $[1]$, we have $E(\Q)/\psi(E'(\Q)) = \gene{(3, 6)}$.
+\end{itemize}
+So $E(\Q)/2E(\Q) = \gene{(3, 6)}\simeq\Z/2\Z$.
+\begin{itemize}
+\item [\textbf{Rank}.]
+The rank of $E$ is $0$, because $(0, 0)$ has order $2$.
+\end{itemize}
 
+\item [(c)] $E:y^2=x(x^2+2x+9)$.\par
+$a = 2,\ b = 9,\ a_1 = -2a = -4,\ b_1 = a^2-4b = -32$.
+\begin{itemize}
+\item Solve \begin{equation}
+    rl^4 - 4l^2m^2  - \frac{32}{r} m^4 = n^2
+\end{equation}
+for $r = \pm1, \pm2$.
+$[r] = [-1] = [-32]$ corresponds to $(0, 0)$.
+Let $r = 2$, then
+\begin{equation}\label{eq: 2-3 phi r=2}
+    2l^4 - 4l^2m^2 - 16m^4 = n^2.
+\end{equation}
+has a solution $(2, 1, 0)$,
+corresponding to \[(u, v) = \left( 8,0 \right)\in\psi^{-1}((0, 0))\subset E'(\Q).\]
+
+\item Solve\begin{equation}
+    rl^4 + 2l^2m^2 + \frac{9}{r}m^4 = n^2
+\end{equation}
+for $r = \pm 1, \pm 3$.
+Since $b_1 < 0$, we have $r = 1, 3$.
+Let $r = 3$:
+\begin{equation}\label{eq: 2-3 psi r=3}
+    3l^4 + 2l^2m^2 + 3m^4 = n^2.
+\end{equation}
+Modulo $3$, we get \[\{0, 2\}\ni 2(lm)^2 = n^2\in\{0, 1\},\]
+\[\implies (lm)^2 = n^2 = 0\mod 3,\]
+$\implies 3\mid lm$ and $3\mid n$.
+If $3\mid l$, then \cref{eq: 2-3 psi r=3} shows that $3^2\mid 3m^4$, so $3\mid m$, which is a contradiction. Similarly, $3\mid m\implies 3\mid l$ and leads to contradiction.
+Therefore, \cref{eq: 2-3 psi r=3} has no nontrivial integer solution.
+\end{itemize}
+So $E(\Q)/2E(\Q) = \gene{(0, 0)}\simeq \Z/2\Z$.
+\begin{itemize}
+\item [\textbf{Rank}.]
+The rank of $E$ is $0$, because $(0, 0)$ is a point of order $2$.
+\end{itemize}
 
 \end{enumerate}
 
@@ -172,8 +286,8 @@ The value $r = -11 = b_1 = a^2 - 4b$ corresponds to $(0, 0)$.
 \item [(a)] A finitely generated abelian group has finitely many torsion elements.
 If $K$ is algebraically closed,
 then $E(K)[n] = E[n] \simeq \Z/n\Z\times \Z/n\Z$
-for all integer $n$ that is not divided by $\cha K$.
-Therefore $E(K)_\tor\supset \bigcup_{n\ge 1}E(K)[n]$ cannot be finite, thus $E(K)$ is not of finite type.
+for all integers $n$ that are not divided by $\cha K$.
+Therefore $E(K)_\tor = \bigcup_{n\ge 1}E(K)[n]$ cannot be finite, thus $E(K)$ is not of finite type.
 \item [(b)]
 For a set $S$, denote by $|S|$ the cardinality of a set $S$.
 

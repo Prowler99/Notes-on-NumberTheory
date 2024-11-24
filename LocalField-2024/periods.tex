@@ -210,7 +210,7 @@ then $x\in \C_p^{\gal(\bar\Q_p/\Q_p(\mu_{p^\infty}))} = \widehat{\Q_p(\mu_{p^\in
 That leads us to study the field $\widehat{\Q_p(\mu_{p^\infty})}$.
 
 Let $F := \Q_p$,
-$F_n := \Q_p(\mu_{p^n})\ni \pi_n := \zeta_p - 1$,
+$F_n := \Q_p(\mu_{p^n})\ni \pi_n := \zeta_{p^n} - 1$,
 $F_\infty := \Q_p(\mu_{p^\infty})$.
 
 If $n\in\Z_{\ge 1}$ and $x\in F_\infty$, then for $k\gg 0$,
@@ -240,18 +240,20 @@ we thus define \[R_n(x) := \frac{1}{p^k }\tr_{F_{n+k}/F_n}(x)\in F.\]
     = \left\{a\in \left.\left( \Z/p^{n+k}\Z \right)^\times\right|a\equiv 1\bmod p^n \right\} = 1 + p^n\Z/p^{n+k}\Z.\]
     So the conjugates of $\zeta\in\mu_{p^{n+k}}$ are
     \[\zeta^{1 + bp^n} = \zeta\cdot(\zeta^{p^n})^b, \quad b\in \Z/p^{k}\Z.\]
-
-    Hence
-{\color{red}    (not true: for, say $j = p$, $\zeta^j$ is not primitive and thus $\zeta^{jp^n}$ do not permute $\mu_{p^k}$.)
-}    \[\tr_{F_{n+k}/F_n}(\zeta_{p^{n+k}}^j) = \zeta_{p^{n+k}}^j\sum_{\eta\in\mu_{p^k}}\eta.\qedhere\]
+% {\color{red}    (not true: for, say $j = p$, $\zeta^j$ is not primitive and thus $\zeta^{jp^n}$ do not permute $\mu_{p^k}$.)}
+\[\implies \tr_{F_{n+k}/F_n}(\zeta_{p^{n+k}}^j) = \zeta_{p^{n+k}}^j\sum_{\eta\in\mu_{p^k}}\eta^j.
+\qedhere
+\]
 \end{proof}
 Therefore, since $\O_{F_{n+k}} = \O_{F_n}[\zeta_{p^{n+k}}]$, the map $R_n$ sends $\O_{F_\infty}$ to $\O_{F_n}$,
 and in addition, \[R_n(\pi_n^i\O_{F_\infty}) \subset \pi_n^i\O_{F_n},\ \forall i\in\Z.\]
 \begin{corollary}
-    $v_p(R_n(x)) > v_p(x) - v_p(\pi_n)$, $\forall x\in F_\infty$.
+    $v_p(R_n(x)) > v_p(x) - v_p(\pi_n) =v_p(x) - \dfrac{1}{p^{n-1}(p-1)}$, $\forall x\in F_\infty$.
 \end{corollary}
 \begin{proof}
-    
+    Let $x\in F_{n+k}$ s.t. \[x = \pi_{n + k}^{j + p^ki}\cdot\text{unit}  = \pi_{n+k}^j\pi_{n}^iu\] for
+    $0\le j\le p^{k}-1$ and $u\in \O_{F_{n+k}}^\times$.
+    What is $R_n(xy)$?
 \end{proof}
 
 Hence, $R_n : F_\infty\to F_n$ is \textit{uniformly continuous},
@@ -319,3 +321,5 @@ The space $\C_p(\eta)^{G_K}$ is a $K$-vector space of dimension $1$ or $0$, depe
 We say $V$ is \textbf{$\C_p$-admissible},
 if $\dim_K D(V) = \dim_{\Q_p} V$,
 whence \[\alpha : \C_p\otimes_{K} D(V)\simeq\C_p\otimes_{\Q_p} V.\]
+
+

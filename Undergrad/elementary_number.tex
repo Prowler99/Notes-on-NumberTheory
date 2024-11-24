@@ -3,25 +3,37 @@
 \subsection{Valuation of Binomial Coefficients}
 
 \begin{proposition}\label{valuation of factorial}
-    Let $n\in\Z_{\ge 1}$, then \[v_p(n!) = \sum_{i\ge 1}\floor{\frac{n }{p^i}}.\]
+    Let $n\in\Z_{\ge 1}$, then \begin{align*}
+        v_p(n!) &= \sum_{i\ge 1}\floor{\frac{n }{p^i}} \\ &
+        = \frac{n - \text{ sum of digits in the expansion of } n \text{ in base }p}{p-1}.
+    \end{align*}
 \end{proposition}
+For example, $\displaystyle v_p(p^r!) = \frac{p^r-1}{p-1}$.
 \begin{proof}
-    Think and you'll find it trivial.
+    Think and you'll find the first equality trivial.\par
+    If $n = \sum_{i \ge 0} n_ip^i$ with $0\le n_i\le p - 1$,
+    then \[\floor{\frac{n}{p^i}} = 
+        % n_i + n_{i+1}p + \dots + n_rp^{r-i},
+        \dfrac{n - (n_0 + n_1p + \dots + n_{i-1}p^{i-1})}{p^i},\quad i\ge 1. 
+    \]
+    So \begin{align*}
+        v_p(n!) &= n\sum_{i\ge 1} \frac{1}{p^i}
+        -\sum_{i\ge 1}\sum_{j=0}^{i-1} n_jp^{j-i}\\ &
+        = \frac{n}{p-1} - \sum_{j\ge 0}n_j\sum_{i\ge j + 1}p^{j-i}
+        = \frac{n - \sum_{j\ge 0}n_j}{p-1}.\qedhere
+    \end{align*}
 \end{proof}
 
-\begin{corollary}\label{valuation of binomial coeff}
+\begin{corollary}[Kummer]\label{valuation of binomial coeff}
     Let $a, b\in\Z_{\ge 1}$, then
-    \vspace{-1em}\begin{proof}[]
-        \[v_p\left( \binom{a + b}{b} \right)
-        = \sum_{i\ge 1}
+        \begin{align*}
+            v_p\left( \binom{a + b}{b} \right)
+        &= \sum_{i\ge 1}
         \left( \floor{\frac{a + b}{p^i}}
             - \floor{\frac{a }{p^i }}
-            - \floor{\frac{b}{p^i}} \right).\qedhere\]    
-    \end{proof}
-\end{corollary}
-\begin{corollary}[Kummer]
-    Expand $a, b\in\Z_{\ge 1}$ in base $p$,
-    then \[v_p\left( \binom{a + b}{b} \right) = \#\text{ of carries when compute } a + b \text{ in base } p.\]
+            - \floor{\frac{b}{p^i}} \right)\\
+        &=\#\text{ of carries when compute } a + b \text{ in base } p.
+        \end{align*}    
 \end{corollary}
 \begin{proof}
     Note that if $n = \sum_{i\ge 0}n_ip^i$ for $0\le n_i\le p - 1$,

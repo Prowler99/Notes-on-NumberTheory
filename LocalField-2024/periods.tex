@@ -299,27 +299,154 @@ with the map \begin{align*}
 \end{align*}
 
 
-\begin{example}
-Let $\eta : G_K\to\Z_p^\times$ be a character.
-Define a $1$-dimensional representation by\[\Q_p(\eta) := \Q_p\cdot e_\eta,\ \text{ with } g(e_\eta) = \eta(g)e_\eta.\]
-The $G_K$-action on \[\C_p(\eta) := \C_p\otimes_{\Q_p} \Q_p(\eta) = \C_p\cdot e_\eta\]
-is given by \[g(\lambda e_\eta) = g(\lambda) \eta(g)e_\eta,\quad \lambda\in\C_p.\]
-The space $\C_p(\eta)^{G_K}$ is a $K$-vector space of dimension $1$ or $0$, depending on if $\eta$ has a period in $\C_p$.
 
-\begin{proof}
-    For $y = xe_\eta\in\C_p(\eta)$, where $x\in\C_p$,
-\end{proof}
-\end{example}
-
-\begin{proposition}
-    $\alpha : \C_p\otimes_{K} D(V)\to\C_p\otimes_{\Q_p}V$ is a $\C_p$-linear injection.
+\begin{proposition}\label{Cp tensor D(V) injects in Cp tensor V}
+    $\alpha : \C_p\otimes_{K} D(V)\to\C_p\otimes_{\Q_p}V$ is a $G_K$-equivariant $\C_p$-linear injection.
 \end{proposition}
+\begin{proof}
+    The $G_K$-equivariancy and $\C_p$-linearily are clear. Suppose that $\alpha$ is not injective. Take $x\in\ker\alpha\sminus\{0\}$,
+    and write \[x = x_1\otimes d_1 + \dots + x_r\otimes d_r, \quad x_i\in\C_p, d_i\in D(V),\]
+    s.t. the number {\color{blue}$r$ is minimized},
+    in the sense that any other nonzero element in $\ker\alpha$ cannot be written in a shorter form.
+    In particular, $x_i\ne 0$ for all $i$.
+    Dividing by $x_1$, we may assume that $x_1 = 1$.
+    For each $g\in G_K$,
+    \[gx = 1\otimes d_1 + gx_2\otimes d_2 \cdots + gx_r\otimes d_r\in \ker\alpha\]
+    since $\alpha$ is $G_K$-equivariant.
+    Hence $gx - x = (gx_2 - x_2)\otimes d_2 + \cdots + (gx_r - x_r)\otimes d_r\in\ker\alpha$.
+    Because $r$ is minimized, $gx - x = 0$,
+    meaning that \[x\in (\C_p\otimes_{K} D(V))^{G_K} = \C_p^{G_K}\otimes_K D(V) = D(V).\]
+    But $\alpha$ is injective on $D(V) = (\C_p\otimes_{\Q_p} V)^{G_K}$, so $x = 0$.
+    Contradiction.
+\end{proof}
 \begin{corollary}
-    $\dim_K D(V)\le d$.
+    $\dim_K D(V)\le d$.\qed
 \end{corollary}
 
 We say $V$ is \textbf{$\C_p$-admissible},
 if $\dim_K D(V) = \dim_{\Q_p} V$,
 whence \[\alpha : \C_p\otimes_{K} D(V)\simeq\C_p\otimes_{\Q_p} V.\]
 
+\begin{example}
+Let $\eta : G_K\to\Z_p^\times$ be a character.
+Define a $1$-dimensional representation by\[\Q_p(\eta) := \Q_p\cdot e_\eta,\ \text{ with } g(e_\eta) = \eta(g)e_\eta.\]
+The $G_K$-action on \[\C_p(\eta) := \C_p\otimes_{\Q_p} \Q_p(\eta) = \C_p\cdot e_\eta\]
+is given by \[g(\lambda e_\eta) = g(\lambda) \eta(g)e_\eta,\quad \lambda\in\C_p.\]
+The space $\C_p(\eta)^{G_K}$ is a $K$-vector space of $K$-dimension $1$ or $0$, depending on if $\eta$ has a period in $\C_p$.
 
+\begin{proof}
+For $y = xe_\eta\in\C_p(\eta)\sminus\{0\}$, where $x\in\C_p^\times$,
+\[gy = gx\eta(g)e_\eta = \frac{gx}{x}\eta(g)y.\]
+Hence, \[y = xe_\eta\in\C_p(\eta)^{G_K}\iff \eta(g) = \frac{g(x^{-1})}{x^{-1}},\]
+i.e, $x^{-1}$ is a period for $\eta$ in $\C_p$.
+
+If $x,x'\in \C_p^\times$ are two periods for $\eta$, then $g\left( \dfrac{x}{x'} \right) = \dfrac{x}{x'}$ for all $g\in G_K$, so $x = ax'$ for some $a\in K$. This means that $\dim_{K}\C_p(\eta)^{G_K} = 1$ if it is not $0$.
+\end{proof}
+\end{example}
+
+\subsubsection{Rings of Periods}
+A \textbf{ring of $p$-adic periods}
+is a $\Q_p$-algebra $B$ with a compatible action of $G_K$ with some additional conditions.
+In this lecture, these conditions are:
+\begin{enumerate}
+\item [\textbf{Per1}] $B$ is an integral domain;
+\item [\textbf{Per2}] $(\Frac B)^{G_K} = B^{G_K}$;
+\item [\textbf{Per3}] If $\delta\in B$ and \[g(\Q_p\delta) = \Q_p\delta, \quad g\in G_K,\]
+then $\delta\in B^\times$.
+\end{enumerate}
+
+Let $V$ be a $p$-adic representation of $G_K$ of dimension $d$.
+The free $B$-module $B\otimes_{\Q_p} V$ is a $B$-semilinear representation of $G_K$.
+We say that $V$ is \textbf{$B$-admissible},
+if $B\otimes_{\Q_p} V\simeq B^d$ as $B$-semilinear representations.
+
+Let \[D_B(V) := (B\otimes_{\Q_p}V)^{G_K}.\]
+This is a $B^{G_K}$-vector space of dimension $d$,
+and we have a $B$-linear $G_K$-invariant map \[\alpha : B\otimes_{B^{G_K}} D_B(V)\to B\otimes_{\Q_p}V.\]
+
+\begin{proposition}
+    The map $\alpha : B\otimes_{B^{G_K}} D_B(V)\to B\otimes_{\Q_p}V$ is injective.
+    Furthurmore, TFAE:\begin{enumerate}
+    \item [(1)] $V$ is $B$-admissible;
+    \item [(2)] $\alpha : B\otimes_{B^{G_K}} D_B(V)\to B\otimes_{\Q_p}V$ is an isomorphism;
+    \item [(3)] $\dim_{B^{G_K}} D_B(V) = \dim_{\Q_p}V$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    The injectivity of $\alpha$ can be proved the same way as \cref{Cp tensor D(V) injects in Cp tensor V}.
+
+    $B\otimes_{\Q_p}V\simeq B^d$ as $G_K$-modules
+    means that \[B\otimes_{\Q_p}V = Be_1\oplus\cdots\oplus Be_d,\quad ge_i = e_i,\forall g\in G_K,\]
+    namely $B\otimes_{\Q_p}V = B\otimes_{B^{G_K}} D_B(V)$. Hence, (1) $\iff$ (2) $\implies$ (3).
+    
+    Now we prove (3) $\implies$ (1).
+    Choose a basis of $V/\Q_p$ and $D_B(V)/B^{G_K}$ (and remains a basis after base change to $B$),
+    so that $\alpha$ is expressed by the matrix $\mat(\alpha)$.
+    Let $\delta = \det \mat(\alpha)\in B$.
+    We use \textbf{Per3} to show that $\delta\in B^\times$: for $g\in G_K$, one checks that
+    \[g\delta = (\det\mat(g|_V))\delta\in\Q_p\delta.
+    \qedhere
+    \]
+\end{proof}
+
+The category of $B$-admissible representations is closed under:\begin{itemize}
+\item Sub-representations and quotients;
+\item Finite direct sum;
+\item Tensor product over $\Q_p$;
+\item Dual over $\Q_p$. In particular, \[D_B(V^*) = D_B(\Hom_{\Q_p}(V, \Q_p)) =\Hom_{B^{G_K}}(D_B(V), B^{G_K}) = D_B(V)^*.\]
+\end{itemize}
+
+If $V$ is $B$-admissible, a \textbf{period} of $V$ is $\delta\in B$ s.t. \[\exists v\in V, \mu\in D_B(V^*),\quad \delta = \mu(v).\]
+\begin{example}
+    Let $\eta : G_K\to\Z_p^{\times}$ be a character and $V = \Q_p(\eta) = \Q_pe_\eta$.
+    Then $V^* = \Q_p(\eta^{-1})$.
+    Indeed, if $u\in V^*$, then
+    \[(gu)(xe_\eta) = u(g^{-1}(x e_\eta))
+    = g^{-1}x\cdot \eta(g^{-1})u(e_\eta)=\eta(g^{-1})u(xe_\eta),\quad x\in \Q_p.\]
+
+    For $\mu = \alpha\otimes e_{\eta^{-1}}\in D_B(V^*) = (B\otimes_{\Q_p} \Q_p(\eta^{-1}))^{G_K}$,
+    we have \[
+    g\alpha\otimes \eta(g^{-1})e_{\eta^{-1}} = g\mu
+    = \mu = \alpha\otimes e_{\eta^{-1}}.\]
+    Hence $\eta(g)\alpha = g\alpha$,
+    i.e, $\alpha = \mu(e_\eta)\in B$ is a period of $\eta$. 
+\end{example}
+
+\begin{proposition}
+    A character $\eta : G_K\to\Z_p^\times$ is $\bar\Q_p$-admissible iff it is potentially trivial, i.e., $\exists L/K<\infty$ s.t. $\eta|_{G_L}$ is trivial.
+\end{proposition}
+\begin{proof}
+    ($\implies$) If $\eta$ is $\bar\Q_p$-admissible,
+    then $\exists \alpha\in L^\times$ for some $L/K<\infty$, s.t. $g\alpha = \eta(g)\alpha$,
+    $\forall g\in G_K$.
+    For $g\in G_L$, $\eta(g) = 1$.
+
+    ($\impliedby$) Assume that $\eta|_{G_L} = 1$.
+    We may assume furthur that $L/K$ is Galois.
+    Use $H^1(\gal(L/K), L) = 1$ to conclude.
+\end{proof}
+More generally, any representation of $G_K$ is $\bar\Q_p$-admissible iff it is potentially trivial.
+
+\begin{theorem}[Sen]
+    A representation $V$ of $G_K$ is $\C_p$-admissible iff it is potentially unramified, i.e, $\exists L/K < \infty$
+    s.t. $V|_{I_L}$ is trivial.
+\end{theorem}
+
+\subsubsection{The ring \texorpdfstring{$B_{\HT}$}{B-HT}}
+
+Let $B_{\HT} := \C_p[t, t^{-1}]$ with $G_K$-action given by \[g\left( \sum_{i\in\Z} a_it^i  \right) = \sum_{i\in\Z} ga_i\chi_\cyc(g)t^i,\quad a_i\in\C_p,\]
+so that $t$ is a period for $\chi_cyc$.
+\begin{proposition}
+    $B_{\HT}$ satisfies \textbf{Per1}, \textbf{Per2} and \textbf{Per3}.
+\end{proposition}
+\begin{proof}
+    $B_\HT$ is a subring of the field $\C_p\llbracket t \rrbracket[t^{-1}]$, hence it is a domain.
+
+    The $G_K$-action extends to $\C_p\llbracket t \rrbracket[t^{-1}]$.
+    If $x = \sum_i a_it^i\in\C_p\llbracket t \rrbracket[t^{-1}]^{G_K}$, then \[
+    gx_i\cdot\chi_\cyc(g)^i = x_i,\ \implies x_i = 0, i\ne 0;\ x_0\in\C_p^{G_K} = K.\]
+    Hence $B_\HT^{G_K} = (\Frac B_\HT)^{G_K}$.
+
+    For \textbf{Per3}, take $\delta\in B_\HT$
+    (T.B.C.)
+\end{proof}

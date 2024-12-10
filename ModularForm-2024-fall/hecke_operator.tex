@@ -65,12 +65,13 @@ and a right $\Omega$-action \[(f\gamma)(z) := f(z\gamma).\]
         \item this convolution operator $*$ is \textit{distributive} and \textit{associative},
         \item $1_{\Gamma}\in\hecke(\bico{\Delta}{\Gamma}{\Gamma})$ is both a left and right \textit{identity} for $*$.
     \end{itemize}
-    In particular, the operator $*$ makes \[\hecke_\Delta(\Gamma) := \hecke(\bico{\Delta}{\Gamma}{\Gamma})\] a $\K$-algebra.
+    In particular, the operator $*$ makes \[\hecke_\Delta(\Gamma) := \hecke(\bico{\Delta}{\Gamma}{\Gamma}) = \Z[\bico{\Delta}{\Gamma}{\Gamma}]\] a $\K$-algebra.
 \end{defthm}
 
 We then give a formula of $*$.
 For $\alpha, \beta, \gamma\in\Delta$, write
-\[[\Gamma\alpha\Gamma']*[\Gamma'\beta\Gamma''] = \sum_{\gamma\in \bico{\Gamma}{\Delta}{\Gamma''}} m(\alpha, \beta; \gamma) [\Gamma\gamma\Gamma''].\]
+\[[\Gamma\alpha\Gamma']*[\Gamma'\beta\Gamma''] =
+\sum_{\gamma\in \bico{\Delta}{\Gamma}{\Gamma''}} m(\alpha, \beta; \gamma) [\Gamma\gamma\Gamma''].\]
 Apply RHS to $\gamma$, one checks $\left([\Gamma\alpha\Gamma']*[\Gamma'\beta\Gamma'']\right)(\gamma) = m(\alpha, \beta; \gamma)$.
 To determine these quantities,
 write \[\Gamma\alpha\Gamma' = \bigsqcup_{a\in A} \Gamma a,\ \Gamma'\beta\Gamma'' = \bigsqcup_{b\in B}\Gamma' b.\]
@@ -88,7 +89,9 @@ Note that \[[\Gamma\alpha\Gamma'](x) =
     1, &\exists a\in A, x\in \Gamma a\\
     0, &\text{otherwise} 
 \end{matrix} \right\} =  \#\{a\in A \mid \Gamma x = \Gamma a\},\]
-so \[m(\alpha, \beta; \gamma)= \#\left\{ (a, b)\in A\times B\mid \Gamma \gamma = \Gamma ab \right\}.\]
+so \begin{equation}\label{eq: definition of structure constants for Hecke operators}
+    m(\alpha, \beta; \gamma)= \#\left\{ (a, b)\in A\times B\mid \Gamma \gamma = \Gamma ab \right\}.
+\end{equation}
 Considering right cosets rather than left cosets gives a similar formula.
 
 The following is a useful result in computation.
@@ -109,11 +112,11 @@ The following is a useful result in computation.
 \end{proof}
 
 \subsubsection{Commutativity}
-An \textbf{anti involution} of a monoid $\Delta$
+An \textbf{anti-involution} of a monoid $\Delta$
 is a map $\tau : \Delta\to\Delta$ s.t. \[\tau(xy) = \tau(y)\tau(x),\quad \tau(1) = 1,\quad \tau^2 := \tau\circ\tau = \Id.\]
 \begin{theorem}\label{hecke alg comm if anti involution}
     Let $\Gamma\in\mathscr{X}$.
-    If there \textit{exists} an anti involution $\tau : \Delta\to \Delta$ that stabilises every double coset of $\Gamma$, then $\hecke(\bico{\Delta}{\Gamma}{\Gamma})$ is a commutative $\K$-algebra.
+    If there \textit{exists} an anti-involution $\tau : \Delta\to \Delta$ that stabilises every double coset of $\Gamma$, then $\hecke_\Delta(\Gamma) = \hecke(\bico{\Delta}{\Gamma}{\Gamma})$ is a commutative $\K$-algebra.
 \end{theorem}
 % \begin{lemma}
 %     If $\tau$ is an anti involution of $\Delta$, 
@@ -132,22 +135,22 @@ is a map $\tau : \Delta\to\Delta$ s.t. \[\tau(xy) = \tau(y)\tau(x),\quad \tau(1)
 
 \subsection{The Action of Double Coset Algebras}
 
-We consider the action of $\hecke(\bico{\Delta}{\Gamma}{\Gamma})$ on \[M^\Gamma = \{m\in M\mid m\gamma = m, \forall \gamma\in\Gamma\}.\]
+We consider the action of double cosets $\hecke(\bico{\Delta}{\Gamma}{\Gamma'})$ on \[M^\Gamma = \{x\in M\mid x\gamma = x, \forall \gamma\in\Gamma\}.\]
 
 \begin{defthm}
     For $f\in\hecke(\bico{\Delta}{\Gamma}{\Gamma'})$, define \begin{align*}
         \cdot f : M^\Gamma &\longrightarrow M^{\Gamma'}\\
-            m &\longmapsto mf :=
+            x &\longmapsto xf :=
             \sum_{\delta\in\Gamma\backslash\Delta}
-                f(\delta) m\delta.
+                f(\delta) x\delta.
     \end{align*}
     This action is well-defined.
     Moreover, it is comptatible with convolution.\begin{itemize}
-        \item If $f\in\hecke(\bico{\Delta}{\Gamma}{\Gamma'})$, $f'\in\hecke(\bico{\Delta}{\Gamma'}{\Gamma''})$, then $m(f*f') = (mf)f'$.
-        \item In case $\Gamma' = \Gamma$, $m \boldsymbol{1}_\Gamma = m$.
+        \item If $f\in\hecke(\bico{\Delta}{\Gamma}{\Gamma'})$, $f'\in\hecke(\bico{\Delta}{\Gamma'}{\Gamma''})$, then $x(f*f') = (xf)f'$.
+        \item In case $\Gamma' = \Gamma$, $x \boldsymbol{1}_\Gamma = x$.
     \end{itemize}
-    In particular, $M^\Gamma$ admits a right $\hecke(\bico{\Delta}{\Gamma}{\Gamma})$-module,
-    with action of a basis given by \[\Gamma\gamma\Gamma = \bigsqcup_{i=1}^n \Gamma \gamma_i
+    In particular, $M^\Gamma$ is a right $\hecke_\Delta(\Gamma)$-module,
+    with the action of the basis $\{\Gamma\gamma\Gamma\}_{\gamma\in\Delta}$ given by \[\Gamma\gamma\Gamma = \bigsqcup_{i=1}^n \Gamma \gamma_i
     \implies m[\Gamma\gamma\Gamma] = \sum_{i=1}^n\gamma_i.\]
 \end{defthm}
 \begin{corollary}
@@ -172,17 +175,14 @@ We specialise our discussion in the last section to the case of modular forms. L
 \begin{lemma}
     If $\Gamma$ is a discrete subgroup of $\SL(2,\Z)$, then in $\GL(2, \Q)^+$, the group $\tilde{\Gamma} = \GL(2, \Q)^+$.
 \end{lemma}
-\begin{proof}
-    
-\end{proof}
 
 
 Fix a weight $k$ and consider all the modular forms \[M := \bigcup_{\Gamma\in\mathscr{X}} M_k(\Gamma) = \sum_{\Gamma} M_k(\Gamma)\]
 and its $\C$-subspace \[S := \bigcup_{\Gamma\in\mathscr{X}} S_k(\Gamma) = \sum_{\Gamma} S_k(\Gamma).\]
 \begin{itemize}
-    \item Note that we can write $\bigcup = \sum$, because \[M_k(\Gamma) + M_k(\Gamma')\subset M_k(\Gamma\cap\Gamma').\]
+    \item Note that we have $\bigcup = \sum$, because \[M_k(\Gamma) + M_k(\Gamma')\subset M_k(\Gamma\cap\Gamma').\]
 \end{itemize}
-Define $M\boldsymbol{\circlearrowleft} \GL(2, \R)^+$ by \[f|_k\gamma(z) := (\det \gamma)^{k-1}j(\gamma, z)^{-k} f(\gamma z).\]
+Define a right-action of $\GL(2, \R)^+$ on $M$ by \[f|_k\gamma(z) := (\det \gamma)^{k-1}j(\gamma, z)^{-k} f(\gamma z).\]
 \begin{lemma}
     For all $\Gamma\in\mathscr{X}$ and $\gamma\in\GL(2, \R)^+$, \[f\in M_k(\Gamma)\implies f|_k\gamma\in M_k(\Gamma\cap\gamma^{-1}\Gamma\gamma).\]
     It remains true for $S_k$.
@@ -226,7 +226,7 @@ and $\hecke_1(N) := \hecke_{\Delta_1(N)}(\Gamma_1(N))$.
 \begin{proof}
     Check that \[A = \begin{pmatrix}
         a & b \\ cN & d
-    \end{pmatrix}\mapsto
+    \end{pmatrix}\longmapsto
     \begin{pmatrix}
         a & c \\ bN & d
     \end{pmatrix} = \left( \begin{pmatrix}
@@ -241,7 +241,7 @@ We are particularly interested in $\hecke_0(N)$ and $\hecke_1(N)$.
 
 \subsection{Product Formula for \texorpdfstring{$\hecke_0(N)$}{H0N}}
 
-\begin{theorem}[coset representative of $\hecke_0(N)$]\label{coset representative of R0N}
+\begin{theorem}[A coset representative of $\hecke_0(N)$]\label{coset representative of R0N}
     $\bico{\Delta(N)}{\Gamma_0(N)}{\Gamma_0(N)}$
     admits coset representative given by \[\begin{pmatrix}
         u &\\ & v
@@ -256,7 +256,8 @@ We are particularly interested in $\hecke_0(N)$ and $\hecke_1(N)$.
     \end{cases}\]
 \end{theorem}
 
-\begin{proposition}
+\begin{proposition}\label{description of the double coset Gamma0-diag(u v)-Gamma0}
+    The double coset
     \[\Gamma_0(N)\begin{pmatrix}
         u & \\ & v
     \end{pmatrix}\Gamma_0(N) = \bigsqcup_{g\in M_{u, uv}}\Gamma_0(N)g,\]
@@ -272,7 +273,9 @@ We are particularly interested in $\hecke_0(N)$ and $\hecke_1(N)$.
         \end{matrix}
         \right.
     \right\}.\]
-    In particular,\[\Gamma_0(N)\begin{pmatrix}
+    In particular,\[\left[ \begin{pmatrix}
+        1 & \\ & n
+    \end{pmatrix} \right]\Gamma_0(N)\begin{pmatrix}
         1 & \\ & n
     \end{pmatrix}\Gamma_0(N) = \bigsqcup_{g\in M_{1, n}}\Gamma_0(N)g\]
     and \[M_{1, n} = \left\{
@@ -287,12 +290,43 @@ We are particularly interested in $\hecke_0(N)$ and $\hecke_1(N)$.
         \end{matrix}
         \right.
     \right\}. \]
-
-
 \end{proposition}
 
-\begin{proposition}[multiplication formula]\label{multiplication formula for diag (1 n)}
-    Write $[A] := [\Gamma_0(N) A\Gamma_0(N)]$. Let $n, m\in\Z$, $p$ be a prime.
+\begin{example}
+    Let $p$ be a prime.\begin{itemize}
+\item If $p\mid N$,
+then \[\left[ \begin{pmatrix}
+    1 & \\ & p
+\end{pmatrix} \right]
+= \bigsqcup_{i\in\Z/p\Z} \Gamma_0(N)\begin{pmatrix}
+    1 & i \\ & p
+\end{pmatrix}.\]
+\item If $p\nmid N$,
+then \[\left[ \begin{pmatrix}
+    1 & \\ & p
+\end{pmatrix} \right]
+= \bigsqcup_{i\in\Z/p\Z} \Gamma_0(N)\begin{pmatrix}
+    1 & i \\ & p
+\end{pmatrix}\sqcup \Gamma_0(N)\begin{pmatrix}
+    p & \\ &1
+\end{pmatrix}.\]
+
+    \end{itemize}
+\end{example}
+
+
+Next, we must find the multiplication formula for these double cosets.
+Note that $\diag(u, u)$ lies in the centre of $\GL(2, \Q)^+$, so $\diag(u, u)$ normalises $\Gamma_0(N)$. Hence \[\left[ \begin{pmatrix}
+    u &\\ & v
+\end{pmatrix} \right] = \left[ \begin{pmatrix}
+    u & \\ & u
+\end{pmatrix}\right]\left[\begin{pmatrix}
+    1 & \\ & v/u
+\end{pmatrix} \right],\]
+and thus we need only to find the formula for $\diag(1, n)$'s.
+
+\begin{proposition}[Multiplication formulas]\label{multiplication formula for diag (1 n)}
+    Let $n, m\in\Z$, $p$ be a prime.
     \begin{itemize}
         \item If $(n, m) = 1$, then \[\left[ \begin{pmatrix}
             1&\\ & n
@@ -319,34 +353,97 @@ We are particularly interested in $\hecke_0(N)$ and $\hecke_1(N)$.
             \left[ \begin{pmatrix}
             1&\\ & p^{2}
         \end{pmatrix} \right] + (p+1)\left[ \begin{pmatrix}
-            p&\\ & p
+            p&\\ & p^r
         \end{pmatrix} \right], & r = 1,\\
         & \\
         \left[ \begin{pmatrix}
             1&\\ & p^{r + 1}
         \end{pmatrix} \right]+ p\left[ \begin{pmatrix}
-            p&\\ & p
-        \end{pmatrix}\begin{pmatrix}
-            1 &\\ & p^{r-1}
+            p&\\ &p^r
         \end{pmatrix} \right], & r\ge 2.
         \end{cases} \]
     \end{itemize}
 \end{proposition}
 \begin{proof}
-    Note that $\diag(u, u)$ lies in the centre of $\GL(2, \Q)^+$, so \[\left[ \begin{pmatrix}
-        u &\\ & v
-    \end{pmatrix} \right] = \left[ \begin{pmatrix}
-        u & \\ & u
-    \end{pmatrix}\begin{pmatrix}
-        1 & \\ & v/u
-    \end{pmatrix} \right],\]
-    and thus we need only to prove the formula for $\diag(1, n)$.
+    \textit{Just some elementary computation, but I would like to write them down as detailed as possible.}
 
-    To be continued....
+    Write $\Gamma = \Gamma_0(N)$.
+    Let $(n, m) = 1$.
+    We need to find
+    \[\#\{(A, B)\in M_{1, n}\times M_{1, m}\mid {\color{blue}\Gamma AB} = \Gamma \gamma\},\quad \gamma = \begin{pmatrix}
+        u & \\ & v
+    \end{pmatrix},\]
+    so we investigate $M_{1, n}M_{1, m}$ first.
+    Look at \[\begin{pmatrix}
+        a & b \\ & d
+    \end{pmatrix}\begin{pmatrix}
+        e & f \\ & h
+    \end{pmatrix} = \begin{pmatrix}
+        ae & af + bh \\ & dh
+    \end{pmatrix}\]
+    One checks directly that:\begin{itemize}
+        \item $(ae, af + bh, dh) = 1$.
+        \item $ae$ permutes the factors of $nm$ that are prime to $N$.
+        \item When diaganol fixed, since $a\in(\Z/h\Z)^\times$ and $h\in(\Z/d\Z)^\times$,
+        the upper-right $af + bh$ permutes
+        $\Z/dh\Z\simeq\Z/d\Z\times\Z/h\Z$.
+    \end{itemize}
+    Therefore \[M_{1, n}M_{1, m} = M_{1, nn},\quad (n, m) = 1,\]
+    \begin{align*}
+        \left[ \begin{pmatrix}
+            1&\\ & n
+        \end{pmatrix} \right]\left[ \begin{pmatrix}
+            1&\\ & m
+        \end{pmatrix} \right] 
+        &= \sum_{u\mid v, (u, N) = 1}
+        \#\{A\in M_{1, nm}\mid \Gamma A = \Gamma\diag(u, v)\}\left[ \begin{pmatrix}
+            u &\\ & v
+        \end{pmatrix} \right]\\
+        &= \sum_{u\mid v, (u, N) = 1}
+        \#\{A\in M_{1, nm}\mid \Gamma A = \Gamma\diag(u, v)\}\left[ A \right].
+    \end{align*}
+    For different $A\in M_{1, nm}$, 
+    the cosets $\Gamma A$ are different,
+    hence \[\#\{A\in M_{1, nm}\mid \Gamma A = \Gamma\diag(u, v)\}\le 1.\]
+    Actually, there is a unique $\diag(u, v)$ in each $\Gamma A$:
+    in order \[\begin{pmatrix}
+        a & b \\ Nc & d
+    \end{pmatrix}\begin{pmatrix}
+        x & y \\ & z
+    \end{pmatrix} = \begin{pmatrix}
+        ax & ay + bz \\ Ncx & Ncy + dz
+    \end{pmatrix}\]
+    being diaganol, $c$ must be $0$, so $a = d = \pm1$,
+    and $b = \pm y/z$. As $u = ax > 0$, the choice is unique,
+    and we have proven that $[\diag(1, n)][\diag(1, m)] = [\diag(1, nm)]$.
+
+    (T.B.C.)
 \end{proof}
 
 
 \subsection{From \texorpdfstring{$\Gamma_0$ to $\Gamma_1$}{Gamma0 to Gamma1}}
+
+\begin{proposition}\label{conditions under which Gamma1Delta1Gamma1 = Gamma0Delta0Gamma0}
+    Let $\Gamma_0\supset \Gamma_1$ be congruence subgroups, $\Delta_0\supset \Delta_1$ be monoids, satisfying the following conditions:\begin{enumerate}
+    \item [(a)] $\Delta_i\supset\Gamma_i$, $i = 0, 1$.
+    \item [(b)] $\forall\alpha\in \Delta_1$, $\Gamma_0\alpha\Gamma_0 = \Gamma_0\alpha\Gamma_1$.
+    \item [(c)] $\forall\alpha\in\Delta_1$,
+    $\Gamma_0\alpha\cap\Delta_1 = \Gamma_1\alpha$.
+    \item [(d)] $\Gamma_0\Delta_1 = \Delta_0$.
+    \end{enumerate}
+    Then the map \[\bico{\Delta_1}{\Gamma_1}{\Gamma_1}\to\bico{\Delta_0}{\Gamma_0}{\Gamma_0},\quad \Gamma_1\alpha\Gamma_1\mapsto \Gamma_0\alpha\Gamma_0\] is bijective, and induces an isomorphism \[\hecke_{\Delta_1}(\Gamma_1)\simeq\hecke_{\Delta_0}(\Gamma_0)\]
+    as $\Z$-algebras.
+    
+    If $\alpha\in\Delta_1$, and the double coset \[\Gamma_0\alpha\Gamma_0 = \bigsqcup_i \Gamma_0\alpha_i,\quad\text{with }\alpha_i\in\Gamma_1,\]
+    then \[\Gamma_1\alpha\Gamma_1 = \bigsqcup_i\Gamma_1\alpha_i.\]
+\end{proposition}
+The conditions in \cref{conditions under which Gamma1Delta1Gamma1 = Gamma0Delta0Gamma0} are satisfied when \[\begin{matrix}
+    &\Gamma_0 = \Gamma_0(N), &\Delta_0 = \Delta(N),\\
+    &\Gamma_1 = \Gamma_1(N), &\Delta_1 = \Delta_1(N),
+\end{matrix}\]
+giving $\hecke_{1}(N)\simeq\hecke_0(N)$.
+\cref{coset representative of R0N} holds if we replace $\Gamma_0(N)$ by $\Gamma_1(N)$,
+while \cref{description of the double coset Gamma0-diag(u v)-Gamma0} needs a bit adjustment.
 
 Recall that \[\Gamma_0(N)\to(\Z/N\Z)^\times\quad \begin{pmatrix}
     *&*\\*&d
@@ -361,12 +458,31 @@ Recall that \[\Gamma_0(N)\to(\Z/N\Z)^\times\quad \begin{pmatrix}
     \item $\left< d\right>\left<d'\right> = \left<dd'\right>$.
 \end{itemize}
 
+\begin{proposition}
+    The double coset
+    \[\Gamma_1(N)\begin{pmatrix}
+        u & \\ & v
+    \end{pmatrix}\Gamma_1(N) = \bigsqcup_{g\in M_{u, v}}\Gamma_1(N)\gamma_a g,\quad g = \begin{pmatrix}
+        a & *\\ & *
+    \end{pmatrix}.\]
+\end{proposition}
+\begin{proof}
+    We can find $\gamma_a$ s.t. $\gamma_ag\in\Gamma_1(N)$.
+    As $\gamma_a\in\Gamma_0(N)$, the formula is true by \cref{conditions under which Gamma1Delta1Gamma1 = Gamma0Delta0Gamma0}.
+\end{proof}
+Moreover, the formulas in \cref{multiplication formula for diag (1 n)} holds for $\Gamma_1(N)$ after changing every \(\begin{pmatrix}
+    a & * \\ & *
+\end{pmatrix}\) to \(\gamma_a\begin{pmatrix}
+    a & * \\ & *
+\end{pmatrix}\).
 
 \subsection{Another Basis}
 \begin{definition}
-    [operator $T(n)$]
+    [The operator $T(n)$]
     Let $n\in\Z_{\ge 1}$ and consider \[\Delta^n(N) := \left\{ A\in\Delta(N)\mid \det A = n \right\}.\]
-    Write $\bico{\Delta^n(N )}{\Gamma_0(N)}{\Gamma_0(N)} = \bigsqcup_{i} \Gamma_0(N)g_i\Gamma_0(N)$, we define \[T(n) := \sum_{i} [\Gamma_0(N)g_i\Gamma_0(N)].\]
+    Write $\bico{\Delta^n(N )}{\Gamma_0(N)}{\Gamma_0(N)} = \bigsqcup_{i} \Gamma_0(N)g_i\Gamma_0(N)$,
+    we define \[T(n) := \sum_{i} [\Gamma_0(N)g_i\Gamma_0(N)]
+    \in\hecke_0(N).\]
     By \cref{coset representative of R0N}, we may take $g_i$'s to be \[\begin{pmatrix}
         u & \\ & n/u
     \end{pmatrix}\text{  with }\begin{cases}
@@ -385,14 +501,51 @@ Recall that \[\Gamma_0(N)\to(\Z/N\Z)^\times\quad \begin{pmatrix}
     In particular, for $p$ prime, \[T(p) = \left[ \begin{pmatrix}
         1&\\ &p
     \end{pmatrix} \right].\]
+
+    For $\Gamma_1(N)$, we consider $\Delta^n_1(N) := \Delta^n(N)\cap \Delta_1(N)$ and define $T(n)\in \hecke_{1}(N)$ using the same formula.
 \end{definition}
 
-\subsection{Hecke Algebra}
-Define \begin{align}
-    \mathbb{T}_i(N) &:= \im \left( \hecke_i(N)\to \enom_{\C} (M_k(N))\right)\\
-    T_n &:= \text{image of } T(n)\in\hecke_i(N)
+From \cref{multiplication formula for diag (1 n)}, we deduce the formulas for $T(n)$'s.
+\begin{proposition}[Multiplication formulas for $T(n)$]\label{multiplication formula for T()}
+    Let $n, m\in\Z$, $p$ be a prime.\begin{itemize}
+\item The map $T : \Z_{\ge 1}\to \hecke_i(N)$ is multiplicative: if $(n, m) = 1$, then $T(nm) = T(n)T(m)$.
+\item If $p\mid N$, then $T(p)T(p^{r}) = T(p^{r + 1})$, $r\in\Z_{\ge 1}$.
+\item If $p\nmid N$, then \(T(p)T(p^r) = T(p^{r + 1}) + p \left[ \gamma_p\begin{pmatrix}
+    p & \\ & p
+\end{pmatrix} \right]T(p^{r-1})\).
+    \end{itemize}
+\end{proposition}
+
+\subsection{Hecke Algebra: the Hecke Action on Modular Forms}
+Fix a weight $k\in\Z_{\ge 1}$.
+Define the ring or $\Z$-algebra \begin{align}
+    \mathbb{T}_i(N) := \im \left( \hecke_i(N)\to \enom_{\C} (M_k(N))\right)
  \end{align}
+and the operators \[    T_n := \text{image of } T(n)\in\hecke_i(N)\text{ in}\enom_{\C}(M_k(N)).
+\]
 for $i = 0, 1$.
+
+\begin{proposition}
+    Let $m, n\in\Z_{\ge 1}$ and $p$ a prime.
+    \begin{itemize}
+        \item $T_{mn} = T_{m}T_{n}$ if $(m, n) = 1$.
+        \item $T_pT_{p^r} = T_{p^{r+1}}$ if $p\mid N$.
+        \item $T_pT_{p^r} = T_{p^{r+1}} + p^{k-1}\gene{p}T_{p^{r-1}}$,
+        where the diamond operators act trivially on $M_k(\Gamma_0(N))$. 
+        \end{itemize}        
+\end{proposition}
+\begin{proof}
+    Let $f\in M_k(\Gamma_1(N))$ or $M_k(\Gamma_0(N))$.
+    Since $\diag(p, p)$ normalises $\Gamma_1(N)$ and $\Gamma_0(N)$, we have \[f\left|_k \left[ \begin{pmatrix}
+        p & \\ & p
+    \end{pmatrix} \right]\right.
+     = f\left|_k \begin{pmatrix}
+        p & \\ & p
+    \end{pmatrix} \right. = p^{k-2}f,\]
+    Since $\Gamma_1(N) \vartriangleleft \Gamma_0(N)$,
+    we have \[f|_k[\gamma_p] = f|_k\,\gamma_p = \gene{p}f.\]
+    The relations between these operators are now clear from \cref{multiplication formula for T()}.
+\end{proof}
 
 
 

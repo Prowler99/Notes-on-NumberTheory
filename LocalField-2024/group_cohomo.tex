@@ -386,27 +386,35 @@ The result above extends to higher $\GL_d(L)$.
 %         $H^1(G, \GL_d(L)) \neq {\ker N_G\over(\sigma/\Id)\GL_d(L)}$ a priori.
 % }.
 \begin{proof}
-    Let $\varphi : G = \gal(L/K)\to \GL_d(L)$ be a cocycle.
-    Similarly, take $a\in L^\times$ and consider \[P(a) := \sum_{g\in G} ga\cdot \varphi(g)\in \mathrm{M}_d(L).\]
-    Then \[hP(a) = \sum_{g\in G} hga\cdot h\varphi(g)
-    = \sum_{g\in G} hga\cdot \varphi(h)^{-1}\varphi(hg) = \varphi(h)^{-1}P(a),\]
-    so once $P(a)\in \GL_d(L)$,
-    we would have $\varphi(g) = P(a)\left( hP(a ) \right)^{-1} = \left( P(a)^{-1} \right)^{-1}h(P(a)^{-1})$.
-\begin{itemize}
-\item \textit{$K$ infinite.}
-Let $\vec{X} = \{X_g\}_{g\in G}$ be a set of variables. Consider \[
-Q(\vec{X}) := \det\left( \sum_{g\in G}X_g\varphi(g) \right)\in L[\vec{X}].\]
+Let $\varphi : G = \gal(L/K)\to \GL_d(L)$ be a cocycle.
+Similarly, take $a\in L^\times$ and consider \[P(a) := \sum_{g\in G} ga\cdot \varphi(g)\in \mathrm{M}_d(L).\]
+Then \[hP(a) = \sum_{g\in G} hga\cdot h\varphi(g)
+= \sum_{g\in G} hga\cdot \varphi(h)^{-1}\varphi(hg) = \varphi(h)^{-1}P(a),\]
+so once $P(a)\in \GL_d(L)$,
+we would have $\varphi(g) = P(a)\left( hP(a ) \right)^{-1} = \left( P(a)^{-1} \right)^{-1}h(P(a)^{-1})$.
+Let $\vec{X} = \{X_g\}_{g\in G}$ be a set of variables. Consider
+\[    Q(\vec{X}) := \det\left( \sum_{g\in G}X_g\varphi(g) \right)\in L[\vec{X}].\]
 Note that $Q(\{g(\cdot )\}_{g\in G}) : L\to L$ is a polynomial in automorphisms of $L$, and $Q(\{ga\}_{g\in G}) = \det P(a)$.
-
 The polynomial $Q\ne 0$ because, for instance,
 $Q$ evaluated at $(X_1, \dots) = (1, 0, \dots, 0)$ is
 $\det \varphi(1) = 1$.
+
+\begin{itemize}
+\item \textit{$K$ infinite.}
 By Artin's \cref{artin theorem on algebraically independence of characters},
 $Q(\{g(\cdot )\}_{g\in G})\ne 0$, hence $\exists a\in L$ s.t. $\det P(a)\ne 0$.
 
 \item \textit{$K$ finite.}
-(how?)
-
+% Note that when $K$ is finite,
+% point-wise multiplication of $\sigma, \tau\in\Gal(L/K)$
+% is still in $\gal(L/K)$:
+In this case,
+the point-wise multiplication of finitely many $g\in\gal(L/K)$
+takes the form $x\mapsto x^{n}$ for some $n\in\Z$,
+which is still a multiplicative map $L\to L$.
+Hence $Q(\{g(\cdot )\}_{g\in G})$ is a linear combination
+of characters, and we can apply Dirichlet's \cref{dedekind theorem on linearly independence of characters}.
+\qedhere
 \end{itemize}
 
 

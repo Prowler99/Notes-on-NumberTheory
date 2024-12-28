@@ -93,7 +93,7 @@ We can describe $\chi$ explicitly.
 \begin{enumerate}
     \item [\myit] If $F = \R$, then \[\chi(x) = \left( \frac{x}{|x|} \right)^{\epsilon}|x|^s,\ \epsilon = 0, 1,\ s\in\C.\] It is unitary iff $s\in i\R$.
     \item [\myit] If $F = \C$, then \[\chi(x) = \left( \frac{x}{\sqrt{x\bar{x}}} \right)^m(x\bar{x})^s,\ m\in\Z,\ s\in\C.\] It is unitary iff $s\in i\R$.
-    \item [\myit] If $F$ is nonarchimedean, then there exists a minimal integer $N$ s.t. $\chi(1 + \varpi^N\O_F^\times) = \{1\}$, whence $\chi$ factors through the finite group $\O_F^\times/(1 + \varpi^N\O_F^\times)$, and thus \[\chi(x) = |x|^s\chi_0(x),\] where $\chi_0$ is a character of $\O_F^\times/(1 + \varpi^N\O_F^\times)$.
+    \item [\myit] If $F$ is nonarchimedean and ramified, then there exists a minimal integer $N$ s.t. $\chi(1 + \varpi^N\O_F^\times) = \{1\}$, whence $\chi$ factors through the finite group $\O_F^\times/(1 + \varpi^N\O_F^\times)$, and thus \[\chi(x) = |x|^s\chi_0(x),\] where $\chi_0$ is a character of $\O_F^\times/(1 + \varpi^N\O_F^\times)$.
     It is unitary if $s\in i\R$. 
     This integer is called the \textbf{conductor} of $\chi$. 
 \end{enumerate}
@@ -104,9 +104,9 @@ We can describe $\chi$ explicitly.
 Look at a character $\chi : (\Z/\ell^e\Z)^\times\to\C^\times$ first.
 We define a character $\chi_p$ on $\Q_p^\times\simeq p^\Z\times\Z_p^\times$ and $\chi_\infty$ on $\R^\times$ as follows.
 \begin{enumerate}
-    \item [$\bullet$] If $p = \ell$, then the isomorphism $\Z_\ell^\times/(1+\ell^e\Z_\ell)\simeq (\Z/\ell^e\Z)^\times$ enable us to lift $\chi^{-1}$ (note the `$-1$'!) to a character $\chi_\ell$ on $\Q_\ell^\times$ that is trivial on $\ell^\Z$ and $1+\ell^e\Z_\ell$.
+    \item [$\bullet$] If $p = \ell$, then the isomorphism $\Z_\ell^\times/(1+\ell^e\Z_\ell)\simeq (\Z/\ell^e\Z)^\times$ enables us to lift $\chi^{-1}$ (note the `$-1$'!) to a character $\chi_\ell$ on $\Q_\ell^\times$ that is trivial on $\ell^\Z$ and $1+\ell^e\Z_\ell$.
     \item [$\bullet$] If $p \ne \ell$, then $p$ is invertible mod $\ell^e$, so we can define $\chi_p(p) := \chi(p)$, then make it trivial on $\Z_p^\times$.
-    \item [$\bullet$] Put $\chi_\infty := \sgn^{\chi(-1)}$.
+    \item [$\bullet$] Put $\chi_\infty := \sgn {\chi(-1)}$.
 \end{enumerate}
 Since $\chi_p$ are trivial on $\Z_p^\times$ only except for $p = \ell$, patching them together yields a character $\tilde{\chi}:=\prod_v\chi_v$ on $\idele{Q}$.
 \begin{lemma}
@@ -123,8 +123,10 @@ so we have $\chi = \chi_1\cdots\chi_r$, where $\chi_i : (\Z/p_1^{e_1})^\times\to
 and obtain a Hecke character $\tilde{\chi} := \tilde{\chi_1}\dots\tilde{\chi_r}$.
 
 \begin{remark}
-    The character $\tilde{\chi}$ is \[\idele{\Q}/\Q^\times\to\idele{\Q}/\Q^\times\R_{>0}\simeq\hat{\Z}^\times\to (\Z/N\Z)^\times \stackrel{\chi}{\to}\C^\times.\]
-    Conversely, every Hecke character factors through $\hat{\Z}^\times\to\C^\times$, and hence it is of finite order iff it comes from a Dirichlet character.
+    The character $\tilde{\chi}$ is
+    (the inverse of?)
+    \[\idele{\Q}/\Q^\times\to\idele{\Q}/\Q^\times\R_{>0}\simeq\hat{\Z}^\times\to (\Z/N\Z)^\times \stackrel{\chi}{\to}\C^\times.\]
+    Conversely, every (unitary) Hecke character factors through $\hat{\Z}^\times\to\C^\times$, and hence it is of finite order iff it comes from a Dirichlet character.
 \end{remark}
 
 \section{Fourier Analysis}

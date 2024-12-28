@@ -1,0 +1,141 @@
+\section{Schemes}
+In this section, all rings are assumed to be commutative.
+
+\subsection{Some Properties of Schemes}
+
+\subsubsection{Reduced Schemes}
+
+A ring $A$ is reduced if its nilradical
+$\nil(A) = 0$.
+
+A scheme $X$ is said to be \textbf{reduced at} $x\in X$,
+if the local ring $\O_{X, x}$ is reduced.
+We say that $X$ is \textbf{reduced} if it is reduced at every point.
+
+\begin{proposition}\label{reduced is Zariski local}
+    Let $X$ be a scheme. Then TFAE:
+    \begin{enumerate}
+    \item [(a)] $X$ is reduced.
+    \item [(b)] $\forall U\subset X$ open, $\O_X(U)$ is reduced.
+    \item [(c)] $\exists$ affine cover $\{U_i\}$ of $X$, s.t. all $\O_X(U_i)$ are reduced.
+    \end{enumerate}
+\end{proposition}
+
+To prove this, we consider an ideal sheaf $\mathcal{N}_X$ on $X$ defined by
+\[\mathcal{N}_X(U) := \left\{s\in \O_X(U)\mid s_x\in\nil(\O_{X, x})\right\},\]
+so that $X$ is reduced $\iff\mathcal{N}_X = 0$
+
+
+\begin{proposition}\label{reduced subscheme structure on closed subset}
+    Let $Z$ be a closed subset of the scheme $X$.
+    Then there is a unique structure of reduced scheme on $Z$, making it a closed subscheme of $X$.
+
+    In particular, there is a unique closed subscheme $i : X_{\red}\hookrightarrow X$
+    with the same topological space as $X$.
+    More precisely, $X_{\red} = V(\mathcal{N}_X) = (X, \O_X/\mathcal{N}_X)$.
+    This subscheme $X_{\red}$ verifies the following property:
+    \begin{itemize}
+        \item If $Y$ is a reduced scheme,
+        then any morphism $Y\to X$ factors through $Y\to X_{\red}\to X$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proof}[Proof of \cref{reduced is Zariski local} and \cref{reduced subscheme structure on closed subset}]
+    Let $U\subset X$ be an affine open.
+    Then since taking radical commutes with localization,
+    we have $\mathcal{N}_X(U) = \nil(\O_X(U))$.
+    This proves \cref{reduced is Zariski local}.
+    We also see that $|V(\mathcal{N}_X)| = |X|$.
+
+    Next, we verify that the closed ringed subspace $X_{\red} := (X, \O_X/\mathcal{N}_X)$
+    of $X$ is a scheme (and, of course, reduced); that is, it is locally affine. So assume $X = \spec A$.
+    Let $N = \nil(A)$ and $i : \spec A/N\to \spec A$ the closed embedding.
+    For any $g\in A$,
+    we know that the kernel of
+    \[A_g = \O_{\spec A}(D(g))\to \O_{\spec A/N}(D(\bar g)) = (A/N)_{\bar g}\]
+    is $N\otimes_A A_g$,
+    which $ = \nil(A_g) = \mathcal{N}_X(D(g))$;
+    i.e, $\ker i^\# = \mathcal{N}_X$.
+    Hence $X_{\red} \simeq \spec A/N$ is a scheme.
+
+    Now let $Z$ be a closed subset of $X$.
+    We first show that the reduced closed subscheme $(Z, \O_Z)$ is unique if it exists.
+    For an affine open $U\subset X$,
+    $(Z\cap U, \O_Z|_{Z\cap U})$ is a closed subscheme of $U$,
+    so it is isomorphic to $\spec \O_X(U)/I$
+    for some ideal $I\subset \O_X(U)$.
+    As a subset of $U = \spec \O_X(U)$,
+    $Z\cap U = V(I)$.
+    Since $Z$ is reduced, $\nil(\O_X(U)/I) = 0$,
+    namely $I$ is radical.
+    If there is another reduce closed subscheme structure of $X$ on $Z$,
+    it must also be given by a radical ideal $J\subset\O_X(U)$ on $U$,
+    and $V(I) = V(J)$. But for radical ideals, this means $I = J$.
+
+    To make $Z$ a reduced closed subscheme,
+    take affine cover $\{U_i = \spec A_i\}_i$ of $X$
+    and ideals $I_i\subset A_i$ s.t. $Z\cap U_i = V(I_i)$.
+    We endow $Z\cap U_i$ with the reduced scheme structure of $\spec A_i/\sqrt{I_i}$ and use uniqueness to glue them.
+\end{proof}
+
+\subsection{Irreducible Components}
+A topological space $X$ is \textbf{irreducible}
+if it is \textit{not} the union of proper closed subsets.
+\begin{itemize}
+    \item The closure of a irreducible subset is irreducible.
+    \item The set of irreducible subsets in a space $X$ admits maximal w.r.t.\! inclusions,
+    called \textbf{irreducible components}.
+\end{itemize}
+
+\subsection{Integral Schemes}
+A scheme $X$ is said to be \textbf{integral at} $x\in X$, if the local ring $\O_{X, x}$ is an integral domain.
+
+\subsection{Normal Schemes}
+An integral domain $A$ is normal if it is integrally closed in its fraction field.
+
+\subsection{Regular Schemes}
+
+
+
+A scheme $X$ is said to be \textbf{normal at}
+$x\in X$, if the local ring $\O_{X, x}$ is (an integral domain and) normal.
+
+\section{Some Properties of Morphisms}
+
+\subsection{Seperated Morphisms}
+
+\subsection{Quasi-Compact Morphisms}
+A morphism $f: X\to Y$ of schemes is said to be
+\textbf{quasi-compact}, if the inverse image $f^{-1}(V)$ of any affine open $V\subset Y$ is quasi-compact.
+\begin{proposition}
+    Let $f : X\to Y$ be a morphism of schemes.
+    \begin{enumerate}
+    \item [(1)] If $f$ is a closed immersion, then $f$ is quasi-compact.
+    \item [(2)] If $f$ is an open immersion, and $Y$ is locally Noetherian, then $f$ is quasi-compact.
+    \end{enumerate}
+\end{proposition}
+
+
+\subsection{Morphisms of Finite Type}
+A ring homomorphism $A\to B$ is of finite type if it make $B$ a finitely generated $A$-algebra. 
+
+A morphism $f: X\to Y$ of schemes is said to be
+\textbf{of finite type}, if
+\begin{itemize}
+    \item $f$ is quasi-compact, and
+    \item For any affine open $V\subset Y$ and affine open $U\subset f^{-1}(V)$, the map $\O_Y(V)\to\O_X(f^{-1}V)\to\O_X(U)$ is of finite type.
+\end{itemize}
+
+\subsection{Proper Morphisms}
+
+\subsection{Flat Morphisms}
+A morphism $f : X\to Y$ of schemes is said to be
+\textbf{flat at} $x\in X$, if $f^\#_x : \O_{Y, f(x)}\to \O_{X, x}$ is flat.
+We say that $f$ is \textbf{flat} if it is flat at every point.
+
+\subsection{Unramified Morphisms}
+
+\subsection{\'Etale Morphism}
+
+\subsection{Smooth Morphisms}
+

@@ -3,13 +3,37 @@ In this section, all rings are assumed to be commutative.
 
 \subsection{Some Properties of Schemes}
 
+\subsubsection{Noetherian Schemes}
+A scheme $X$ is said to be \textbf{Noetherian} if it is a \textit{finite} union of affine open $X_i$'s such that every $\O_X(X_i)$ is a Noetherian ring.
+
+\begin{proposition}
+    Let $X$ be a Noetherian scheme.
+\begin{enumerate}
+\item [(1)] Every open or closed subscheme of $X$ is Noetherian.
+\item [(2)] $\O_{X, x}$ is Noetherian for all $x\in X$.
+\item [(3)] $\O_X(U)$ is Noetherian for all $U\subset X$ affine open.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+    The statement (1) and (2) essentially follows from that localization and taking quotient preserves Noetherianity.
+    
+    Let $\{X_i\}_i$ be a finite affine Noetherian covering of $X$, and $U\subset X$ be affine open. We need to show that $\O_X(U)$ is Noetherian.
+    By (1), $U_i := U\cap X_i$ is an affine Noetherian for each $i$. Let $I$ be an ideal of $\O_X(U)$.
+    For every $i$, the ideal $I\O_X(U_i)$ of $\O_X(U_i)$ is finitely generated,
+    so there is an ideal $J$ of $\O_X(U)$ s.t. $J\O_X(U_i) = I\O_X(U_i)$ for all $i$.
+    Since $\{U_i\}$ covers $U$,
+    we hvae $J\O_{X, x} = I\O_{X, x}$ for all $x\in U$, i.e.,
+    $I/J\otimes_{\O_X(U)} \O_X(U)_\p$ for every $\p\in\spec \O_X(U) \simeq U$.
+    Hence $I/J = 0$, and $I$ is finitely generated.
+\end{proof}
+
 \subsubsection{Reduced Schemes}
 
-A ring $A$ is reduced if its nilradical
-$\nil(A) = 0$.
-
 A scheme $X$ is said to be \textbf{reduced at} $x\in X$,
-if the local ring $\O_{X, x}$ is reduced.
+if the local ring $\O_{X, x}$ is reduced\footnote{
+    A ring $A$ is reduced if its nilradical
+$\nil(A) = 0$.
+}.
 We say that $X$ is \textbf{reduced} if it is reduced at every point.
 
 \begin{proposition}\label{reduced is Zariski local}
@@ -78,31 +102,100 @@ so that $X$ is reduced $\iff\mathcal{N}_X = 0$
     We endow $Z\cap U_i$ with the reduced scheme structure of $\spec A_i/\sqrt{I_i}$ and use uniqueness to glue them.
 \end{proof}
 
-\subsection{Irreducible Components}
+\subsection{Connected Schemes}
+
+\subsection{Irreducible Schemes}
 A topological space $X$ is \textbf{irreducible}
-if it is \textit{not} the union of proper closed subsets.
+if it is \textit{not} the union of proper closed subsets, or equivalently, any two nonempty open subsets intersects.
+The set of irreducible subsets in a space $X$ admits maximal w.r.t.\! inclusions,
+called \textbf{irreducible components}.
+\begin{proposition}
+    Let $X$ be a topological space.
 \begin{itemize}
-    \item The closure of a irreducible subset is irreducible.
-    \item The set of irreducible subsets in a space $X$ admits maximal w.r.t.\! inclusions,
-    called \textbf{irreducible components}.
+    \item [(1)] The closure of a irreducible subset is irreducible.
+    \item [(2)] If $X$ is irreducible, and $U\subset X$ is a non-empty open set, then $U$ is irreducible and dense in $X$.
+    \item [(3)]
 \end{itemize}
+\end{proposition}
+\begin{proof}
+    (1) Trivial.\par
+    (2) Easy to check that $\bar U = X$.
+    Any two nonempty open subsets of $U$ is still an open subset of $X$, and hence it is dense in $X$. In particular, this intersection is nonempty.\par
+\end{proof}
+
+A scheme $X$ is said to be irreducible if the underlying topological space $|X|$ is irreducible.
+
 
 \subsection{Integral Schemes}
 A scheme $X$ is said to be \textbf{integral at} $x\in X$, if the local ring $\O_{X, x}$ is an integral domain.
+We say that $X$ is \textbf{integral} if it is reduced and irreducible.
+
 
 \subsection{Normal Schemes}
-An integral domain $A$ is normal if it is integrally closed in its fraction field.
+
+A scheme $X$ is said to be \textbf{normal at}
+$x\in X$, if the local ring $\O_{X, x}$ is (an integral domain and) normal\footnote{
+    An integral domain $A$ is normal if it is integrally closed in its fraction field.
+}.
 
 \subsection{Regular Schemes}
 
 
 
-A scheme $X$ is said to be \textbf{normal at}
-$x\in X$, if the local ring $\O_{X, x}$ is (an integral domain and) normal.
-
 \section{Some Properties of Morphisms}
 
-\subsection{Seperated Morphisms}
+\subsection{Seperated (in the sense of topology) Morphisms}
+A morphism $f : X\to Y$ of schemes is said to be
+\textbf{seperated}, if the diagonal map \[\Delta_{X/Y} : X\to X\times_Y X\]
+is a closed immersion.
+\begin{proposition}
+    Any morphism of affine schemes is seperated.
+
+    If $f : X\to Y$ is a morphism, then $f$ is seperated if and only if $\Delta(X)\subset X\times_YX$ is a closed subset.
+\end{proposition}
+\begin{proof}
+    Let $\spec B\to \spec A$.
+    The diagonal map $\spec B\to \spec (B\otimes_A B)$
+    is induced by
+    \[B\otimes_A B\to B\quad b\otimes b'\mapsto bb',\]
+    which is surjective,
+    meaning that it is a quotient map and thus gives a closed immersion.
+
+    The second assertion comes from this lemma:
+    \begin{lemma}\label{closed immersion iff 1.locally closed immersion 2.image closed}
+        Let $f : X\to Y$ be a morphism of schemes (or is ringed space enough?).
+        If\begin{enumerate}
+        \item [(\rmnum{1})] $\exists Y_i\subset Y$ s.t. $X = \bigcup_{i}f^{-1}(X_i)$, and $f|_{f^{-1}Y_i} : f^{-1}(Y_i)\to Y_i$ are closed immersions, and
+        \item [(\rmnum{2})] $f(X)\subset Y$ is a closed subset,
+        \end{enumerate}
+        then $f : X\to Y$ is a closed immersion.
+    \end{lemma}
+    \noindent\textit{Proof of the lemma.}
+    (T.B.C.)
+\end{proof}
+
+\begin{proposition}\label{seperated is Zariski global}
+    Let $X$ be a scheme. Write $\Delta = \Delta_{X/\Z}$.
+    Then TFAE:
+    \begin{enumerate}
+\item [(a)] $X$ is seperated\footnote{If $\mathcal{P}$ is a property for morphisms, we say an $S$-scheme $X$ has $\mathcal{P}$ if the structure map $X\to S$ has $\mathcal{P}$.}.
+\item [(b)] $\forall U, V\subset X$ affine open,
+the map $\O_X(U)\otimes_\Z \O_X(V)\to \O_X(U\cap V)$ is surjective;
+or equivalently, the map
+$U\cap V = \Delta^{-1}(U\times_\Z V)\stackrel{\Delta}{\to} U\times_\Z V$ is a closed immersion.
+\item [(c)] $\exists$ affine cover $\{U_i\}$ of $X$,
+s.t. the map $\O_X(U_i)\otimes_\Z\O_X(U_j)\to \O_X(U_i\cap U_j)$ is surjective for all $i, j$.
+% \item [(d)] Any morphism $X\to Y$ of schemes is seperated.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+    The implication $(\mathrm{a})\implies(\mathrm{b})\implies(\mathrm{c})$ is clear.
+    To prove that (c) $\implies$ (a), assume (c), namely all $\Delta^{-1}(U_i\times_\Z U_j)\to U_i\times_\Z U_j\subset X\times_\Z Y$ are closed immersions.
+    By \cref{closed immersion iff 1.locally closed immersion 2.image closed}, $X$ is seperated.
+
+    % It is left to prove (a) $\implies$ (d).
+
+\end{proof}
 
 \subsection{Quasi-Compact Morphisms}
 A morphism $f: X\to Y$ of schemes is said to be
@@ -125,6 +218,16 @@ A morphism $f: X\to Y$ of schemes is said to be
     \item $f$ is quasi-compact, and
     \item For any affine open $V\subset Y$ and affine open $U\subset f^{-1}(V)$, the map $\O_Y(V)\to\O_X(f^{-1}V)\to\O_X(U)$ is of finite type.
 \end{itemize}
+
+\begin{proposition}
+    Let $f : X\to Y$ be a morphism of schemes.
+    If $\exists$ affine cover $\{V_i\}_i$ of $Y$, 
+    s.t.\begin{enumerate}
+        \item [(\rmnum{1})] $f^{-1}(V_i)\subset X$ is a \textit{finite} union of affine open $U_{ij}$ for all $i$, and
+        \item [(\rmnum{2})] $\O_Y(V_i)\to \O_X(U_{ij})$ is of finite type for all $i, j$,
+    \end{enumerate}
+    then $f$ is of finite type.
+\end{proposition}
 
 \subsection{Proper Morphisms}
 

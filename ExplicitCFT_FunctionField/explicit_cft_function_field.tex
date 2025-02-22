@@ -1,0 +1,68 @@
+\documentclass{article}
+
+\input{../_NoteHead.tex}
+
+\newcommand{\F}{\mathbb{F}}
+
+\title{Notes on Drinfeld Modules and Explicit CFT for Function Fields}
+
+\begin{document}
+\maketitle
+
+1) Give a 30min (strict limit !!!) talk. Ideally more like 25min + 5 min for questions.  The talks will be in March. I will try to reserve a room, and will give a more precise time/date when possible.
+
+2) Write an ``extended summary" (meaning around ~5 pages NOT!!! >=10) of you article. It should summarise the article and its main ideas and be accessible to advanced Master students (i.e., the other students in this group).
+
+\section{Review on CFT}
+
+
+
+\section{Drinfeld Modules}
+Let $F$ be a global function field with field of constants $k = \F_q$.
+\subsection{Definition}
+Consider the additive group $\Ga_{/L}$ over $L$.
+Now the point is, $\Ga_{/L}$ is not only a group scheme, but a $k$-vector space scheme,
+and we consider the ring $\End_{k}(\Ga_{/L})$ of all $k$-linear endomorphism of group schemes.
+\begin{proposition}
+    $\End_{k}(\Ga_{/L}) = k\{\tau\}$, where $\tau$ is the Frobenius-$q$ endomorphism of $F[X]$.
+\end{proposition}
+\begin{proof}
+    An endomorphism $\Ga\to\Ga$ of schemes over $L$ is given by an $L$-algebra homomorphism $\Phi: L[X]\to L[X]$,
+    hence it is determined by the image $\varphi(X) = \Phi(X)$\footnote{
+        Note that if $\varphi(X) = a_nX^n + \cdots + a_0$,
+        then \[\varphi(f(X)) = a_nf(X)^n  + \cdots + a_0\] and
+        \[\Phi(f(X)) = f(\Phi(X)) = f(\varphi(X))\] are \textit{\textbf{different}} in general.
+    } of $X$.
+    It respects the group-scheme structure if it commutes with the co-multiplication map (also an $L$-algebra homomorphism) \[\Delta : F[X]\to F[X]\otimes_L F[X],\quad X\mapsto X\otimes 1 + 1\otimes X.\]
+    which amounts to\[(\Phi\otimes\Phi)(\Delta(X)) = (\Phi\otimes\Phi)(X\otimes 1 + 1\otimes X) =  \Phi(X)\otimes 1 + 1\otimes\Phi(X) = 
+    \varphi(X)\otimes 1 + 1\otimes\varphi(X)\]
+    equals \[\Delta(\Phi(X)) = \Delta(\varphi(X)) = \varphi(\Delta(X)) = \varphi(X\otimes 1 + 1\otimes X).\]
+    % Since the tensor is over $L$ and $\varphi$ has coefficients in $L$,
+    This is to say that\footnote{
+        Recall that the multiplicative structure on $B\otimes_A C$ is given by \[(b\otimes b')\cdot(c\otimes c') = bb'\otimes cc'.\]
+    } $\varphi$ is additive, i.e. $\varphi(X+Y) = \varphi(X) + \varphi(Y)$.
+
+    We require furthur that $\Phi$ respects the ``co-$k$-scalar multiplication'', which I don't have the formula right now.
+    So let's use the functor point of view.
+    Take $c\in k$.
+    Yoneda tells us that
+    \[\Hom_{[k\text{-}\cat{Alg}^\opp, \cat{Grp}]}(\Ga, \Ga) \simeq \Ga(L[X]), \quad \phi\mapsto \phi(\Id_{L[X]}),\]
+    so the co-$c$-multiplication is given by $X\mapsto cX$.
+    Therefore $\Phi$ respects this map if $\varphi(cX) = c\varphi(X)$.
+
+    In conclusion,
+    \begin{align*}
+        \enom_{k}(\Ga_{/L}) &= \{k\text{-linear polynomials in} L[X] \}\\
+        &=
+    \end{align*}
+
+
+
+
+\end{proof}
+
+
+
+
+
+\end{document}

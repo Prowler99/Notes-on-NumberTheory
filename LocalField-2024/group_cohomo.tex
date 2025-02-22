@@ -70,7 +70,7 @@ But for this definition to make sense, we need to show that:
 
 \begin{proposition}[Shapiro's lemma]\label{Shapiro's lemma}
 Let $H < G$ be a subgroup.
-The isomorphism\[(-)^H \simeq \Hom_H(\Z, -) \simeq \Hom_G\left(\Z, \Ind^G_H(-)\right)\simeq \left( \Ind_H^G(-) \right)^G\]induces a canonical isomorphism \[H^\bullet \left(G, \Ind^G_H (-)\right)\simeq H^\bullet (H, -),\]
+The isomorphism\[(-)^H \simeq \Hom_H(\K, -) \simeq \Hom_G\left(\K, \Ind^G_H(-)\right)\simeq \left( \Ind_H^G(-) \right)^G\]induces a canonical isomorphism \[H^\bullet \left(G, \Ind^G_H (-)\right)\simeq H^\bullet (H, -),\]
 which is compatible with the long exact sequence.
 \end{proposition}
 \begin{proof}
@@ -220,7 +220,7 @@ s.t. \(
 %     \end{itemize}
 % \end{remark}
 
-We look at only $H^0$ and $H^1$ now.
+We define only $H^0$ and $H^1$ without additional structure.
 Define \[H^0(G, M) := M^G = \{m\in M\mid gm = m,\forall g\in G\},\]
 which is a group.
 
@@ -235,6 +235,14 @@ This defines a right $M$-action on $Z^1(G, M)$,
 and thereby defines an equivalence relation $\sim$, called \textbf{cohomologous}, allowing us to define \[H^1(G, M) := Z^1(G, M)/\!\sim.\]
 Note that $H^1(G, M)$ is only a \textbf{pointed set},
 in which the special point is \[1 = [g\mapsto 1] = [g\mapsto m^{-1}gm].\]
+
+Let $1\to X\stackrel{u }{\to} E\stackrel{v}{\to} Y\to 1$ be a short exact sequence of (continuous) $G$-groups.
+Taking $H^*(G, -)$ gives a long exact sequence (up to $H^1$)
+\[1\to X^G\to E^G\to Y^G\stackrel{\delta}{\to} H^1(G, X)\to H^1(G, E)\to H^1(G, Y),\]
+where the connecting homomorphism $\delta : H^0(G, Y)\to H^1(G, X)$ is defined as follows:
+if $y\in Y^G$ is the image of some $e\in E$,
+then $\delta(y)\in H^1(G, X)$ is represented by the cocycle
+\[g\mapsto \delta(y)(g) = e^{-1}\cdot ge\in\ker(E\to Y) = \im(X\to E) \simeq X.\]
 
 \begin{example}[Classify semi-linear representations]
     Let $R$ be a \textit{commutative} topological ring with a continuous $G$-action compatible with the ring structure on $R$,
@@ -274,7 +282,7 @@ Then \[M_f(g) = P^{-1}\cdot M_e(g)\cdot gP.\]
 \begin{itemize}
 \item[-]
 Write $\vec{f} = \vec{e}\cdot P$,
-then \[\vec{e}PM_f(g) =\vec{f}M_f(g) = g\vec{f} = g(\vec{e}P) = g\vec{e}\cdot gP = \vec{e}M_e(g)g(P).\]
+then $\vec{e}PM_f(g) =\vec{f}M_f(g) = g\vec{f} = g(\vec{e}P) = g\vec{e}\cdot gP = \vec{e}M_e(g)g(P).$
 \end{itemize}
 Therefore, we assign to each $R$-semi-linear $G$-representation $X$ a class $[X]\in H^1(G, \GL_d(R))$.
 \end{example}
@@ -309,7 +317,7 @@ if $\res(c) = 1$, then the map $c|_H$ is cohomologous to $1$, which implies that
 \item [(3)] $\inf(c) = 1\iff c = 1$.\par
 If $\inf(c) = 1$,
 then $\exists m\in M$ s.t. $c(\bar g) = \inf(c)(g) = m^{-1}gm$.
-In particular, $m^{-1}hm = c(\bar h) = c(\bar{1}) = 1$, so $m\in M^H$ and $c\in Z^1(G/H, M^H)$ is cohomologicous to $1$.\qedhere
+In particular, $m^{-1}hm = c(\bar h) = c(\bar{1}) = 1$, so $m\in M^H$ and $c\in Z^1(G/H, M^H)$ is cohomologous to $1$.\qedhere
 \end{enumerate}
 \end{proof}
 

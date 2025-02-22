@@ -1,0 +1,400 @@
+\documentclass{article}
+\input{../_NoteHead.tex}
+
+\usepackage[ruled, vlined]{algorithm2e}
+
+
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\O}{\mathcal{O}}
+
+\theoremstyle{definition}
+\newtheorem{question}{Question}[section]
+
+\title{DM 1}
+\author{Lei Bichang}
+
+
+\begin{document}
+\maketitle
+
+\section{Factoring and Modular Square Roots}
+
+\begin{question}
+    \textit{Decription of an algorithm}.
+    First, use the extended Euclidean division to find $u, v\in\Z$
+    s.t. $uM + vN = 1$.
+    Then $x := vNa + uMb$ does the job:
+    \[x\equiv vNa\equiv a\bmod M,
+    \quad
+    x\equiv uMb\equiv b\bmod N.\]
+    Denote by ExtGCD a realization of the extended Euclidean division algorithm.\\
+    \begin{algorithm}[H]
+        \caption{CongruenceModTwoIntegers}\label{CongruenceModTwoIntegers}
+        \KwIn{$(M, N, a, b) \in \Z^4$, $\gcd(M, N) = 1$}
+        \KwOut{$x\in\Z$, $x\equiv a\bmod M$, $x\equiv b\bmod N$}
+        $(u, v)\gets \mathrm{ExtGCD}(M, N)$, s.t. $uM + vN = 1$\;
+        \Return{$vNa + uMb$}
+    \end{algorithm}
+
+    \noindent\textit{Analysis of the algorithm}.
+    This algorithm involves only a fixed number of steps more than ExtGCD.
+    Hence its complexity is $O(\log(M)\log(N))$.
+\end{question}
+
+\begin{question}
+    Assume that we have an oracle $\mathcal{O}_F$ for the problem Factoring.
+    Let $N = pq$ with $p, q$ two distinct odd primes.
+    Since $(\Z/N\Z)^\times\simeq\F_p^\times\times\F_q^\times$ via $x\mapsto (x\bmod p, x\bmod q)$,
+    an integer $x$ is a square modulo $N$ if and only if it is a square modulo $p$ and $q$.
+    In addition, if we have found integers $a$ and $b$ s.t. $x = a^2\bmod p$ and $x = b^2\bmod q$,
+    then an integer $y$ satisfying \[y\equiv a\bmod p,\quad y\equiv b\bmod q\]
+    would satisfy $x\equiv y^2\bmod p$ and mod $q$,
+    and thus $y^2\equiv x\bmod N$.
+
+    For a prime $p$ and an integer $x$, denote by Sq$(p, x)$
+    an algorithm that provides an integer that is a square root of $x$ modulo $p$.
+    By factoring the polynomial $X^2 - x\in \F_p[X]$,
+    Sq$(p, x)$ can be realized as a probabilistic polynomial time algorithm.
+    This provides us with the following probabilistic polynomial time algorithm with access to the oracle $\O_F$.\\
+    \begin{algorithm}[H]
+        \caption{SquareRootMod-$\mathcal{O}_F$}\label{SquareRootMod to Factoring}
+        \KwIn{$N$ : RSA integer, $x\in\Z$}
+        \KwOut{$y\in\Z$ s.t. $x = y^2\bmod N$ or False if $x$ is not a square modulo $N$}
+        $(p, q)\gets \mathcal{O}_F(N)$\;
+        \eIf{$x^{\frac{p-1}{2}} = 1$ and $x^{\frac{q-1}{2} = 1}$}{
+            $a\gets \mathrm{Sq}(p, x)$, $b\gets\mathrm{Sq}(q, x)$\;
+            $y\gets \mathrm{CongruenceModTwoIntegers}(p, q, a, b)$\;
+            \Return{$y$}
+        }{\Return{False}}
+    \end{algorithm}
+\end{question}
+
+
+\begin{question}
+    Let $N = pq$ be the prime factorization of $N$.
+
+    Assume first that $2\nmid N$.
+    Let $y\in(\Z/N\Z)^\times$ be a square root of $x^2$,
+    then $y = \varepsilon x$ with \[\varepsilon\in\mu_2(\Z/N\Z) = \{a\in\Z/N\Z\mid a^2 = 1\} \stackrel{f}{\simeq}\{\pm 1\}\times\{\pm 1\}\]
+    where $f$ is the restriction of the isomorphism $(\Z/N\Z)^\times\to \F_p^\times\times\F_q^\times$ obtained from Chinese remainder theorem.
+    So we have \[x - y\equiv x - \pm x = \begin{cases}
+        0\bmod p, & \varepsilon\equiv 1\bmod p,\\
+        x\bmod p, & \varepsilon\equiv -1\bmod p,
+    \end{cases}\]
+    i.e. $p\mid x - y\iff \varepsilon\equiv 1\bmod p$.
+    A similar result holds for $q$.
+    Hence
+    \[\gcd(x - y, N) = \begin{cases}
+        N, & f(\varepsilon) = \{1, 1\},\\
+        p, & f(\varepsilon) = \{1, -1\}, \\
+        q, & f(\varepsilon) = \{-1, 1\},\\
+        1, & f(\varepsilon) = \{-1, -1\}.
+    \end{cases}\]
+    If $y$ is uniformly random,
+    $\gcd(x - y, N)$ is also uniformly random in $\{1, p, q, N\}$.
+
+    Now assume that $2\mid N$, say $q = 2$ and $N = 2p$.
+    In this case $\mu_2(\Z/N\Z)\simeq \{\pm 1\}$,
+    so if $y$ is a uniformly random square root of $x$ in $\Z/N\Z$,
+    then $\gcd(x - y, N)$ is uniformly random in \[\{\gcd(0, N),\ \gcd(2x, N)\} = \{N, 2\}.\]
+
+\end{question}
+
+\begin{question}
+    Let $\O_S$ be an oracle for SquareRootMod.
+
+    Pick $x\in(\Z/N\Z)^\times$ uniformly at random.
+    First, consider $y := \O_S(x^2, N)$.
+    If $y \not\equiv \pm x\bmod N$,
+    $\gcd(x - y, N)$ is a non-trivial factor of $N$ by the discussion above.
+    If $y\equiv \pm x\bmod N$,
+    we try another random $x$ and repeat this procedure.\\
+    \begin{algorithm}[H]
+    \caption{Factoring-$\O_S$}
+    \KwIn{$N$ : RSA integer}
+    \KwOut{$p, q$ : primes s.t.\ $N = pq$}
+    \Repeat{}{
+        $x\gets$ uniformly random in $(\Z/N\Z)^\times$\;
+        $y\gets \O_S(x^2, N)$\;
+        \If{$y\not\equiv \pm x$}{
+            $p\gets\gcd(x - y, N)$\;
+            \Return{$(p, N/p)$}
+        }
+    }
+    \end{algorithm}
+
+    \textit{Analysis of the algorithm}.
+    Choosing a uniformly random $x\in(\Z/N\Z)^\times$ is equivalent to choosing a uniformly random square $z\in ((\Z/N\Z)^\times)^2$ then choosing a uniformly random square root $x$ of $z$.
+    Therefore,
+    the probability that one loop successfully factors $N$ is the probability of the following event: for a uniformly random square $z$,
+    a uniformly random square root of $z$ does not equal $\pm\O_S(z, N)$.
+
+    % If $\O_S$ is deterministic,
+    % i.e. $\O_S(z, N)$ always returns a fixed square root of $z$, then this probability is clearly $1/2$.
+    % Thus the expected number of loops required to factor $N$ is $2$.
+    % Since every loop costs polynomial time,    we get a probabilistic polynomial time algorithm to factor $N$.
+
+    Let $\Omega = ((\Z/N\Z)^\times, \mathcal{B}, \mathbb{P})$ be the probability space where $\mathcal{B}$ is the powerset of $(\Z/N\Z)^\times$ and $\mathbb{P}$ is the uniform distribution.
+    For each $a\in (\Z/N\Z)^\times$,
+    fix a square root $\sqrt{a}\in (\Z/N\Z)^\times$.
+    Let $X$ (resp.\ $Z$, $E$) be the inclusion maps from $(\Z/N\Z)^\times$ (resp.\ $((\Z/N\Z)^\times)^2$, $\mu_2(\Z/N\Z)$) to $(\Z/N\Z)^\times$.
+    Each of them is a uniformly random variable on its domain\footnote{
+        As a probability subspace of $\Omega$.
+    } with value in $\Omega$,
+    and the chance for one loop to successfully factor $N$ is \[\mathbb{P}(X\not\neq \pm\O(X^2))
+    = \mathbb{P}\left(E\sqrt{Z}\neq \pm\O\left(\left(E\sqrt{Z}\right)^2\right)\right)
+    = \mathbb{P}\left(E\sqrt{Z}\neq \pm\O\left(Z\right)\right)
+    = \mathbb{P}\left( E\ne\frac{\O(Z)}{\sqrt{Z}} \right).\]
+    % = \mathbb{P}\left( E\neq \pm f(Z) \right).\]
+    Since the random variables $E$ and $f(Z) := \mathcal{O}(Z)/\sqrt{Z}$ are independent,
+    \begin{align*}
+        % \mathbb{P}\left( \left.E\ne\pm\frac{\O(Z)}{\sqrt{Z}}\right|E = \varepsilon \right)
+        \mathbb{P}\left(E\ne\pm f(Z)\right)
+        &= 1 - \sum_{\varepsilon\in\mu_2(\Z/N\Z)}
+            \mathbb{P}(E = \varepsilon)
+            \left( \mathbb{P}(f(Z) = \varepsilon) + \mathbb{P}(f(Z) = - \varepsilon) \right)\\
+        &= 1 - \frac{1}{4}\sum_{\varepsilon\in\mu_2(\Z/N\Z)}
+            \left( \mathbb{P}(f(Z) = \varepsilon) + \mathbb{P}(f(Z) = - \varepsilon) \right)\\
+        &= 1 - \frac{1}{4}\cdot 2 = \frac{1}{2}.
+    \end{align*}
+    Therefore, each loop has an $\frac{1}{2}$ chance to factor $N$, ragardless of how $\mathcal{O}_S$ works.
+    The expected number of loops required to factor $N$ is $2$.
+    Since every loop costs polynomial time,    we get a probabilistic polynomial time algorithm to factor $N$.
+\end{question}
+
+\section{Evaluating an isogeny of degree \texorpdfstring{$\ell^n$}{ln} from its kernel}
+\setcounter{question}{1}
+
+\begin{question}
+Since $\ell$ is a prime, it suffices to show that $g_n^i(P)\ne 0$ and $\ell\cdot g_n^i(P) = 0$.
+Because $\varphi_{\ell^{n-i}P}$ is a group homomorphism from $E$ with kernel generated by $\ell^{n-i}P$,
+we have
+\[\ell g_n^i(P) = \ell \varphi_{\ell^{n-i}P}(\ell^{n-1-i}P) = \varphi_{\ell^{n-i}P}(\ell^{n-i}P) = 0.\]
+If $g_n^i(P) = 0$,
+then $\ell^{n-1-i}P = a\ell^{n-i}P$ for some $a\in\Z$.
+Because $\ell^{n-i-1}P$ has order $i + 1$,
+it cannot be a multiple of $\ell^{n-i}P$ which has order $i$. So $g_n^i(P) = \varphi_{l^{n-i}P}(\ell^{n-1-i}P)\ne 0$. 
+% Since $P$ has order $\ell^n$,
+% we have $\ell^n\mid \ell^{n-1-i}(1 - al)$,
+% which is impossible for $0\le i\le n-1$.
+\end{question}
+
+
+\begin{question}
+% Note that:
+% \begin{lemma}
+%     Let $P\in E$ be of order $\ell^n$, and $1\le i\le j\le n$,
+%     then \[E/\!\gene{\ell^{n - j}P}\simeq \left( E/\!\gene{\ell^{n-i} P} \right)\bigg/\]
+% \end{lemma}
+% \begin{proof}
+%     For $i\le j$, \[\ker\left( E/\!\gene{\ell^{n - j} P}\to E/\!\gene{\ell^{n - i} P} \right) = \gene{\varphi_{\ell^{n - j} P}(\ell^{n - i} P)}\]
+% \end{proof}
+
+Let $P$ be of order $\ell^n$.
+Note that for $0\le i\le n - 1$,
+we have $g_n^i(P)\in E/\gene{\ell^{n-i}P}$,
+and \[\ker\left( E/\gene{\ell^{n-i}P}\to E/\gene{\ell^{n-i-1}P} \right) = \gene{\varphi_{\ell^{n-i}P}(\ell^{n-i-1}P)} = \gene{g_n^i(P)}.\]
+Hence \[\left( E/\gene{\ell^{n-i}P} \right)/\gene{g_n^i(P)}\simeq E/\gene{\ell^{n-i-1}P}.\]
+Thereofre, we can evaluate $\varphi_P(Q)$ along the path
+% % https://q.uiver.app/#q=WzAsMTIsWzEsMCwiIGdfbl4wKFApXFxpbiBFIl0sWzEsMSwiZ19uXjEoUClcXGluIEUvXFxnZW5le1xcZWxsXntuLTF9UH0iXSxbMiwxLCJFL1xcZ2VuZXtnX25eMChQKX0iXSxbMSwyLCJnX25eMihQKVxcaW4gRS9cXGdlbmV7XFxlbGxee24tMn1QfSJdLFsxLDMsIlxcdmRvdHMiXSxbMSw1LCJnX25ee24tMX0oUClcXGluIEUvXFxnZW5le1xcZWxsIFB9Il0sWzIsMiwiXFxsZWZ0KEUvXFxnZW5le1xcZWxsXntuLTF9UH1cXHJpZ2h0KS9cXGdlbmV7Z19uXjEoUCl9Il0sWzIsMywiXFx2ZG90cyJdLFsyLDUsIlxcbGVmdChFL1xcZ2VuZXtcXGVsbF57bi0yfVB9XFxyaWdodCkgLyBcXGdlbmV7Z19uXntuLTJ9KFApfSJdLFswLDVdLFsxLDQsImdfbl57bi0yfShQKVxcaW4gRS9cXGdlbmV7XFxlbGxeMiBQfSJdLFsyLDQsIlxcbGVmdChFL1xcZ2VuZXtcXGVsbF57bi0yfVB9XFxyaWdodCkgLyBcXGdlbmV7Z19uXntuLTJ9KFApfSJdLFswLDIsIlxcdGV4dHtWXFwnZWx1fSIsMV0sWzIsMSwiXFxzaW1lcSIsMV0sWzEsNiwiXFx0ZXh0e1ZcXCdlbHV9IiwxXSxbNiwzLCJcXHNpbWVxIiwxXSxbOCw1LCJcXHNpbWVxIiwxXSxbMyw3LCJcXHRleHR7VlxcJ2VsdX0iLDFdLFs0LDExLCJcXHRleHR7VlxcJ2VsdX0iLDFdLFsxMCw4LCJcXHRleHR7VlxcJ2VsdX0iLDFdLFsxMSwxMCwiXFxzaW1lcSIsMV1d
+% \[\begin{tikzcd}
+% 	& { g_n^0(P)\in E} \\
+% 	& {g_n^1(P)\in E/\gene{\ell^{n-1}P}} & {E/\gene{g_n^0(P)}} \\
+% 	& {g_n^2(P)\in E/\gene{\ell^{n-2}P}} & {\left(E/\gene{\ell^{n-1}P}\right)/\gene{g_n^1(P)}} \\
+% 	& \vdots & \vdots \\
+% 	& {g_n^{n-2}(P)\in E/\gene{\ell^2 P}} & {\left(E/\gene{\ell^{n-2}P}\right) / \gene{g_n^{n-2}(P)}} \\
+% 	{} & {g_n^{n-1}(P)\in E/\gene{\ell P}} & {\left(E/\gene{\ell^{n-2}P}\right) / \gene{g_n^{n-2}(P)}}
+% 	\arrow["{\text{V\'elu}}"{description}, from=1-2, to=2-3]
+% 	\arrow["{\text{V\'elu}}"{description}, from=2-2, to=3-3]
+% 	\arrow["\simeq"{description}, from=2-3, to=2-2]
+% 	\arrow["{\text{V\'elu}}"{description}, from=3-2, to=4-3]
+% 	\arrow["\simeq"{description}, from=3-3, to=3-2]
+% 	\arrow["{\text{V\'elu}}"{description}, from=4-2, to=5-3]
+% 	\arrow["{\text{V\'elu}}"{description}, from=5-2, to=6-3]
+% 	\arrow["\simeq"{description}, from=5-3, to=5-2]
+% 	\arrow["\simeq"{description}, from=6-3, to=6-2]
+% \end{tikzcd}\]
+% https://q.uiver.app/#q=WzAsMTEsWzEsMCwiRSJdLFsyLDEsIkUvXFxnZW5le1xcZWxsXntuLTF9UH0iXSxbMSwxLCJFL1xcZ2VuZXtnX25eMChQKX0iXSxbMSwyLCJFL1xcZ2VuZXtcXGVsbF57bi0yfVB9Il0sWzEsNSwiRS9cXGdlbmV7XFxlbGwgUH0iXSxbMiwyLCJcXGxlZnQoRS9cXGdlbmV7XFxlbGxee24tMX1QfVxccmlnaHQpL1xcZ2VuZXtnX25eMShQKX0iXSxbMiw1LCJcXGxlZnQoRS9cXGdlbmV7XFxlbGxee24tMn1QfVxccmlnaHQpIC8gXFxnZW5le2dfbl57bi0yfShQKX0iXSxbMCw1XSxbMiw0LCJFL1xcZ2VuZXtcXGVsbF4yIFB9Il0sWzEsNCwiXFxsZWZ0KEUvXFxnZW5le1xcZWxsXntuLTJ9UH1cXHJpZ2h0KSAvIFxcZ2VuZXtnX25ee24tMn0oUCl9Il0sWzEsNiwiXFxsZWZ0KEUvXFxlbGwgUFxccmlnaHQpL2dfbl57bi0xfShQKTo9RS9cXGdlbmV7UH0iXSxbMCwyLCJcXHRleHR7VlxcJ2VsdX0iLDFdLFsyLDEsIlxcc2ltZXEiLDFdLFsxLDUsIlxcdGV4dHtWXFwnZWx1fSIsMV0sWzUsMywiXFxzaW1lcSIsMV0sWzYsNCwiXFxzaW1lcSIsMV0sWzgsNiwiXFx0ZXh0e1ZcXCdlbHV9IiwxXSxbOSw4LCJcXHNpbWVxIiwxXSxbNCwxMCwiXFx0ZXh0e1ZcXCdlbHV9IiwxXSxbMyw5LCJcXHZkb3RzIiwxXV0=
+\[\begin{tikzcd}
+	& E \\
+	& {E/\gene{g_n^0(P)}} & {E/\gene{\ell^{n-1}P}} \\
+	& {E/\gene{\ell^{n-2}P}} & {\left(E/\gene{\ell^{n-1}P}\right)/\gene{g_n^1(P)}} \\
+	\\
+	& {\left(E/\gene{\ell^{n-2}P}\right) / \gene{g_n^{n-2}(P)}} & {E/\gene{\ell^2 P}} \\
+	{} & {E/\gene{\ell P}} & {\left(E/\gene{\ell^{n-2}P}\right) / \gene{g_n^{n-2}(P)}} \\
+	& {\left(E/\ell P\right)/g_n^{n-1}(P):=E/\gene{P}}
+	\arrow["{\text{V\'elu}}"{description}, from=1-2, to=2-2]
+	\arrow["\simeq"{description}, from=2-2, to=2-3]
+	\arrow["{\text{V\'elu}}"{description}, from=2-3, to=3-3]
+	\arrow["\text{\rotatebox{90}{$\cdots$}}"{description}, from=3-2, to=5-2]
+	\arrow["\simeq"{description}, from=3-3, to=3-2]
+	\arrow["\simeq"{description}, from=5-2, to=5-3]
+	\arrow["{\text{V\'elu}}"{description}, from=5-3, to=6-3]
+	\arrow["{\text{V\'elu}}"{description}, from=6-2, to=7-2]
+	\arrow["\simeq"{description}, from=6-3, to=6-2]
+\end{tikzcd}\]
+where horizontal arrows are isomrophisms and vertical arrows are $\ell$-isogenies.
+The elliptic curves $E$ and $E/\gene{\ell^j(P)}$'s are given by $f_n(P)$, and every other elliptic curve will be computed as the target of an $\ell$-isogeny.
+Since every curve is stored as a Weierstrass equation, the isomorphisms can be computed in $O(1)$-times $\bar{\F_q}$-operations.
+% In addition, we also need to compute $\ell^iP$ for $1\le i\le  n - 1$ inductively.
+
+Consequently, this algorithm requires $\ell$-isogeny $n$-times and no multiplication-by-$\ell$. 
+% $(n-1)$-times.
+
+\end{question}
+
+
+\begin{question}
+
+We have
+\[g_m^i(\ell^{n-m}P) = \varphi_{\ell^{m-i}\ell^{n-m}P}(\ell^{m-i - 1}\ell^{n-m}P) = \varphi_{\ell^{n-i}P}(\ell^{n - i -1}P) = g_n^i(P).\]
+By an argument similar to that in Question 2.3,
+\[\left( E/\gene{\ell^{n-m}P} \right)\big/\gene{\varphi_{\ell^{n-m}P}(\ell^{n-m-i}P)}\simeq E/\gene{\ell^{n-m-i}P},\]
+so \begin{align*}
+    g_{n-m}^i(\varphi_{\ell^{n-m}P}(P))&= 
+\varphi_{\ell^{n-m-i}\varphi_{\ell^{n-m}P}(P)}\left( \ell^{n-m-i-1}\varphi_{\ell^{n-m}P}(P) \right) \\ &=
+\varphi_{\varphi_{\ell^{n-m}P}(\ell^{n-m-i}P)} \left( \varphi_{\ell^{n-m}P}(\ell^{n-m-i-1}P) \right) \\ &=
+\varphi_{\ell^{n-m-i}P}(\ell^{n-m-i-1}P) = g_n^{m + i}(P).
+\end{align*}
+Hence
+\[f_m(\ell^{n-m}P) = \left(
+    g_m^0(\ell^{n-m}P),\dots,
+    g_m^{m-1}(\ell^{n-m}P) \right) = (g_n^0(P), \dots, g_n^{m-1}(P)),\]
+\[f_{n-m}(\varphi_{\ell^{n-m}P}(P)) = \left( 
+    g_{n-m}^0(\varphi_{\ell^{n-m}P}(P)),\dots,
+    g_{n-m}^{n-m-1}(\varphi_{\ell^{n-m}P}(P))
+ \right)  = (g_n^m(P), \dots, g_n^{n-1}(P))\]
+as desired.
+\end{question}
+
+\begin{question}
+The list $f_0(P)$ is empty for every $P$ of order $\ell^0 = 1$ (namely $P = O$).
+The complexity is $O(1)$.
+
+The list $f_1(P)$ contains only one element $g_1^0(P) = \varphi_{\ell P}(P) = \varphi_O(P) = P$ is also trivial for $P$ of order $\ell$.
+The complexity is $O(1)$.
+
+% {\color{red}(Really?)}
+\end{question}
+
+
+\begin{question}
+% To begin with, we describe an algorithm that compute $f_n(P)$ for $P\in E$ of order $\ell^n$.
+For $P\in E[\ell]\setminus\{O\}$ and $Q\in E$,
+let $\mathrm{Velu}(-, -)$ be an algorithm such that $\mathrm{Velu}(P, Q) = \varphi_P(Q)$.
+
+For $P\in E[\ell^n]\setminus E[\ell^{n-1}]$
+and $Q\in E$,
+let $\mathrm{Compute}(-, -,-,-)$\footnote{
+    This realization requires redundant arguments to make it more clear for me.
+} be the algorithm described in Question 2.3.,
+so that $\mathrm{Compute}(n, P, f_n(P), Q) = \varphi_{P}(Q)$.
+In particular, if $n = 1$, then $\mathrm{Compute}(1, P, f_1(P), Q) = \mathrm{Velu}(P, Q)$.
+ 
+To compute $\varphi_P(Q)$, we use the following algorithm $\mathrm{Aux}(-, -)$ to find $f_n(P)$ so that we can use Compute.
+
+\begin{algorithm}[H]
+    \caption{Aux}\label{compute the list f}
+    \KwIn{$n\in\Z_{\ge 0}$, $P\in E(\F_q)$ of order $\ell^n$}
+    \KwOut{$f_n(P)$}
+    \eIf{$n = 0$}{
+        \Return{$\varnothing$}
+    }{\eIf{$n = 1$}{
+        \Return{$(P)$}
+    }{
+        $m \gets \lfloor n/2\rfloor$\;
+        $R\gets \ell^{n-m}P$\;
+        $f \gets \mathrm{Aux}(m, R)$\;
+        $\varphi_{R}(P) \gets \mathrm{Compute}(m, R, f ,P)$\;
+        \Return{$f\sqcup \mathrm{Aux}(n - m, \varphi_{R}(P))$}}}
+\end{algorithm}
+
+% (make it persistent i.e. memorize all the Aux(-, -) appeared?)
+
+\textit{Analysis of the algorithm.}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+Let $T_a(n)$ (resp.\ $T_c(n)$) be the numbers of multiplications by $\ell$ and $\ell$-isogeny evaluations required for $\mathrm{Aux}(n, -)$ (resp.\ $\mathrm{Compute}(n, -, f_n(-), -)$ when the list $f_n(-)$ is given).
+By Question 2.3 and Question 2.5,
+$T_a(0) = T_a(1) = 0$,
+$T_c(n) = n$.
+By definition of the algorithm Aux, \begin{align*}
+    T_a(n)
+&= T_a(\floor{n/2}) + T_a(n - \floor{n/2}) + T_c(\floor{n/2}) + (n - \floor{n/2})\\
+&= T_a(\floor{n/2}) + T_a(n - \floor{n/2}) + n
+\end{align*}
+% To analyse $T_a$, we first note the following easy truth.
+% \begin{lemma}
+% If $\{a_n\}_{n\ge 0}$ is a sequence such that
+% \[a_n = 2a_{n-1} + b\cdot 2^n, \quad\forall n\ge 1,\]
+% then \[a_n = 2^n(bn + a_0),\quad\forall n\ge 0.\]
+% \end{lemma}
+% \begin{proof}
+%     This can be verified directly.
+% \end{proof}
+% For $n = 2^rb$,
+% we have \[T_a(2^rb) = 2T_a(2^{r-1}b) + 2^rb,\]
+% so by the formula above,
+% \[T_a(2^rb) = 2^r(br + T_a(b)).\]
+% Now write \[n = 2^{r_1}(1 + s_1),\ b_1 = 2^{r_2}(1 + s_2), \dots, b_{i - 1} = 2^{r_{i - 1}}(1 + b_{i - 1}),\ b_i = 2^i.\]
+% Then \begin{align*}
+%     T_a(n) &= 2^{r_1}(r_1(1 + s_1) + T_a(1 + b_1))\\ &
+%     =
+% \end{align*}
+
+\begin{lemma}
+    The function $T_a$ on $\Z_{\ge 0}$ is non-decreasing. 
+\end{lemma}
+\begin{proof}
+    We show that $T_a(n + 1)\ge T_a(n)$ by induction.
+    Clearly, that $T_a(2) = 2 > T(1) = T(0)$.
+    Assume that $T_a(m + 1)\ge T_a(m)$ for all $m < n$, and set $r := \floor{n/2}$.
+    If $n$ is even, i.e. $n = 2r$,
+    \begin{align*}
+T_a(n + 1) - T_a(n)
+= T_a(r) + T_a(r + 1) - 2T_a(r) + 1
+= T_a(r+1) - T_a(r) + 1 > 0
+    \end{align*}
+    by induction hypothesis.
+    If $n$ is odd, i.e. $n = 2r + 1$,
+    \begin{align*}
+T_a(n + 1) - T_a(n)
+= 2T_a(r + 1) - (T_a(r) + T_a(r + 1)) + 1
+= T_a(r+1) - T_a(r) + 1 > 0
+    \end{align*}
+    by induction hypothesis.
+    Hence $T$ is non-decreasing.
+\end{proof}
+Now for $n = 2^r$ with $r\in\Z_{\ge 0}$,
+we have
+\[T_a(2^r) = 2T_a(2^{r-1}) + 2^r,\]
+and it is plain to show that
+\[T_a(2^r) = 2^r(r + T(0)) = r\cdot 2^r.\]
+For general $n$,
+let $r := \floor{\log_2n}$,
+so that $2^r\le n < 2^{r+1}$,
+then \[r\cdot 2^r\le T(n)\le (r + 1)2^{r+1}\]
+by the above lemma,
+which implies that $T(n) = O(n\log n)$.
+
+Therefore, computing $\varphi_P(Q)$ takes
+\[T_a(n) + T_c(n) = T_a(n) + n = O(n\log n)\]
+multiplications by $\ell$ and $\ell$-isogeny evaluations.
+
+    
+\end{question}
+
+\begin{question}
+    Please see the other file.
+    Unlike what we described in Question 2.3,
+    we do not need to compute the isomorphisms
+    \[\left( E/\gene{\ell^{n-i}P} \right)/\gene{g_n^i(P)}\simeq E/\gene{\ell^{n-i-1}P}\]
+    in the actual function Compute,
+    probably because the list $f_n(P)$ is computed recursively when running the functions,
+    and every isogeny is computed via V\'elu's formula. But I chose to keep the isomorphism-computation part for more generality.
+\end{question}
+
+\begin{question}
+    Please see the other file.
+\end{question}
+
+\end{document}

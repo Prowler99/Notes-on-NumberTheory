@@ -1,0 +1,57 @@
+\section{Modular Curves}
+The purpose of this section is to
+introduce modular curves as Riemann surfaces and
+realize modular forms in the cohomologies of modular curves.
+
+\subsection{Modular Curves: Classical Version}
+Let $\Gamma$ be a congruence subgroup of $\SL_2(\Z)$.
+We assume that $\Gamma$ contains no ellptic elements,
+so that \[\pi_\Gamma : \mathcal{H}\to Y(\Gamma)\] is a covering of group $\Gamma$,
+and any $\Gamma'\triangleleft \Gamma$ induces a Galois covering \[\pi_{\Gamma, \Gamma'} : Y(\Gamma')\to Y(\Gamma)\] of group $\Gamma/\Gamma'$.
+
+% \subsection{Cohomologies of \texorpdfstring{$Y(\Gamma)$}{Y(Gamma)}}
+\subsubsection{Review: cohomologies of sheaves}
+
+\subsubsection{Cohomologies of locally constant sheaves on \texorpdfstring{$Y(\Gamma)$}{Y(Gamma)}}
+Let $V$ be a $\Z[\Gamma]$-module with discrete topology.
+Consider the diagonal action of $\Gamma$ on $\mathcal{H}\times V$,
+which gives a covering \[\Gamma\backslash( \mathcal{H}\times V)\to \Gamma\backslash\mathcal{H} = Y(\Gamma).\]
+Define $\underline{V}_\Gamma$ to be the sheaf on $Y(\Gamma)$ of sections of the covering $\Gamma\backslash( \mathcal{H}\times V)\to Y(\Gamma)$.
+This is a locally constant sheaf with stalk $V$,
+and there is a natrual isomorphism $\underline{V}_\Gamma\simeq (\pi_{\Gamma*}\underline{V})^\Gamma$.
+Moreover, $\Gamma\mapsto \underline{V}_\Gamma$ is functorial: for $\Gamma'\triangleleft\Gamma$,
+\[\underline{V}_\Gamma \simeq \left( \pi_{\Gamma, \Gamma'\,*}\underline{V}_{\Gamma'} \right)^{\Gamma/\Gamma'},\]
+which induces
+\[H^i(Y(\Gamma), \underline{V}_\Gamma) = H^i\left(Y(\Gamma), \left( \pi_{\Gamma, \Gamma'\,*}\underline{V}_{\Gamma'} \right)^{\Gamma/\Gamma'}\right)
+\to H^i(Y(\Gamma), \pi_{\Gamma, \Gamma'\,*}\underline{V}_{\Gamma'})^{\Gamma/\Gamma'} = H^i(Y(\Gamma'), \underline{V}_{\Gamma'})^{\Gamma/\Gamma'}.\]
+The kernels and cokernels of these maps are controlled by the Leray-Serre spectrual sequence.
+If, furthermore, $V$ is a $\Q$-vector space,
+then we get isomorphisms $H^i(Y(\Gamma), \underline{V}_\Gamma)\simeq H^i(Y(\Gamma'), \underline{V}_{\Gamma'})^{\Gamma/\Gamma'}$.
+
+
+\subsubsection{The Hecke action on cohomologies}
+Let $G = \GL_2(\Q)^+$, and $V$ be a $\Z[G]$-module.
+We define \[H^i(V) := \varinjlim_{\Gamma}H^i(Y(\Gamma), \underline{V}_{\Gamma}).\]
+If $V$ is a $\Q$-vector space, $H^i(V)^\Gamma = H^i(Y(\Gamma), \underline{V}_{\Gamma})$.
+So our goal is to define a right $G$-action on $H^i(V)$ to obtain the Hecke operators on cohomologies,
+and we do this by defining
+\[H^i(Y(\Gamma),\ \underline{V}_{\Gamma})\to H^i(Y(g^{-1}\Gamma g),\ \underline{V}_{g^{-1}\Gamma g}),\quad g\in G\]
+as the one induced from \[l_g  : Y(g^{-1}\Gamma g)\to Y(\Gamma)\quad z\mapsto gz\].
+
+
+
+
+\subsection{Modular Curves: Adelic Version}
+Let $K\subset\GL_2(\A_f)$ be compact open.
+We define \[Y(K) := \bico{\mathcal{H}\times (\GL_2(\A_f)}{\GL_2(\Q)^+}{K)}\]
+\subsubsection{Cohomologies}
+Let $V$ be a $\Z[\GL_2(\Q)^+]$-module.
+
+
+\subsubsection{The Hecke action on cohomologies}
+This time we consider the right $G = \GL_2(\A_f)$-action on \[H^i(V) = \varinjlim_{K} H^i(Y(K), \underline{V}_K)\]
+given by \[l_g : Y(g^{-1}K g)\to Y(K)\quad (z,\; k\cdot g^{-1}Kg)\mapsto (z,\; kg^{-1}\cdot K).\]
+
+
+\subsection{The Eichler-Shimura Isomorphism}
+

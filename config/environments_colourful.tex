@@ -1,0 +1,27 @@
+\usepackage{tcolorbox}
+
+\tcbuselibrary{theorems}
+
+\theoremstyle{definition}
+
+\newtheorem{theorem}{Theorem}
+
+% This environment is terrible
+\newenvironment{theoremprime}[1]
+  {\renewcommand{\thetheorem}{\ref{#1}$'$}%
+   \addtocounter{theorem}{-1}%
+   \begin{theorem}}
+  {\end{theorem}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{defthm}[definition]{Def-Thm}
+\newtheorem{propdef}[definition]{Prop-Def}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}

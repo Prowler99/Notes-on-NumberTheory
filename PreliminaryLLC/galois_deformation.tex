@@ -1,0 +1,532 @@
+\documentclass{article}
+
+\input{../_NoteHead.tex}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\compl}[1]{\widehat{\mathfrak{Ar}_{#1}}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\m}{\mathfrak{m}}
+\DeclareMathOperator{\ad}{ad}
+\newcommand{\gp}{\mathrm{gp}}
+\DeclareMathOperator{\der}{Der}
+
+\title{Galois Deformations}
+\author{-}
+
+\begin{document}
+\maketitle
+
+\section{Review of Category Theory and Homological Algebra}
+
+All the set-theoreric issues are ignored for now.
+
+\subsection{Representability}
+Let $\mathfrak{C}$ be a category.
+We define the functors\footnote{
+    There is also the version for $h_{\mathfrak{C}} : \mathfrak{C}\to [\mathfrak{C}^{\opp}, \Set]$ and $\ev_{\mathfrak{C}} : [\mathfrak{C}^\opp, \Set]\times\mathfrak{C}\to \Set$.
+}
+\[\begin{array}{rlcrl}
+	h^{\mathfrak{C}}: {\mathfrak{C}}^\opp &\hspace{-0.5em}\longrightarrow [\mathfrak{C}, \Set],
+    &  & \ev^{\mathfrak{C}}: [\mathfrak{C}, \Set] \times \mathfrak{C} & \hspace{-0.5em}\longrightarrow \Set \\
+	S & \hspace{-0.5em}\longmapsto \Hom_{\mathfrak{C}}(S, \cdot)
+    &  & (F, S) & \hspace{-0.5em}\longmapsto F(S).
+\end{array}\]
+\begin{theorem}[Yoneda]\label{Yoneda lemma}
+    There is an isomorphism
+    \[\Hom_{[\mathfrak{C, \Set}]^\opp}(-, h^{\mathfrak{C}}(-))\simeq \ev^{\mathfrak{C}}\] as functors $[\mathfrak{C}, \Set] \times \mathfrak{C}\to\Set$ given by
+    \begin{align*}
+    \Hom_{{[\mathfrak{C}, \Set]^\opp}}\left(F, h^{\mathfrak{C}}(S)\right)
+    & \longrightarrow F(S)
+    \\ \left( 
+        F \stackrel{\phi}{\leftarrow}\Hom_{\mathfrak{C}}(S, -)
+     \right)
+    & \longmapsto \phi_S(\Id_S)
+   \end{align*}
+   for all $F : \mathfrak{C}\to\Set $ and $S\in\mathfrak{C}$,
+   and the functor $h^\mathfrak{C} : \mathfrak{C}^\opp\to [\mathfrak{C}, \Set]$ is fully faithful.
+\end{theorem}
+% \begin{proof}
+    
+% \end{proof}
+
+We say that a functor $F : \mathfrak{C}\to\Set$ is \textbf{representable}, if there is $X\in\mathfrak{C}$ along with an isomorphism
+\[\phi : \Hom_\mathfrak{C}(X, -)\simeq F\]
+as functors.
+Note that the functor $\phi$ is determined\footnote{
+    This does \textit{not} mean that we can decode $\phi$ from $u$ without knowing $\phi$ a priori?
+} by the universal element $u := \phi_X(\Id_X)\in F(X)$,
+from which every thing in $F(T)$ is pushed forward, i.e. for any morphism $f : X\to T$ in $\mathfrak{C}$,
+the unique corresponding element in $F(T)$ is
+$\phi_T(f) = F(f)(\phi_X(\Id_X)) = F(f)(u)$.
+
+\subsection{The Ext Functors}
+
+% \begin{definition}
+%     Let $F : \mathfrak{A}_1\times\mathfrak{A}_2\to\mathfrak{B}$
+%     be a bi-functor between abelian categories
+%     that is \textit{left-exact} on both variables.
+%     We say that $F$ is \textbf{balanced},
+%     if $F(-, I_2)$ and $F(I_1, -)$ are both \textit{exact} for every injective object $I_i\in\mathfrak{A}_i$.
+% \end{definition}
+% \begin{theorem}
+%     If $F : \mathfrak{A}_1\times\mathfrak{A}_2\to\mathfrak{B}$ is a balanced left-exact functor,
+%     and both $\mathfrak{A}_i$ has enough injectives,
+%     then 
+% \end{theorem}
+
+Let $\mathfrak{A}$ be an abelian category with enough projective and injective objects.
+We have \[\ext^i_\mathfrak{A}(X, Y) := \mathrm{R}^i\Hom_\mathfrak{A}(X, -)(Y)\simeq \mathrm{R}^i\Hom_\mathfrak{A}(-, Y)(X)\]
+for $X, Y\in \mathfrak{A}$, $i\ge 0$.
+
+We will focus on $\ext^1$.
+An \textbf{extension of $A$ by $B$}\footnote{In a category where these operations make sense.} is a short exact sequence \[\xi : 0\to B\to X\to A\to 0.\]
+(I may denote $\xi$ by $X$ if there is no confusion.)
+An isomorphism of two extensions $X$ and $X'$ of $A$ by $B$ is a commutative diagram
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIkIiXSxbMiwwLCJYIl0sWzMsMCwiQSJdLFs0LDAsIjAiXSxbNCwxLCIwIl0sWzAsMSwiMCJdLFsxLDEsIkIiXSxbMiwxLCJYJyJdLFszLDEsIkEiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNiw3XSxbNyw4XSxbOCw5XSxbOSw1XSxbMyw5LCIiLDEseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxLDcsIiIsMSx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsOCwiXFxzaW1lcSJdXQ==
+\[\begin{tikzcd}
+    0 & B & X & A & 0 \\
+    0 & B & {X'} & A & 0
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=1-3]
+    \arrow[equals, from=1-2, to=2-2]
+    \arrow[from=1-3, to=1-4]
+    \arrow["\simeq", from=1-3, to=2-3]
+    \arrow[from=1-4, to=1-5]
+    \arrow[equals, from=1-4, to=2-4]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=2-2, to=2-3]
+    \arrow[from=2-3, to=2-4]
+    \arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+An extension of $A$ by $B$ that is isomorphic to \[0\to B \hookrightarrow A\oplus B\to A\to 0\]
+is said to be split.
+
+Given an extension $\xi : 0\to B\to X\to A\to 0$ of $A$ by $B$,
+the cohomological functors $\ext^*(A, -)$
+induces the exact sequence\[
+\hom(A, X)\to\hom(A, A)\stackrel{\partial_\xi}{\to}\ext^1(A, B).\]
+Let's look at the class $\Theta(\xi) := \partial_\xi(\Id_A)\in \ext^1(A, B) = 0$.
+If $\Theta(\xi) = 0$,
+then there is a section $f : A\to X$ of $X\to A$ in $\xi$, i.e. $\xi$ is split.
+This means that $\Theta(\xi)\in\ext^1(A, B)$
+is the \textit{obstruction} for $\xi$ to be split.
+
+\begin{theorem}\label{Ext1 classifies extensions}
+    Let $R$ be a (possibly non-commutative) ring.
+    For left $R$-modules $A$ and $B$,
+    there is a natural bijection
+    \[\left\{ \begin{aligned}
+        &\text{isomorphism classes of}\\
+        & \text{extensions of } A \text{ by } B
+    \end{aligned}\right\}\stackrel{1 : 1}{\longleftrightarrow}\ext^1_R(A, B)\]
+    given by $\Theta : \xi\mapsto \partial_\xi(\Id_A)$.
+\end{theorem}
+% \begin{proof}
+%     By naturality of the long exact sequence,
+%     $\Theta(\xi)$ depends only on the isomorphism class of $\xi$ ?
+
+%     Fix an extension \[0\to M\stackrel{j}{\to} P\to A\to 0\]with $P$ projective.
+%     \begin{enumerate}
+%     \item[] \textit{Surjectivity}.
+%     (how?)Take $x\in\ext^1(A, B)$.
+
+%     \item[] \textit{Injectivity}.
+%     (how?)
+%     \qedhere
+%     \end{enumerate}
+% \end{proof}
+
+\begin{example}\label{extension of group module by self = H^1 in adjoint}
+Let $k$ be a topological ring (field if necessary),
+$G$ be a topological group,
+$V$ be a continuous $k[G]$-module that is free of $k$-rank $d$.
+Then there is a canonical isomorphism
+\[\ext^1_{k[G]}(V, V)\simeq H^1(G, \ad V).\]
+(There should be a constructive proof, but I failed...)
+% \begin{proof}
+%     We construct an isomorphism similar to that in \cref{Ext1 classifies extensions}.
+%     An extension \[\xi: 0\to V\stackrel{i }{\to} E\stackrel{p }{\to} V\to 0\]
+%     of $k[G]$-modules.
+%     Tensoring with $V^\vee$ over $k$,
+%     we get
+%     % \[0\to\ad V\to E\otimes_\F V^\vee\to \ad V\to 0.\]
+%     \[0\to\ad V\stackrel{i_*}{\to} E\otimes_k V^\vee\stackrel{p_*}{\to} \ad V\to 0.\]
+    
+%     % % Trial to construct the isomophism of extensions
+%     % Now the natural $k$-linear map $\ev : \ad V\to k$
+%     % is $G$-invariant,
+%     % hence $L_V := \ker(\ad V\to k)$ is a $k[G]$-module, giving an extension
+%     % \[0\to \ad V\stackrel{i_*}{\to} \frac{E\otimes V^\vee}{i_*(L_V)}\stackrel{\ev\circ p_*}{\longrightarrow}k\to 0.\]
+%     % % CNNOT TENSOR WITH DUAL! Even dimensions don't match!
+
+%     Then we take the long exact sequence
+%     \[(E\otimes_\F V^\vee)^G\to (\ad V)^G\stackrel{\partial}{\to} H^1(G, \ad V) \]
+%     and consider the class $\Phi(\xi) := \partial(\Id_V)\in H^1(G, \ad V)$ $= \ext^1_G(\F, \ad V)$.
+%     What next? Do I need the map $Z^1(G, \ad V)\to \ext^1_G(k, \ad V)$?
+    
+
+% \end{proof}
+We propose another proof in the next subsection.
+\end{example}
+
+\subsection{Universal \texorpdfstring{$\delta$}{delta}-Functors}
+We concentrate on cohomological things.
+% \subsubsection{\texorpdfstring{$\delta$}{delta}-functors}
+\begin{definition}
+    A (covariant) \textbf{cohomological $\delta$-functor}
+    is a collection of additive functors \[\{T^n : \mathfrak{A}\to\mathfrak{B}\}_{n\ge 0}\]
+    indexed by non-negative integers,
+    which induces  \textit{functorially} a long exact sequences in $\mathfrak{B}$ from a short exact sequence in $\mathfrak{A}$.
+    More precisely, for each exact sequence
+    \[0\to A\to B\to C\to 0\quad\text{in }\mathfrak{A},\]
+    there are fixed morphisms
+    \[\delta^n : T^n(C)\to T^{n+1}(A)\quad\text{in }\mathfrak{B},\quad n\ge 0,\]
+    s.t.
+    \[0\to T^0(A)\to T^0(B)\to T^0(C)\stackrel{\delta^0}{\to} T^1(A)\to\cdots\]
+    is exact\footnote{
+        In particular, $T^0$ is left-exact.
+    };
+    moreover, a morphism of short exact sequences in $\mathfrak{A}$ induces a morphism of long exact sequences in $\mathfrak{B}$.
+\end{definition}
+
+For instance,
+taking cohomology for chain complexes \[H^* : \cat{Ch}_{\ge 0}(\mathfrak{A})\to\mathfrak{A}\]
+% or taking group cohomology \[H^*(G, -) : k[G]\text{-}\cat{Mod}\to k\text{-}\cat{Mod}\]
+or taking right-derivation of a left-exact functor
+are cohomological $\delta$-functors.
+
+\begin{definition}
+    The cohomological $\delta$-functors from $\mathfrak{A}$ to $\mathfrak{B}$ form a category,
+where morphisms are the natural tranformations commuting with the $\delta^n$'s.
+A \textbf{universal cohomological $\delta$-functor}
+is a $\delta$-functor $T = (T^n)$,
+such that for any $\delta$-functor $S = (S^n)$
+and a morphism $f^0 : T\to S$,
+there is a unique morphism $f : T\to S$ extending $f^0$.
+\end{definition}
+
+So a universal $\delta$-functor is like an initial object among $\delta$-functors but it is ``weaker''.
+
+\begin{theorem}
+    If $F : \mathfrak{A}\to\mathfrak{B}$ is a left-exact additive functor,
+    then (if $\mathfrak{A}$ has enough injectives) the right derivations $R^*F : \mathfrak{A}\to\mathfrak{B}$ form a universal $\delta$-functor.
+\end{theorem}
+
+% \subsubsection{Effaceable functors}
+
+% An \textbf{effaceable} functor is an additive functor
+% $F : \mathfrak{A}\to\mathfrak{B}$,
+% such that
+% \[\forall A\in\mathfrak{A},\ \exists\text{ monomorphism } u : A\hookrightarrow I\text{ in }\mathfrak{A},\st F(u) = 0\text{ in }\mathfrak{B}.\]
+% \begin{theorem}
+%     If $T$ is a \textit{cohomological} $\delta$-functor s.t.\ for all $n\ge 1$,
+%     $T^n$ is \textit{effaceable},
+%     then $T$ is a universal cohomological $\delta$-functor.
+% \end{theorem}
+
+\begin{proof}[Another proof of \cref{extension of group module by self = H^1 in adjoint}]
+Let $k$ be a field.
+We show that both $H^*(G, V^\vee\otimes_k(-))$ and $\ext^*_G(V, -)$ are universal $\delta$-functors. Then since they agree at $i = 0$, they must agree everywhere.
+
+The functors $\ext^*_G(V, -)$ are derived from $\Hom_G(V, -)$,
+so they are universal.
+For $H^*(G, V^\vee\otimes_k(-))$,
+since $V^\vee\otimes_k(-)$ is exact,
+we have\footnote{
+    I've never learnt this but I accept this for now.
+} \[H^*(G, V^\vee\otimes_k(-)) = \mathrm{R}^*\Hom_G(k, -)\circ \left( V^\vee\otimes_k(-) \right) = R^*\left( \Hom_G(k, -)\circ \left( V^\vee\otimes_k(-) \right) \right),\]
+which is also a derived functor.
+\end{proof}
+
+\section{Deformation of Representations of Profinite Groups}
+
+\subsection{The category of complete Noetherian algebras}
+Let $L/\Q_p$ be a finite extension with residue field $\F$, so that its ring of integers $\O := \O_L$ contains the ring of Witt vectors $W(\F)$ of $\F$.
+We consider the category $\compl{\O}$ of complete Noetherian local $\O$-algebras with residue field $\F$.
+
+For $A\in\compl{\O}$,
+we call \[t_A^\vee := \m_A/(\m_A^2  + \m_\O A)\]
+the \textbf{Zariski} (or \textbf{relative}) \textbf{cotangent space of $A$ over $\O$},
+and \[t_A := \Hom_{\F}(\m_A/(\m_A^2  + \m_\O), \F)\]
+the \textbf{relative tangent space of $A$ over $\O$}.
+
+
+
+\begin{proposition}
+    For any homomorphism $\O\to A$ of local rings (no need for completeness) with the same residue field
+    $\F$,
+    there is a perfect pairing \[\m_A/(\m_A^2 + \m_\O A)\times \der_\O(A, \F)\to \F\]
+    of $k$-vector spaces,
+    where\footnote{
+        For $a\in A$, denote by $\bar a\in k$ the residue class.
+    } \[\der_\O(A, \F) = \{\delta\in\Hom_{\O}(A, \F)\mid \delta(ab) = \bar a\delta(b) + \bar b\delta(a),\ \forall a, b\in A\}\]
+    is the ring of $\O$-linear derivations from $A$ to $k$.
+    In particular, \[\Hom_{\F}(\m_A/(\m_A^2  + \m_\O), \F)\simeq \der_\O(A,\F).\]
+\end{proposition}
+Before proving, note that $A = \im(\O\to A) + \m_A$, and $A$ is generated by $\im(\O\to A)$ and $\m_A$ as an $\O$-module, because $A/\m_A = \O/\m_\O$.
+\begin{proof}
+    Consider the natural pairing $\m_A\times\der_\O(A, \F)\to\F$ given by evaluation.
+
+    \noindent\textit{Right kernel.}
+    If $\delta(a) = 0$ for all $a\in\m_A$,
+    then $\delta\in\der_\O(\F, \F) = 0$.
+
+    \noindent\textit{Left kernel.}
+    Both $\m_A$ and $\m_\O$ acts by $0$ on $\F$,
+    so any $\O$-linear derivation $\delta : A\to\F$ (T.B.C.)
+\end{proof}
+
+\begin{lemma}\label{morphism of complete algebra surjective iff cotangent surjective}
+    A morphism $A\to B$ in $\compl{\O}$ is surjective if and only if the induced map
+    $t_A^*\to t_B^*$ is surjective.
+\end{lemma}
+\begin{proof}
+    For any morphism $A\to B$ in $\compl{\O}$,
+    we have the commutative diagram
+% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIlxcbV9cXE8gQS8oXFxtX1xcTyBBXFxjYXBcXG1fQV4yKSJdLFsyLDAsIlxcbV9BL1xcbV9BXjIiXSxbMywwLCJcXG1fQS8oXFxtX0FeMitcXG1fXFxPIEEpIl0sWzQsMCwiMCJdLFswLDEsIjAiXSxbMSwxLCJcXG1fXFxPIEIvKFxcbV9cXE8gQlxcY2FwXFxtX0JeMikiXSxbMiwxLCJcXG1fQi9cXG1fQl4yIl0sWzMsMSwiXFxtX0EvKFxcbV9BXjIrXFxtX1xcTyBBKSJdLFs0LDEsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNSw2XSxbNiw3XSxbNyw4XSxbMSw2XSxbMiw3XSxbMyw4XSxbOCw5XV0=
+\[\begin{tikzcd}
+	0 & {\m_\O A/(\m_\O A\cap\m_A^2)} & {\m_A/\m_A^2} & {\m_A/(\m_A^2+\m_\O A)} & 0 \\
+	0 & {\m_\O B/(\m_\O B\cap\m_B^2)} & {\m_B/\m_B^2} & {\m_B/(\m_B^2+\m_\O B)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-3, to=2-3]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+where the rows are exact.
+The left column is surjective, because by the comments above,
+\[\]
+(some commutative algebra...)
+\end{proof}
+
+\subsection{Deformation functors}
+
+Let $G$ be a profinite group, $\F$ be a finite field of characteristic $p$,
+$V$ an $\F[G]$-module of $\F$-dimension $d$
+with $G$ acting continuously\footnote{
+    This means that the map \[G\times V\to V\quad (g, v)\mapsto gv\]
+    is continuous; or equivalently, $G\to \GL(V)$ is continuous.
+}.
+We fix a $\F$-basis $\beta_\F$ of $V$,
+via which $V$ is identified with a continuous representation
+$\bar{\rho} : G\to\GL_d(\F)$.
+
+Take $A\in\compl{\O}$.
+A \textbf{deformation} of $V$ to $A$
+is a pair $(V_A, \iota_A)$, where\begin{itemize}
+    \item $V_A$ is an $A[G]$-module that is free of finite rank over $A$, and
+    \item $\iota_A : V_A\otimes_{A}\F\simeq V$ is an isomorphism of $\F[G]$-modules. 
+\end{itemize}
+A \textbf{framed deformation} of $(V, \beta)$
+is a triple $(V, \iota_A, \beta_A)$,
+where \begin{itemize}
+    \item $(V, \iota_A)$ is a deformation of $V$ to $A$,
+    \item $\beta_A$ is a basis of $V_A$ over $A$ that reduces to $\beta_F$ via $\iota_A$.
+\end{itemize}
+Define $D_V(A)$ (resp.\ $D^\oblong_V(A)$) to the set of isomorphism classes of deformations (resp.\ framed deformations) of $V$ to $A$.
+\begin{remark}
+    If we view $(V, \beta)$ as the representation $\bar\rho : G\to\GL_d(V)$,
+    then a framed deformation $(V_A, \iota_A, \beta_A)$ is a representation $\rho_A : G\to\GL_d(A)$ lifting $\bar{\rho}$, namely $G\stackrel{\rho_A}{\to}\GL_d(A)\to\GL_d(\F)$ is exactly $\bar{\rho}$,
+    and two framed deformations are isomorphic if the are the same representation $G\to\GL_d(A)$.
+    Forgetting the basis,
+    we see that two deformations are isomorphic
+    if they are, as representations, conjugate by some element in $\ker\left( \GL_d(A)\to\GL_d(\F) \right)$
+\end{remark}
+
+\subsection{Representability}
+
+A profinite group $G$ satisfies the \textbf{Mazur's finiteness condition} $\Phi_p$,
+if for every \textit{open} subgroup $G'\subset G$,
+the $\F_p$-vector space $\Hom_{\gp}(G', \F_p)$ of continuous group homomorphisms is finite. 
+
+\begin{theorem}[Mazur]\label{functor of framed deformation and deformation are pro-representable under finiteness condition}
+    Assume that $G$ satisfies condition $\Phi_p$.\begin{enumerate}
+    \item [(a)] $D_V^\oblong$ is representable by an $R_V^\oblong\in\compl{\O}$.
+    \item [(b)] If Schur's lemma $\enom_{\F[G]}(V) = \F$ is true, then $D_V$ is representable by an $R_V\in\compl{\O}$. 
+    \end{enumerate}
+\end{theorem}
+
+\subsubsection{Construction of \texorpdfstring{$R_V^\oblong$}{RVbox}}
+    We are looking for a universal representation $\rho^\oblong : G\to\GL_d\left( R_V^{\oblong} \right)$ in the sense that for any lift $\rho_A : G\to\GL_d(A)$ of $\bar{\rho}$ with $A\in\compl{\O}$,
+    there is a morphism $R^\oblong_V\to A$
+    s.t. $G\stackrel{\rho^\oblong}{\to}\GL_d\left( R_V^{\oblong} \right)\to\GL_d(A)$ equals $\rho_A$.
+
+    Suppose first that $G$ is finite
+    with presentation \[G = \gene{g_1, \dots, g_s\mid r_1(g_1, \dots, g_s) = \cdots = r_t(g_1, \dots, g_s)}.\]
+    Let \[\mathcal{R} := \O\left[ \left\{X_{ij}^k\right\}_{1\le i, j\le d}^{1\le k\le s} \right] \Big/ \mathcal{I},\]
+    where $\mathcal{I}$ is the ideal generated by all \textit{entries} of the matrices
+    \[r_l(X^1, \dots, X^k) - \Id,\quad X^k = \left( X^k_{ij} \right)_{i,j},\; 1\le k\le s,\ 1\le l\le t.\]
+    Consider the kernel $\mathcal{J}$ of the homomorphism \[\mathcal{R}\to \F\quad X^k_{ij}\mapsto \text{the } (i,j)\text{-entry of }\bar{\rho}(g_k)\]
+    and define $R_V^\oblong := \varprojlim_{n} \mathcal{R}/\mathcal{J}^n$ to be the $\mathcal{J}$-adic completion of $\mathcal{R}$.
+    Define $\rho^\oblong : G\to \GL_d(R^\oblong_V)$ by $\rho^\oblong(g_k) := X^k$.
+    \begin{itemize}
+        \item $R_V^\oblong$ is complete, and it is local (with residue field $\F$) because $\mathcal{J}$ is a maximal ideal.
+        \item $\rho^\oblong$ is well-defined,
+        because % https://q.uiver.app/#q=WzAsNSxbMCwxLCJHIl0sWzEsMSwiXFxHTF9kKFxcRikiXSxbMiwxLCJcXEYiXSxbMiwwLCJSX1ZeXFxvYmxvbmciXSxbMSwwLCJcXEdMX2RcXGxlZnQoUl9WXlxcb2Jsb25nXFxyaWdodCkiXSxbMCwxLCJcXGJhclxccmhvIl0sWzEsMiwiXFxkZXQiXSxbMywyXSxbMCw0LCJcXHJob15cXG9ibG9uZyJdLFs0LDMsIlxcZGV0Il0sWzQsMV1d
+        \[\begin{tikzcd}
+            & {\GL_d\left(R_V^\oblong\right)} & {R_V^\oblong} \\
+            G & {\GL_d(\F)} & \F
+            \arrow["\det", from=1-2, to=1-3]
+            \arrow[from=1-2, to=2-2]
+            \arrow[from=1-3, to=2-3]
+            \arrow["{\rho^\oblong}", from=2-1, to=1-2]
+            \arrow["{\bar\rho}", from=2-1, to=2-2]
+            \arrow["\det", from=2-2, to=2-3]
+        \end{tikzcd}\]commutes, and $R_V^\oblong$ is local.
+        \item One checks that $R_V^\oblong$ represents $D_V^\oblong$ and $\rho^\oblong$ is the \textbf{universal framed deformation} of $\bar{\rho}$ (if $R_V^\oblong$ is Noetherian).
+    \end{itemize}
+
+    In the general case of $G$ being profinite,
+    we write $G = \varprojlim_i G/H_i$ with $H_i\subset \ker\bar{\rho}$ open and normal in $G$ and consider the universal lifts $(R_i, \rho_i)$ of the representations $G/H_i\to \F$ from $\bar\rho$.
+    For $G/H_i\to G/H_j$, the universality of $\rho_i$ provides the dotted arrow in the commutative diagram % https://q.uiver.app/#q=WzAsNCxbMCwwLCJHL0hfaSJdLFsxLDAsIlxcR0xfZChSX2kpIl0sWzEsMSwiXFxHTF9kKFJfaikiXSxbMCwxLCJHL0hfaiJdLFswLDEsIlxccmhvX2kiXSxbMSwyLCIiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwzXSxbMywyLCJcXHJob19qIl1d
+    \[\begin{tikzcd}
+        {G/H_i} & {\GL_d(R_i)} \\
+        {G/H_j} & {\GL_d(R_j)}
+        \arrow["{\rho_i}", from=1-1, to=1-2]
+        \arrow[from=1-1, to=2-1]
+        \arrow[dashed, from=1-2, to=2-2]
+        \arrow["{\rho_j}", from=2-1, to=2-2]
+    \end{tikzcd}\]
+    Therefore we obtain $(R^\oblong_V, \rho^\oblong) := \varprojlim_i(R_i, \rho_i)$.
+
+\vspace{1.0em}
+Note that this contruction requires not the condition $\Phi_p$, which is needed to make $R_V^\oblong$ Noetherian.
+
+\subsubsection{The tangent space}
+
+
+Let $\F[\varepsilon] := \F[X]/(X^2)$, which is called the ring of \textbf{dual numbers}.
+For a functor $D : \compl{\O}\to \Set$ sending the terminal object $\F$ to the terminal object $D(\F) = \{\bullet\}$,
+we call the set $t_D := D(\F[\varepsilon])$ the \textbf{Zariski tangent space} of $D$.
+If there is a fixed bijection $D(\F[\varepsilon]\oplus\F[\varepsilon])\simeq D(\F[\varepsilon])\times D(\F[\varepsilon])$,
+we equip $t_D$ with the $\F$-linear structure give by this bijection.
+
+\begin{itemize}
+\item Assume that $D : \compl{\O}\to \Set$ is representable by $R\in\compl{\O}$.
+Then the tangent space \[
+t_D\simeq \Hom_{\O}(R, \F[\varepsilon])\simeq \Hom_{\F}(\m_R/
+(\m_R^2 + \m_\O), \F[\varepsilon]) = t_R\]
+is the Zariski or relative tangent space of $R$ over $\O$.
+(what is the last isomorphism (if there is one...)?)
+\end{itemize}
+
+Define $\ad V := \enom_\F (V)\simeq V^\vee\otimes_\F V$ with the standard $G$-module structure $\ad\bar\rho = \bar\rho^\vee\otimes\bar\rho$.
+
+\begin{lemma}
+    There are canonical isomorphisms\footnote{
+        In $\ext^1$, we consider \textit{continuous} extension classes.
+    }
+    \[D_V(\F[\varepsilon])\simeq \ext^1_{\F[G]}(V, V)\simeq H^1(G, \ad V).\]
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+    \item [(1)]    
+    Given an extension \[0\longrightarrow V\stackrel{i}{\longrightarrow} W\stackrel{\pi}{\longrightarrow} V\longrightarrow 0\]
+    of $\F[G]$-modules,
+    we define the $\F[G]$-linear action of $\varepsilon$ on $W$ by $\varepsilon|_W := i\circ \pi$,
+    which endows $W$ with an $\F[\varepsilon][G]$-module structure and an isomorphism \[
+    W\otimes_{\F[\varepsilon]}\F = W/\varepsilon W = W/i(V) \stackrel{\pi}{\simeq} V.\]
+    % the module $W$ has a direct summand
+    % \[V\stackrel{\iota}{\simeq} W\otimes_{\F[\varepsilon]} \F\hookrightarrow W\otimes_{\F[\varepsilon]}\F\oplus W\otimes_{\F[\varepsilon]}\F\varepsilon = W\] as $\F$-modules, which is actually a direct summand as $\F[G]$-modules.
+
+    Conversely, for a deformation $(W, \iota)$ of $V$ to $\F[\varepsilon]$,
+    we get an extension of $V$ by itself
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCIwIl0sWzEsMCwiViJdLFsxLDEsIldcXG90aW1lc197XFxGW1xcdmFyZXBzaWxvbl19XFxGIl0sWzIsMSwiV1xcb3RpbWVzX3tcXEZbXFx2YXJlcHNpbG9uXX1cXEZbXFx2YXJlcHNpbG9uXSJdLFsyLDAsIlciXSxbMywwLCJWIl0sWzQsMCwiMCJdLFszLDEsIlcvXFx2YXJlcHNpbG9uIFdcXHNpbWVxIFdcXG90aW1lc197XFxGW1xcdmFyZXBzaWxvbl19XFxGIl0sWzAsMV0sWzEsMiwiXFxpb3RhIiwyXSxbMiwzLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFszLDQsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsNF0sWzQsNV0sWzUsNl0sWzQsNywiIiwyLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzcsNSwiXFxpb3RhIiwyXV0=
+\[\begin{tikzcd}
+	0 & V & W & V & 0 \\
+	& {W\otimes_{\F[\varepsilon]}\F} & {W\otimes_{\F[\varepsilon]}\F[\varepsilon]} & {W/\varepsilon W\simeq W\otimes_{\F[\varepsilon]}\F}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["\iota"', from=1-2, to=2-2]
+	\arrow[from=1-3, to=1-4]
+	\arrow[two heads, from=1-3, to=2-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[hook, from=2-2, to=2-3]
+	\arrow[equals, from=2-3, to=1-3]
+	\arrow["\iota"', from=2-4, to=1-4]
+\end{tikzcd}\]
+    as $\F[G]$-modules.\footnote{
+        The fact $W\simeq V\oplus V$ as $\F[G]$-modules doesn't mean that the extension split.}
+The first isomophism is thereby established.
+
+\item [(2)] The second isomophism is a general fact that we have extracted as \cref{extension of group module by self = H^1 in adjoint}.\qedhere
+\end{enumerate}
+\end{proof}
+
+We use the abbreviation $h^i(\cdots) := \dim_\F H^i(\cdots)$.
+\begin{lemma}
+    If $G$ satisfies condition $\Phi_p$,
+    then $D_V(\F[\varepsilon])$
+    is a finite dimensional $\F$-vector space,
+    and \[\dim_\F D_V^\oblong(\F[\varepsilon]) = \dim_\F D_V(\F[\varepsilon]) + d^2 - h^0(G, \ad V)\]
+    is also finite.
+\end{lemma}
+\begin{proof}
+    Let $G' := \ker(G\to \GL(V))$.
+    Since $G$ acts continuously,
+    $G'$ is an open normal subgroup of $G$.
+    Consider the inflation-restriction exact sequence
+    \[0\to H^1(G/G', \ad V)\to H^1(G, \ad V)\to H^1(G', \ad V)^{G/G'}.\]
+    The left term is obviously finite.
+    For the right term,
+    $G'$ acts trivially,
+    so\footnote{
+        We have \[\Hom_{\gp}(G, V)\simeq \Hom_{\gp}(G, k)\otimes_k V\]
+        for any group $G$ and any \textit{finite} dimensional vector space $V$ over a field $k$.
+    } \[H^1(G', \ad V) = \Hom_{\gp}(G', \ad V) \simeq\Hom_{\gp}(G', \F_p)\otimes_{\F_p} \ad V\]
+    is finite by condition $\Phi_p$.
+    Therefore $\dim_\F D_V(\F[\varepsilon]) = h^1(G, \ad V) < \infty$.
+
+    (Do the equation later.)
+\end{proof}
+
+\begin{lemma}
+    Let $A$ be a complete local $\O$-algebra with residue field $\F$.
+    If $\{\alpha_i\}_{i\in I}\subset\m_A$
+    generates the relative cotangent space $t_A^\vee = \m_A/(\m_A^2  +\m_\O)$ of $ A$ over $\O$
+    as an $\O$-module,
+    then the homomorphism\[\O\llbracket X_i\mid i\in I \rrbracket\to A\quad X_i\mapsto \alpha_i\]is surjective.
+\end{lemma}
+\begin{proof}
+    % By \cref{morphism of complete algebra surjective iff cotangent surjective},
+    % \[\O\llbracket X_i\mid i\in I \rrbracket\twoheadrightarrow A\iff t^\vee_{\O\llbracket X_i\mid i\in I \rrbracket}\twoheadrightarrow t^\vee_A,\]
+    % and \[t^\vee_{\O\llbracket X_i\mid i\in I \rrbracket} = (\m_\O, \{X_i\}_{i\in I})/(\m_\O, \{X_i^2, X_iX_j\}_{i,j\in I})\]
+    % is onto $\m_A/(\m_A^2  +\m_\O)$.
+    Cannot use \cref{morphism of complete algebra surjective iff cotangent surjective} because Noetherianity of $A$ is the goal!
+\end{proof}
+
+\begin{corollary}
+    The ring $R_V^\oblong$ is Noetherian if $H^1(G, \ad V)$ is $\F$-finite-dimensional.
+\end{corollary}
+\begin{proof}
+    Combine the lemmata above.
+\end{proof}
+This completes the proof of \cref{functor of framed deformation and deformation are pro-representable under finiteness condition} (a).
+
+\subsubsection{Quotient by group action and the representability of \texorpdfstring{$D_V$}{DV}}
+
+Result is $\spf R_V  = \spf R_V^\oblong\bigg/\widehat{\mathrm{PGL}_d}$.
+
+\subsubsection{Presentation of the universal deformation ring \texorpdfstring{$R_V$}{RV}}
+
+
+
+\section{Taylor-Wiles Patching}
+Keep the notations $\O = \O_L$ for $L/\Q_p$,
+and let $k = \O/\m_\O$ and $\varpi\in\O$ be a uniformizer.
+
+
+Fix a continuous absolutely irreducible modular representation $\rho : \gal_{\Q, \{p, \infty\}}\to \GL_2(k)$ with determinant $\bar\varepsilon^{-1}$.
+
+
+
+
+
+
+\end{document}

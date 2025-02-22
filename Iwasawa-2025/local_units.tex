@@ -1,0 +1,466 @@
+\section{Local Units}
+
+(goal: $\mathcal{U}_\infty$?)
+
+Let $\K_n := \Q_p(\mu_{p^{n+1}})$,
+$\U_n := \O_{\K_n}^\times = \O_{\Q_p(\mu_{p^{n+1}})}^\times$.
+
+$\O_{\K_n}=\Z_p[\zeta_n] = \Z_p[\pi_n]$.
+
+Fix $\zeta_n\in\mu_{p^{n+1}}$ a primitive $p^{n+1}$-th root of unity,
+and $\pi_n := \zeta_n - 1$ a uniformiser of $\K_n$.
+
+For $n\ge m$, let $N_{n, m} := N_{\K_n/\K_m} : \K_n\to\K_m$
+be the norm map.
+Define the $\U_\infty := \varprojlim_{n} \U_n$,
+where the inverse limit is taken w.r.t.(right words?) the norm maps.
+(Question: does $\U_\infty$ relate to the completion of $\O^\times_{\Q_p(\mu_p^\infty)}$? Like $\widehat{\K_\infty} = \varprojlim \K_n$ w.r.t.\! (normalized) trace.)
+
+Let $\mathcal{G} := \gal(\K_\infty|\Q_p)$,
+and $\chi : \mathcal{G}\to \Z_p^\times$ the cyclotomic character.
+
+\subsection{The actions on \texorpdfstring{$\Z_p\llbracket T \rrbracket$}{Zp[[T]]}}
+Let $R$ be the ring $\Z_p\llbracket T \rrbracket = \varprojlim_{n} \Z_p[T]/T^n$ equipped with the $\m := (p, T)$-adic topology.
+Coleman introduced several operators on this complete ring $R$,
+which have been generalized in Fontaine's theory of $(\varphi, \Gamma)$-modules.
+(These operators seems to have connection with the formal group $\Gm$, hence it should be generalized directly to Lubin-Tate extensions?)
+\subsubsection{The operator \texorpdfstring{$\varphi$}{phi}}
+
+
+Recall that the formal group $\Gm$ over $\Z_p$ is a formal $\Z_p$-module,
+with $\Z_p\to\enom(\Gm)$ given by
+\[[a](T) = (1 + T)^a - 1,\quad a\in\Z_p.\]
+
+For $f(T)\in R$, define \[\varphi(f(T)) := f([p](T)) = f((1 + T)^p - 1).\]
+\begin{itemize}
+\item $\varphi : R\to R$ is an injective $\Z_p$-algebra homomorphism.
+\item $\varphi(R^\times)\subset R^\times$.
+\end{itemize}
+
+\subsubsection{The norm and trace}
+
+Consider $f\in R$ and $\xi\in\mu_p$.
+Then $f(\xi(T + 1) - 1)\in \O\llbracket T \rrbracket$,
+where $\O = \O_{\K_0} = \Z_p[\mu_p]$ because $\xi - 1\in\O$ has strictly positive valuation.
+
+\begin{lemma}
+    For $f\in R$, both
+    $\prod_{\xi\in\mu_p} f(\xi(1 + T) - 1)$ and
+    $\sum_{\xi\in\mu_p} f(\xi(1 + T) - 1)$ are in $R$.
+\end{lemma}
+\begin{proof}
+    (Not quite sure!)
+    The group $\gal(\K_0/\Q_p)$ acts on $\O\llbracket T \rrbracket$ by acting on the coefficients,
+    and $R = \O\llbracket T \rrbracket^{\gal(\K_0/\Q_p)}$.
+    The lemma holds since for each $\sigma\in\gal(\K_0/\Q_p)$,
+    $\sigma(\xi)$ permutes $\mu_p$ as $\xi$ runs over $\mu_p$.
+\end{proof}
+
+
+\begin{proposition}\label{definition of psi/trace and N/norm on Zp[[T]]}
+    There eixsts unique continuous maps $\mathcal{N}, \psi : R\to R$ s.t. for $f(T)\in R$,
+    \begin{align*}
+        (\varphi\circ\mathcal{N})(f(T)) &= \prod_{\xi\in\mu_p} f(\xi(1 + T) - 1),\\
+        (\varphi\circ\psi)(f(T)) &= \dfrac{1}{p}
+        \sum_{\xi\in\mu_p} f(\xi(1 + T) - 1).
+    \end{align*}
+    These maps verifies the following properties.
+    \begin{itemize}
+\item $\mathcal{N}$ is multiplicative, and $\mathcal{N}(R^\times)\subset R^\times$;
+\item $\psi$ is $\Z_p$-linear;
+\item $\psi\circ \varphi = \Id_R$.
+    \end{itemize}
+\end{proposition}
+Since $\varphi$ is injective, the maps $\mathcal{N}$ and $\psi$ are unique if exists,
+and showing that RHSs in the above equations are in $\varphi(R)$ would prove the existence.
+
+
+
+\begin{lemma}\label{lem: phi(Zp[[T]])}
+    $\varphi(R) = \{h\in R\mid h(\xi(1 + T) - 1) = h(T),\forall \xi\in\mu_p\}$.
+\end{lemma}
+\begin{proof}
+    ``$\subset$'' is obvious.
+    For ``$\supset$'', take $h\in$ RHS,
+    and we are to show that $h\in\varphi(R) = \Z_p\llbracket \varphi(T) \rrbracket$.
+    By definition,
+    $\xi - 1$ is a root of $h(T) - h(0)$ for every $\xi\in\mu_p$,
+    hence $\varphi(T) = \prod_{\xi\in\mu_p}(T + 1 - \xi)$ divides $h(T)$ in $R$,
+    and we get $h(T) = \varphi(T)h_1(T)$
+    with $h_1\in R$.
+    Now $h_1$ is again in RHS,
+    so the induction goes on.
+\end{proof}
+
+\begin{proof}[Proof of \cref{definition of psi/trace and N/norm on Zp[[T]]}]
+    \textit{Existence and unicity.}
+    Take $f\in R$.
+    By \cref{lem: phi(Zp[[T]])},
+    $\prod_{\xi\in\mu_p}f(\xi(1 + T) - 1)\in \varphi(R)$.
+    For the existence of $\psi$,
+    let \[r(T) := \sum_{\xi\in\mu_p}f(\xi(1 + T) - 1).\]
+    We know that $r(T)\in \varphi(R)$ from \cref{lem: phi(Zp[[T]])} and we need to show that $r(T)\in pR$.
+    Let $\p_0$ be the maximal ideal of $\K_0 = \Q_p(\mu_p)$.
+    For each $\xi\in\mu_p$, $\xi - 1\in \p_0$,
+    so
+    \[\xi(1 + T) - 1\equiv T\mod \p_0\O\llbracket T  \rrbracket,\]
+    \[\implies r(T) = \sum_{\xi\in\mu_p}f(\xi(1  +T) - 1) \equiv pf(T)\equiv 0\mod(\p_0\O\llbracket T  \rrbracket \cap R = pR)\]
+
+
+    \textit{Properties}.
+    Straitforward.
+    For example,
+    \[(\varphi\circ \psi\circ\varphi)(f(T)) = \frac{1}{p}\sum_{\xi\in\mu_p} f((\xi(1 + T))^p - 1) = \varphi(f(T)),\]
+    so $\psi\circ\varphi = \Id$.
+\end{proof}
+
+\begin{lemma}
+    $\mathcal{N}(T) = T$.
+\end{lemma}
+\begin{proof}
+    Almost by definition.
+\end{proof}
+$\log(T) = \log(1 + (T - 1)) = \sum_{n\ge 1}\frac{(-1)^{n-1}(T-1)^n}{n}$
+
+\begin{lemma}
+    For $n\in\Z_{\ge 1}$,
+    \[\psi\left(\frac{1 + T }{T } \cdot\varphi(T)^n \right) = \frac{1 + T}{T}\cdot T^n\]
+\end{lemma}
+\begin{proof}
+    Mei Kan Dong! About taking logarithmic derivative.
+\end{proof}
+
+\subsubsection{The action of \texorpdfstring{$\mathcal{G}$}{G}}
+We let $\mathcal{G} = \gal(\Q_p(\mu_{p^\infty})|\Q_p)$ act on $R = \Z_p\llbracket T \rrbracket$
+via the cyclotomic character $\chi : \mathcal{G}\to\Z_p^\times$ (and the formal group $\Gm$?), i.e,
+for $\sigma\in\mathcal{G}$ and $f(T)\in R$, define
+\[\sigma(f(T)) := f([\chi(\sigma)](T)) = f((1 + T)^{\chi(\sigma)} - 1).\]
+\begin{itemize}
+    \item The above formula defines a $\mathcal{G}$-action on $R$ that sending $R^\times$ to $R^\times$.
+    \item This action of $\mathcal{G}$ commutes with $\varphi$, $\mathcal{N}$ and $\psi$.
+\end{itemize}
+
+\subsection{The Interpolating Power Series}
+
+\begin{theorem}\label{existence of interpolating power series}
+    For each $u = (u_n)_n\in \U_\infty$,
+    there is a \textit{unique} $f_u\in R$,
+    s.t. $f_u(\pi_n) = u_n$ for all $n\ge 0$.
+\end{theorem}
+
+The unicity follows directly from the Weierstrass preparation theorem for $\Z_p\llbracket T  \rrbracket$.
+More precisely,
+if both $f_u$ and $g_u$ satifies the condition above for $u\in\U_\infty$,
+then $f_u - g_u$ has infinitely many zeros $\pi_n\in\m_{\bar\Q_p}$,
+so $f_u = g_u$.
+
+
+
+\begin{example}
+    Let $a\in\Z $ be such that $(a, p) = 1$, then\[w_a(T) := \frac{(1 + T)^{-a/2} - (1 + T)^{a/2}}{T} = -a + O(T)\in R^\times.\]
+    One checks that for $a, b\in\Z$ prime to $p$,
+    \[c_n(a, b) := \frac{\zeta_n^{-a/2} - \zeta_n^{a/2}}{\zeta_n^{-b/2} - \zeta_n^{b/2}}\]
+    defines an element $c(a, b)\in\U_\infty$,
+    and that $f_{c(a, b)}(T) = w_a(T)/w_b(T)$.
+\end{example}
+
+
+The essential idea is to look at $W := \left( R^\times \right)^{\mathcal{N} = 1}$.
+Let $f\in W$.
+Recall that we have fixed $\zeta_n\in\mu_{p^{n+1}}$ and set $\pi_n = \zeta_n - 1$,
+so that $\varphi(\pi_n) = [p](\pi_n) = \pi_{n-1}$.
+Since $f\in R^\times$,
+$f(\pi_n)\in\U_n$ for all $n\ge 0$.
+Moreover, since $f = \mathcal{N}(f)$,
+we have \[\varphi (f(T)) = (\varphi\circ\mathcal{N})(f(T)) = \prod_{\xi\in\mu_p} f(\xi(1 + T) - 1),\]
+so
+\[f(\pi_{n-1}) = \varphi (f)(\pi_{n}) = \prod_{\xi\in\mu_p} f(\xi\zeta_n - 1) = N_{n, n-1}f(\pi_n).\]
+Hence $(f(\pi_n))_n\in\mathcal{U}_\infty$.
+We will show that every element in $\mathcal{U}_n$
+is obtained in this manner.
+
+(some lemmata and proofs)
+
+\begin{corollary}\label{N is pointwise contracting on Zp[[T]]}
+    For any $f\in R^\times$,
+    $\{\mathcal{N}^k(f)\}_{k\ge 0}$ converges in $R^\times$.\qed
+\end{corollary}
+(By the previous lemma.)
+This limit is in $W$.
+
+(a lemma)
+
+\begin{proof}[Proof of \cref{existence of interpolating power series}]
+    Let $u\in\U_\infty$.
+    For each $n\ge 0$,
+    there is some $g_n\in R^\times$ s.t. $g_n(\pi_n) = u_n$.
+    Consider the sequence $h_n(T) := \mathcal{N}^{2n}(g_n)$ in $R^\times$.
+    (T.B.C.)
+\end{proof}
+
+The Galois group $\mathcal{G}$ act on $\U_\infty$ naturally via $\mathcal{G}\twoheadrightarrow \gal(\K_n|\Q_p)$, where the latter acts on $\U_n$.
+(check the compactibility.)
+
+\begin{corollary}\label{cyclotomic units isomorphic to N = 1}
+    There is an isomorphism $\U_\infty\simeq W$
+    of $\mathcal{G}$-modules given by
+    $u\mapsto f_u$.
+\end{corollary}
+\begin{proof}
+    For $\sigma\in \mathcal{G}$ and $f\in W$,
+    we have
+    \[(\sigma f)(\pi_n) = f([\chi(\sigma)](\pi_n)) = f(\zeta_n^{\chi(\sigma)} - 1)
+    = \sigma (f(\zeta_n - 1))\]
+    by the definition of the cyclotomic character.
+\end{proof}
+
+
+\subsection{The Logarithm Derivative}
+
+For $f\in R^\times$,
+define \[\Delta(f(T)) := (1 + T)\frac{f'(T)}{f(T)}.\]
+\begin{itemize}
+\item $\Delta : R^\times\to R$ is a group homomorphism.
+\item $\Delta(W)\subset R^{\psi = 1}$, and $\ker(\Delta|_W) = \Z_p^\times\cap W = \mu_{p-1}$.
+
+\end{itemize}
+
+
+\begin{theorem}\label{N = 1 maps onto psi = 1}
+    $\Delta(W) = R^{\psi = 1}$.
+\end{theorem}
+
+Strategy: reduction mod $p$.
+Denote by $x\mapsto \tilde x$ the mod $p$ map.
+
+\begin{lemma}
+    If $\widetilde{\Delta(W)} = \widetilde{R^{\psi = 1}}$,
+    then $\Delta(W) = R^{\psi = 1}$.
+\end{lemma}
+\begin{proof}
+    Take $g\in R^{\psi = 1}$.
+    Assume $\widetilde{\Delta(W)} = \widetilde{R^{\psi = 1}}$,
+    then $g_1 := g = \Delta(h_1) + pg_2$ for some $h_1\in W$ and $g_2\in R$, and we can find inductively\[g_n = \Delta(h_n) + pg_{n+1},\quad h_n\in W,\ g_{n+1}\in R.\]
+    Since $\Delta$ is a group homomorphism,
+    and $R^{\psi = 1}$ is a closed subset of the $p$-adic complete ring $R$, 
+    we thereby get a sequence $\{f_n\}_n\subset W$
+    such that $\Delta(f_n)\to g$ in $R^{\psi = 1}$.
+    Since $\ker(\Delta|_W) = \mu_{p-1}$,
+    the sequence $\{f_n\bmod \mu_{p-1}\}_n$ converges in $W/\mu_{p-1}$ (this ``limit'' make sense??).
+    Let $f\in W$ be a lift of this limit in $W/\mu_{p-1}$,
+    then $\Delta(f) = g$.
+\end{proof}
+
+Let $\Omega := R/pR = \F_p\llbracket T \rrbracket$.
+\begin{lemma}
+    $\widetilde W = \Omega^\times$.
+\end{lemma}
+\begin{proof}
+    For $f\in \Omega$,
+    there is some $g\in R$ with $\tilde g = f$.
+    By \cref{N is pointwise contracting on Zp[[T]]},
+    $\mathcal N^ng\to h\in W$ as $n\to\infty$,
+    and (by a nontyped lemma), $\tilde h = \tilde g = f$.
+\end{proof}
+(many words to prove the hypothesis of the lemma, mostly $T$-adic approximation.)L
+
+
+\subsection{An Exact Sequence}
+
+For $f\in R^\times$,
+define \[\mathcal{L}(f)(T) := \frac{1}{p}\log\left( \frac{f(T)^p}{\varphi(f)(T)} \right).\]
+\begin{lemma}
+    $\mathcal{L}$ defines a group homomorphism $R^\times\to R$. In addition,
+    \begin{itemize}
+\item $\mathcal{L}(W)\subset R^{\psi = 0}$.
+\item $\mathcal{L}$ is $\mathcal{G}$-equivariant.
+    \end{itemize}
+\end{lemma}
+\begin{proof}
+    Let $f\in R^\times$.
+    Since $\varphi(f)\equiv f^p\bmod p$,
+    \[\frac{f(T)^p}{\varphi(f)(T)} = 1 + ph(T)\]
+    for some $h\in R$,
+    and thus \[\mathcal{L}(f)(T) = \sum_{n\ge 1}\frac{(-1)^{n-1}p^{n-1}}{n}h(T)^n\in R\]
+    because $p^{n-1}/n\in\Z_p$ for all $n\ge 1$.
+    It is easy to check that $\mathcal{L}$ is a $\mathcal{G}$-homomorphism.
+
+    Next we assume that $\mathcal{N}(f) = 1$ and show that $\psi(\mathcal{L}(f)) = 0$, or \[\sum_{\xi\in\mu_p} \mathcal{L}(f)(\xi(1 + T) - 1) = 0.\]
+    This is done be computation. (Really need to check convergence of $\log(f(T))$ in $\Q_p\llbracket T \rrbracket$?)
+\end{proof}
+
+\begin{theorem}\label{canonical exact sequence involving N = 1 to psi = 0}
+    There is a canonical exact sequence
+    \[1\longrightarrow A\longrightarrow W\stackrel{\mathcal{L}}{\longrightarrow}R^{\psi = 0}\stackrel{\alpha}{\longrightarrow}  \Z_p\longrightarrow 0\]of $\mathcal{G}$-modules,
+    where\begin{itemize}
+    \item $A := \{\xi(1 + T)^a\mid \xi\in\mu_p,\ a\in\Z_p\}$,
+    \item $D(f)(T) := f(T)\Delta(f(T)) = (1 + T)f'(T)$,
+    \item $\alpha(f) := (Df)(0)$
+    \end{itemize}
+\end{theorem}
+
+Preparations:
+
+\begin{lemma}\label{image of 1 - phi = TZ_p[[T]]}
+    $(1-\varphi)R = TR$.
+\end{lemma}
+\begin{proof}
+    ``$\subset$'' is trivial.
+    For ``$\supset$'', take $h\in TR$.
+    Consider the polynomial \[\omega_n(T) := [p^n](T) = (1 + T)^{p^n} - 1\]
+    which has Weierstrass degree $p^n$.
+    Dividing $h$ by $\omega_n$ yields
+    \[h = h_n + \omega_nq_n,
+    \quad h_n\in R,\ q_n\in\Z_p[T],\ \deg q_n \le p^n - 1.\]
+    Since $\omega_n\in (p, T)^n$,
+    $h_n\to h$ as $n\to\infty$.
+    Define \[g_n := \sum_{k=0}^{n-1}\varphi^i(h_{n-i}),\]
+    so that \[g_{n+1} - \varphi(g_n) = h_{n+1}.\]
+    Now it suffices to show that $g_n$ converges in $R$.
+    For $1\le k\le n$,
+    \[\varphi^{n-k}(h) = \varphi^{n-k}(h_k) + \omega_n \varphi^{n-k}(q_k),\]
+    so \[g_n = \sum_{i=0}^{n-1} \varphi^{i}(h) + \omega_n s_n\]
+    for some $s_n\in R$.
+    Because $h\in TR$,
+    $\varphi^n(h) = \omega_n$ is divided by $\varphi^n(T)$ and thus $g_n$ converges.
+\end{proof}
+\begin{lemma}[This lemma is never used...?]
+    There is an exact sequence
+    \[0\longrightarrow\Z_p\longrightarrow R^{\psi = 1}\stackrel{1 - \varphi}{\longrightarrow}R^{\psi = 0}\stackrel{\beta}{\longrightarrow} \Z_p\longrightarrow 0,\]
+    where $\beta(f) := f(0)$ is the evaluation at $T = 0$.
+    \qed
+\end{lemma}
+
+\begin{lemma}\label{lem: constant = 1 mod p and log = 0 imply self = 1}
+    If $f\in R$ is such that $f(0)\equiv 1\bmod p$ and $\log f(T) = 0$,
+    then $f(T) = 1$.
+\end{lemma}
+\begin{proof}
+    Write $f = bg$ with $b\in 1 + p\Z_p$ and $g = 1 + c_rT^r + \cdots$.
+    Then the identity \[0 = \log f = \log b + \log g = \log b + c_rT^r + \cdots\]
+    implies that $\log b = 0$ and $c_r = 0$.
+    Therefore $b = \exp(\log b) = 1$ (assuming $p\ge 3$?) and $g = 1$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{canonical exact sequence involving N = 1 to psi = 0}]
+\begin{enumerate}
+\item [(1)] \textit{Exactness at $W$}.
+Clearly $A\subset\ker\mathcal{L}$.
+Let $f\in\ker\mathcal{L}\cap W$.
+We may assume that $f(0)\equiv 1\bmod p$ by multiplying an element in $\mu_{p-1}$,
+so that $f(0)^p/\varphi(f)(0)\equiv 1\bmod p$.
+As $\mathcal{L}(f) = 0$,
+\cref{lem: constant = 1 mod p and log = 0 imply self = 1} shows that \[f(T)^p = \varphi(f)(T).\]
+Therefore $f(\pi_n)^p = f(\pi_{n-1})$
+and $f(0)\in\mu_{p-1}$.
+From the assumption $f(0)\equiv 1\bmod p$, we get
+$f(0) = 1$.
+By \cref{cyclotomic units isomorphic to N = 1},
+$u := (f(\pi_n))_n\in\U_\infty$.
+(WHY $f(0) = 1\implies u = (f(\pi_n))_n\in T_p(\mu)$?)
+
+
+
+
+\item [(2)] \textit{Exactness at $R^{\psi = 0}$}.
+(Used \cref{image of 1 - phi = TZ_p[[T]]}.)
+
+\item [(3)] \textit{Exactness at $\Z_p$}.
+Just observe that $\psi(1 + T) = 0$ and $\alpha(1 + T) = 1$.
+\end{enumerate}
+\end{proof}
+
+\subsection{Logarithmic Derivatives of Cyclotomic Units}
+For $k\in\Z_{\ge 1}$ and $u\in\U_\infty$,
+define \[\delta_k(u) := 
+(D^{k-1}\circ \Delta)(f)(0)
+= \left.D^{k-1}\left( 
+    (1 + T)\frac{f'_u(T)}{f_u(T)}
+\right)\right|_{T = 0}\]
+\begin{lemma}
+    For all $k\ge 1$,
+    the map $\delta_k : \U_\infty\to\Z_p$
+    is a group homomorphism,
+    satisfying \[\delta_k(\sigma u) = \chi(\sigma)^k\delta_k(u),\quad \sigma\in\mathcal{G}, u\in\U_\infty.\]
+\end{lemma}
+Note that this lemma implies that $\delta_k(\U_\infty)$ is an ideal in $\Z_p$, since the cyclotomic character is an isomorphism.\begin{proof}
+    By \cref{cyclotomic units isomorphic to N = 1},
+    $f_{\sigma u}(T) = f_u((1 + T)^{\chi(\sigma)} - 1)$.
+    Note that \[D^m(g((1 + T)^a - 1)) = a^m(D^mg)((1 + T)^a - 1),\quad g\in R, m\in\Z_{\ge 0}, a\in\Z_p,\]
+    and the lemma follows.
+\end{proof}
+
+Recall that \[c_n(a, b) := \frac{\zeta_n^{-a/2} - \zeta_n^{a/2}}{\zeta_n^{-b/2} - \zeta_n^{b/2}}\]defines an element $c(a, b)\in\U_\infty$
+when both $a$ and $b$ are prime to $p$.
+\begin{proposition}
+    Let $a, b\in\Z$ be prime to $p$,
+    then \[\delta_k(c(a, b)) = \begin{cases}
+        0, & 2\nmid k,\\
+        (b^k - a^k)\zeta(1 - k), & 2\mid k.
+    \end{cases}\]
+\end{proposition}
+(the value of zeta function at negative odd integers finally appeared!)
+\begin{proof}
+    Write $u = c(a, b)$ and \[f(T) = f_u(T) = \frac{(1 + T)^{-a/2} - (1 + T)^{a/2}}{(1 + T)^{-b/2} - (1 + T)^{b/2}}.\]
+    Put $T := e^z - 1$, so that
+    $D = \frac{d}{dz}$,
+    and \[\delta_k(u)
+    = \left. D^{k-1}g(z) \right|_{z = 0},\]
+    where\begin{align*}
+        g(z) &
+        =  e^z\frac{f'(e^z - 1)}{f(e^z - 1)}
+        = \frac{d}{dz} \log f(e^z - 1)  \\ &
+        = \frac{b}{2}\left( \frac{1}{e^{-bz} - 1} - \frac{1}{e^{bz} - 1} \right)
+        - \frac{a}{2} \left( \frac{1}{e^{-az} - 1} - \frac{1}{e^{az} - 1} \right)\\ &
+        = \sum_{\substack{k \ge 2}}\frac{B_k(a^k - b^k)}{k!}z^{k-1}, 
+    \end{align*}
+    and $B_k$'s are the Bernoulli numbers,
+    satisfying \[\begin{cases}
+        B_k = 0, & 2\nmid k,\\
+        \zeta(1 - k) = -\frac{B_k}{k}, & 2\mid k
+    \end{cases}\]for $k\in\Z_{\ge 1}$.
+\end{proof}
+
+\begin{theorem}
+    For $1\le k\le p-1$,
+    $\delta_k(\U_\infty) = \Z_p$.
+\end{theorem}
+\begin{proof}
+    Since $\delta_k(\U_\infty)$ is an ideal in $\Z_p$,
+    it suffices to show that $\delta_k(u)\in\Z_p^\times$ for some $u\in\U_\infty$.
+    (T.B.C.)
+\end{proof}
+
+Summary:
+\begin{enumerate}
+\item \[\begin{tikzcd}
+	&&& 0 \\
+	&&& {\Z_p} \\
+	1 & {\mu_{p-1}} & W & {R^{\psi=1}} & 0 \\
+	1 & {\Z_p^\times} & W & {R^{\psi=0}} & {\Z_p} & 0 \\
+	&&& {\Z_p} \\
+	&&& 0
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=2-4, to=3-4]
+	\arrow[from=3-1, to=3-2]
+	\arrow[from=3-2, to=3-3]
+	\arrow["\Delta", from=3-3, to=3-4]
+	\arrow[from=3-4, to=3-5]
+	\arrow["{1-\varphi}", from=3-4, to=4-4]
+	\arrow[from=4-1, to=4-2]
+	\arrow[from=4-2, to=4-3]
+	\arrow["{\mathcal{L}}", from=4-3, to=4-4]
+	\arrow[from=4-4, to=4-5]
+	\arrow[from=4-4, to=5-4]
+	\arrow[from=4-5, to=4-6]
+	\arrow[from=5-4, to=6-4]
+\end{tikzcd}\]
+\item  \begin{align*}
+    \U_\infty&\simeq W \\ u&\mapsto f_u \\
+    (f(\pi_n))_n &\mapsfrom f
+\end{align*}
+
+\end{enumerate}
+
+
+

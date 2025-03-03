@@ -8,6 +8,7 @@
 \DeclareMathOperator{\ad}{ad}
 \newcommand{\gp}{\mathrm{gp}}
 \newcommand{\an}{\mathrm{an}}
+\newcommand{\cont}{\mathrm{cont}}
 
 \title{$p$-adic Locally Analytic Representations}
 \author{-}
@@ -18,27 +19,73 @@
 
 \section{Reductive Groups over Fields}
 
-\section{Locally Analytic Groups}
+\section{Locally Analytic Representations}
 Let $L$ be a $p$-adic field, and $K/L$ an extension with valuation extended.
 
+\subsection{Definition}
+\subsubsection{The groups}
 An $L$\textbf{-locally analytic group} (of dimension $d$?) is a topological group $G$ such that:\begin{itemize}
-    \item it is a \textbf{locally $L$-analytic manifold} admits an atlas consists of charts
+    \item it is a \textbf{locally $L$-analytic manifold} admitting an atlas consists of charts
     $G\supset U\to K^d$ where the transition maps given by locally analytic functions (i.e. locally given by power series over $L$); and
     \item the multiplication is locally analytic.
 \end{itemize}
 
+\subsubsection{The vector space}
+A \textbf{semi-norm} on a vector space is a ``norm'' that is not seperated.
 A vector space $V$ over a topological field $K$ is called \textbf{locally convex},
-if it has a
-fundamental system of open 0-neighbourhoods consisting of $\O_K$-submodules.
-(Well let's just say this is a kind of good space so that we can talk about locally analytic functions, and normed spaces are locally convex).
+if its topology is given by a family of seminorms $\{q_i\}_{i\in I}$, i.e. $V$ is equipped with the weakest topology,
+such that \begin{itemize}
+\item every semi-norm $q_i : V\to\R$ is continuous,
+\item for every $v\in V$, the translation map $v + (-) : V\to V$ is continuous.
+\end{itemize}
 
+
+
+(Well let's just say this is a kind of good space to make the function space more ``complete''. Normed spaces are locally convex).
+
+Let \[V' := \Hom_{K}^\cont(V, K)\] be the continuous dual of $V$,
+on which we have the \begin{itemize}
+    \item \textbf{strong topology}, 
+\end{itemize}
+
+If $M$ is a locally $L$-analytic manifold,
+we let $C^{\an}(G, V)$ be the set of locally analytic maps $G\to V$.
+It has the topology {\color{red} what?}
+
+\subsubsection{Locally analytic representations}
 Let $G$ be a $L$-analytic group, $V$ be a locally convex Hausdorff vector space over $K$.
-We let $C^{\an}(G, V)$ be the set of locally analytic maps $G\to V$.
+
 For a representation $\rho : G\to\GL(V)$,
 we say that $v\in V$ is a \textbf{locally analytic vector},
 if \[g\mapsto\rho(g)v : G\to V\]
 is locally analytic.
+We collect locally analytic vectors in $V$ by $V^\an$, which is a subrepresentation of $G$.
+\begin{example}
+    If $G = \mathbb{G}(K)$ for some algebraic group $\mathbb{G}$, then any algebraic representation is locally analytic.
+    This is the case we will look at.
+\end{example}
 
+\subsection{The distribution algebras}
+
+We assume that $L/\Q_p < \infty$, and $K$ is spherically complete.
+
+For a locally $L$-analytic manifold $M$,
+we define the \textbf{space of distributions on $M$} to be\[
+D(M, K) := C^\an(M, K)'\]
+the dual of locally analytic functions from $M$ to $K$.
+
+
+
+\section{The BGG category with \texorpdfstring{$P$}{P}-action}
+Let $\mathbb{T\subset B\subset G}$ be over $L$.
+For each standard\footnote{
+    Being standard means that $\mathbb{P\supset B}$.
+} parabolic $\mathbb{P}$,
+let $\mathbb{L_P}$ be the Levi containing $\mathbb{T}$.
+
+We write $G = \mathbb{G}(L)$.
+For a Lie algebra $\mathfrak{a}$ over $L$,
+we denote by $U(\mathfrak{a})$ the universal enveloping of $\mathfrak{a}$ \textbf{after base change to $K$}.
 
 
 

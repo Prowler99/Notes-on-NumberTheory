@@ -9,6 +9,10 @@
 \newcommand{\m}{\mathfrak{m}}
 \DeclareMathOperator{\pic}{Pic}
 \DeclareMathOperator{\frob}{Frob}
+\newcommand{\llpar}{(\!(}
+\newcommand{\rrpar}{)\!)}
+% todo: define (())
+\newcommand{\ab}{\mathrm{ab}}
 
 \title{Notes on Drinfeld Modules and Explicit CFT for Function Fields}
 
@@ -22,11 +26,22 @@ Pre-date: March 10! It is close!
 2) Write an ``extended summary" (meaning around ~5 pages NOT!!! >=10) of you article. It should summarise the article and its main ideas and be accessible to advanced Master students (i.e., the other students in this group).
 
 \section{Review on CFT}
-
+Let $F$ be a global field, $C_F = \A_F^\times/F^\times$ be its idele class group, and $F^\ab$ be its maximal abelian extension inside a fixed algebraic closure $\bar F$.
+The class field theory asserts that the Artin map
+\[\theta_F : C_F\to\gal(F^\ab/F)\]
+is a continuous group homomorphism with dense image,
+establishing a bijection
+\[\{\text{finite abelian extensions of }F\}\longleftrightarrow \{\text{finite index open subgroups of }C_F\}.\]
+The direction ``$\to$'' is computable: for a finite abelian $L/F$,
+the composition $C_F\stackrel{\theta_F}{\to}\gal(F^\ab/F)\to\gal(L/F)$ is surjective,
+and its kernel $U = N_{L/F}(C_L)$ is the corresponding open subgroup of $C_F$, where $N_{L/F} : C_L\to C_F$ is the norm map\footnote{
+    The norm for a idele is just the multiplication of the norm at every places.}.
+But the other direction ``$\gets$'' is not known in general.
+The goal of explictit class field theory is to find this inverse, or equivalently, the inverse of the Artin map.
 
 
 \section{Drinfeld Modules}
-Let $F$ be a global function field with a fixed place $\infty$ {\color{red} neccessarily at infinity?}, and with field of constants $k = \F_q$.
+Let $F$ be a global function field with a fixed place $\infty$, and with field of constants $k = \F_q$.
 If $\lambda$ is a place of $F$,
 we denote by $F_\lambda$ the completion at $\lambda$,  by $\O_\lambda\subset F_\lambda$ the valuation ring,
 by $\F_\lambda := \O_\lambda/\m_\lambda$ the residue field at $\lambda$,
@@ -60,9 +75,9 @@ So we can regard $\lambda$ as a maximal ideal of $A$.
 
 \subsection{Definition}
 \subsubsection{Endomorphisms of the additive group}
-Consider the additive group $\Ga_{/L}$ over $L$.
-Now the point is, $\Ga_{/L}$ is not only a group scheme, but a $k$-vector space scheme,
-and we consider the ring $\End_{k}(\Ga_{/L})$ of all $k$-linear endomorphism of group schemes.
+Consider the additive group $\Ga_{/L}$ over $L$,
+which is not only a group scheme, but also a $k$-vector space scheme,
+and we consider the ring $\End_{k}(\Ga_{/L})$ of all $k$-linear endomorphism.
 \begin{proposition}
     $\End_{k}(\Ga_{/L}) = L[\tau]$, where $\tau$ is the Frobenius-$q$ endomorphism.
 \end{proposition}
@@ -127,12 +142,12 @@ and we can talk about isogenies over $M$ for Drinfeld modules over $L$.
 
 
 
-\begin{remark}[Another interpretation]
+% \begin{remark}[Another interpretation]
 % Let $A$ be an $k$-algebra together with a $k$-algebra homomorphism $\iota : A\to L$.
 % A \textbf{Drinfeld $A$-module over $L$} is an $A$-module structure on $\Ga_{/L}$,
 % such that the induced action on Lie algebra is given by $A\stackrel{\iota}{\to} L$.
 
-\end{remark}
+% \end{remark}
 
 Let \[\partial : L[\tau]\to L\quad \sum_i a_i\tau^i\mapsto a_0\]
 be the homomorphism of taking the constant term.
@@ -149,9 +164,9 @@ is \textit{injective}. This implies that $\phi$ is injective.
 
 \subsection{The Drinfeld modules we need}
 
-In what follows, we take $A\subset F$ to be the subring consisting of functions that are regular away from $\infty$,
+In what follows, we take $A := \O_{\{\infty\}}\subset F$ to be the subring of $F$ consisting of functions that are regular away from $\infty$,
 and we assume that every Drinfeld modules $\phi : A\to L[\tau]$ is of generic characteristic,
-so that $\partial\circ \phi : A\inject L$ extends to an embedding \[F\hookrightarrow L.\]
+so that $\partial\circ \phi : A\inject L$ is injective and it extends to an embedding \[F\hookrightarrow L.\]
 Through the latter, we view $F$ as a subfield of $L$.
 
 % \subsubsection{The rank}
@@ -164,7 +179,7 @@ then $L^\perf((\tau^{-1}))$ is a well-defined skew-field\footnote{
 
 
 Under our assumption,
-$\phi : A\hookrightarrow L[\tau]$ is injective, so it extends to a unique embedding ({\color{red} Does $L^\perf(\tau)$ make sense?})
+$\phi : A\hookrightarrow L[\tau]$ is injective, so it extends to a unique embedding
 \[\phi : F\hookrightarrow L^{\perf}((\tau^{-1})).\]
 The function \[v_\phi : F\to \Z\cup\{\infty\}\quad x\mapsto \ord_{\tau^{-1}}(\phi_x) \]
 is a nontrivial\footnote{
@@ -183,7 +198,7 @@ Now the map $\phi$ restricts to a homomorphism
 \[\phi : \F_\infty\subset\O_\infty\to L^\perf\llbracket \tau^{-1} \rrbracket.\]
 Composing with $\partial : L^{\perf}\llbracket \tau^{-1} \rrbracket\to L^\perf$ of taking constant term,
 we obtain an embedding \[\partial\circ\phi|_{\F_\infty} : \F_\infty\hookrightarrow L^\perf,\]
-whose image lies in $L$ ({\color{red} WHY???}).
+whose image lies in $L$ ({\color{red} why?}).
 
 
 \subsection{\texorpdfstring{$\varepsilon$}{epsilon}-normalized Drinfeld modules}
@@ -202,21 +217,25 @@ By definition, for $x, y\in F_\infty^\times$,
 \[\mu_\phi(xy)=\mu_\phi(x)\mu_\phi(y)^{1/q^{rd_\infty\mathrm{~ord}_\infty(x)}}.\]
 Recall that $\phi$ gives us an embedding
 \[\partial\circ\phi|_{\F_\infty} : \F_\infty\hookrightarrow L\]
-With respect to this embedding, {\color{red} why???}
+With respect to this embedding, {\color{red} why?}
 \[\mu_\phi(x) = x, \quad\forall x\in\F_\infty\]
 \begin{definition}
     A \textbf{sign function for $F_\infty$} is a
-    group homomorphism $F_\infty\to\F_\infty$ such that $\varepsilon|_{\F_\infty} = \Id_{\F_\infty}$.
+    group homomorphism $F_\infty^\times\to\F_\infty^\times$ such that $\varepsilon|_{\F_\infty^\times} = \Id_{\F_\infty^\times}$.
     Note that a sign function $\varepsilon$ is trivial on $1 + \m_\infty$,
     so it is determined by $\varepsilon(\pi)$ for a uniformizer $\pi\in\m_\infty$.
-
-    Let $\varepsilon : F_\infty\to\F_\infty$ be a sign function for $F_\infty$. 
-    We say that $\phi$ is \begin{itemize}
-        \item \textbf{normalized}, if \[\mu_\phi(x)\in \F_\infty,\quad \forall x\in F_\infty,\]
-        \item $\varepsilon$\textbf{-normalized},
-        if \[\exists\sigma\in\aut_k(\F_\infty),\quad \phi = \sigma\circ\varepsilon.\]
-    \end{itemize}
 \end{definition}
+
+% \begin{example}
+%     For a Drinfeld module $\phi$, the function $\mu_\phi : $
+% \end{example}
+
+Let $\varepsilon : F_\infty\to\F_\infty$ be a sign function for $F_\infty$. 
+We say that $\phi$ is \begin{itemize}
+    \item \textbf{normalized}, if \[\mu_\phi(x)\in \F_\infty,\quad \forall x\in F_\infty,\]
+    \item $\varepsilon$\textbf{-normalized},
+    if \[\exists\sigma\in\aut_k(\F_\infty),\quad \phi = \sigma\circ\varepsilon.\]
+\end{itemize}
 
 \begin{lemma}
     Let $\varepsilon$ be a sign function for $F_\infty$.
@@ -236,10 +255,9 @@ for a \textit{unique monic} $\phi_\mathfrak{a}\in L[\tau]$.
 It is a plain to verify that for every $x\in A$,
 $I_{\mathfrak{a}, \phi}$ absorb $\phi_x$ also from the right,
 i.e. $I_{\mathfrak{a}, \phi}\phi_x\subset I_{\mathfrak{a}, \phi}$,
-and therefore gives us a \textit{unique} Drinfeld module \[\mathfrak{a}*\phi : A\to L[\tau]\quad x\mapsto (\mathfrak{a}*\phi)_x\]
-together with an isogeny
-$\phi_\mathfrak{a}$ from $\phi$ to $\mathfrak{a}*\phi$,
-namely \[\phi_\mathfrak{a}\cdot \phi_x = (\mathfrak{a}*\phi)_x\cdot\phi_\mathfrak{a},\]
+and therefore gives us a \textit{unique} Drinfeld module \[\mathfrak{a}*\phi : A\to L[\tau]\quad x\mapsto (\mathfrak{a}*\phi)_x,\]
+which is characterized by\[\phi_\mathfrak{a}\cdot \phi_x = (\mathfrak{a}*\phi)_x\cdot\phi_\mathfrak{a},\]
+namely that $\phi_\mathfrak{a}$ is an isogeny from $\phi$ to $\mathfrak{a}*\phi$.
 
 \begin{lemma}\label{action on a Drinfeld module by an ideal}
     Let $\mathfrak{a}$ and $\mathfrak{b}$ be non-zero ideals of $A$,
@@ -248,11 +266,12 @@ namely \[\phi_\mathfrak{a}\cdot \phi_x = (\mathfrak{a}*\phi)_x\cdot\phi_\mathfra
     \[\mathfrak{ab}*\phi = \mathfrak{a}*(\mathfrak{b}*\phi).\]
 \end{lemma}
 \begin{lemma}\label{action on a Drinfeld module by a principal ideal}
-    Let $\mathfrak{a} = Aw\ne 0$ be a principal ideal of $A$,
+    Let $\mathfrak{a} = (w)\ne 0$ be a principal ideal of $A$,
     then \[
-    \phi_\mathfrak{a} = \mu_\phi(w)^{-1}\cdot\phi_w,\]
+    \phi_{(w)} = \mu_\phi(w)^{-1}\cdot\phi_w,\]
     \[
-    (\mathfrak{a}*\phi)_x = \mu_\phi(w)^{-1}\cdot\phi_x\cdot\mu_\phi(w),\ \forall x\in A.\]
+    ((w)*\phi)_x = \mu_\phi(w)^{-1}\cdot\phi_x\cdot\mu_\phi(w),\ \forall x\in A.\]
+    In particular, $\phi\simeq (w) * \phi$ (not given by $\phi_{(w)}$).
 \end{lemma}
 \begin{lemma}\label{action on a Drinfeld module by an ideal commutes with field extension}
     Let $\sigma : L\hookrightarrow M$ be a field extension, inducing a Drinfeld module \[\sigma(\phi) : A\to M[\tau],\ x\mapsto \sigma(\phi)_x = \sigma(\phi_x).\]
@@ -260,15 +279,32 @@ namely \[\phi_\mathfrak{a}\cdot \phi_x = (\mathfrak{a}*\phi)_x\cdot\phi_\mathfra
     \[\sigma(\phi_\mathfrak{a}) = \sigma(\phi)_\mathfrak{a}.\]
 \end{lemma}
 
+\begin{example}
+    The trivial ideal $A = (1)$ fixes $\phi$ and $\phi_A = \phi_1 = 1$.
+\end{example}
 
+Now we can extend the action of ideals to
+\begin{itemize}
+    \item   $\mathcal{I}_A$, the group of fractional ideals of $A$
+\end{itemize}
+More precisely,
+for $w\in A\sminus \{0\}$,
+\cref{action on a Drinfeld module by a principal ideal} suggests us to define
+\[\left( (w^{-1})*\phi \right)_x := \mu_\phi(w)\cdot\phi_x\cdot \mu_{\phi}(w)^{-1}.\]
+For a general fractional ideal $w^{-1}\mathfrak{a}$
+where $\mathfrak{a}$ is an integral ideal of $A$,
+we set \[(w^{-1}\mathfrak{a}) * \phi := w^{-1} * (\mathfrak{a} * \phi) : x\mapsto \mu_\phi(w)\cdot (\mathfrak{a} * \phi)_x\cdot \mu_\phi(w)^{-1}.\]
+\cref{action on a Drinfeld module by an ideal} shows that these formulae define an action of $\mathcal{I}_A$
+on the set of Drinfeld modules $A\to L[\tau]$.
+
+
+\subsubsection{Sign functions}
 Fix a sign function $\varepsilon : F_\infty\to\F_\infty$ for $F_\infty$.
 Consider \begin{itemize}
-    \item $\mathcal{I}$, the group of fractional ideals of $A$,
-    \item $\mathcal{P}^+$, a subgroup of the group $\mathcal{P}$ of principal fractional ideals of $A$, which is generated by $x\in F^\times$ with $\varepsilon(x) = 1$, and
-    \item the \textbf{narrow class group} $\pic^+(A) := \mathcal{I}/\mathcal{P}^+$.
+
+    \item $\mathcal{P}^+_A$, a subgroup of the group $\mathcal{P}$ of principal fractional ideals of $A$, which is generated by $x\in F^\times$ with $\varepsilon(x) = 1$, and
+    \item the \textbf{narrow class group} $\pic^+(A) := \mathcal{I}_A/\mathcal{P}^+_A$.
 \end{itemize}
-We can define $\mathfrak{a}*\phi$ for every $\mathfrak{a}\in\mathcal{I}$ by \cref{action on a Drinfeld module by an ideal},
-giving an action of $\mathcal{I}$ on the set of Drinfeld modules $A\to L[\tau]$.
 If, in addition, $\phi$ is $\varepsilon$-normalized,
 then $\mathcal{P}^+$ fixes $\phi$ by \cref{action on a Drinfeld module by a principal ideal},
 giving an action of $\pic^+(A)$.
@@ -312,8 +348,8 @@ Fix a sign function $\varepsilon : F_\infty\to\F_\infty$ for $F_\infty$.
 A \textbf{Hayes module for $\varepsilon$}
 is a Drinfeld module $\phi : A\to \C_\infty[\tau]$ over $\C_\infty$,
 such that\begin{itemize}
-\item It is of rank $1$.
-\item It is $\varepsilon$-normalized.
+\item it is of rank $1$,
+\item it is $\varepsilon$-normalized,
 \item $\partial\circ\phi : A\hookrightarrow\C_\infty$ is the inclusion $A\subset F\subset F_\infty\subset \C_\infty$.
 \end{itemize}
 Let $X_\varepsilon$ be the set of Hayes modules for $\varepsilon$.
@@ -322,7 +358,7 @@ Let $X_\varepsilon$ be the set of Hayes modules for $\varepsilon$.
 If $\mathfrak{a}$ is an ideal of $A$, and $\phi\in X_\varepsilon$
 then $\mathfrak{a}*\phi\in X_\varepsilon$.
 By some discussion before,
-this defines an action of $\pic^+(A) = \mathcal{I}/\mathcal{P}^+$
+this defines an action of $\pic^+(A) = \mathcal{I}_A/\mathcal{P}^+_A$
 on $X_\varepsilon$.
 \begin{proposition}\label{action of Pic+ on the set of Hayes modules}
     The set $X_\varepsilon$ is a principal homogeneous space for $\pic^+(A)$, i.e. $\pic^+(A)$ acts \textit{freely} and \textit{transitively} on $X_\varepsilon$.
@@ -344,11 +380,12 @@ By \cref{action on a Drinfeld module by an ideal commutes with field extension},
 there is a natrual action of $\gal(H_A^+/F)$ on $X_\varepsilon$.
 For a fixed $\phi\in X_\varepsilon$,
 $\phi$ induces an injective group homomorphism
-\[\psi : \gal(H_A^+/F)\to \pic^+(A).\]
+\[\Psi : \gal(H_A^+/F)\inject \pic^+(A),\]
+such that \[\sigma(\phi) = \Psi(\sigma) * \phi,\quad \forall\sigma\in\gal_F.\]
 \begin{enumerate}[(1)]
     \item[(4)] For each non-zero prime $\mathfrak{p}$ of $A$,
-    the class of $\psi(\frob_\mathfrak{p})$ in $\pic^+(A)$ equals the class of $\mathfrak{p}$.
-    \item[(5)] $\psi : \gal(H_A^+/F)\to \pic^+(A)$ is an isomorphism.
+    the class of $\Psi(\frob_\mathfrak{p})$ in $\pic^+(A)$ equals the class of $\mathfrak{p}$.
+    \item[(5)] $\Psi : \gal(H_A^+/F)\to \pic^+(A)$ is an isomorphism.
 \end{enumerate}
 
 \end{theorem}
@@ -375,7 +412,7 @@ Let \[F_\infty^+ := \{x\in F_\infty^\times\mid \varepsilon(x) = 1\} = \ker(\vare
 
 
 \subsection{\texorpdfstring{$\lambda$}{lambda}-adic representation}
-Let $\lambda$ be a place of $F$ different from $\infty$, corresponding to a \textit{maximal ideal} $\lambda$ of $A$.
+Let $\lambda$ be a place of $F$ different from $\infty$, and we denote the corresponding maximal ideal of $A$ still by $\lambda$.
 
 Take $e\ge 1$ and consider $\phi[\lambda^e]$.
 By \cref{torsion submodule of an ideal},
@@ -396,18 +433,36 @@ Define the \textbf{$\lambda$-adic Tate module} to be\[T_\lambda(\phi) := \Hom_A(
 
 Hence \[V_\lambda(\phi) := T_\lambda(\phi)\otimes_{\O_\lambda} F_\lambda\] is a $1$-dimensional $F_\lambda$-vector space.
 
-Of course the next step is to try to find a Galois action.
-There is some ideal $\mathfrak{a}$ such that $\sigma(\phi) = \mathfrak{a}*\phi$,
-and thus we have two isomorphisms between this one and $\phi$:
+% Of course the next step is to try to find a Galois action.
+
+Using the isomophism $\Psi : \gal(H_A^+/F)\simeq \pic^+(A)$ from \cref{property of HA+},
+any ideal $\mathfrak{a}\in\Psi(\sigma)$ of $A$ satisfies that $\sigma(\phi) = \mathfrak{a}*\phi$,
+and thus we have two isogenies between $\sigma(\phi)$ and $\phi$, such that
 \begin{itemize}
     \item $\sigma$ induces an isomorphism $V_\lambda(\sigma) : V_\lambda(\phi)\simeq V_\lambda(\sigma(\phi))$,
     \item $\phi_\mathfrak{a}$ induces an isomorphism\footnote{
-        Because?
+        Since $\phi$ has rank $1$, it is equivalent to that $V_\lambda(\phi_\mathfrak{a})$ is non-zero.
+        This is true, because, parallel to elliptic curves, taking Tate module is a faithful functor, i.e. for any two Drinfeld modules $\phi$ and $\phi'$ over $L$, the map
+        \[\Hom_{L}(\phi, \phi')\hookrightarrow \Hom_{\O_\lambda}(T_\lambda(\phi), T_\lambda(\phi'))\]
+        is injective.
     } $V_\lambda(\phi_\mathfrak{a}) : V_\lambda(\phi)\simeq V_\lambda(\mathfrak{a}*\phi)$.
 \end{itemize}
 So we obtain an element \[V_\lambda(\phi_\mathfrak{a})^{-1}\circ V_\lambda(\sigma)\in\GL_{F_\lambda}(V_\lambda(\sigma)) = F_\lambda^\times\cdot\Id,\]
 corresponding to an element $\rho_\lambda^\mathfrak{a}(\sigma)\in F_\lambda^\times$.
 
+\begin{lemma}\label{lem: to define non-infty-adic representation}
+    Let $\sigma, \gamma\in\gal_F$ and $\mathfrak{a}, \mathfrak{b}$ be ideals of $A$.\begin{enumerate}[(i)]
+    \item If $\sigma(\phi) = \mathfrak{a}*\phi$ and $\gamma(\phi) = \mathfrak{b}*\phi$,
+    then $(\sigma\gamma)(\phi) = (\mathfrak{a}\mathfrak{b}) * \phi$, and $\rho_{\lambda}^{\mathfrak{ab}}(\sigma\phi) = \rho_\lambda^\mathfrak{a}(\sigma)\rho_\lambda^\mathfrak{b}(\gamma)$.
+    \item If $\sigma(\phi) = \mathfrak{a}*\phi = \mathfrak{b}*\phi$, then $\mathfrak{b}^{-1}\mathfrak{a}$ is generated by a \textit{unique} $w\in F_\infty^+\cap F$, and $\rho_\lambda^\mathfrak{a}(\sigma)\rho_\lambda^\mathfrak{b}(\sigma)^{-1} = w$.
+    \end{enumerate}
+\end{lemma}
+
+If $\sigma\in\gal_{H_A^+}$,
+then $\sigma(\phi) = \phi = A * \phi$.
+By \cref{lem: to define non-infty-adic representation} (i),
+we obtain a homomorphism
+\[\rho_\lambda^A : \gal_{H_A^+}\to \O_\lambda^\times\quad \sigma\mapsto \rho_\lambda^A(\sigma).\]
 
 
 
@@ -421,6 +476,16 @@ corresponding to an element $\rho_\lambda^\mathfrak{a}(\sigma)\in F_\lambda^\tim
 
 \section{Example: the Rational Function Field}
 Let $F = k(t)$.
+We consider the usual place $\infty$ and $A = k[t]$,
+so that $F_\infty = \llpar k\rrpar$,
+$\F_\infty = k$,
+$\m_\infty = t^{-1}k\llbracket t^{-1}\rrbracket$,
+$\ord_{\infty}(t^{-1}) = 1$.
+Let $\varepsilon : F_\infty^\times\to k^\times$ be the unique sign function such that $\varepsilon(t^{-1}) = 1$,
+so that $F_\infty^+ = \langle t\rangle ( 1 + \m_\infty)$.
+
+The \textbf{Carlitz module} $\phi$ is defined by \[\phi : A = k[t]\to F[\tau]\quad t\mapsto \phi_t := t + \tau.\]
+
 
 \section{Comparision with Elliptic Curves}
 

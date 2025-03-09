@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: summary_Zywina.aux
+The style file: alpha.bst
+Database file #1: refer.bib
+You've used 3 entries,
+            2543 wiz_defined-function locations,
+            576 strings with 4829 characters,
+and the built_in function-call counts, 883 in all, are:
+= -- 82
+> -- 24
+< -- 3
++ -- 6
+- -- 6
+* -- 48
+:= -- 150
+add.period$ -- 8
+call.type$ -- 3
+change.case$ -- 14
+chr.to.int$ -- 3
+cite$ -- 3
+duplicate$ -- 42
+empty$ -- 78
+format.name$ -- 12
+if$ -- 178
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 3
+newline$ -- 17
+num.names$ -- 9
+pop$ -- 22
+preamble$ -- 1
+purify$ -- 18
+quote$ -- 0
+skip$ -- 34
+stack$ -- 0
+substring$ -- 40
+swap$ -- 3
+text.length$ -- 3
+text.prefix$ -- 3
+top$ -- 0
+type$ -- 20
+warning$ -- 0
+while$ -- 8
+width$ -- 4
+write$ -- 37

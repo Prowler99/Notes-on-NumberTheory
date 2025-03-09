@@ -16,12 +16,12 @@
 \DeclareMathOperator{\lc}{lc}
 
 \title{Notes on Explicit CFT for Function Fields}
-% \author{Lei Bichang}
+\author{Lei Bichang}
 
 \begin{document}
 \maketitle
 
-\section{Review on CFT}
+\section{Review of CFT}
 Let $F$ be a global field, $C_F = \A_F^\times/F^\times$ be its idele class group, and $F^\ab$ be its maximal abelian extension inside a separable closure in a fixed algebraic closure $\bar F$.
 The class field theory asserts that the Artin map
 \[\theta_F : C_F\to\gal(F^\ab/F)\]
@@ -32,14 +32,16 @@ The direction ``$\to$'' is computable: for a finite abelian $L/F$,
 the corresponding open subgroup of $C_F$ is the kernel $U$ of $C_F\stackrel{\theta_F}{\to}\gal(F^\ab/F)\to\gal(L/F)$,
 which can be computed as $U = N_{L/F}(C_L)$\footnote{$N_{L/F} : C_L\to C_F$ is the norm map.
     The norm for an idele is just the multiplication of the norm at every places.}.
-But the other direction ``$\gets$'' is not known in general:
-given a finite index open subgroup of $C_F$,
-the Artin map $\theta_F$ doesn't produce the generators of the corresponding extension $L/F$.
-It neither gives an explicit description of $F^\ab$.
+% But the other direction ``$\gets$'' is not known in general:
+% given a finite index open subgroup of $C_F$,
+% the Artin map $\theta_F$ doesn't produce the generators of the corresponding extension $L/F$.
+% It neither gives an explicit description of $F^\ab$.
 
 The goal of explictit class field theory is to find the construciton ``$\gets$'', and to describe $F^\ab$.
-In the article (give reference!), the author constructed the inverse of Artin map for function fields using one distinguished ``place at infinity'' with a sign function as well as Drinfeld modules,
-and described explicitly the structure of $k(t)^\ab$, the maximal abelian extension of the field of rational functions over a finite field $k$.
+Known cases for number fields inlcude $\Q$ and imaginary quadratic fields, and they all uses torsion points of some geometric object ($\Gm$ and CM elliptic curves, respectively).
+In the article \cite{zywina2011explicitclassfieldtheory}, the author constructed the inverse of Artin map for function fields using one distinguished ``place at infinity'' with a sign function as well as Drinfeld modules, a characteristic $p$ analogue for $\Gm$ and elliptic curves.
+In the end, he described explicitly the structure of $k(t)^\ab$, the maximal abelian extension of the field of rational functions over a finite field $k$.
+Most of the proofs for general fact about Drinfeld modules can be found in \cite{goss2012basic}, and those specific for function fields can be found in \cite{Ha74} and \cite{zywina2011explicitclassfieldtheory}.
 % \subsubsection*{Example: explicit class field theory for \texorpdfstring{$\Q$}{Q}}
 % Recall that for each integer $n\ge 1$, we have the mod-$n$ cyclotomic character $\chi_n : \gal_\Q\to (\Z/n\Z)^\times$ from the $\gal_\Q$-action on $\mu_n(\bar{\Q})$.
 % These characters patches to a continuous representation \[\chi : \gal_\Q^\ab\to \hat\Z^\times,\]
@@ -63,74 +65,79 @@ and described explicitly the structure of $k(t)^\ab$, the maximal abelian extens
 % and we shall describe more precisely the case of rational function field.
 
 \section{Function Fields and Drinfeld Modules}
-Let $F$ be a global function field with a fixed place\footnote{
+Let $k = \F_q$ be a finite field,
+$F$ be a global function field with a fixed place\footnote{
     A \textbf{place} of a function field is a valuation subring, or equivalently, an equivalence class of discrete valuations.
     Note that there are no archimedean places.
-} $\infty$, and with field of constants $k = \F_q$,
+} $\infty$, and with field of constants $k$,
 i.e.\! $F$ is a finite extension of the field of rational functions $k(t)$ over $k$.
-If $\lambda$ is a place of $F$,
-we denote by $F_\lambda$ the completion at $\lambda$,  by $\O_\lambda\subset F_\lambda$ the valuation ring,
-by $\F_\lambda := \O_\lambda/\m_\lambda$ the residue field at $\lambda$, and by $\ord_\lambda$ the normalized valuation with value group $\Z$.
 
-For each place $\lambda$, the Teichm\"uller lifting $\F_\lambda\hookrightarrow \O_\lambda$ is a field homomorphism;
-we regard $\F_\lambda\subset\O_\lambda\subset F_\lambda$ as a subfield via this embedding.
-This is the same as picking a uniformizer $\pi$ so that $F_\lambda = \F_\infty\llpar \pi\rrpar$ and then identifying $\F_\infty$ as the field of constants.
+If $\lambda$ is a place of $F$,
+we denote by $F_\lambda$ the completion at $\lambda$, by $\C_\lambda$ the completion of $\overline{F}_\lambda$,
+by $\O_\lambda\subset F_\lambda$ the valuation ring,
+by $\F_\lambda := \O_\lambda/\m_\lambda$ the residue field at $\lambda$, and by $\ord_\lambda$ the normalized valuation on $F_\lambda$ with value group $\Z$.
+We regard $\F_\lambda\subset\O_\lambda\subset F_\lambda$ as a subfield via the Teichm\"uller lifting.
+% This is the same as picking a uniformizer $\pi$ so that $F_\lambda = \F_\infty\llpar \pi\rrpar$ and then identifying $\F_\infty$ as the field of constants.
 % any uniformizer $t\in\m_\lambda$ yields an isomorphism
 % \[\O_\lambda\simeq \F_\lambda[t],\]
 % giving us an embedding $\F_\infty\hookrightarrow \O_\lambda$.
 
 
-For any extension $L$ of $k$, we denote by $\bar{L}$ an algebraic closure. Let $L^\sep$ be the separable closure of $L$ in $\bar L$, and $\gal_L = \gal(L^\sep/L)$ be the absolute Galois group.
+For any extension $L$ of $k$, we denote by $\bar{L}$ an algebraic closure. Let $L^\sep$ be the separable closure of $L$ in $\bar L$,
+$\gal_L = \gal(L^\sep/L)$ be the absolute Galois group.
+% \subsection{Some constructions in function fields}
+% Here are some facts about function fields that are different from number fields.
 
-\subsection{Function fields}
-Here are some facts about function fields that are different from number fields.
-\subsubsection{holomorphy ring}
-There are no ``ring of integers'' in function fields.
-Instead, we consider the holomorphy rings.
-A \textbf{holomorphy ring} is a ring of the form
-\[\O^S := \bigcap_{\lambda\notin S} \O_\lambda = \{x\in F\mid \ord_\lambda(x)\ge 0,\ \forall\lambda\notin S\},\]
-where $S$ is a non-empty set of (not all the) places of $F$.
-% The ring $\O_S$ is the subring of $F$ consisting of elements regular away from $S$.
-\begin{proposition}
-Let $S$ be a finite set of places of $F$. Then $\O^S$ is a Dedekind domain with fractional field $\Frac(\O^S) = F$,
-and there is a bijection between maximal ideals of $\O^S$ and places of $F$ that are not in $S$.
-% Moreover, there is a bijection \[\{\text{place of }F\text{ not in }S\}\longleftrightarrow \spm \O^S\] giving by $\lambda\mapsto \m_\lambda\cap\O^S$, which induces isomorphisms $\F_\lambda = \O_\lambda/\m_\lambda\simeq \O^S/(\m_\lambda\cap\O^S)$.
-\end{proposition}
-We will consider $A := \O^{\{\infty\}}$, so that every place $\lambda\ne\infty$ of $F$ cooresponds to a maximal ideal of $A$.
+\subsection{The holomorphy rings}
+Let $A := \{x\in F\mid \ord_\lambda(x)\ge 0, \forall \lambda\ne \infty\}$, the ring of functions that are regular away from $\infty$.
+% It is a holomorphy ring.
+By the general theory of holomorphy rings, $A$ is a Dedekind domain with fractional field $\Frac(A) = F$, and there is a 1-1 correspondence between maximal ideals of $A$ and the places of $F$ except for $\infty$.
 
-\subsubsection{The Weil group}
+% \subsubsection{holomorphy ring}
+% There are no ``ring of integers'' in function fields.
+% Instead, we consider the holomorphy rings.
+% A \textbf{holomorphy ring} is a ring of the form
+% \[\O^S := \bigcap_{\lambda\notin S} \O_\lambda = \{x\in F\mid \ord_\lambda(x)\ge 0,\ \forall\lambda\notin S\},\]
+% where $S$ is a non-empty set of (not all the) places of $F$.
+% % The ring $\O_S$ is the subring of $F$ consisting of elements regular away from $S$.
+% \begin{proposition}
+% Let $S$ be a finite set of places of $F$. Then $\O^S$ is a Dedekind domain with fractional field $\Frac(\O^S) = F$,
+% and there is a bijection between maximal ideals of $\O^S$ and places of $F$ that are not in $S$.
+% % Moreover, there is a bijection \[\{\text{place of }F\text{ not in }S\}\longleftrightarrow \spm \O^S\] giving by $\lambda\mapsto \m_\lambda\cap\O^S$, which induces isomorphisms $\F_\lambda = \O_\lambda/\m_\lambda\simeq \O^S/(\m_\lambda\cap\O^S)$.
+% \end{proposition}
+% We will consider $A := \O^{\{\infty\}}$, so that every place $\lambda\ne\infty$ of $F$ cooresponds to a maximal ideal of $A$.
+
+\subsection{The Weil group}
 Let $L$ be an extension of $k$.
 The algebraic closure $\bar k$ of $k$ in $\bar F$ is contained in $L^\sep$,
 and the absolute Galois group $\gal_L = \gal(L^\sep/L)$ stabilizes $\bar k$.
-Hence we have
-an exact sequence of topological groups
-\[1\longrightarrow\gal(L^\sep/L\bar{k})\longrightarrow \gal_L\stackrel{\deg}{\longrightarrow}\hat\Z\to 0,\]
-where $\deg : \gal_L\to \gal_k\simeq\hat\Z$ is defined by
-$\sigma(x) = \frob_q^{\deg(\sigma)}(x)$ for $\sigma\in \gal_L,\ x\in\bar{k}$.
-
-Therefore, we can construct Weil group for $L$ just like in the case of local fields.
-The \textbf{Weil group} is the subgroup $W_L$ of $\gal_L$ of elements that acts on $\bar{k}$ by an integral power of the Frobenius-$q$, i.e. \[\sigma(x) = x^{q^{\deg(\sigma)}},\quad \sigma\in W_L,\ x\in\bar{k}.\]
+% Hence we have
+% an exact sequence of topological groups
+% \[1\longrightarrow\gal(L^\sep/L\bar{k})\longrightarrow \gal_L\stackrel{\deg}{\longrightarrow}\hat\Z\to 0,\]
+% where $\deg : \gal_L\to \gal_k\simeq\hat\Z$ is defined by
+% $\sigma(x) = \frob_q^{\deg(\sigma)}(x)$ for $\sigma\in \gal_L,\ x\in\bar{k}$.
+Therefore, we can construct Weil group for $L$ just like for local fields.
+The \textbf{Weil group} is the subgroup $W_L$ of $\gal_L$ of elements $\sigma$ that acts on $\bar{k}$ by an integral power of the Frobenius-$q$, i.e. $\sigma(x) = x^{q^{\deg(\sigma)}}$ for $\sigma\in W_L,\ x\in\bar{k}$.
 The kernel of the map $\deg : W_L\to\Z$ is still $\gal(L^\sep/L\bar{k})$.
 We endow $W_L$ with the weakest topology for which
 \[1\longrightarrow \gal(L^\sep/L\bar{k})\longrightarrow W_L\stackrel{\deg}{\longrightarrow} \Z\longrightarrow0\]
 is an exact sequence of topological groups,
-where \begin{itemize}
-    \item $\gal(L^\sep/L\bar{k})$ has its usual profinite topology,
-    \item $\Z$ has discrete topology\footnote{This is not the topology induced from $\Z\subset \hat\Z$.}.
-\end{itemize}
-With respect to this topology,
-the inclusion $W_L\hookrightarrow \gal_L$ is continuous with dense image.
+where $\gal(L^\sep/L\bar{k})$ has its usual profinite topology and $\Z$ has discrete topology\footnote{This is not the topology induced from $\Z\subset \hat\Z$.}.
+% \begin{itemize}
+%     \item $\gal(L^\sep/L\bar{k})$ has its usual profinite topology,
+%     \item $\Z$ has discrete topology\footnote{This is not the topology induced from $\Z\subset \hat\Z$.}.
+% \end{itemize}
+The inclusion $W_L\hookrightarrow \gal_L$ is still continuous with dense image.
 
-\subsection{Definition of Drinfeld modules}
-\subsubsection{Drinfeld modules and isogenies}
+% \subsection{Drinfeld modules}
+\subsection{Drinfeld modules and isogenies}
 
 Let $L$ be an extension of $k$, $L[T]$ be the ring of polynomial over $L$.
 Consider the Frobenius-$q$ map \[\tau : L[T]\to L[T]\quad \sum_{i = 0}^n a_iT^i\mapsto \sum_{i = 0}^n a_i^qT^{iq}.\]
 This is a $k$-linear endomorphism of $L[T]$,
 and we denote by $L[\tau]$ the sub-$L$-algebra of $\End_{k}(L[T])$ generated by $\tau$.
 The ring $L[\tau]$ is a ring of \textbf{twisted polynomials},
-because it is non-commutative:
-\[\tau a = a^q\tau,\quad \forall a\in L.\]
+because it is non-commutative: $\tau a = a^q\tau$, $\forall a\in L$.
 
 
 Recall that $A = \{x\in F\mid \ord_\lambda(x)\ge 0, \forall \lambda\ne\infty\}$.
@@ -139,265 +146,150 @@ A \textbf{Drinfeld $A$-module\footnote{
     There is a more general definition, but we only need and consider Drinfeld modules of this kind.
 } over $L$} is a homomorphism
 \[\phi : A\to L[\tau]\quad x\mapsto \phi(x) =: \phi_x\]
-of $k$-algebras such that
-\begin{itemize}
-    \item $\phi(A)$ is \textit{not contained} in $L\subset L[\tau]$, and
-    \item the map \[A\to L[\tau]\to L\quad x\mapsto \phi_x = a_0 + a_1\tau + \cdots + a_n\tau^n\mapsto a_0\] is the restriction of the inclusion map $F\hookrightarrow L$ to $A$.
-\end{itemize}
+of $k$-algebras, such that
+$\phi(A)$ is \textit{not contained} in $L\subset L[\tau]$, and
+the map \[A\to L[\tau]\to L\quad x\mapsto \phi_x = a_0 + a_1\tau + \cdots + a_n\tau^n\mapsto a_0\] is the restriction of the inclusion map $F\hookrightarrow L$ to $A$.
 In particular, $\phi : A\inject L[\tau]$ is injective.
 
 
-Let $\phi$ and $\phi'$ be two Drinfeld modules $A\to L[\tau]$.
-An \textbf{isogeny} over $L$ from $\phi$ to $\phi'$
-is an $f\in L[\tau]\sminus\{0\}$ such that \[f\phi_a = \phi_a'f,\quad\forall a\in A.\]
-An \textbf{isomorphism} over $L$ from $\phi$ to $\phi'$ is an invertible isogeny, namely an isogeny $f\in L[\tau]^\times$.
-
-If $M/L$ is an extension,
-then a Drinfeld module over $L$ induces natrually a Drinfeld module over $M$,
-so we can talk about isogenies over $M$ for Drinfeld modules over $L$.
+Let $\phi$ and $\phi'$ be two Drinfeld modules $A\to L[\tau]$, $M$ be an extension of $L$.
+An \textbf{isogeny} over $M$ from $\phi$ to $\phi'$
+is an $f\in M[\tau]\sminus\{0\}$ such that \[f\phi_a = \phi_a'f,\quad\forall a\in A.\]
+An \textbf{isomorphism} over $M$ from $\phi$ to $\phi'$ is an invertible isogeny, namely an isogeny $f\in M[\tau]^\times$.
 
 
-\subsubsection{The rank}
 
-Let $L^\perf$ be the purely inseparable closure of $L$ in $\bar L$,
-then $L^\perf(\!(\tau^{-1})\!)$ is a well-defined\footnote{
-    We need to have all $p$-th root,
-    so that $\tau^{-1}a = a^{1/q}\tau$ is always valid.
-} skew-field, containing $L[\tau]$ as a subring.
-The injection $\phi : A\hookrightarrow L[\tau]$ extends uniquely to a embedding
-$\phi : F\hookrightarrow L^{\perf}(\!(\tau^{-1})\!)$.
-The function \[v_\phi : F\to \Z\cup\{\infty\}\quad x\mapsto \ord_{\tau^{-1}}(\phi_x) \]
-is a nontrivial valuation as $\phi(A)\not\subset L$, and $v_\phi(x)\le 0$ for all $x\in A\sminus\{0\}$.
-Therefore $v_\phi$ is equivalent to the valuation $\ord_\infty$ attached to the place $\infty$.
-We define the \textbf{rank of $\phi$} to be$r\in\Q$ such that
-\begin{equation}\label{eq: def of rank}
-    \ord_{\tau^{-1}}(\phi_x) = rd_\infty\ord_\infty(x),
-\end{equation}
-for $x\in F$, where $d_\infty = [\F_\infty : k]$.
-% is the inertia degree of $F$ at $\infty$.
-The rank $r$ is always an integer, and it is an isogeneous invariant.
+% \subsubsection{The rank}
 
-% Since $L^\perf((\tau^{-1}))$ is complete under $\ord_{\tau^{-1}}$, the homomorphism $\phi : F\to L^\perf((\tau^{-1}))$ gives rise to a unique homomorphism
-% \[\phi : F_\infty\to L^\perf((\tau^{-1}))\]
-% such that $\ord_{\tau^{-1}}(\phi_x) = rd_\infty\ord_\infty(x)$ for all $x\in F_\infty$.
+% Let $L^\perf$ be the purely inseparable closure of $L$ in $\bar L$,
+% then $L^\perf(\!(\tau^{-1})\!)$ is a well-defined\footnote{
+%     We need to have all $p$-th root,
+%     so that $\tau^{-1}a = a^{1/q}\tau$ is always valid.
+% } skew-field, containing $L[\tau]$ as a subring.
+% The injection $\phi : A\hookrightarrow L[\tau]$ extends uniquely to a embedding
+% $\phi : F\hookrightarrow L^{\perf}(\!(\tau^{-1})\!)$.
+% The function \[v_\phi : F\to \Z\cup\{\infty\}\quad x\mapsto \ord_{\tau^{-1}}(\phi_x) \]
+% is a nontrivial valuation as $\phi(A)\not\subset L$, and $v_\phi(x)\le 0$ for all $x\in A\sminus\{0\}$.
+% Therefore $v_\phi$ is equivalent to the valuation $\ord_\infty$ attached to the place $\infty$.
+% We define the \textbf{rank of $\phi$} to be $r\in\Q$ such that
+% \begin{equation}\label{eq: def of rank}
+%     \ord_{\tau^{-1}}(\phi_x) = rd_\infty\ord_\infty(x),
+% \end{equation}
+% for $x\in F$, where $d_\infty = [\F_\infty : k]$.
+% % is the inertia degree of $F$ at $\infty$.
+% The rank $r$ is always an integer, and it is an isogeneous invariant.
 
-% Now the map $\phi$ restricts to a homomorphism
-% \[\phi : \F_\infty\subset\O_\infty\to L^\perf\llbracket \tau^{-1} \rrbracket.\]
-% Composing with $\partial : L^{\perf}\llbracket \tau^{-1} \rrbracket\to L^\perf$ of taking constant term,
-% we obtain an embedding \[\partial\circ\phi|_{\F_\infty} : \F_\infty\hookrightarrow L^\perf,\]
-% whose image lies in $L$. {\color{red} why?}
-\subsubsection{Torsion submodule}
+\subsubsection{Torsion submodules and the rank}
 A Drinfeld module $\phi : A\to L[\tau]$
 defines an $A$-module structure on $\bar L$ by\[x\cdot b := \phi_x(b),\quad\forall x\in A, b\in\bar L.\]
-% \footnotemark\]
-% \footnotetext{Note that if $\phi_x = \sum_{a_i}\tau^i$,
-% then \[\phi_x(b) = \sum_{i}\tau^i(b) = \sum_{i}b^{q^i}.\]
-% }
-Every $\phi_x$ acts by a polynomial of the form $\phi_x(T) = a_0T + a_1T^q + \cdots + a_nT^{q^n}$, where $a_i\in L$.
+Every $\phi_x$ acts by a polynomial $\phi_x(T) = a_0T + a_1T^q + \cdots + a_nT^{q^n}$ with $a_i\in L$.
 This polynomial is separable, because $x\mapsto \phi_x\mapsto a_0$ is injective.
-% which implies that $\phi_x'(T) = a_0\ne 0$ if $\phi_x \ne 0$.
 Therefore $\phi$ gives an $A$-module structure on $L^\sep$.
 
 For an ideal $\mathfrak{a}$ of $A$,
-we define \[\phi[\mathfrak{a}] :=
-% \left\{b\in\bar L\mid \phi_\mathfrak{a}(b) = 0\right\} =
+we define the $\mathfrak{a}$-torsion submodule to be\[\phi[\mathfrak{a}] :=
 \left\{ b\in\bar L\mid \phi_x(b) = 0,\forall x\in\mathfrak{a} \right\},\]
 an $A$-submodule of $L^\sep$ with $A$-module structure from $\phi$,
 carrying a natrual $\gal_L$-action.
 
-\begin{lemma}\label{torsion submodule of an ideal}
-    % Let $\phi$ be a Drinfeld module of rank $r$,
-    % $\mathfrak{a}$ an ideal of $A$.
-    % Then the $A/\mathfrak{a}$-module $\phi[\mathfrak{a}]$ is free of rank $r$.
-    The $A/\mathfrak{a}$-module $\phi[\mathfrak{a}]$ is free of rank $r$.
-\end{lemma}
+Similar to elliptic curves,
+$\phi[\mathfrak{a}]$ is a finite free $A/\mathfrak{a}$-module, whose rank $r\in \Z$ is the same for all ideals $\mathfrak{a}\subset A$.
+We call this number $r$ the \textbf{rank} of the Drinfeld module $\phi$.
+It is an isogeneous invariant.
 
-
-\subsubsection{The sign functions and the \texorpdfstring{$\varepsilon$}{epsilon}-normalized Drinfeld modules}
+\subsection{The sign functions and the \texorpdfstring{$\varepsilon$}{epsilon}-normalized Drinfeld modules}
 A \textbf{sign function for $F_\infty$} is a
-group homomorphism $F_\infty^\times\to\F_\infty^\times$ such that $\varepsilon|_{\F_\infty^\times} = \Id_{\F_\infty^\times}$.
-These functions
-can be described as follows: choosing a uniformizer $\pi$ of $F_\infty$
-yields a decomposition \[F_\infty^\times\simeq \F_\infty^\times\times (1 + \m_\infty)\times \pi^{\Z}.\]
-The factor $1 + \m_\infty$ is a pro-$q$ group,
-but $\F_\infty^\times$ has order $q^f - 1$ for some integer $f$,
-so $\varepsilon$ must be trivial on $1 + \m_\infty$.
-Therefore $\varepsilon$ is
-determined by its value $\varepsilon(\pi)$.
+group homomorphism $F_\infty^\times\to\F_\infty^\times$ such that $\varepsilon|_{\F_\infty^\times} = \Id_{\F_\infty^\times}$, and we write \[F_\infty^+ := \{x\in F_\infty^\times\mid \varepsilon(x) = 1\} = \ker(\varepsilon : F_\infty\to \F_\infty^\times).\]
+Such a function $\varepsilon$ is determined by its value on any uniformizer\footnote{
+    Choosing a uniformizer $\pi$ of $F_\infty$ yields a decomposition $F_\infty^\times\simeq \F_\infty^\times\times (1 + \m_\infty)\times \pi^{\Z}$.
+    The value of $\varepsilon$ on $\F_\infty^\times$ is fixed,
+    and it must be trivial on the pro-$q$ group $1 + \m^\infty$.
+}.
 
+We will fix a sign function $\varepsilon$ for $F_\infty$ and require our Drinfeld modules to be \textbf{$\varepsilon$-normalized}. This is a technical condition we don't need to worry much,
+because every Drinfeld module over $L$ is isomorphic to some $\varepsilon$-normalized Drinfeld module of the \textit{same rank} over the algebraic closure $\bar L$.
 
+\subsection{Hayes modules and group actions on it}
 
-Let $\phi : A\to L[\tau]$ be a Drinfeld module of rank $r$, 
-$\varepsilon : F_\infty\to\F_\infty$ be a sign function for $F_\infty$.
-% extending to an embedding $\phi : F_\infty\to L^\perf((\tau^{-1}))$.
-% For $x\in F_\infty^\times$,
-% we define \[\mu_\phi(x) := \text{first non-zero coefficient of }\phi_x\text{ as a Laurent series in }\tau^{-1},\]
-% so that $\mu_\phi(x)\in (L^\perf)^\times$,
-% and the first term, i.e.\ the term with \textit{highest} $\tau$-order, of $\phi_x$ is
-% \[\mu_\phi(x)\tau^{-rd_\infty\ord_\infty(x)}.\]
-% In particular, if $x\in A$, $\mu_\phi(x)$ is the leading coefficient of $\phi_x\in L[\tau]$.
-% which is what we used before to define reduction type.
-
-% By definition, for $x, y\in F_\infty^\times$,
-% \[\mu_\phi(xy)=\mu_\phi(x)\mu_\phi(y)^{1/q^{rd_\infty\mathrm{~ord}_\infty(x)}}.\]
-% Recall that $\phi$ gives us an embedding
-% \[\partial\circ\phi|_{\F_\infty} : \F_\infty\hookrightarrow L.\]
-% With respect to this embedding, {\color{red} why?}
-% \[\mu_\phi(x) = x, \quad\forall x\in\F_\infty\]
-
-
-% \begin{example}
-%     For a Drinfeld module $\phi$, the function $\mu_\phi : $
-% \end{example}
-For $f = a_n\tau^n + a_{n-1}\tau^{n-1} + \cdots\in L^\perf\llpar\tau^{-1}\rrpar$, we write $\lc(f) := a_n$\footnote{The abbreviation lc stands for leading coefficient.}.
-Using this notation, we say that $\phi$ is $\varepsilon$\textbf{-normalized},
-if there exists some $k$-algebra homomorphism
-$\eta : \F_\infty\to L$ such that
-\[\lc(\phi_x) = \eta(\varepsilon(x)),\quad\forall x\in A\sminus\{0\}.\]
-% \[\exists\sigma\in\aut_k(\F_\infty),\quad \mu_\phi = \sigma\circ\varepsilon.\]
-
-\begin{lemma}\label{Drinfeld module are sign-normalized up to isomophism over algebraic closure}
-    % Let $\varepsilon$ be a sign function for $F_\infty$.
-    Any Drinfeld module over $L$ is isomorphic to some $\varepsilon$-normalized Drinfeld module over $\bar{L}$.
-\end{lemma}
-
-
-\subsubsection{The action of ideals on a Drinfeld module}\label{sec: The action of an ideal on a Drinfeld module}
-Let $\phi : A\to L[\tau]$ be a Drinfeld module.
-For an ideal $\mathfrak{a}$ of $A$, consider the \textit{left} ideal
-$I_{\mathfrak{a}, \phi}$ of $L[\tau]$ generated by $\phi(\mathfrak{a})$.
-Every left ideal of $L[\tau]$ is principal,\footnote{
-    By an argument similar to that of $L[X]$.
-}
-so $I_{\mathfrak{a}, \phi} = L[\tau]\phi_{\mathfrak{a}}$
-for a \textit{unique monic} $\phi_\mathfrak{a}\in L[\tau]$.
-It is a plain to verify that for every $x\in A$,
-$I_{\mathfrak{a}, \phi}$ absorb $\phi_x$ also from the right,
-i.e. $I_{\mathfrak{a}, \phi}\phi_x\subset I_{\mathfrak{a}, \phi}$,
-and therefore gives us a \textit{unique} Drinfeld module \[\mathfrak{a}*\phi : A\to L[\tau]\quad x\mapsto (\mathfrak{a}*\phi)_x,\]
-characterized by the property that $\phi_\mathfrak{a}$ is an isogeny from $\phi$ to $\mathfrak{a}*\phi$, i.e.\[\phi_\mathfrak{a}\cdot \phi_x = (\mathfrak{a}*\phi)_x\cdot\phi_\mathfrak{a}.\]
-For example, if $\mathfrak{a} = A$, then $\phi_A = \phi_1 = 1$ and $A*\phi = \phi$.
-This construciton can be extend to fractional ideals by virtue of the following properties.
-\begin{lemma}\label{action on a Drinfeld module by an ideal}
-    Let $\mathfrak{a}$ and $\mathfrak{b}$ be non-zero ideals of $A$,
-    then\[
-    \phi_{\mathfrak{ab}} = (\mathfrak{b}*\phi)_\mathfrak{a}\cdot \phi_{\mathfrak{b}},\quad \mathfrak{ab}*\phi = \mathfrak{a}*(\mathfrak{b}*\phi).\]
-\end{lemma}
-\begin{lemma}\label{action on a Drinfeld module by a principal ideal}
-    Let $\mathfrak{a} = (w)\ne 0$ be a principal ideal of $A$,
-    then \[
-    \phi_{(w)} = \lc(\phi_w)^{-1}\cdot\phi_w,\quad 
-    ((w)*\phi)_x = \lc(\phi_w)^{-1}\cdot\phi_x\cdot\lc(\phi_w),\ \forall x\in A.\]
-    In particular, $\phi\simeq (w) * \phi$ (not necessarily given by $\phi_{(w)}$).
-\end{lemma}
-
-% \begin{example}
-%     The trivial ideal $A = (1)$ fixes $\phi$ and $\phi_A = \phi_1 = 1$.
-% \end{example}
-
-For $w\in A\sminus \{0\}$,
-\cref{action on a Drinfeld module by a principal ideal} suggests us to define
-$\left( (w^{-1})*\phi \right)_x := \lc(\phi_w)\cdot\phi_x\cdot \lc(\phi_w)^{-1}$.
-For a general fractional ideal $w^{-1}\mathfrak{a}$
-where $\mathfrak{a}$ is an integral ideal of $A$,
-we set \[(w^{-1}\mathfrak{a}) * \phi := w^{-1} * (\mathfrak{a} * \phi) : x\mapsto \lc(\phi_w)\cdot (\mathfrak{a} * \phi)_x\cdot \lc(\phi_w)^{-1}.\]
-\cref{action on a Drinfeld module by an ideal} shows that these formulae indeed define an action of $\mathcal{I}_A$, the group of fractional ideals of $A$,
-on the set of Drinfeld modules $A\to L[\tau]$.
-
-% \begin{lemma}\label{action on a Drinfeld module by an ideal commutes with field extension}
-%     Let $\sigma : L\hookrightarrow M$ be a field extension, inducing a Drinfeld module \[\sigma(\phi) : A\to M[\tau],\ x\mapsto \sigma(\phi)_x = \sigma(\phi_x).\]
-%     Then \[\sigma(\mathfrak{a}*\phi) = \mathfrak{a} * \sigma(\phi),\]
-%     \[\sigma(\phi_\mathfrak{a}) = \sigma(\phi)_\mathfrak{a}.\]
-% \end{lemma}
-
-\subsubsection{Hayes modules}
-
-Let $\C_\infty$ be the completion of an algebraic closure of $F_\infty$.
-% It is $\infty$-adically complete and algebraically closed.
-Fix a sign function $\varepsilon : F_\infty\to\F_\infty$ for $F_\infty$.
-% \begin{definition}
+Fix a sign function $\varepsilon : F_\infty^\times\to\F_\infty^\times$ for $F_\infty$.
 A \textbf{Hayes module for $\varepsilon$}
-is a $\varepsilon$-normalized Drinfeld module $\phi : A\to \C_\infty[\tau]$ over $\C_\infty$ of rank $1$.
-By \cref{Drinfeld module are sign-normalized up to isomophism over algebraic closure},
-the existence of Hayes module for $\varepsilon$ is equivalent to the existence of Drinfeld module of rank $1$ over $\C_\infty$;
-% the latter is guanranteed as all Drinfeld modules of rank $r$ over $\C_\infty$ are given by lattices of rank $r$ in $\C_\infty$
-(give reference!)
+is a $\varepsilon$-normalized Drinfeld module $\phi : A\to \C_\infty[\tau]$ of rank $1$.
+The Drinfeld modules of rank $1$ over $\C_\infty$ exist and can be constructed analytically.
+Since $\C_\infty$ is algebraically closed, the Hayes modules must exist.
 
 Let $X_\varepsilon$ be the set of Hayes modules for $\varepsilon$.
-If $\mathfrak{a}$ is an ideal of $A$, and $\phi\in X_\varepsilon$
-then $\mathfrak{a}*\phi\in X_\varepsilon$.
-Let $\mathcal{P}^+_A$ be the subgroup of $\mathcal{I}_A$ consisting of principal fractional ideals generated by $x\in F^\times$ with $\varepsilon(x) = 1$, and consider the \textbf{narrow class group} $\pic^+(A) := \mathcal{I}_A/\mathcal{P}^+_A$.
-By \cref{action on a Drinfeld module by a principal ideal},
-$\mathcal{P}_A^+$ acts trivially on $X_\varepsilon$,
-giving an action of $\pic^+(A)$ on $X_\varepsilon$.
-
+There is a natrual action of the group $\mathcal{I}_A$ of fractional ideals of $A$ on $X_\varepsilon$, denoted by \[(\mathfrak{a}, \phi)\mapsto\mathfrak{a} * \phi, \quad \mathfrak{a}\in\mathcal{I}_A,\ \phi\in X_\varepsilon.\]
+This action has the following properties.
+\begin{enumerate}[(i)]
+    \item If $\mathfrak{a}\subset A$ is an integral ideal, then there is a unique $\phi_\mathfrak{a}\in L[\tau]$, and $\mathfrak{a} * \phi$ is the unique Drinfeld module making $\phi_\mathfrak{a}$ and isogeny $\phi\to\mathfrak{a} * \phi$. 
+    In particular, $\phi_A = 1$ and $A*\phi = \phi$.
+    These isogenies are important in later construcitons.
+    \item The subgroup $\mathcal{P}_A^+ := \{(x)\mid x\in F^\times\cap F_\infty^+\}$ of $\mathcal{I}_A$
+    % consisting of principal fractional ideals generated by $x\in F^\times\cap F_\infty^+$ 
+    acts trivially on $X_\varepsilon$.
+\end{enumerate}
+We call $\pic^+(A) := \mathcal{I}_A/\mathcal{P}^+_A$ the \textbf{narrow class group}, so that $X_\varepsilon$ is a $\pic^+(A)$-set.
 \begin{proposition}\label{action of Pic+ on the set of Hayes modules}
-    The narrow class group $\pic^+(A)$ acts \textit{freely} and \textit{transitively} on $X_\varepsilon$.
-    % The set $X_\varepsilon$ is a principal homogeneous space for $\pic^+(A)$, i.e. $\pic^+(A)$ acts \textit{freely} and \textit{transitively} on $X_\varepsilon$.
+    % The narrow class group $\pic^+(A)$ acts \textit{freely} and \textit{transitively} on $X_\varepsilon$.
+    The set $X_\varepsilon$ is a principal homogeneous space for $\pic^+(A)$, i.e. $\pic^+(A)$ acts freely and transitively on $X_\varepsilon$.
 \end{proposition}
-% \end{definition}
-\subsubsection{Galois action on \texorpdfstring{$X_\varepsilon$}{Xepsilon}}
-The \textbf{narrow Hilbert class field} or the \textbf{normalizing field for $(F, \infty, \varepsilon)$} is the extension \[H_A^+ := F\left( \text{coefficient of }\phi_x\mid \phi\in X_\varepsilon, x\in A \right)\]
+The group $\pic^+(A)$ will be realized as the Galois group for an ``almost'' unramified extension.
+Define the \textbf{narrow Hilbert class field} or the \textbf{normalizing field for $(F, \infty, \varepsilon)$} to be the extension \[H_A^+ := F\left( \{\text{coefficient of }\phi_x\mid \phi\in X_\varepsilon, x\in A\} \right)\]
 of $F$ in $\C_\infty$. This is the minimal extension of $F$ on which all Hayes modules for $\varepsilon$ are defined.
 \begin{proposition}\label{narrow Hilbert class field is unramified outside infty}
     The extension $H_A^+/F$ is finite abelian, and it is unramified away from $\infty$.
 \end{proposition}
 There is thus a natrual action of $\gal_F$ on $X_\varepsilon$ through $\gal(H_A^+/F)$, given by \[\sigma(\phi)_x := \sigma(\phi_x)\footnotemark,\quad \forall\sigma\in\gal_F,\ \phi\in X_\varepsilon,\ x\in A.\]
 \footnotetext{
-    $\gal_F$ acts on $\bar{F}[\tau]$ by acting on the coefficients. It is direct to check that $\gal_F$ stabilizes $X_\varepsilon$.
+    $\gal_F$ acts on $\bar{F}[\tau]$ by acting on the coefficients. It is direct to check that $\gal_F$ stabilizes $X_\varepsilon$
+    by definition.
 }
 Any $\phi\in X_\varepsilon$, by \cref{action of Pic+ on the set of Hayes modules}, induces an injective group homomorphism
 \[\Psi : \gal(H_A^+/F)\inject \pic^+(A),\]
 such that $\sigma(\phi) = \Psi(\sigma) * \phi$ for all $\sigma\in\gal_F$.
 
 \begin{proposition}\label{the isomophism from gal to Pic+ and the value of Frobenius under this isomophism}
-    $\Psi : \gal(H_A^+/F)\to \pic^+(A)$ is an isomorphism, independent to the choice of $\phi$.
+    $\Psi : \gal(H_A^+/F)\to \pic^+(A)$ is an isomorphism, independent of the choice of $\phi$.
     For each non-zero prime $\mathfrak{p}$ of $A$,
     the class of $\Psi(\frob_\mathfrak{p})$ in $\pic^+(A)$ equals the class of $\mathfrak{p}$.
 \end{proposition}
 
 
-
 \section{Construction of the Inverse to the Artin Map}
 We fix the tuple $(F, \infty, \varepsilon)$
 and a Hayes module $\phi\in X_\varepsilon$.
-Let $F_\infty^+ := \{x\in F_\infty^\times\mid \varepsilon(x) = 1\} = \ker(\varepsilon : F_\infty\to \F_\infty^\times)$.
 \subsection{\texorpdfstring{$\lambda$}{lambda}-adic representation}
 Let $\lambda$ be a place of $F$.
-Take $\sigma\in\gal_F$. By \cref{the isomophism from gal to Pic+ and the value of Frobenius under this isomophism}, we pick an ideal $\mathfrak{a}$ of $A$ such that $\sigma(\phi) = \mathfrak{a} * \phi$.
+Take $\sigma\in\gal_F$. By \cref{the isomophism from gal to Pic+ and the value of Frobenius under this isomophism}, pick an ideal $\mathfrak{a}$ of $A$ such that $\sigma(\phi) = \mathfrak{a} * \phi$.
 \begin{itemize}
 \item $\lambda\ne \infty$.
-Regarding $\lambda$ as a prime ideal of $A$, we consider $\phi[\lambda^e]$ for $e\in\Z_{\ge 1}$.
-By \cref{torsion submodule of an ideal},
-$\phi[\lambda^e]$ is an $A/\lambda^e$-module of rank $1$.
+Regarding $\lambda$ as a prime ideal of $A$, we consider the rank $1$ free $A/\lambda^e$-module $\phi[\lambda^e]$ for $e\in\Z_{\ge 1}$.
 Define the \textbf{$\lambda$-adic Tate module} to be\begin{align*}
-    &T_\lambda(\phi) := \Hom_A(F_\lambda/\O_\lambda,\ \phi[\lambda^\infty])
-%     \\
-% = {}&\varprojlim_e \Hom_A(\O_\lambda/\m_\lambda^e, \phi[\lambda^\infty])
-% = \varprojlim_e \Hom_A(A/\lambda^e, \phi[\lambda^\infty])
-% = \varprojlim_e \Hom_A(A/\lambda^e, \phi[\lambda^e]),
+    &T_\lambda(\phi) := \Hom_A(F_\lambda/\O_\lambda,\ \phi[\lambda^\infty]),
 \end{align*}
 which is a free $\O_\lambda$-module of rank $1$.
 Hence $V_\lambda(\phi) := T_\lambda(\phi)\otimes_{\O_\lambda} F_\lambda$ is an $1$-dimensional $F_\lambda$-vector space.
 We have the following two isomophisms between vector spaces.
 \begin{itemize}
-    \item $\sigma$ induces an isomorphism $\phi[\lambda^e]\simeq (\sigma (\phi))[\lambda^e]$ at each finite level,
+    \item $\sigma$ induces $\phi[\lambda^e]\simeq (\sigma (\phi))[\lambda^e]$ for all $e\in\Z_{\ge 1}$,
     patching to an isomophism $V_\lambda(\sigma) : V_\lambda(\phi)\simeq V_\lambda(\sigma(\phi))$.
     \item The isogeny $\phi_\mathfrak{a} : \phi\to\mathfrak{a} * \phi$ induces an isomorphism\footnote{
         Since $\phi$ has rank $1$, it is equivalent to that $V_\lambda(\phi_\mathfrak{a})$ is non-zero.
-        This is true, because, parallel to elliptic curves, taking Tate module is a faithful functor, i.e. for any two Drinfeld modules $\phi$ and $\phi'$ over $L$, the map
-        \[\Hom_{L}(\phi, \phi')\hookrightarrow \Hom_{\O_\lambda}(T_\lambda(\phi), T_\lambda(\phi'))\]
-        is injective.
+        This is true, because, parallel to elliptic curves, taking Tate module is a faithful functor; see \cite{goss2012basic}, \S 4.10.
+        % i.e. for any two Drinfeld modules $\phi$ and $\phi'$ over $L$, the map
+        % \[\Hom_{L}(\phi, \phi')\hookrightarrow \Hom_{\O_\lambda}(T_\lambda(\phi), T_\lambda(\phi'))\]
+        % is injective.
     } $V_\lambda(\phi_\mathfrak{a}) : V_\lambda(\phi)\simeq V_\lambda(\mathfrak{a}*\phi)$.
 \end{itemize}
-As $\mathfrak{a} * \phi = \sigma(\phi)$, we obtain an element \[V_\lambda(\phi_\mathfrak{a})^{-1}\circ V_\lambda(\phi)\in\GL_{F_\lambda}(V_\lambda(\sigma)) = F_\lambda^\times\cdot\Id,\]
+As $\mathfrak{a} * \phi = \sigma(\phi)$, we obtain an element $V_\lambda(\phi_\mathfrak{a})^{-1}\circ V_\lambda(\phi)\in\GL_{F_\lambda}(V_\lambda(\sigma)) = F_\lambda^\times\cdot\Id$,
 corresponding to an element $\rho_\lambda^\mathfrak{a}(\sigma)\in F_\lambda^\times$.
 
 \item $\lambda = \infty$.
 If $\sigma\in W_F$, the next \cref{lem: to define infty-adic representation} provides a unique element $\rho_\infty^\mathfrak{a}(\sigma)\in F_\infty^+$.
 \begin{lemma}\label{lem: to define infty-adic representation}
-    There exists some series $u\in F^\sep\llbracket\tau^{-1}\rrbracket^\times$, such that \[u^{-1}\phi(F_\infty)u\subset \bar{k}\llpar\tau^{-1}\rrpar.\footnotemark\]
-    \footnotetext{Recall that the Hayes module $\phi : A\to H_A^+[\tau]$ extends to an injective homomorphism $\phi : F_\infty\to \left( H_A^+ \right)^\perf\llpar\tau^{-1}\rrpar$.
+    There exists some series $u\in F^\sep\llbracket\tau^{-1}\rrbracket^\times$, such that
+    $u^{-1}\phi(F_\infty)u\subset \bar{k}\llpar\tau^{-1}\rrpar.\footnotemark$
+    \footnotetext{Any Drinfeld module $\phi : A\to H_A^+[\tau]$ extends to an injective homomorphism $\phi : F_\infty\to \left( H_A^+ \right)^\perf\llpar\tau^{-1}\rrpar$.
     }
     For such a series $u$, if $\sigma\in W_F$,
     then there is a unique element $\rho_\infty^\mathfrak{a}(\sigma)\in F_\infty^+$,
@@ -413,13 +305,10 @@ These elements $\rho_\lambda^\mathfrak{a}(\sigma)$ has the following properties.
     \begin{enumerate}[(i)]
         \item If $\sigma(\phi) = \mathfrak{a}*\phi$ and $\gamma(\phi) = \mathfrak{b}*\phi$,
         then $(\sigma\gamma)(\phi) = (\mathfrak{a}\mathfrak{b}) * \phi$, and $\rho_{\lambda}^{\mathfrak{ab}}(\sigma\gamma) = \rho_\lambda^\mathfrak{a}(\sigma)\rho_\lambda^\mathfrak{b}(\gamma)$.
-        \item If $\sigma(\phi) = \mathfrak{a}*\phi = \mathfrak{b}*\phi$, then $\mathfrak{b}^{-1}\mathfrak{a}$ is generated by a \textit{unique} $w\in F_\infty^+\cap F^\times$, and $\rho_\lambda^\mathfrak{a}(\sigma)\rho_\lambda^\mathfrak{b}(\sigma)^{-1} = w$.
+        \item If $\sigma(\phi) = \mathfrak{a}*\phi = \mathfrak{b}*\phi$,
+        then $\rho_\lambda^\mathfrak{a}(\sigma)\rho_\lambda^\mathfrak{b}(\sigma)^{-1}\in F^\times\cap F_\infty^+$ and $\mathfrak{b}^{-1}\mathfrak{a}$ is generated by $\rho_\lambda^\mathfrak{a}(\sigma)\rho_\lambda^\mathfrak{b}(\sigma)^{-1}$
         \item  If $\lambda\ne\infty$, and $\sigma(\phi) = \mathfrak{a} * \phi$,
-        then $\ord_\lambda(\rho_\lambda^\mathfrak{a}(\sigma)) = -\ord_\lambda(\mathfrak{a})\footnotemark$.
-        \footnotetext{
-            Recall that we identify $\lambda$ with a prime ideal of $A$.
-            The number $\ord_{\lambda}(\mathfrak{a})$ is the largest power of $\lambda$ dividing $\mathfrak{a}$.}
-    
+        then $\ord_\lambda(\rho_\lambda^\mathfrak{a}(\sigma)) = -\ord_\lambda(\mathfrak{a})$, the largest power of $\lambda$ dividing $\mathfrak{a}$.
     \end{enumerate}
 \end{lemma}
 
@@ -428,7 +317,7 @@ then $\sigma(\phi) = \phi = A * \phi$.
 By \cref{basic properties of adic representations} (i),
 we obtain homomorphisms
 \[\rho_\lambda : \gal_{H_A^+}\to \O_\lambda^\times\quad \sigma\mapsto \rho_\lambda^A(\sigma)\]
-for $\lambda\ne\infty$, and homomorphism
+for $\lambda\ne\infty$, and the homomorphism
 \[\rho_\infty : W_{H_A^+}\to F_\infty^+,\quad \sigma\mapsto \rho_\infty^A(\sigma).\]
 In particular, $\phi_A = 1$, so the representation $\rho_\lambda$ is the representation of $\gal_{H_A^+}$ on $T_\lambda(\phi)$ and hence it takes value in $\O_\lambda^\times$.
 These representations $\rho_\lambda$ are continuous and unramified at all places of $H_A^+$ not over $\lambda$ or $\infty$.
@@ -445,10 +334,9 @@ These representations $\rho_\lambda$ are continuous and unramified at all places
 For each $\sigma\in W_F$,
 fix an ideal $\mathfrak{a}_\sigma$ of $A$,
 such that $\sigma(\phi) = \mathfrak{a}_\sigma * \phi$.
-By \cref{basic properties of adic representations}, $\left( \rho_\lambda^{\mathfrak{a}_\sigma}(\sigma) \right)_\lambda$ is an idele of $F$, whose class $\rho(\sigma)$ in $C_F$ is independent to the choice of $\mathfrak{a}_\sigma$,
+By \cref{basic properties of adic representations}, $\left( \rho_\lambda^{\mathfrak{a}_\sigma}(\sigma) \right)_\lambda$ is an idele of $F$, whose class $\rho(\sigma)$ in $C_F$ is independent of the choice of $\mathfrak{a}_\sigma$,
 and the map \[\rho : W_F\to C_F,\quad \sigma\mapsto\rho(\sigma)\]
 is a group homomorphism.
-
 The restriction of $\rho : W_F\to C_F$ to $W_{H_A^+}$ is
 \[W_{H_A^+}\stackrel{\prod_{\lambda}\rho_\lambda}{\longrightarrow} F_\infty^+\times \prod_{\lambda\ne\infty} \O_\lambda^\times\hookrightarrow\A_F^\times\surject C_F.\]
 This homomorphism is continuous since all $\rho_\lambda$ are continuous.
@@ -461,65 +349,62 @@ Taking profinite completion yields a continuous homomorphism
 \[\hat\rho : \gal_F\to \hat C_F.\]
 that factors through the maximal abelian quotient $\gal_F^\ab = \gal(F^\ab/F)$.
 
-% Recall that the Artin map $\theta_F : C_F\to \gal(F^\ab/F)$ extends to a topological isomophism \[\hat\theta_F : \hat C_F\to \gal(F^\ab/F).\]
-\begin{theorem}
-    The map $\hat\rho : \gal(F^\ab/F)\to \hat{C}_F$ is a topological isomophism independent to the choice of $\infty$, $\varepsilon$ and $\phi$,
+\begin{theorem}\label{inverse of Artin map}
+    The map $\hat\rho : \gal(F^\ab/F)\to \hat{C}_F$ is a topological isomophism depends only on $F$,
+    % independent of the choice of $\infty$, $\varepsilon$ and $\phi$,
     and the map \[\gal(F^\ab/F)\to \hat{C}_F\quad \sigma\mapsto \hat\rho(\sigma)^{-1}\]
     is the inverse of the Artin map $\hat\theta_F : \hat C_F\to \gal(F^\ab/F)$.
 \end{theorem}
 \begin{proof}[Sketch of the proof]
-First, we need an arithmetic input.
-\begin{lemma}\label{value of local representation at Frobenius different from itself and infty}
-    Let $\lambda$ be a place of $F$, $\mathfrak{p}$ be another place of $F$ that is not $\lambda$ or $\infty$.
-    Then $\rho_\lambda^\mathfrak{p}(\frob_\mathfrak{p}) = 1$.
-\end{lemma}
-\begin{remark}[Explaination to the notation $\rho_\lambda^\mathfrak{p}(\frob_\mathfrak{p})$]
-    Let $\lambda$ and $\mathfrak{p}$ be places of $F$ with $\mathfrak{p}\ne \infty$.
-    By \cref{narrow Hilbert class field is unramified outside infty} and \cref{the isomophism from gal to Pic+ and the value of Frobenius under this isomophism},
-    the extension $H_A^+/F$ is unramified at all places $\ne\infty$,
-    and
-    % the unique $\frob_\mathfrak{p}\in\gal(H_A^+/F)$
-    % satisfies $\frob_\mathfrak{p}(\phi) = \mathfrak{p} * \phi$.
-    % The $\gal_F$-action on $X_\varepsilon$ factors through $\gal(H_A^+/F)$,
-    % hence
-    any $\frob_\p\in \gal_F$ satisfies $\frob_\p(\phi) = \mathfrak{p} * \phi$.
-\end{remark}
+% First, we need a lemma describing the action of $\rho_\lambda$ on Frobenius elements.
+% \begin{lemma}\label{value of local representation at Frobenius different from itself and infty}
+%     Let $\lambda$ be a place of $F$, $\mathfrak{p}$ be another place of $F$ that is not $\lambda$ or $\infty$.
+%     Then $\rho_\lambda^\mathfrak{p}(\frob_\mathfrak{p}) = 1$.
+% \end{lemma}
+% \begin{remark}[Explaination to the notation $\rho_\lambda^\mathfrak{p}(\frob_\mathfrak{p})$]
+%     Let $\lambda$ and $\mathfrak{p}$ be places of $F$ with $\mathfrak{p}\ne \infty$.
+%     By \cref{narrow Hilbert class field is unramified outside infty} and \cref{the isomophism from gal to Pic+ and the value of Frobenius under this isomophism},
+%     the extension $H_A^+/F$ is unramified at all places $\ne\infty$,
+%     and
+%     the unique $\frob_\mathfrak{p}\in\gal(H_A^+/F)$
+%     satisfies $\frob_\mathfrak{p}(\phi) = \mathfrak{p} * \phi$.
+%     The $\gal_F$-action on $X_\varepsilon$ factors through $\gal(H_A^+/F)$,
+%     hence
+%     any $\frob_\p\in \gal_F$ satisfies $\frob_\p(\phi) = \mathfrak{p} * \phi$.
+% \end{remark}
 
-Now we begin the construciton.
-% We will denote the class of $\alpha\in \A_F^\times$ in $C_F$ by $[\alpha]$.
+% Now we begin the construciton.
 Let $U < C_F$ be an open subgroup of finite index.
-The subgroup $\rho^{-1}(U) < W_F^\ab$ is open.
-Consider the finite abelian extension $L_U := (F^\ab)^{\rho^{-1}(U)}$ of $F$ fixed by this subgroup,
-so that $\gal_{L_U}^\ab = \text{the closure of }\rho^{-1}(U)$ in $\gal_F^\ab$.
-We have an injective continuous homomorphism
+Consider the finite abelian extension $L_U := (F^\ab)^{\rho^{-1}(U)}$ of $F$ fixed by $\rho^{-1}(U) < W_F^\ab$,
+so that
+% $\gal_{L_U}^\ab = \text{the closure of }\rho^{-1}(U)$ in $\gal_F^\ab$.
+we have an injective continuous homomorphism
 \[\rho_U : \gal(L_U/F) \simeq\gal_F^\ab/\gal_{L_U}^\ab \simeq W_F^\ab/\rho^{-1}(U)\hookrightarrow C_F/U.\]
-% Let $S_U$ be the set of places consisting of $\infty$ and those
-% $\mathfrak{p}$ for which there exists some idele $\alpha\in\O_\mathfrak{p}^\times\hookrightarrow\footnotemark \A_F^\times$ whose class in $C_F$ is not in $U$.
-%     \footnotetext{$\alpha = (\cdots, 1, \alpha_\mathfrak{p}, 1, \cdots)$ for some $\alpha_\mathfrak{p}\in\O_\mathfrak{p}^\times$.}
-% Since $U$ is open in $C_F$, the set $S_U$ is finite.
-Using weak approximation and \cref{value of local representation at Frobenius different from itself and infty}, one can show that there is a finite set of places $S_U$ containing $\infty$, such that:
+Using weak approximation and the description of $\rho_\lambda$ on (almost all) Frobenius elements,
+one can show that there is a finite set of places $S_U$ containing $\infty$ and all places ramified in $L_U/F$, such that:
 \begin{itemize}
-    \item $L_U/F$ is unramified at $\p\notin S_U$,
-    \item for each $\p\notin S_U$, $\rho_U$ sends $\frob_\p$ to the class of $\pi_\p$, where $\pi_\p$ is an uniformizer of $F_\p$, and
+    \item for each $\p\notin S_U$, $\rho_U$ sends $\frob_\p$ to the class of $(\cdots, 1, \pi_\p, 1, \cdots)$, where $\pi_\p$ is an uniformizer of $F_\p$;
     \item $\rho_U : \gal(L_U/F)\to C_F/U$ is surjective and thus an isomophism.
 \end{itemize}
-Therefore the continuous isomophism\[C_F/U\to \gal(L_U/F)\quad \alpha\mapsto (\rho_U^{-1}(\alpha))^{-1}\] is the Artin map \[\theta_U : C_F/U\to \gal(L_U/F)\quad \alpha\mapsto\theta_F(\alpha)|_{L_U}.\]
+Therefore the pointwise inverse of $\rho_U^{-1}$ is
+$C_F/U\to \gal(L_U/F),\ \alpha\mapsto (\rho_U^{-1}(\alpha))^{-1} = \theta_F(\alpha)|_{L_U}$, the Artin map.
 
-If $L$ is a finite abelian extension of $F$,
-then the corresponding open subgroup $U_L$ of $C_F$
-according to class field theory is the kernel of
-\[C_F\to \gal(L/F)\quad \alpha\mapsto\theta_F(\alpha)|_{L}.\]
-Therefore $L = L_{U_L}$,
-and $F^\ab = \bigcup_{U}L_U$.
-
-Now we can pass to the limit of the compatible isomophisms ${\rho_U}_U$ and go back to see that $\hat\rho : \gal_F^\ab\to C_F$ is an isomophism,
-whose inverse is the ``multiplicative inverse'' of the Artin map $\hat\theta_F$.
+% If $L$ is a finite abelian extension of $F$,
+% then the corresponding open subgroup $U_L$ of $C_F$,
+% according to class field theory,
+% is the kernel of
+% $C_F\stackrel{\theta_F}{\to} \gal(L/F)$.
+% Hence $L = L_{U_L}$,
+% and
+The result above together with class field theory shows that $F^\ab = \bigcup_{U}L_U$.
+Passing to the limit of these compatible isomophisms $\{\rho_U\}_U$, we get back to $\hat\rho : \gal_F^\ab\to C_F$ and see that it is an isomophism,
+whose inverse is the point-wise inverse of the Artin map $\hat\theta_F$.
 \end{proof}
 
-\begin{corollary}
-    The homomorphism $\rho : W_F^\ab\to C_F$ is a topological isomophism, and the map \[W_F^\ab\to C_F\quad \sigma\mapsto \rho(\sigma)^{-1}\]
-    is the inverse of the Artin map $\theta_F : C_F\to W_F^\ab$.
-\end{corollary}
+% \begin{corollary}
+%     The homomorphism $\rho : W_F^\ab\to C_F$ is a topological isomophism, and the map \[W_F^\ab\to C_F\quad \sigma\mapsto \rho(\sigma)^{-1}\]
+%     is the inverse of the Artin map $\theta_F : C_F\to W_F^\ab$.
+% \end{corollary}
 
 \section{Example: the Rational Function Field}
 Let $F = k(t)$.
@@ -537,14 +422,10 @@ The \textbf{Carlitz module} $\phi$ is a Hayes module for $\varepsilon$ defined b
 The normalizing field for $(F, \infty, \varepsilon)$ is $H_A^+ = F$,
 so $\phi$ is the only Hayes module for $\varepsilon$.
 
-We have defined the representations $\rho_\lambda : W_F^\ab\to F_\lambda^\times$,
-% for every place $\lambda$ of $F$.
-% For $\lambda\ne \infty$, the representation $\rho_\lambda$ comes from a continuous Galois representation $\rho_\lambda :\gal_F\to \O_\lambda^\times$.
-% For $\infty$, $\rho_\infty$ takes value in $F_\infty^+$.
-and the isomophism between the (abelianized) Weil group and the idele class group factors as
-\begin{equation}\label{formula: the isomophism from Weil group of rational function field to idele class group}
-    W_F^\ab \stackrel{\prod_{\lambda}\rho_\lambda}{\longrightarrow} F_\infty^+\times\prod_{\lambda\ne\infty}\O_\lambda^\times\to C_F.
-\end{equation}
+We have defined the representations $\rho_\lambda : W_F^\ab\to F_\lambda^\times$.
+As a corollary of \cref{inverse of Artin map},
+\[W_F^\ab \stackrel{\prod_{\lambda}\rho_\lambda}{\longrightarrow} F_\infty^+\times\prod_{\lambda\ne\infty}\O_\lambda^\times\to C_F\]
+is an isomophism.
 Similar to $\Q$, the second arrow above is an isomophism\footnote{
 Let $x\in \A_F^\times$,
 Every place $\lambda\ne\infty$ has a ``canonical'' uniformizer $\p\in k[t]$, namely the unique monic irreducible polynomial,
@@ -552,7 +433,7 @@ and we write $x_\p = u_\p\p^{n_\p}$ with $u_\p\in \O_\p^\times$.
 Put $f := a_\infty\prod_{\p}\p^{n_\p}\in k(t)^\times$.
 We have $f^{-1}x_\infty = a_\infty t^{n} + {}$ terms with lower degree in $t$ for some $a_\infty\in k$.
 Then $(a_\infty f)^{-1}x\in F_\infty^+\times\prod_{\lambda\ne\infty}\O_\lambda^\times$.
-This decomposition of ideles provides the desired isomophism
+This decomposition of ideles provides the desired isomophism.
 }, and thus the first arrow
 \[W_F^\ab\stackrel{\prod_{\lambda}\rho_\lambda}{\longrightarrow} \prod_{\lambda\ne\infty}\O_\lambda^\times \times t^{\Z}\times (1 + \m_\infty)\]
 is also an isomophism.
@@ -565,16 +446,20 @@ of $\gal_F^\ab$, corresponding to three disjoint abelian extension of $F$ whose 
 \subsubsection*{The ``cyclotomic'' extension \texorpdfstring{$K_\infty$}{K_infty}}
 For $\lambda\ne\infty$, the representation $\rho_\lambda : \gal_F\to \O_\lambda^\times$ is precisely the Galois representation on $T_\lambda(\phi)$, where $\phi$ is the Carlitz module.
 The representation \[\chi := \prod_{\lambda\ne\infty}\rho_\lambda : \gal_F\to \prod_{\lambda\ne\infty}\O_\lambda = \hat A^\times\]
-is the inverse limit of $\chi_m : \gal_F\to (A/(m))^\times$, which are from the $\gal_F$-action on $\phi[m]$ for all monic $m\in A = k[t]$, ordered by divisibility.
+is the inverse limit of $\chi_m : \gal_F\to (A/(m))^\times$, which are from the $\gal_F$-action on $\phi[m]$ for monic $m\in k[t]$, ordered by divisibility.
 Hence the field fixed by $\ker(\chi)$ is $K_\infty = \bigcup_{m} F(\phi[m])$.
-The extension $K_\infty/F$ is a geometric extension\footnote{A \textbf{geometric extension} of a function field extension that doesn't extend the field of constants.}, tamely ramified at $\infty$.
+The extension $K_\infty/F$ is a geometric extension\footnote{A \textbf{geometric extension} is an extension of function fields that doesn't extend the field of constants.}, tamely ramified at $\infty$\footnote{
+    The ramification indexes are all $q - 1$; see \cite{Ha74}, \S 3.
+}.
 
 \subsubsection*{The extension of constants \texorpdfstring{$\bar{k}(t)$}{bark(t)}}
 For each $\sigma\in W_F$, the factor in $t^{\Z}\simeq \Z$ is
-$\ord_{t}(\rho_\infty(\sigma)) = - \ord_{\infty}(\rho_\infty(\sigma))$, which equals $-\ord_{\tau^{-1}}(\phi(\rho_\infty(\sigma)))$ by (\ref{eq: def of rank}).
-By \cref{lem: to define infty-adic representation}, $\phi(\rho_\infty(\sigma)) = \sigma(u)\tau^{\deg(\sigma)}u^{-1}$,
-so $-\ord_{\tau^{-1}}(\phi(\rho_\infty(\sigma))) = \deg(\sigma)$.
-This shows that the projection $W_F\to \Z$ is precisely the map $\deg$.
+$\ord_{t}(\rho_\infty(\sigma))$.
+One can show that this number is $\deg(\sigma)$.
+%  which equals $-\ord_{\tau^{-1}}(\phi(\rho_\infty(\sigma)))$ by (\ref{eq: def of rank}).
+% By \cref{lem: to define infty-adic representation}, $\phi(\rho_\infty(\sigma)) = \sigma(u)\tau^{\deg(\sigma)}u^{-1}$,
+% so $-\ord_{\tau^{-1}}(\phi(\rho_\infty(\sigma))) = \deg(\sigma)$.
+% so the projection $W_F\to \Z$ is precisely the map $\deg$.
 The field fixed by (the closure of) $\ker(\deg)$ is $\bar{k}(t)$,
 and the extension $\bar{k}(t)/k(t)$ is the maximal constant field extension.
 
@@ -583,8 +468,7 @@ and the extension $\bar{k}(t)/k(t)$ is the maximal constant field extension.
 By discussion above, the projection onto $1 + \m_\infty$ is
 % (the multiplicative inver of)
 \[W_F\to 1 + \m_\infty\quad \sigma\mapsto \rho_\infty(\sigma)/\ord_t(\rho_\infty(\sigma)) = \rho_\infty(\sigma)/\deg(\sigma).\]
-Taking profinite completion, we get a Galois representation
-$\beta : \gal_F\to 1 + \m_\infty$.
+Let $\beta : \gal_F\to 1 + \m_\infty$ be its profinite completion.
 Denote by $L_\infty$ the fixed field of $\ker(\beta)$.
 The extension $L_\infty/F$ is a geometric extension, unramified away from $\infty$ and wildly ramified at $\infty$.
 
@@ -597,6 +481,7 @@ Hence $\phi(\beta(\sigma)) = \sigma(u)u^{-1}$,
 which shows that\footnote{Recall that $\phi$ is injective.} $\beta(\sigma) = 1$ if and only if $\sigma(u) = u$,
 and thus $L_\infty = F\left( \{a_i\}_{i\ge 0} \right)$.
 
+\bibliography{refer}
 
 
 \end{document}

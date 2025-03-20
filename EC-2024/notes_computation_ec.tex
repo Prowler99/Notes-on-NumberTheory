@@ -1,0 +1,143 @@
+\documentclass{article}
+\input{../_NoteHead.tex}
+
+\usepackage[ruled, vlined]{algorithm2e}
+
+
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\vol}{\mathrm{vol}}
+\newcommand{\s}{\mathrm{s}}
+
+\title{Note on Computational Elliptic Curves}
+\author{Lei Bichang}
+
+% \newtheorem{problem}{Problem}
+
+
+\begin{document}
+\maketitle
+
+These notes are based the course taught by Prof. Benjamin Wesolowski at ENS Lyon in 2025.
+
+\section*{Basics}
+
+In $\Z$ and $\F_p$\footnote{
+    Any $x\in\F_p$ can be represented by $\log(p)$ bits.
+}, addition and multiplication are ``easy''\footnote{$\exists$ polynomial (in length of input) time algorithm.}.
+\subsection*{Extended GCD algorithm}
+\begin{algorithm}[H]
+    \caption{Extended GCD}\label{alg: ExtGCD}
+    \KwIn{$a, b : \Z_{\ge 0}$}
+    \KwOut{$\gcd(a, b), u, v : \Z$ s.t. $\gcd(a, b) = ua + vb$}
+    $(x, u, v, y, u', v')\gets (a, 1, 0, b, 0, 1)$\\
+    \While{$y > 0$}{
+        $(x, y)\gets \left(x\bmod y, \floor{\frac{x}{y}}\right)$\\
+        \eIf{$r < y - r$}{
+            $(x, u, v, y, u', v')\gets (y, u', v', r, u - qu', v - qv')$
+        }{
+            $(x, u, v, y, u', v')\gets (y, u', v', y -r, (q + 1)u' - u, (q + 1)v' - v)$
+        }
+    }\Return{$(x,u,v)$}
+\end{algorithm}
+\begin{itemize}
+    \item Complexity = $O(\log(a)\log(b))$.
+    \item It applies to $k[X]$, so it applies to general $\F_{p^r}$; the output is up to a factor in $\F_p^\times$.
+\end{itemize}
+\subsection*{Exponentiation}
+Let $G$ be a group.
+
+\begin{algorithm}[H]
+    \caption{Square and Multiply}\label{alg: exponential}
+    \KwIn{$g : G$, $m = (m_im_{i-1}\dots m_{0})_2 : \Z_{\ge 0}$}
+    \KwOut{$g^m : G$}
+    $z\gets x$
+    \For{$j = i - 1,\ i - 2,\ \dots,\ 0$}{
+        $z\gets z^2$
+        \If{$m_j = 1$}{$z\gets z\cdot x$}
+    }\Return{$z$}
+\end{algorithm}
+\begin{itemize}
+    \item Complexity = $O(\log(m))$, depending on the complexity of multiplication in $G$.
+\end{itemize}
+
+\subsection*{Elliptic Curves}
+
+
+\section{Factoring polynomials over a finite field}
+\begin{problem}
+Factorize $f(X)\in\F_q[X]$.
+\end{problem}
+
+Let's start with a simpler question: how to find linear factors of $f$?
+This is equivalent to factorize \[g(X) := \gcd(f(X), X^q - X) = \prod_{\substack{r\in \F_q\\ f(r) = 0}} (X-r).\]
+Note that the map $(\cdot)^{\frac{q-1}{2}}$ on $\F_q^7\times $ is the Legendre symbol $\left( \frac{\cdot}{q} \right)$.
+Hence for $u(X)\in \F_q[X]$,
+we have \[g_u(X) := \gcd(g(X), u(X)^{\frac{q-1}{2}} - 1) = \prod_{\substack{f(r) = 0 \\ u(r)\in (\F_q^\times)^2}} (X - r).\]
+If we take a linear polynomial $u(X) = X + \delta$,
+then $g_u(X)$ is a nontrivial factor of $g(X)$
+if and only if there are roots $\alpha\ne\beta$ of $f(X)$ such that $\alpha + \delta\in(\F_q^\times)^2$ and $\beta + \delta\notin(\F_q^\times)^2$.
+
+\begin{theorem}[Robin]
+    If $\alpha\ne\beta\in\F_q$,
+    then \[\#\{\delta\in\F_q\mid \alpha + \delta\ne 0, \beta+\delta\ne 0; \text{ one is a square, the other isn't}\} = \frac{q-1}{2}.\]
+\end{theorem}
+\begin{proof}
+    Let \[\psi : \F_q\sminus\{-\beta\}\to \F_q\sminus \{1\}\quad \delta\mapsto \frac{\alpha + \delta}{\beta + \delta}.\]
+    $\psi$ is injective, hence bijective.
+    Meanwhile,
+    so the condition on LHS is equivalent to \[\psi(\delta)^{\frac{q-1}{2}} = -1.\]
+    There are $\frac{q-1}{2}$ elements in $\F_q\sminus \{1\}$ has this property.  
+\end{proof}
+
+\begin{corollary}
+    For a uniformly random $\delta\in\F_q$,
+    \[\Pr\left[ \gcd(g(X), (X + \delta)^{\frac{q-1}{2}} - 1) \text{ is a nontrivial factor of } g(X)\right] \ge \frac{(q-1)/2}{q} \ge \frac{1}{3}.\]
+\end{corollary}
+
+\begin{algorithm}[H]
+    \caption{Partial Factorization}
+    \KwIn{$g(X) : \F_q[X]$, $\deg(g) > 1$, only different linear factors over $\F_q$}
+    \KwOut{one nontrivial factorization of $g(X)$}
+    \Repeat{}{
+        $\delta\gets$ uniformly random in $\F_q$\\
+        $g_1(X)\gets \gcd(g(X), (X + \delta)^{\frac{q-1}{2}} - 1)$
+        \If{$0 < \deg g_1(X) < \deg g$}{
+            \Return{$\left(g_1(X), \frac{g(X)}{g_1(X)}\right)$}
+        }
+    }
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \caption{Factorization}
+    \KwIn{$g(X) : \F_q[X]$, only different linear factors over $\F_q$}
+    \KwOut{Complete factorization of $g(X)$}
+    \eIf{$\deg g = 1$}{
+        \Return{$g$}
+    }{
+        $(g_1, g_2)\gets$ PartialFactorization($g$)\\
+        \Return{(Factorization($g_1$), Factorization($g_2$))}
+    }
+\end{algorithm}
+
+\begin{itemize}
+    \item \# of calls to ``PartialFactorization'' is $\deg(g) - 1$.
+    \item It is hard to analyze the precise complexity, as it is affected by the pattern of $g$.
+\end{itemize}
+
+How to get higher degree factors?
+We can get the multiplicity of linear  factors\footnote{
+    A na\"ive way: divide the factor until it is not a root.
+}
+then consider \[f_{\ge 2}(X) := \frac{f(X)}{\prod\text{linear factor}}.\]
+Now \[\gcd(f_{\ge 2}(X), X^{\frac{q^2 - 1}{2}} - 1)\]is the product of all quadratic factors,
+because quadratic factors are linear factors over $\F_{q^2}$.
+Continuely raise the degree until we get the factorization.
+
+
+\section{Counting rational points of an elliptic curve over a finite field}
+\begin{problem}
+    Calculate $\#E(\F_q)$ for an elliptic curve $E$ over $\F_q$.
+\end{problem}
+
+\end{document}

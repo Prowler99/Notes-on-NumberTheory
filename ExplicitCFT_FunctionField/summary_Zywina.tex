@@ -221,7 +221,7 @@ Let $X_\varepsilon$ be the set of Hayes modules for $\varepsilon$.
 There is a natrual action of the group $\mathcal{I}_A$ of fractional ideals of $A$ on $X_\varepsilon$, denoted by \[(\mathfrak{a}, \phi)\mapsto\mathfrak{a} * \phi, \quad \mathfrak{a}\in\mathcal{I}_A,\ \phi\in X_\varepsilon.\]
 This action has the following properties.
 \begin{enumerate}[(i)]
-    \item If $\mathfrak{a}\subset A$ is an integral ideal, then there is a unique $\phi_\mathfrak{a}\in L[\tau]$, and $\mathfrak{a} * \phi$ is the unique Drinfeld module making $\phi_\mathfrak{a}$ and isogeny $\phi\to\mathfrak{a} * \phi$. 
+    \item If $\mathfrak{a}\subset A$ is an integral ideal, then there is a unique $\phi_\mathfrak{a}\in L[\tau]$, and $\mathfrak{a} * \phi$ is the unique Drinfeld module making $\phi_\mathfrak{a}$ an isogeny $\phi\to\mathfrak{a} * \phi$. 
     In particular, $\phi_A = 1$ and $A*\phi = \phi$.
     These isogenies are important in later construcitons.
     \item The subgroup $\mathcal{P}_A^+ := \{(x)\mid x\in F^\times\cap F_\infty^+\}$ of $\mathcal{I}_A$
@@ -383,7 +383,7 @@ we have an injective continuous homomorphism
 Using weak approximation and the description of $\rho_\lambda$ on (almost all) Frobenius elements,
 one can show that there is a finite set of places $S_U$ containing $\infty$ and all places ramified in $L_U/F$, such that:
 \begin{itemize}
-    \item for each $\p\notin S_U$, $\rho_U$ sends $\frob_\p$ to the class of $(\cdots, 1, \pi_\p, 1, \cdots)$, where $\pi_\p$ is an uniformizer of $F_\p$;
+    \item for each $\p\notin S_U$, $\rho_U$ sends $\frob_\p$ to the class of $(\cdots, 1, \pi_\p^{-1}, 1, \cdots)$, where $\pi_\p$ is an uniformizer of $F_\p$;
     \item $\rho_U : \gal(L_U/F)\to C_F/U$ is surjective and thus an isomophism.
 \end{itemize}
 Therefore the pointwise inverse of $\rho_U^{-1}$ is
@@ -430,7 +430,7 @@ Similar to $\Q$, the second arrow above is an isomophism\footnote{
 Let $x\in \A_F^\times$,
 Every place $\lambda\ne\infty$ has a ``canonical'' uniformizer $\p\in k[t]$, namely the unique monic irreducible polynomial,
 and we write $x_\p = u_\p\p^{n_\p}$ with $u_\p\in \O_\p^\times$.
-Put $f := a_\infty\prod_{\p}\p^{n_\p}\in k(t)^\times$.
+Put $f := \prod_{\p}\p^{n_\p}\in k(t)^\times$.
 We have $f^{-1}x_\infty = a_\infty t^{n} + {}$ terms with lower degree in $t$ for some $a_\infty\in k$.
 Then $(a_\infty f)^{-1}x\in F_\infty^+\times\prod_{\lambda\ne\infty}\O_\lambda^\times$.
 This decomposition of ideles provides the desired isomophism.

@@ -232,7 +232,7 @@ We show that both $H^*(G, V^\vee\otimes_k(-))$ and $\ext^*_G(V, -)$ are universa
 The functors $\ext^*_G(V, -)$ are derived from $\Hom_G(V, -)$,
 so they are universal.
 For $H^*(G, V^\vee\otimes_k(-))$,
-since $V^\vee\otimes_k(-)$ is exact,
+since $V^\vee\otimes_k(-)$ is exact (Really? In which category?),
 we have\footnote{
     I've never learnt this, but it seems very true and I accept it for now.
 } \[H^*(G, V^\vee\otimes_k(-)) = \mathrm{R}^*\Hom_G(k, -)\circ \left( V^\vee\otimes_k(-) \right) = R^*\left( \Hom_G(k, -)\circ \left( V^\vee\otimes_k(-) \right) \right),\]
@@ -328,9 +328,7 @@ with $G$ acting continuously\footnote{
     This means that the map \[G\times V\to V\quad (g, v)\mapsto gv\]
     is continuous; or equivalently, $G\to \GL(V)$ is continuous.
 }.
-We fix a $k$-basis $\beta_k$ of $V$,
-via which $V$ is identified with a continuous representation
-$\bar{\rho} : G\to\GL_d(k)$.
+We fix a $k$-basis $\beta_k$ of $V$.
 
 Take $A\in\compl{\O}$.
 A \textbf{deformation} of $V$ to $A$
@@ -338,20 +336,43 @@ is a pair $(V_A, \iota_A)$, where\begin{itemize}
     \item $V_A$ is an $A[G]$-module that is free of finite rank over $A$, and
     \item $\iota_A : V_A\otimes_{A}k\simeq V$ is an isomorphism of $k[G]$-modules. 
 \end{itemize}
-A \textbf{framed deformation} of $(V, \beta_k)$
+A \textbf{lift} or \textbf{framed deformation} of $(V, \beta_k)$ to $A$
 is a triple $(V, \iota_A, \beta_A)$,
 where \begin{itemize}
     \item $(V, \iota_A)$ is a deformation of $V$ to $A$,
     \item $\beta_A$ is a basis of $V_A$ over $A$ that reduces to $\beta_k$ via $\iota_A$.
 \end{itemize}
-Define $D_V(A)$ (resp.\ $D^\oblong_V(A)$) to the set of isomorphism classes of deformations (resp.\ framed deformations) of $V$ to $A$.
+Define $D_V(A)$ (resp.\ $D^\oblong_V(A)$) to be the set of isomorphism classes of deformations (resp.\ framed deformations) of $V$ to $A$.
 \begin{remark}
-    If we view $(V, \beta)$ as the representation $\bar\rho : G\to\GL_d(V)$,
-    then a framed deformation $(V_A, \iota_A, \beta_A)$ is a representation $\rho_A : G\to\GL_d(A)$ lifting $\bar{\rho}$, namely the map $G\stackrel{\rho_A}{\to}\GL_d(A)\to\GL_d(k)$ is exactly $\bar{\rho}$,
-    and two framed deformations are isomorphic if the are the same representation $G\to\GL_d(A)$.
-    Forgetting the basis,
-    we see that two deformations are isomorphic
-    if they are, as representations, conjugate by some element in $\ker\left( \GL_d(A)\to\GL_d(k) \right)$.
+    We can define deformations in terms of representations. But be careful to the diffrence between ``$=$'' and ``$\simeq$''!
+
+    Let $A$ be a commutative ring.
+    An $A[G]$-module $V_A$ free of finite rank $d$ over $A$ is equivalent to a finite free $A$-module $V_A^0$ with a morphism $G\to \GL(V_A^0)$.
+    An isomophism $\varphi : V_A\simeq W_A$ of $A[G]$-modules is equivalent to an isomophism $\varphi^0 : V_A^0\simeq W_A^0$ such that % https://q.uiver.app/#q=WzAsMyxbMCwwLCJHIl0sWzEsMCwiXFxHTFxcbGVmdChWX0FeMFxccmlnaHQpIl0sWzEsMSwiXFxHTFxcbGVmdChXX0FeMFxccmlnaHQpIl0sWzAsMV0sWzEsMiwiXFxHTChcXHZhcnBoaV4wKSJdLFswLDJdXQ==
+    \[\begin{tikzcd}
+        G & {\GL\left(V_A^0\right)} \\
+        & {\GL\left(W_A^0\right)}
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-1, to=2-2]
+        \arrow["{\GL(\varphi^0)}", from=1-2, to=2-2]
+    \end{tikzcd}\]
+    Now we pick an $A$-basis $\beta_A$ for $V_A^0$,
+    then the datum $(V_A, \beta_A)$ is equivalent to the datum $(V_A^0, \beta_A,( \rho_V : G\to\GL_d(A)))$, and the above diagram extends to% https://q.uiver.app/#q=WzAsNSxbMCwwLCJHIl0sWzEsMCwiXFxHTFxcbGVmdChWX0FeMFxccmlnaHQpIl0sWzEsMSwiXFxHTFxcbGVmdChXX0FeMFxccmlnaHQpIl0sWzIsMCwiXFxHTF9kKEEpIl0sWzIsMSwiXFxHTF9kKEEpIl0sWzAsMV0sWzEsMiwiXFxHTChcXHZhcnBoaV4wKSJdLFswLDJdLFsxLDMsIlxcc2ltZXEiXSxbMiw0LCJcXHNpbWVxIiwyXSxbMyw0LCI/Il1d
+    \[\begin{tikzcd}
+        G & {\GL\left(V_A^0\right)} & {\GL_d(A)} \\
+        & {\GL\left(W_A^0\right)} & {\GL_d(A)}
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-1, to=2-2]
+        \arrow["\simeq", from=1-2, to=1-3]
+        \arrow["{\GL(\varphi^0)}", from=1-2, to=2-2]
+        \arrow["{\simeq}", from=1-3, to=2-3]
+        \arrow["\simeq"', from=2-2, to=2-3]
+    \end{tikzcd}\]
+    The last vertical arrow is induced by 
+    changing the $A$-basis of $A^d$,
+    so it is a conjugation by some element $C\in \GL_d(A)$,
+    i.e. $\rho_W = C\rho_VC^{-1}$.
+    Now it is easy to see that \[D_V^\oblong(A) = \Hom_{\gp}^{\cont}(G, \GL_d(A)),\quad D_V(A) = \frac{\Hom_{\gp}^{\cont}(G, \GL_d(A))}{\text{conjugation by an element in }\ker(\GL_d(A)\to\GL_d(k))}.\]
 \end{remark}
 
 
@@ -476,7 +497,7 @@ Therefore we obtain $(R^\oblong_V, \rho^\oblong) := \varprojlim_i(R_i, \rho_i)$.
     The ring $R_V^\oblong$ is a projective limit of complete local $\O$-algebras, so is it.
 
     By definition, $D_V^\oblong = \Hom_{\gp}^\cont(G, \GL_d(-))$.
-    So for $A = \varprojlim_{i} A_i$ with $A_i$ Artinian quotients, \begin{align*}
+    So for $A = \varprojlim_{i} A_i$ with $A_i$ being Artinian quotients, \begin{align*}
        D_V^\oblong(A) &= \varprojlim_i\Hom_{\gp}^\cont(G, \GL_d(A_i))
        = \varprojlim_i\varinjlim_j \Hom_{\gp}^\cont(G/H_j, \GL_d(A_i))\\
        &= \varprojlim_i\varinjlim_j \Hom_{\O\text{-alg}}^\cont (R_j, A_i)
@@ -502,15 +523,24 @@ We prove that $D_V$ is representable by $R_V$ assuming the following proposition
     such that $W'\otimes_{A'} A\simeq W$ as $A[G]$-modules.
 \end{proposition}
 
-Let $(W^\oblong, \iota^\oblong, \beta^\oblong)$ be a framed deformation given by $\rho^\oblong : G\to \GL_d(R_V^\oblong)$.
+Let $(V^\oblong, \iota^\oblong, \beta^\oblong)$ be a framed deformation given by $\rho^\oblong : G\to \GL_d(R_V^\oblong)$.
 By the previous \cref{deformation of absolutely irreducible representation is defined on the subring containing all traces of group action},
-there is an $R_V[G]$-module $W'$ such that $W\otimes_{R_V} R_V^\oblong\simeq W^\oblong$ with an isomophism
-\[\iota : W\otimes_{R_V} k \simeq W\otimes_{R_V}R_V^\oblong\otimes_{R_V^\oblong} k\simeq W^\oblong\otimes_{R_V^\oblong} k\stackrel{\iota^\oblong}{\simeq} V\]
+there is an $R_V[G]$-module $\tilde{V}$ such with two isomophisms $\tilde{V}\otimes_{R_V} R_V^\oblong\simeq V^\oblong$ and
+\[\iota : \tilde{V}\otimes_{R_V} k \simeq \tilde{V}\otimes_{R_V}R_V^\oblong\otimes_{R_V^\oblong} k\simeq V^\oblong\otimes_{R_V^\oblong} k\stackrel{\iota^\oblong}{\simeq} V\]
 \begin{lemma}
-    $(W, \iota)$ is a universal deformation of the absolutely irreducible $k[G]$-module $V$.
+    $(\tilde{V}, \iota)$ is a universal deformation of the absolutely irreducible $k[G]$-module $V$.
 \end{lemma}
 \begin{proof}
-    Let $(V_A, \iota_A)$ be a deformation of $V$ to $A\in\compl{\O}$.
+    Let $(V_A, \iota_A)$ be a deformation of $V$ to $A\in\compl{\O}$,
+    and $(V_A, \iota_A, \beta_A)$ be a framed deformation of $V$.
+    By the universality of $V^\oblong$ and \cref{deformation of absolutely irreducible representation is defined on the subring containing all traces of group action},
+    there is a unique map $R_V\inject R_V^\oblong\to A$,
+    % such that
+    % $\tilde{V}$ is a deformation of $V_A$ to $R_V$:
+    % \[\tilde{V}\otimes_{R_V} A \simeq \tilde{V}\otimes_{R_V} R_V^\oblong\otimes_{R_V^\oblong} A
+    % \simeq V^\oblong \otimes_{R_V^\oblong} A \simeq V_A.\]
+
+    % It is left to show that any deformation $W$ of $V_A$ to $R_V$ is isomorphic to $\tilde{V}$.
 
 \end{proof}
 

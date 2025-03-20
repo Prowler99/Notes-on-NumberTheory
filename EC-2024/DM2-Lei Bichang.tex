@@ -1,0 +1,141 @@
+\documentclass{article}
+\input{../_NoteHead.tex}
+
+\usepackage[ruled, vlined]{algorithm2e}
+
+
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\vol}{\mathrm{vol}}
+\newcommand{\s}{\mathrm{s}}
+
+\theoremstyle{definition}
+\newtheorem{question}{Question}[section]
+
+\title{DM 1}
+\author{Lei Bichang}
+
+
+\begin{document}
+\maketitle
+
+\section{Short vertices}
+
+\begin{question}
+    To prove that the bound is tight,
+    we will construct a lattice $\Lambda$ with $\lambda_1(\Lambda) = \sqrt{\frac{2}{\sqrt{3}}\vol(\Lambda)}$.
+
+    Consider the lattice \[\Lambda := \Z v_1 + \Z v_2, \quad v_1 = (1, 0),\ v_2 = \left( \frac{1}{2},\frac{\sqrt{3}}{2} \right).\]
+    For each $x\in\Z$, we have
+    \[\norm{v_2 + xv_1} = \sqrt{\left( x + \frac{1}{2} \right)^2 + \frac{3}{4}}\ge 1 = \norm{v_2} = \norm{v_1}.\]
+    So the basis $(v_1, v_2)$ for $\Lambda$ is LG-reduced.
+    Therefore $\lambda_1(\Lambda) = \norm{v_1} = 1$ and $\vol(\Lambda) = \frac{\sqrt{3}}{2}$ as desired.
+\end{question}
+
+\section{Proving primality}
+\begin{question}
+    We shall prove by contadiction.
+    Suppose that $N$ is not a prime.
+
+    Let $y^2z = x^3  + ax^2z + bz^3$ be an equation that defines $E$, $a, b\in\Z/N\Z$,
+    $\Delta(E) = -16(4a^3 + 27b^2) \in(\Z/N\Z)^\times$.
+    Let $p \le \sqrt{N}$ be a prime dividing $N$,
+    and $E_p$ be the curve over $\F_p$ defined by
+    $y^2z = x^3  + (a\bmod p)x^2z + (b\bmod p)z^3$.
+    Then $\Delta(E_p) = (\Delta(E)\bmod p)\in\F_p^\times$,
+    so $E'$ is an elliptic curve over $\F_p$.
+    Let \[E(\Z/N\Z)\to E_p(\F_p),\quad Q = [x : y : z]\mapsto\tilde Q := [\tilde{x} : \tilde{y} : \tilde{z}]\]
+    be the reduction modulo $p$ map.
+    It sends $O$ to $O$, and points in $E(\Z/N\Z)\sminus E^\s(\Z/N\Z)$ to $E(\F_p)\sminus \{O\}$.
+    Since $2P\notin E^\s(\Z/N\Z)$ and $2qP = O$,
+    the reduction $\widetilde{2P}\neq O$ and has order $q$.
+    For the same reason, $qP\in E_p(\F_p)$ has order $2$.
+    Hence $\tilde{P}\in E_p(\F_p)$ has order $2q$.
+    By Hasse theorem,
+    \[2q\le \# E_p(\F_p) \le (p + 1) + 2\sqrt{p} = (\sqrt{p} + 1)^2.\]
+    However,
+    \[2q > (N^\frac{1}{4} + 1)^2\ge (\sqrt{p} + 1)^2.\]
+    This is a contadiction.
+\end{question}
+\begin{question}
+    Assume that the prime $q\ne 2$, so that $E(\F_p)\simeq \Z/2q\Z$ and there exist $\F_p$-points of order $2q$.
+    There are $q - 1$ generators in $\Z/2q\Z$,
+    so a uniformly random point in $\Z/2q\Z$ has the chance of $\frac{q-1}{2q}$ to have order $2q$.
+    Therefore, we can use the following algorithm.\begin{enumerate}[(1)]
+        \item Generate a random point $P\in E(\F_p)$. \textit{Expected cost: $2p/\# E(\F_p) = p/q$ times of a constantly many $\F_p$-operations.}
+        \item Check if $P = O$, $P$ has order $2$ (i.e. $P = (x, 0)$ for some $x$) or $P$ has order $q$. \textit{Cost: the time of $q$-multiplication,
+        which is $O(\log q)$ times of $\F_p$-operations.}
+        \item If one of the three conditions in step (2) is satified, we go back to step (1).
+        Otherwise $P$ has order $2q$.
+    \end{enumerate}
+    The expected time of iterations is $\frac{2q}{q-1}$. So the total complexity is \[\frac{2q}{q-1}\frac{p}{q} O(\log q) = \frac{2p}{q-1}O(\log q)\]
+    times of $\F_p$-operations. Since $2q\in [(\sqrt{p} - 1) ^ 2, (\sqrt{p} + 1)^2]$,
+    the complexity is about \[\frac{2p}{\frac{p}{2} - \sqrt{p} - \frac{1}{2}} O(\log(\sqrt{p} + 1))\approx O(\log p).\]
+\end{question}
+
+\begin{question}
+    In the other file, I defined a function \textsf{test\_conjecture}($p, N$)
+    that generates $N$ curves over $\F_p$ as in the conjecture and then returns the proportion $P(p)$ of elliptic curves of order $2q$ for some prime $q$.
+    Then I generated some primes $p_0 < p_1 < \cdots < p_n$,
+    such that $\log(p_{i+1}) - \log(p_i) \approx d$, and repeated the following procedure several times.
+    \begin{enumerate}[(1)]
+        \item For each prime $p_i$, run \textsf{test\_conjecture}($p_i, N$) and get the proportion $P(p_i)$.
+        \item Use linear regression to get $c_1, c_2$ such that \[\log P(p)\approx \log c_1 - c_2\log(\log p).\]
+        These constants should be larger than the actual constants if the conjecture is true.
+    \end{enumerate}
+    After several trials, I would guess that $c_1 = 0.2$, $c_2 = 0.7$.
+\end{question}
+
+\begin{question}
+    We can use the following algorithm.
+    \begin{enumerate}[(1)]
+        \item Pick uniformly random $a, b\in\F_p$ and let $E : y^2 = x^3 + ax + b$ over $\F_p$. If $E$ is not an elliptic curve, redo step (1).
+        \item Compute $N := \# E(\F_p)$. If $N$ is divided by $2$, go back to step (1). \textit{Cost: polynomial in $\log p$ many $\F_p$-operations.}
+        \item Run the Miller-Rabin test $k$-times to check if $q := N/2$ is a prime. If we find $q$ to be composite, go back to step (1).
+        \textit{Cost: at most $k\cdot O(\log p)$ many $\F_p$-operations.}
+        \item Use the algorithm decribed in Question 2.2 to get a point $P\in E(\F_p)[2q]$. \textit{Expected cost: $O(\log p)$ many $\F_p$-operations.}
+    \end{enumerate}
+    We run Miller-Rabin test $k$-times in step (3),
+    so the probability of misclassifying a composite number as prime is $4^{-k}$,
+    and $q$ has the chance of $1 - 4^{-k}$ to be a prime.
+
+    If Conjecture 1 holds, the expected time of iterations is less than $(\log p)^{c_2}/c_1$.
+    So the expected times of $\F_p$-operations is polynomial in $\log p$.
+\end{question}
+\begin{question}
+    We can use the following algorithm, which is a variant of the one in Question 2.4.
+    \begin{enumerate}[(1)]
+        \item Pick uniformly random $a, b\in\Z\cap [0, \dots, N-1]$ and let $\Delta := -16(4a^3 + 27b^2)$. \begin{itemize}
+            \item If $\gcd(\Delta, N)\notin \{0, 1\}$, return \textsf{composite}.
+            \item If $\gcd(\Delta, N) = 0$, go back to the start of the algorithm step (1).
+            \item Otherwise define the elliptic curve $E : y^2 = x^3 + ax + b$ over $\Z/N\Z$.
+        \end{itemize}
+        % \textit{Cost: }
+        \item Pretend that $N$ is a prime and use the algorithm for elliptic curves over finite fields to compute $M := \# E(\Z/N\Z)$. \begin{itemize}
+            \item If the program throws an exception, return \textsf{composite}.
+            \item Otherwise if $M$ is divided by $4$, or $M\le (N^\frac{1}{4} + 1)^2$, go back to step (1).
+        \end{itemize}
+        \item Run the Miller-Rabin test $k$-times to check if $q := M/2$ is a prime. If we find $q$ to be composite, go back to step (1).
+        \item Pretend that $N$ is a prime and use the algorithm decribed in Question 2.2 to get some $P\in E(\Z/N\Z)[2q]$.
+        \begin{itemize}
+            \item If the program throws an exception, return \textsf{composite}.
+        \end{itemize}
+        \item Use the formulae for elliptic curves over fields to compute $2P$ and $qP$.\begin{itemize}
+            \item If the program throws an exception, return \textsf{composite}.
+            \item Otherwise return \textsf{prime}.
+        \end{itemize}
+    \end{enumerate}
+    Assume first that $N$ is a prime.
+    By the analysis in Question 2.4, the algorithm cost polynomial time in $\log N$.
+    % Not true: there is an additional condition $q > (...)$, so should cost more time
+    If $N$ is composite, then the algorithm will terminate with probability $ > 1 - 4^{-k}$ in step (1) - (3),
+    so the cost is smaller than it when $N$ is prime.
+    Therefore, the complexity is polynomial in $\log N$ many $\Z/N\Z$-operations.
+\end{question}
+
+\begin{question}
+    Please see the function \textsf{primality\_test} in other file.
+    I have implemented most of the functions, but I failed to realize Schoof's algorithm (the computation of trace modulo primes).
+\end{question}
+
+\end{document}
